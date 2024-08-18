@@ -30,8 +30,8 @@
       system = "x86_64-linux";
     in {
 
-    # nixos - system hostname
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+    # th0r - system hostname
+    nixosConfigurations.th0r = nixpkgs.lib.nixosSystem {
       specialArgs = {
         pkgs-stable = import nixpkgs-stable {
           inherit system;
@@ -45,6 +45,8 @@
         inputs.stylix.nixosModules.stylix
       ];
     };
+
+   # h3rm3s user name
    homeConfigurations.h3rm3s = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${system};
       modules = [ ./home-manager/home.nix ];

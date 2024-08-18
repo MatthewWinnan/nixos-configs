@@ -7,15 +7,11 @@
   environment.systemPackages = with pkgs; [
     # Desktop apps
     chromium
-    telegram-desktop
-    alacritty
-    kitty
-    obs-studio
     discord
     gparted
     obsidian
     anydesk
-    #polymc
+    orca-slicer
 
     # Coding stuff
     gnumake
@@ -31,16 +27,18 @@
     htop
     btop
     nix-search-cli
-    ranger
     eza
     openssl
     fish
 
-    # GUI utils
+    # TUI/GUI utils
     dmenu
-    dolphin
     wofi
     rofi
+    xdragon
+    bat
+    pistol
+    kitty
     
     # Wallpaper
     waypaper 

@@ -5,5 +5,6 @@
     ./wms/waybar.nix
     ./kitty.nix
     ./ranger.nix
+    ./lf.nix
   ];
 }
