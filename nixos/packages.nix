@@ -30,6 +30,9 @@
     eza
     openssl
     fish
+    nh
+    nix-output-monitor
+    nvd
 
     # TUI/GUI utils
     dmenu
@@ -39,6 +42,7 @@
     bat
     pistol
     kitty
+    nwg-look
     
     # Wallpaper
     waypaper 
@@ -54,6 +58,10 @@
     waybar
     xdg-desktop-portal-hyprland
     wttrbar # Weather
+    
+    # My custom widgets
+    ags
+    bun
 
     # Sound
     pipewire

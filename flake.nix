@@ -20,14 +20,16 @@
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     swww.url = "github:LGFae/swww";
-    polymc.url = "github:PolyMC/PolyMC";
   };
 
   outputs = { self, nixpkgs, nixpkgs-stable, stylix, home-manager, ... }@inputs:
 
     let
       system = "x86_64-linux";
+      flakePath = self.outPath;  # This is the path to the flake's director
+
     in {
 
     # th0r - system hostname
@@ -37,7 +39,7 @@
           inherit system;
           config.allowUnfree = true;
         };
-        inherit inputs system;
+        inherit inputs system flakePath;
       };
       modules = [
         ./nixos/configuration.nix
@@ -50,6 +52,10 @@
    homeConfigurations.h3rm3s = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${system};
       modules = [ ./home-manager/home.nix ];
+      extraSpecialArgs = {
+        flakePath = flakePath;
+       # pinnedHyprland = pinnedHyprland;
+      };
     };
   };
 }

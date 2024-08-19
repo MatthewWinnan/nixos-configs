@@ -3,7 +3,8 @@
     enable = true;
     settings = {
       logo = {
-      source = "/home/h3rm3s/NIX_REPO/home-manager/modules/fastfetch/images/fastfetch_logo.jpg";
+      #source = "/home/h3rm3s/NIX_REPO/home-manager/modules/fastfetch/images/fastfetch_logo.jpg";
+      source = ./images/fastfetch_logo.jpg;
       type = "kitty";
       width = 50;
       height = 25;

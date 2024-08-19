@@ -1,4 +1,4 @@
-{
+{ config, pkgs, ... }: {
   programs.nixvim.plugins = {
 
     treesitter = {
@@ -43,8 +43,9 @@
     lsp = {
       enable = true;
       servers = {
-        # Renamed
+        # We use the updated version
         nil-ls.enable = true;
+        tsserver.enable = true;
       };
     };
   };

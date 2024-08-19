@@ -1,4 +1,4 @@
-{
+{ config, pkgs, ... }:{
   imports = [
     ./fastfetch/fastfetch.nix
     ./wms/hyprland.nix

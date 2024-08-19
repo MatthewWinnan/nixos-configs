@@ -5,7 +5,7 @@
   services.openssh.enable = true;
   
   # Display manager
-  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

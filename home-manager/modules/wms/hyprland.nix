@@ -1,7 +1,11 @@
-{
+{ config, pkgs, ... }:{
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+   
+
+    # We need to use an old compatible package
+    #package = pinnedHyprland;
 
     settings = {
       "$mainMod" = "ALT";
