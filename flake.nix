@@ -22,6 +22,7 @@
     };
 
     swww.url = "github:LGFae/swww";
+    rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
   };
 
   outputs = { self, nixpkgs, nixpkgs-stable, stylix, home-manager, ... }@inputs:

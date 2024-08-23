@@ -18,9 +18,10 @@
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
-        "XCURSOR_SIZE,36"
+        "XCURSOR_SIZE,24"
         "QT_QPA_PLATFORM,wayland"
         "XDG_SCREENSHOTS_DIR,~/screens"
+        "HYPRCURSOR_THEME,rose-pine-hyprcursor"
       ];
 
       debug = {
@@ -45,16 +46,40 @@
       general = {
         gaps_in = 5;
         gaps_out = 20;
-        border_size = 1;
-        #"col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        #"col.inactive_border" = "rgba(595959aa)";
+        border_size = 5;
 
         layout = "dwindle";
+
+        # darker alternative
+        "col.active_border" = "rgb(44475a)"; # or rgb(6272a4)
+        "col.inactive_border" = "rgb(282a36)";
+        #"col.group_border" = "rgb(282a36)";
+        #"col.group_border_active" = "rgb(44475a)"; # or rgb(6272a4)
          
+      };
+      
+      group = {
+        
+        groupbar = {
+          
+          "col.active" = "rgb(bd93f9) rgb(44475a) 90deg";
+          "col.inactive" = "rgba(282a36dd)";
+        
+        };
+
       };
 
       decoration = {
         rounding = 1;
+
+        "col.shadow" = "rgba(1E202966)";
+
+        #suggested shadow setting
+        drop_shadow = true;
+        shadow_range = 60;
+        shadow_offset = "1 2";
+        shadow_render_power = 3;
+        shadow_scale = 0.97;
 
         blur = {
           enabled = true;
@@ -62,11 +87,6 @@
           passes = 2;
           new_optimizations = true;
         };
-
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
       };
 
       animations = {
@@ -194,18 +214,18 @@
         ", XF86MonBrightnessUp, exec, brightnessctl set +5% "
 
         # Configuration files
-        ''$mainMod SHIFT, N, exec, alacritty -e sh -c "rb"''
-        ''$mainMod SHIFT, C, exec, alacritty -e sh -c "conf"''
-        ''$mainMod SHIFT, H, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/hyprland.nix"''
-        ''$mainMod SHIFT, W, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/waybar.nix''
-        '', Print, exec, grim -g "$(slurp)" - | swappy -f -''
+        #''$mainMod SHIFT, N, exec, alacritty -e sh -c "rb"''
+        #''$mainMod SHIFT, C, exec, alacritty -e sh -c "conf"''
+        #''$mainMod SHIFT, H, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/hyprland.nix"''
+        #''$mainMod SHIFT, W, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/waybar.nix''
+        #'', Print, exec, grim -g "$(slurp)" - | swappy -f -''
 
         # Waybar
         "$mainMod, B, exec, pkill -SIGUSR1 waybar"
         "$mainMod, W, exec, pkill -SIGUSR2 waybar"
 
         # Disable all effects
-        "$mainMod Shift, G, exec, ~/.config/hypr/gamemode.sh "
+        #"$mainMod Shift, G, exec, ~/.config/hypr/gamemode.sh "
       ];
 
       # Move/resize windows with mainMod + LMB/RMB and dragging

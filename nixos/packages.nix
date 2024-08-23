@@ -12,6 +12,8 @@
     obsidian
     anydesk
     orca-slicer
+    arduino-ide
+    blueman
 
     # Coding stuff
     gnumake
@@ -19,6 +21,9 @@
     nodejs
     python
     (python3.withPackages (ps: with ps; [ requests ]))
+
+    # Embedded coding, see arduino-ide too 
+    adafruit-nrfutil
 
     # CLI utils
     wget
@@ -43,7 +48,11 @@
     pistol
     kitty
     nwg-look
-    
+    hyprcursor
+
+    # Cursors
+    inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
+
     # Wallpaper
     waypaper 
     inputs.swww.packages.${system}.swww
@@ -54,7 +63,7 @@
     cliphist
 
     # WMs and stuff
-    hyprland
+    #hyprland
     waybar
     xdg-desktop-portal-hyprland
     wttrbar # Weather

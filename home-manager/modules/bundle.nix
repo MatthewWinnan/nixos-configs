@@ -4,7 +4,7 @@
     ./wms/hyprland.nix
     ./wms/waybar.nix
     ./kitty.nix
-    ./ranger.nix
     ./lf.nix
+    ./wofi.nix
   ];
 }

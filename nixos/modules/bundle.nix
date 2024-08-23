@@ -9,5 +9,6 @@
     ./stylix/stylix.nix
     ./pulseaudio.nix
     ./firefox.nix
+    ./greetd.nix
   ];
 }
