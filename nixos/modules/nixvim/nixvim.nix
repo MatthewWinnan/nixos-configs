@@ -11,6 +11,12 @@
     enable = true;
 
     defaultEditor = true;
-    colorschemes.oxocarbon.enable = true;
+    colorschemes.catppuccin = {
+      enable = true;
+      settings = {
+        flavor = "macchiato";
+      };
+    };
+    # colorschemes.oxocarbon.enable = true;
   };
 }

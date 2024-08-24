@@ -31,7 +31,7 @@
     fastfetch
     htop
     btop
-    nix-search-cli
+    #nix-search-cli
     eza
     openssl
     fish
@@ -42,13 +42,15 @@
     # TUI/GUI utils
     dmenu
     wofi
-    rofi
     xdragon
     bat
     pistol
     kitty
     nwg-look
     hyprcursor
+    helix
+    rofi-wayland
+    dunst
 
     # Cursors
     inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
@@ -67,6 +69,8 @@
     waybar
     xdg-desktop-portal-hyprland
     wttrbar # Weather
+    hypridle
+    hyprlock
     
     # My custom widgets
     ags

@@ -6,5 +6,9 @@
     ./kitty.nix
     ./lf.nix
     ./wofi.nix
+    ./helix.nix
+    ./hypridle.nix
+    ./hyprlock/hyprlock.nix
+    ./dunst.nix
   ];
 }
