@@ -22,9 +22,9 @@
   color = "rgb(cad3f5)";
   font_size = 90;
   font_family = "JetBrainsMono Nerd Font";
-  position = "-30, 0";
-  halign = "right";
-  valign = "top";
+  position = "30, 100";
+  halign = "left";
+  valign = "bottom";
 }
 # DATE
         {
@@ -33,16 +33,16 @@
   color = "rgb(cad3f5)";
   font_size = 25;
   font_family = "JetBrainsMono Nerd Font";
-  position = "-30, -150";
-  halign = "right";
-  valign = "top";
+  position = "30, 30";
+  halign = "left";
+  valign = "bottom";
 }];
 
 # USER AVATAR
 image = {
   monitor ="";
           #path = ./images/1544x1544_circle.png;
-  path = "/home/h3rm3s/NIX_REPO/home-manager/modules/hyprlock/images/1544x1544_circle.png";
+  path = "/home/h3rm3s/NIX_REPO/home-manager/modules/hyprlock/images/cat_icon_2.png";
   size = 100;
   border_color = "rgb(c6a0f6)";
   position = "0, 75";

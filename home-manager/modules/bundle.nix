@@ -10,5 +10,6 @@
     ./hypridle.nix
     ./hyprlock/hyprlock.nix
     ./dunst.nix
+    ./wlogout/wlogout.nix
   ];
 }

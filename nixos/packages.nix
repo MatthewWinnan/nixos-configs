@@ -71,6 +71,7 @@
     wttrbar # Weather
     hypridle
     hyprlock
+    wlogout # For logout screen
     
     # My custom widgets
     ags
