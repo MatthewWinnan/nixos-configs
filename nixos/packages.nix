@@ -51,6 +51,7 @@
     helix
     rofi-wayland
     dunst
+    pavucontrol
 
     # Cursors
     inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default

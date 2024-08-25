@@ -9,7 +9,7 @@
       background = {
       monitor ="";
         #path = ./images/gray0_ctp_on_line.png;
-      path = "/home/h3rm3s/NIX_REPO/home-manager/modules/hyprlock/images/nix_wallpaper.png";
+      path = "$HOME/NIX_REPO/home-manager/modules/hyprlock/images/nix_wallpaper.png";
       blur_passes = 0;
       color = "rgb(24273a)";
       };
@@ -42,7 +42,7 @@
 image = {
   monitor ="";
           #path = ./images/1544x1544_circle.png;
-  path = "/home/h3rm3s/NIX_REPO/home-manager/modules/hyprlock/images/cat_icon_2.png";
+  path = "$HOME/NIX_REPO/home-manager/modules/hyprlock/images/cat_icon_2.png";
   size = 100;
   border_color = "rgb(c6a0f6)";
   position = "0, 75";
