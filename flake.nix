@@ -29,10 +29,10 @@
 
     let
       system = "x86_64-linux";
-      flakePath = self.outPath;  # This is the path to the flake's director
-
+      flakePath = toString ./.;  # This is the path to the flake's director
+      lib = nixpkgs.lib // home-manager.lib;
     in {
-
+    inherit lib;
     # th0r - system hostname
     nixosConfigurations.th0r = nixpkgs.lib.nixosSystem {
       specialArgs = {
@@ -42,21 +42,22 @@
         };
         inherit inputs system flakePath;
       };
-      modules = [
-        ./nixos/configuration.nix
-        inputs.nixvim.nixosModules.nixvim
-        inputs.stylix.nixosModules.stylix
-      ];
-    };
+        modules = [
+          ./settings/th0r/nix_config.nix
+        ];
+      };
 
-   # h3rm3s user name
-   homeConfigurations.h3rm3s = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.${system};
-      modules = [ ./home-manager/home.nix ];
-      extraSpecialArgs = {
-        flakePath = flakePath;
-       # pinnedHyprland = pinnedHyprland;
+    homeConfigurations = {
+      # My lattepanda delta 3
+      "h3rm3s@th0r" = lib.homeManagerConfiguration {
+          modules = [ ./settings/options/default.nix
+            ./settings/th0r/home.nix ];
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {
+          inherit inputs system flakePath;
+        };
       };
     };
+
   };
 }
