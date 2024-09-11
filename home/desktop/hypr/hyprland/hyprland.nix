@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:{
-  wayland.windowManager.hyprland = {
+  wayland.windowManager.hyprland = lib.mkForce {
     enable = true;
     xwayland.enable = true;
 

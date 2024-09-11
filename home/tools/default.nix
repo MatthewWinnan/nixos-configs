@@ -7,5 +7,6 @@
     ./helix.nix
     ./kitty.nix
     ./fastfetch/fastfetch.nix
+    ./zathura.nix
   ];
 }

@@ -13,15 +13,12 @@ let
     h=$3
     x=$4
     y=$5
-    mime_type=$( ${pkgs.file}/bin/file -Lb --mime-type "$file" )
-
-    # If the file is an image, use Kitty to display it
-    if [[ "$mime_type" =~ ^image ]]; then
+    
+    if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
         ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
         exit 1
     fi
-
-    # If none of the above, fall back to Pistol
+    
     ${pkgs.pistol}/bin/pistol "$file"
   '';
 
@@ -54,13 +51,15 @@ in {
       "`" = "mark-load";
       "\\'" = "mark-load";
       "<enter>" = "open";
+      
       do = "dragon-out";
+      
       "g~" = "cd";
       gh = "cd";
       "g/" = "/";
+
       ee = "editor-open";
       V = ''$${pkgs.bat}/bin/bat --paging=always --theme=gruvbox "$f"'';
-      p = ''${pkgs.zathura}/bin/zathura "$f"'';
     };
 
     settings = {

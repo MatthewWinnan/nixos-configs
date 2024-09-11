@@ -1,5 +1,5 @@
-{
-  programs.kitty = {
+{lib, ...}:{
+  programs.kitty = lib.mkForce {
     enable = true;
     
     shellIntegration = {

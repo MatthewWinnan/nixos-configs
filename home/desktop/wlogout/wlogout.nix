@@ -1,10 +1,10 @@
 {lib, flakePath, config, ...}: {
 
-  programs.wlogout = {
+  programs.wlogout = lib.mkForce {
     enable = true;
 
     # We need to override stylix
-    style = lib.mkOverride 20 ''
+    style = ''
     * {
   background-image: none;
 }

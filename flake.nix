@@ -44,20 +44,10 @@
       };
         modules = [
           ./settings/th0r/nix_config.nix
+          ./home/default.nix
         ];
       };
 
-    homeConfigurations = {
-      # My lattepanda delta 3
-      "h3rm3s@th0r" = lib.homeManagerConfiguration {
-          modules = [ ./settings/options/default.nix
-            ./settings/th0r/home.nix ];
-        pkgs = nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = {
-          inherit inputs system flakePath;
-        };
-      };
     };
 
-  };
 }

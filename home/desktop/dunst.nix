@@ -1,9 +1,9 @@
 {lib, ...}: {
   # We need to override stylix
-  services.dunst = lib.mkOverride 20 {
-    enable = false;
+  services.dunst = lib.mkForce {
+    enable = true;
     settings = {
-    global = {
+      global = {
       frame_color = "#8aadf4";
       separator_color= "frame";
       };

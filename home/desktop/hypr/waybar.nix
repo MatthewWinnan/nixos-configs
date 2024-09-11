@@ -1,5 +1,6 @@
-{
-  programs.waybar = {
+{lib, ...}:{
+  # We need to override stylix mostly
+  programs.waybar = lib.mkForce {
     enable = true;
     settings = {
       mainBar = {
