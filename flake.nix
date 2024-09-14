@@ -32,8 +32,9 @@
       flakePath = toString ./.;  # This is the path to the flake's director
       lib = nixpkgs.lib // home-manager.lib;
     in {
-    inherit lib;
-    # th0r - system hostname
+      inherit lib;
+
+    # th0r - lattepanda delta for home lab use
     nixosConfigurations.th0r = nixpkgs.lib.nixosSystem {
       specialArgs = {
         pkgs-stable = import nixpkgs-stable {
@@ -43,8 +44,23 @@
         inherit inputs system flakePath;
       };
         modules = [
-          ./settings/th0r/nix_config.nix
-          ./home/default.nix
+          ./settings/th0r/nixos/nix_config.nix
+          ./settings/th0r/home/default.nix
+        ];
+      };
+
+    # od1n - T580 for coding use
+    nixosConfigurations.od1n = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        pkgs-stable = import nixpkgs-stable {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        inherit inputs system flakePath;
+      };
+        modules = [
+          ./settings/od1n/nixos/nix_config.nix
+          ./settings/od1n/home/default.nix
         ];
       };
 

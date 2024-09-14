@@ -11,6 +11,7 @@
       ./services
       ./networking
       ../themes/default.nix
+      ../settings/security/default.nix
     ];
 
   # Set your time zone.

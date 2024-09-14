@@ -8,5 +8,6 @@
     ./kitty.nix
     ./fastfetch/fastfetch.nix
     ./zathura.nix
+    ./rofi/default.nix
   ];
 }

@@ -14,10 +14,10 @@
         timeout = 300;# 5 min
         on-timeout = "hyprlock";
         }
-      {
-        timeout = 480;                                 # 8min
-        on-timeout = "loginctl lock-session";            # lock screen when timeout has passed
-        }
+        #{
+        #timeout = 480;                                 # 8min
+        #on-timeout = "loginctl lock-session";            # lock screen when timeout has passed
+        #}
       {
         timeout = 900; # 15 min
         on-timeout = "hyprctl dispatch dpms off";

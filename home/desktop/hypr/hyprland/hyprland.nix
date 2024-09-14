@@ -10,8 +10,6 @@
       "$mainMod" = "ALT";
       "$terminal" = "kitty";
 
-      #monitor = ",1920x1080@60,auto,1";
-
       monitor = (map (
           m: "${m.name},${
             if m.enabled
@@ -61,16 +59,11 @@
         "col.inactive_border" = "rgb(282a36)";
         #"col.group_border" = "rgb(282a36)";
         #"col.group_border_active" = "rgb(44475a)"; # or rgb(6272a4)
-         
       };
-      
       group = {
-        
         groupbar = {
-          
           "col.active" = "rgb(bd93f9) rgb(44475a) 90deg";
           "col.inactive" = "rgba(282a36dd)";
-        
         };
 
       };
@@ -144,19 +137,27 @@
       exec-once = [
         "waybar"
         "waypaper --restore"
+        "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"
+        "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
       ];
 
       bind = [
-        "$mainMod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
+        # For the clip board
+        "$mainMod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+
+        # For screen shotting and recording
+        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} | ${lib.getExe pkgs.grim} -g - - | ${pkgs.swappy}/bin/swappy -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png"
+
+        # General functions
         "$mainMod, Return, exec, kitty"
         "$mainMod, Q, killactive,"
         "$mainMod, M, exit,"
-        "$mainMod, E, exec, dolphin"
+        #"$mainMod, E, exec, dolphin"
         #"$mainMod, F, togglefloating,"
         "$mainMod, F, fullscreen,"
-        "$mainMod, D, exec, wofi --show drun"
-        "$mainMod, P, pseudo, # dwindle"
+        "$mainMod, D, exec, rofi -show drun"
+        #"$mainMod, P, pseudo, # dwindle"
         "$mainMod, J, togglesplit, # dwindle"
 
         # Move focus with mainMod + arrow keys
@@ -206,15 +207,15 @@
         "$mainMod, mouse_up, workspace, e-1"
 
         # Keyboard backlight
-        "$mainMod, F3, exec, brightnessctl -d *::kbd_backlight set +33%"
-        "$mainMod, F2, exec, brightnessctl -d *::kbd_backlight set 33%-"
+        #"$mainMod, F3, exec, brightnessctl -d *::kbd_backlight set +33%"
+        #"$mainMod, F2, exec, brightnessctl -d *::kbd_backlight set 33%-"
 
         # Volume and Media Control
         ", XF86AudioRaiseVolume, exec, pamixer -i 5 "
         ", XF86AudioLowerVolume, exec, pamixer -d 5 "
         ", XF86AudioMute, exec, pamixer -t"
         ", XF86AudioMicMute, exec, pamixer --default-source -m"
-        
+
         # Brightness control
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%- "
         ", XF86MonBrightnessUp, exec, brightnessctl set +5% "

@@ -1,7 +1,7 @@
 {lib, ...}: {
 
   programs.wofi = {
-    enable = true;
+    enable = false;
     
     # We allow it to override stylix
     style = lib.mkOverride 20 ''

@@ -1,6 +1,7 @@
 {config, pkgs, lib, inputs, ...}: {
-
-  # Here we do the typical packages and load up module declerations
+  # If something has been delared with .enable and points to pkgs or homemanager's
+  # pkgs we do not need to add it here 
+  # Here we only do the basic global packages and load up module declerations
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = ["python-2.7.18.8" "electron-25.9.0"];
@@ -23,28 +24,21 @@
     # Default CLI tools for everyone
     wget
     git
-    fastfetch
     htop
     btop
     eza
     openssl
-    fish
     nh
     nix-output-monitor
     nvd
 
     # TUI/GUI utils
     dmenu
-    wofi
     xdragon
     bat
     pistol
-    kitty
-    nwg-look
     hyprcursor
-    helix
-    rofi-wayland
-    dunst
+    zathura
 
     # Cursors
     inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
@@ -55,16 +49,18 @@
 
     # Wayland stuff
     xwayland
-    wl-clipboard
+
+    # Screenshot stuff
     cliphist
+    wl-clipboard
+    wl-clip-persist
+    slurp
+    grim
+    swappy
 
     # WMs and stuff
-    waybar
     xdg-desktop-portal-hyprland
     wttrbar # Weather
-    hypridle
-    hyprlock
-    wlogout # For logout screen
 
     # Sound support
     pavucontrol
@@ -73,11 +69,10 @@
     pamixer
 
     # Screenshotting
-    grim
     grimblast
-    slurp
-    flameshot
-    swappy
+
+    # Looks good not sure how it works, I baically made equivelant
+    # flameshot
 
   ] ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") [
       # Desktop apps for my personal and gaming use
@@ -91,11 +86,16 @@
 
       # Embedded coding, see arduino-ide too
       adafruit-nrfutil
+      rpi-imager
+
   ] ++ lib.optionals (config.systemSettings.profile == "work")[
 
       # Only for professional life
       openvpn
       skypeforlinux
+
+      # I still need to flash
+      rpi-imager
 
     ];
 

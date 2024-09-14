@@ -2,11 +2,11 @@
 
   imports = [
     ./hardware-configuration.nix
-    ../../nix/default.nix
+    ../../../nix/default.nix
     inputs.nixvim.nixosModules.nixvim
     inputs.stylix.nixosModules.stylix
-    ../options/default.nix
-    ./config.nix
+    ../../options/default.nix
+    ../config.nix
   ];
 
 }

@@ -1,4 +1,4 @@
-{lib, ...}:{
+{lib, pkgs, ...}:{
   # We need to override stylix mostly
   programs.waybar = lib.mkForce {
     enable = true;
@@ -50,7 +50,7 @@
         format = "{}°";
         tooltip = true;
         interval = 1800;
-        exec = "wttrbar";
+        exec = "${pkgs.wttrbar}/bin/wttrbar --location Centurion";
         return-type = "json";
     };
 
@@ -171,7 +171,7 @@
         @define-color rosewater #f4dbd6;
 
         * {
-  font-family: FantasqueSansMono Nerd Font;
+  font-family: Hack Nerd Font;
   font-size: 17px;
   min-height: 0;
 }

@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   # Fetch the icons file using fetchurl
@@ -37,6 +37,7 @@ in {
     commands = {
       dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx"'';
       editor-open = ''$$EDITOR $f'';
+      zathura-open = ''${pkgs.zathura}/bin/zathura $f'';
       mkdir = ''
       ''${{
         printf "Directory Name: "
@@ -54,13 +55,13 @@ in {
       "`" = "mark-load";
       "\\'" = "mark-load";
       "<enter>" = "open";
-      do = "dragon-out";
+      D = "dragon-out";
+      P = "zathura-open";
       "g~" = "cd";
       gh = "cd";
       "g/" = "/";
       ee = "editor-open";
       V = ''$${pkgs.bat}/bin/bat --paging=always --theme=gruvbox "$f"'';
-      p = ''${pkgs.zathura}/bin/zathura "$f"'';
     };
 
     settings = {
