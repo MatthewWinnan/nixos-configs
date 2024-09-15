@@ -23,9 +23,12 @@
 
     swww.url = "github:LGFae/swww";
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
+
+    # Browse manga
+    manga-tui.url = "github:josueBarretogit/manga-tui";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, stylix, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, ... }@inputs:
 
     let
       system = "x86_64-linux";

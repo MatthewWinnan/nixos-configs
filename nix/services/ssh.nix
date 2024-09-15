@@ -1,10 +1,14 @@
-{pkgs, lib, ...}:{
-
+{ pkgs, lib, config, ... }:
+{
   services.openssh = {
     enable = true;
-    settings = {
+    settings = lib.mkMerge [
+      (lib.mkIf (config.systemSettings.profile == "work") {
+        PermitRootLogin = "without-password";
+      })
+      (lib.mkIf (config.systemSettings.profile == "personal") {
         PermitRootLogin = "yes";
-    };
+      })
+    ];
   };
-
 }

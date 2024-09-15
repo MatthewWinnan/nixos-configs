@@ -77,6 +77,10 @@
   ] ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") [
       # Desktop apps for my personal and gaming use
       discord
+
+      # To read manga
+      inputs.manga-tui.packages.${system}.manga-tui
+
   ] ++ lib.optionals (config.systemSettings.profile == "personal")[
       # Only for personal use
       orca-slicer
