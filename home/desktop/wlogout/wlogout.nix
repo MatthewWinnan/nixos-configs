@@ -33,27 +33,27 @@ button:hover {
 }
 
 #lock {
-  background-image: image(url("${flakePath}/home/desktop/wlogout/images/lock.png"));
+  background-image: image(url("${config.images.wlogout_lock}"));
 }
 
 #logout {
-  background-image: image(url("${flakePath}/home/desktop/wlogout/images/logout.png"));
+  background-image: image(url("${config.images.wlogout_logout}"));
 }
 
 #suspend {
-  background-image: image(url("${flakePath}/home/desktop/wlogout/images/suspend.png"));
+  background-image: image(url("${config.images.wlogout_suspend}"));
 }
 
 #hibernate {
-  background-image: image(url("${flakePath}/home/desktop/wlogout/images/hibernate.png"));
+  background-image: image(url("${config.images.wlogout_hibernate}"));
 }
 
 #shutdown {
-  background-image: image(url("${flakePath}/home/desktop/wlogout/images/shutdown.png"));
+  background-image: image(url("${config.images.wlogout_shutdown}"));
 }
 
 #reboot {
-  background-image: image(url("${flakePath}/home/desktop/wlogout/images/reboot.png"));
+  background-image: image(url("${config.images.wlogout_reboot}"));
 }
     '';
     layout = [

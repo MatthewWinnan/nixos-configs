@@ -1,4 +1,4 @@
-{flakePath, ...}:{
+{flakePath, config, ...}:{
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -8,7 +8,7 @@
       };
       background = {
       monitor ="";
-      path = "${flakePath}/home/desktop/hypr/hyprlock/images/nix_wallpaper.png";
+      path = "${config.images.hyprlock_background}";
       blur_passes = 0;
       color = "rgb(24273a)";
       };
@@ -40,7 +40,7 @@
 # USER AVATAR
 image = {
   monitor ="";
-  path = "${flakePath}/home/desktop/hypr/hyprlock/images/cat_icon_2.png";
+  path = "${config.images.hyprlock_logo}";
   size = 100;
   border_color = "rgb(c6a0f6)";
   position = "0, 75";

@@ -1,9 +1,9 @@
-{
+{config, ...}:{
   programs.fastfetch = {
     enable = true;
     settings = {
       logo = {
-      source = ./images/fastfetch_logo.jpg;
+      source = config.images.fastfetch_logo;
       type = "kitty";
       width = 50;
       height = 25;

@@ -26,9 +26,18 @@
 
     # Browse manga
     manga-tui.url = "github:josueBarretogit/manga-tui";
+
+    # Schizophrenic Firefox configuration
+    schizofox = {
+      url = "github:schizofox/schizofox";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, ... }@inputs:
 
     let
       system = "x86_64-linux";

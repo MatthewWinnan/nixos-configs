@@ -6,7 +6,7 @@
     ./wofi.nix
     ./helix.nix
     ./kitty.nix
-    ./fastfetch/fastfetch.nix
+    ./fastfetch.nix
     ./zathura.nix
     ./rofi/default.nix
   ];
