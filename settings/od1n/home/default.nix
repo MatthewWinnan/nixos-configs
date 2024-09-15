@@ -13,6 +13,7 @@
           ../../../home/default.nix
           ../../options/default.nix
           ../config.nix
+          ../../image_store/default.nix
         ];
 
       home = {

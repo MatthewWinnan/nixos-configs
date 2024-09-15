@@ -7,6 +7,7 @@
     inputs.stylix.nixosModules.stylix
     ../../options/default.nix
     ../config.nix
+    ../../image_store/default.nix
   ];
 
 }
