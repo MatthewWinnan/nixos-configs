@@ -138,7 +138,9 @@
         "waybar"
         "waypaper --restore"
         "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"
-        "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
+
+        # I might be doing something wrong but this does break my normal copy and paste
+        #"${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
       ];
 
       bind = [
@@ -147,7 +149,7 @@
         "$mainMod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
 
         # For screen shotting and recording
-        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} | ${lib.getExe pkgs.grim} -g - - | ${pkgs.swappy}/bin/swappy -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png"
+        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${pkgs.swappy}/bin/swappy -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png"
 
         # General functions
         "$mainMod, Return, exec, kitty"

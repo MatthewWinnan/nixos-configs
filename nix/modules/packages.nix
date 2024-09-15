@@ -25,12 +25,13 @@
     wget
     git
     htop
-    btop
     eza
     openssl
     nh
     nix-output-monitor
     nvd
+    wf-recorder # Else we do not have access to it on CLI
+    mpv # To view the recordings
 
     # TUI/GUI utils
     dmenu
@@ -73,6 +74,9 @@
 
     # Looks good not sure how it works, I baically made equivelant
     # flameshot
+
+    # Custom recorder
+    (pkgs.callPackage ../../derivations/screen_record.nix {})
 
   ] ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") [
       # Desktop apps for my personal and gaming use

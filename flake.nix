@@ -35,9 +35,17 @@
       };
     };
 
+    # To help with package searching and indexing
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, nix-index-database, ... }@inputs:
 
     let
       system = "x86_64-linux";

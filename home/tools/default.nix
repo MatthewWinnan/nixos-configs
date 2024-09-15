@@ -9,5 +9,6 @@
     ./fastfetch.nix
     ./zathura.nix
     ./rofi/default.nix
+    ./btop.nix
   ];
 }
