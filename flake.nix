@@ -43,9 +43,15 @@
       };
     };
 
+    # For secrets management
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, nix-index-database, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, nix-index-database, sops-nix, ... }@inputs:
 
     let
       system = "x86_64-linux";
