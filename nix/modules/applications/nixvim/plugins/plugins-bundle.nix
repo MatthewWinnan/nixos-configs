@@ -9,7 +9,7 @@
     ./telescope.nix
     ./barbar.nix
     ./nix.nix
-    ./lsp.nix
+    ./lsp/default.nix
     ./cmp.nix
     ./lazygit.nix
   ];
