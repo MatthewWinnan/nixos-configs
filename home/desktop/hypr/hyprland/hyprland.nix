@@ -16,7 +16,11 @@
             then "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},1"
             else "disable"
           }"
-        ) (config.deviceSettings.monitors));
+      ) (config.deviceSettings.monitors));
+
+      workspace = (map (
+          m: lib.optionalString m.enabled  "${m.workspace},monitor:${m.name},default:true"
+      ) (config.deviceSettings.monitors));
 
       env = [
         "XDG_CURRENT_DESKTOP,Hyprland"
@@ -173,6 +177,10 @@
         "$mainMod SHIFT, right, swapwindow, r"
         "$mainMod SHIFT, up,    swapwindow, u"
         "$mainMod SHIFT, down,  swapwindow, d"
+
+        # Moving windowszs between monitors
+        "$mainMod SHIFT, comma, movecurrentworkspacetomonitor, l"
+        "$mainMod SHIFT, period, movecurrentworkspacetomonitor, r"
 
         # Window resizing                     X  Y
         "$mainMod CTRL, left,  resizeactive, -60 0"

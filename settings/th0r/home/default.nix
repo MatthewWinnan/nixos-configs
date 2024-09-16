@@ -13,7 +13,7 @@
           ../../../home/default.nix
           ../../options/default.nix
           ../config.nix
-          ../../image_store/default.nix
+          ../../../themes/image_store/th0r.nix
         ];
 
       home = {

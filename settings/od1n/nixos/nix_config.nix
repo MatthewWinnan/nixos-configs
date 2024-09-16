@@ -8,7 +8,7 @@
     inputs.nix-index-database.nixosModules.nix-index
     ../../options/default.nix
     ../config.nix
-    ../../image_store/default.nix
+    ../../../themes/image_store/od1n.nix
   ];
 
 }
