@@ -168,7 +168,7 @@
 @define-color mauve     #c6a0f6;
 @define-color pink      #f5bde6;
 @define-color flamingo  #f0c6c6;
-        @define-color rosewater #f4dbd6;
+@define-color rosewater #f4dbd6;
 
         * {
   font-family: Hack Nerd Font;
