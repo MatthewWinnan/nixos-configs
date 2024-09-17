@@ -43,6 +43,7 @@
       laststatus = 3; # When to use a status line for the last window
 
       fileencoding = "utf-8"; # File-content encoding for the current buffer
+      encoding = "utf-8"; # General encoding
 
       termguicolors = false; # Disables 24-bit RGB color in the |TUI|
 
