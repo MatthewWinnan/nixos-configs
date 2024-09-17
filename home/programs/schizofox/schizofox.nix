@@ -13,7 +13,7 @@ in {
   imports = [
     inputs.schizofox.homeManagerModule
   ];
-  # config = mkIf config.programs.firefox.enable 
+  # config = mkIf config.programs.firefox.enable
   config = {
     programs.schizofox = {
       enable = true;
@@ -31,6 +31,8 @@ in {
         "security.OCSP.enabled" = 1;
         "services.sync.engine.prefs" = false;
         "services.sync.engine.addons" = false;
+        # Suppose to fix https://bugzilla.mozilla.org/show_bug.cgi?id=1639575
+        "widget.use-xdg-desktop-portal" = false;
       };
 
       search = rec {
@@ -61,10 +63,12 @@ in {
         disableWebgl = false;
         firefoxSync = true;
       };
+
       # Schizofox also have default extensions: temporary-containers, localcdn-fork-of-decentraleyes, don-t-fuck-with-paste, clearurls, libredirect, etc
       extensions = {
         simplefox.enable = true;
         darkreader.enable = true;
+        enableExtraExtensions = true;
         extraExtensions = {
           "cb-remover@search.mozilla.org".install_url = "https://addons.mozilla.org/firefox/downloads/latest/clickbait-remover-for-youtube/latest.xpi";
           "treestyletab@piro.sakura.ne.jp".install_url = "https://addons.mozilla.org/firefox/downloads/latest/tree-style-tab/latest.xpi";
@@ -82,6 +86,31 @@ in {
           "{5ca032f5-aaac-41f6-85eb-99ec4bfcf828}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/pesticide/latest.xpi";
         };
       };
+
+      # Periodically add to book marks
+       misc.bookmarks = [
+        {
+      Title = "Cloud-04";
+      URL = "https://172.16.2.125:8006/";
+      Placement = "toolbar";
+      Folder = "WorkTools";
+        }
+        {
+          Title = "NVIMDEV (lspsaga doc)";
+          URL = "https://nvimdev.github.io/lspsaga/";
+          Folder = "nvim";
+        }
+        {
+        Title = "None-LS";
+        URL = "https://github.com/nvimtools/none-ls.nvim/blob/main/doc/MAIN.md";
+        Folder = "nvim";
+        }
+        {
+        Title = "Trouble-LS";
+        URL = "https://github.com/folke/trouble.nvim";
+        Folder = "nvim";
+        }
+      ];
     };
   };
 }

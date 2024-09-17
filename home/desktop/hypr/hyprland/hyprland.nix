@@ -1,4 +1,8 @@
-{ config, pkgs, lib, ... }:{
+{ config, pkgs, lib, ... }:
+let
+   last_monitor = lib.lists.last config.deviceSettings.monitors;
+in
+{
   wayland.windowManager.hyprland = lib.mkForce {
     enable = true;
     xwayland.enable = true;
@@ -153,17 +157,14 @@
         "$mainMod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
 
         # For screen shotting and recording
-        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${pkgs.swappy}/bin/swappy -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png"
+        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${pkgs.swappy}/bin/swappy -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png" 
 
         # General functions
         "$mainMod, Return, exec, kitty"
         "$mainMod, Q, killactive,"
         "$mainMod, M, exit,"
-        #"$mainMod, E, exec, dolphin"
-        #"$mainMod, F, togglefloating,"
         "$mainMod, F, fullscreen,"
         "$mainMod, D, exec, rofi -show drun"
-        #"$mainMod, P, pseudo, # dwindle"
         "$mainMod, J, togglesplit, # dwindle"
 
         # Move focus with mainMod + arrow keys
@@ -221,14 +222,14 @@
         #"$mainMod, F2, exec, brightnessctl -d *::kbd_backlight set 33%-"
 
         # Volume and Media Control
-        ", XF86AudioRaiseVolume, exec, pamixer -i 5 "
-        ", XF86AudioLowerVolume, exec, pamixer -d 5 "
-        ", XF86AudioMute, exec, pamixer -t"
-        ", XF86AudioMicMute, exec, pamixer --default-source -m"
+        #", XF86AudioRaiseVolume, exec, pamixer -i 5 "
+        #", XF86AudioLowerVolume, exec, pamixer -d 5 "
+        #", XF86AudioMute, exec, pamixer -t"
+        #", XF86AudioMicMute, exec, pamixer --default-source -m"
 
         # Brightness control
-        ", XF86MonBrightnessDown, exec, brightnessctl set 5%- "
-        ", XF86MonBrightnessUp, exec, brightnessctl set +5% "
+        #", XF86MonBrightnessDown, exec, brightnessctl set 5%- "
+        #", XF86MonBrightnessUp, exec, brightnessctl set +5% "
 
         # Configuration files
         #''$mainMod SHIFT, N, exec, alacritty -e sh -c "rb"''
@@ -240,9 +241,10 @@
         # Waybar
         "$mainMod, B, exec, pkill -SIGUSR1 waybar"
         "$mainMod, W, exec, pkill -SIGUSR2 waybar"
-
-        # Disable all effects
-        #"$mainMod Shift, G, exec, ~/.config/hypr/gamemode.sh "
+      ] ++ lib.optionals (config.systemSettings.profile == "work") [
+          # Allows me to toggle the display if I am on my work
+          ''$mainMod, T, exec, hyprctl keyword monitor "eDP-1, disable"''
+          ''$mainMod SHIFT, T, exec, hyprctl keyword monitor "${last_monitor.name},${toString last_monitor.width}x${toString last_monitor.height}@${toString last_monitor.width},${last_monitor.position},1"''
       ];
 
       # Move/resize windows with mainMod + LMB/RMB and dragging

@@ -11,8 +11,9 @@
       # "<leader>fg" = "live_grep";
       # "<leader>fd" = "diagnostics";
     };
-    
-    # The option definition `plugins.telescope.keymapsSilent' no longer has effect now that the `plugin.telescope.keymaps` implementation uses `<cmd>`.
+
+    # The option definition `plugins.telescope.keymapsSilent' no longer has effect
+    # now that the `plugin.telescope.keymaps` implementation uses `<cmd>`.
     #keymapsSilent = true;
 
     settings.defaults = {

@@ -10,5 +10,6 @@
     ./zathura.nix
     ./rofi/default.nix
     ./btop.nix
+    ./git/default.nix
   ];
 }
