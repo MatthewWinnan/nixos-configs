@@ -157,7 +157,7 @@ in
         "$mainMod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
 
         # For screen shotting and recording
-        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${pkgs.swappy}/bin/swappy -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png" 
+        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${lib.getExe pkgs.swappy} -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png" 
 
         # General functions
         "$mainMod, Return, exec, kitty"
@@ -244,8 +244,13 @@ in
       ] ++ lib.optionals (config.systemSettings.profile == "work") [
           # Allows me to toggle the display if I am on my work
           ''$mainMod, T, exec, hyprctl keyword monitor "eDP-1, disable"''
+          # We have to reload the config to make sure it takes effect...
+          "$mainMod, T, exec, hyprctl reload"
+          # Allows me to turn the built in laptop monitor on again 
           ''$mainMod SHIFT, T, exec, hyprctl keyword monitor "${last_monitor.name},${toString last_monitor.width}x${toString last_monitor.height}@${toString last_monitor.width},${last_monitor.position},1"''
-      ];
+          # We have to reload the config to make sure it takes effect...
+          "$mainMod SHIFT, T, exec, hyprctl reload"
+        ];
 
       # Move/resize windows with mainMod + LMB/RMB and dragging
       bindm = [
