@@ -23,7 +23,6 @@
 
     # Default CLI tools for everyone
     wget
-    git-review
     htop
     eza
     openssl
@@ -104,6 +103,9 @@
 
       # I still need to flash
       rpi-imager
+
+      # We use gerrit
+      git-review
 
     ];
 
