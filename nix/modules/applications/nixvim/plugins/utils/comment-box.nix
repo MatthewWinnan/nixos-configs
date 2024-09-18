@@ -1,4 +1,4 @@
-# https://github.com/LudoPinelli/comment-box.nvim 
+# https://github.com/LudoPinelli/comment-box.nvim
 # Impressive the guy made it, learn API and LUA myself, how?
 { pkgs, ... }:
 let

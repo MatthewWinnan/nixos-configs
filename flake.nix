@@ -49,9 +49,24 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # This will provide us with the latest version of the
+    # vscode extensions.
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    # Nix Formatter
+    alejandra = {
+      url = "github:kamadorueda/alejandra/3.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, nix-index-database, sops-nix, ... }@inputs:
+  outputs = { self, alejandra, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, nix-index-database, sops-nix, nix-vscode-extensions, ... }@inputs:
 
     let
       system = "x86_64-linux";

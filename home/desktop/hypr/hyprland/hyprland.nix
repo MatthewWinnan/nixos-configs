@@ -244,8 +244,6 @@ in
       ] ++ lib.optionals (config.systemSettings.profile == "work") [
           # Allows me to toggle the display if I am on my work
           ''$mainMod, T, exec, hyprctl keyword monitor "eDP-1, disable"''
-          # We have to reload the config to make sure it takes effect...
-          "$mainMod, T, exec, hyprctl reload"
           # Allows me to turn the built in laptop monitor on again 
           ''$mainMod SHIFT, T, exec, hyprctl keyword monitor "${last_monitor.name},${toString last_monitor.width}x${toString last_monitor.height}@${toString last_monitor.width},${last_monitor.position},1"''
           # We have to reload the config to make sure it takes effect...
