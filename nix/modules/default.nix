@@ -6,5 +6,6 @@
     ./user
     ./boot
     ./applications
+    ./misc.nix
     ];
 }
