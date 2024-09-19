@@ -5,5 +5,6 @@
     ./programs/schizofox/default.nix
     ./programs/vscode/default.nix
     ../themes/gtk.nix
+    ./services/default.nix
   ];
 }

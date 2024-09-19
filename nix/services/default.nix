@@ -2,6 +2,9 @@
 {
   imports = [
     ./ssh.nix
+    ./gnome.nix
+    ./dbus.nix
+    ./udisks2.nix
   ];
 
   # Enable blueman
