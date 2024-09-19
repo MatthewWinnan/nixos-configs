@@ -117,10 +117,6 @@ in
         preserve_split = true; # you probably want this
       };
 
-      #master = {
-      #  new_is_master = true;
-      #};
-
       gestures = {
         workspace_swipe = true;
         workspace_swipe_fingers = 3;
@@ -135,6 +131,7 @@ in
         enable_swallow = true;
         render_ahead_of_time = false;
         disable_hyprland_logo = true;
+        initial_workspace_tracking = 2;
       };
 
       windowrule = [
@@ -244,10 +241,10 @@ in
       ] ++ lib.optionals (config.systemSettings.profile == "work") [
           # Allows me to toggle the display if I am on my work
           ''$mainMod, T, exec, hyprctl keyword monitor "eDP-1, disable"''
-          # Allows me to turn the built in laptop monitor on again 
+          # Allows me to turn the built in laptop monitor on again
           ''$mainMod SHIFT, T, exec, hyprctl keyword monitor "${last_monitor.name},${toString last_monitor.width}x${toString last_monitor.height}@${toString last_monitor.width},${last_monitor.position},1"''
           # We have to reload the config to make sure it takes effect...
-          "$mainMod SHIFT, T, exec, hyprctl reload"
+          "$mainMod SHIFT, R, exec, hyprctl reload"
         ];
 
       # Move/resize windows with mainMod + LMB/RMB and dragging

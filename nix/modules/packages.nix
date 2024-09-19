@@ -13,6 +13,7 @@
     gparted
     obsidian
     blueman
+    udiskie
 
     # Default coding stuff
     gnumake
