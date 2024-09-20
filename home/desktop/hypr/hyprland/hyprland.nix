@@ -42,31 +42,23 @@ in
       };
 
       input = {
-       # kb_layout = "us";
-       # kb_variant = "lang";
-       # kb_options = "grp:caps_toggle";
-
         follow_mouse = 1;
-
         touchpad = {
           natural_scroll = false;
         };
-
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
       };
 
       general = {
         gaps_in = 5;
         gaps_out = 20;
-        border_size = 5;
+        border_size = 4;
 
         layout = "dwindle";
 
         # darker alternative
         "col.active_border" = "rgb(44475a)"; # or rgb(6272a4)
         "col.inactive_border" = "rgb(282a36)";
-        #"col.group_border" = "rgb(282a36)";
-        #"col.group_border_active" = "rgb(44475a)"; # or rgb(6272a4)
       };
       group = {
         groupbar = {

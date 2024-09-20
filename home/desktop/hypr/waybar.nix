@@ -10,7 +10,7 @@
 
         modules-left = ["hyprland/workspaces"];
         modules-center = ["custom/weather"];
-        modules-right = ["pulseaudio" "custom/mem" "cpu" "clock" "custom/lock" "custom/power" "tray"];
+        modules-right = ["pulseaudio" "custom/mem" "cpu" "clock" "tray" "custom/lock" "custom/power"];
 
         "hyprland/workspaces" = {
           disable-scroll = true;
@@ -23,7 +23,6 @@
 
     "hyprland/language" = {
         format-en = "US";
-        format-ru = "RU";
 	      min-length = 5;
 	      tooltip = false;
     };
@@ -136,8 +135,8 @@
     };
 
       };
-    }; 
-    style = 
+    };
+    style =
       ''
 @define-color base   #24273a;
 @define-color mantle #1e2030;

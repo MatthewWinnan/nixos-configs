@@ -8,5 +8,6 @@
       gnome.enable = true;
     };
     image = config.images.stylix_wallpaper;
+    polarity = "dark";
   };
 }
