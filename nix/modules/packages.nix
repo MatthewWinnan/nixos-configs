@@ -108,6 +108,9 @@
       # We use gerrit
       git-review
 
+      # I need telnet and the like for networking
+      inetutils 
+
     ];
 
 }
