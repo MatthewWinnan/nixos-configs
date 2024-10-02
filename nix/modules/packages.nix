@@ -111,6 +111,11 @@
       # I need telnet and the like for networking
       inetutils 
 
+      # I need packet analyzers TODO check for NIX options 
+      wireshark
+      tshark
+      termshark
+
     ];
 
 }
