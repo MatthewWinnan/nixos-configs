@@ -20,7 +20,7 @@
     gcc
     nodejs
     python
-    (python3.withPackages (ps: with ps; [ requests ]))
+    (python3.withPackages (ps: with ps; [ requests pyserial]))
 
     # Default CLI tools for everyone
     wget
