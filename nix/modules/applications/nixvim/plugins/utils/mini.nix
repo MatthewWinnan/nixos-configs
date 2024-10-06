@@ -1,3 +1,4 @@
+# https://github.com/echasnovski/mini.nvim
 {
   programs.nixvim.plugins.mini = {
     enable = true;

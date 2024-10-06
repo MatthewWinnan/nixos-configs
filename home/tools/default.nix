@@ -11,5 +11,7 @@
     ./rofi/default.nix
     ./btop.nix
     ./git/default.nix
+    ./tealdeer.nix
+    ./ripgrep.nix
   ];
 }

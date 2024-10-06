@@ -14,4 +14,6 @@ pkgs.writeTextFile {
   '';
   executable = true;
   destination = "/bin/screen_recording";
-  }
+}
+
+

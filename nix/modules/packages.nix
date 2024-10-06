@@ -85,6 +85,9 @@
       # To read manga
       inputs.manga-tui.packages.${system}.manga-tui
 
+      # To watch anime
+      ani-cli
+
   ] ++ lib.optionals (config.systemSettings.profile == "personal")[
       # Only for personal use
       orca-slicer
@@ -109,9 +112,9 @@
       git-review
 
       # I need telnet and the like for networking
-      inetutils 
+      inetutils
 
-      # I need packet analyzers TODO check for NIX options 
+      # I need packet analyzers TODO check for NIX options
       wireshark
       tshark
       termshark
