@@ -2,7 +2,6 @@
   imports = [
     ./lualine.nix
     ./floaterm.nix
-    ./telescope.nix
     ./barbar.nix
     ./nix.nix
     ./lsp/default.nix
@@ -11,5 +10,6 @@
     ./treesitter/default.nix
     ./snippets/default.nix
     ./utils/default.nix
+    ./ui/default.nix
   ];
 }

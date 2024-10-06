@@ -146,8 +146,9 @@ in
         "$mainMod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
 
         # For screen shotting and recording
-        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${lib.getExe pkgs.swappy} -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png" 
-
+        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${lib.getExe pkgs.swappy} -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png"
+        ''$mainMod, R, exec, ${lib.getExe pkgs.wf-recorder} -al -g "$(${lib.getExe pkgs.slurp} -w 0 -d)" -f $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).mp4 > $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).log ''
+        "$mainMod SHIFT, R, exec, pkill wf-recorder"
         # General functions
         "$mainMod, Return, exec, kitty"
         "$mainMod, Q, killactive,"
@@ -236,7 +237,7 @@ in
           # Allows me to turn the built in laptop monitor on again
           ''$mainMod SHIFT, T, exec, hyprctl keyword monitor "${last_monitor.name},${toString last_monitor.width}x${toString last_monitor.height}@${toString last_monitor.width},${last_monitor.position},1"''
           # We have to reload the config to make sure it takes effect...
-          "$mainMod SHIFT, R, exec, hyprctl reload"
+          "$mainMod SHIFT, O, exec, hyprctl reload"
         ];
 
       # Move/resize windows with mainMod + LMB/RMB and dragging

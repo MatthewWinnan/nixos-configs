@@ -7,5 +7,12 @@
     ./colorizer.nix
     ./comment-box.nix
     ./transparent.nix
+    ./undotree.nix
+    ./harpoon.nix
+    ./snipe.nix
+    ./illuminate.nix
+    ./ufo.nix
+    ./autopairs.nix
+    ./oil.nix
   ];
 }

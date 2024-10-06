@@ -1,6 +1,6 @@
 {
   programs.nixvim.plugins.barbar = {
-    enable = true;
+    enable = false;
     keymaps = {
       # Keymaps will be silent anyways. This option has always been useless. Should not be enabled
       #silent = true;
