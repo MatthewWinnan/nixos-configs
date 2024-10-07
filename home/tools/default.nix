@@ -13,5 +13,6 @@
     ./git/default.nix
     ./tealdeer.nix
     ./ripgrep.nix
+    ./zellij/default.nix
   ];
 }
