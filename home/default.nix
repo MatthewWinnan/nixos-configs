@@ -4,6 +4,7 @@
     ./desktop/default.nix
     ./programs/schizofox/default.nix
     ./programs/vscode/default.nix
+    ./programs/yazi/default.nix
     ../themes/gtk.nix
     ./services/default.nix
   ];

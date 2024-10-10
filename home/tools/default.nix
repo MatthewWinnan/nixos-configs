@@ -14,5 +14,8 @@
     ./tealdeer.nix
     ./ripgrep.nix
     ./zellij/default.nix
+    ./fzf.nix
+    ./zoxide.nix
+    ./eza.nix
   ];
 }
