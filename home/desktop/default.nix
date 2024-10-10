@@ -4,6 +4,7 @@
     ./dunst.nix
     ./hypr/default.nix
     ./wlogout/wlogout.nix
+    ./xdg.nix
   ];
 
 }

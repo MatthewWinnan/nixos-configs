@@ -25,7 +25,6 @@
     # Default CLI tools for everyone
     wget
     htop
-    eza
     openssl
     nh
     nix-output-monitor
@@ -119,6 +118,10 @@
       tshark
       termshark
 
+      # For some nice calculator functions
+      bitwise # https://github.com/mellowcandle/bitwise
+      programmer-calculator # https://github.com/alt-romes/programmer-calculator
+      qalculate-gtk
     ];
 
 }
