@@ -110,6 +110,16 @@ in {
         URL = "https://github.com/folke/trouble.nvim";
         Folder = "nvim";
         }
+        {
+          Title = "NixOptions";
+          URL = "https://mynixos.com/";
+          Folder = "utils";
+        }
+        {
+          Title = "NixVim";
+          URL = "https://nix-community.github.io/nixvim/user-guide/install.html";
+          Folder = "nvim";
+        }
       ];
     };
   };

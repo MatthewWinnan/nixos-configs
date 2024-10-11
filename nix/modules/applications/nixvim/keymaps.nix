@@ -28,8 +28,7 @@
           # close by Ctrl+x
           "<C-x>" = ":close<CR>";
 
-          # save by \+s or Ctrl+s
-          "<leader>s" = ":w<CR>";
+          # save by Ctrl+s
           "<C-s>" = ":w<CR>";
 
           # navigate windows

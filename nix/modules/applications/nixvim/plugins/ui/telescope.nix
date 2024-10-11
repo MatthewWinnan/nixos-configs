@@ -1,3 +1,5 @@
+# Themes can be found here -> https://github.com/nvim-telescope/telescope.nvim/blob/df534c3042572fb958586facd02841e10186707c/lua/telescope/themes.lua#L4
+# Can define your own too eh.
 {
   programs.nixvim.plugins.telescope = {
     enable = true;
@@ -39,10 +41,131 @@
       };
     };
       };
+
+      pickers = {
+        find_files = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        buffers = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        oldfiles = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        live_grep = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        help_tags = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        keymaps = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        diagnostics = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        autocommands = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        commands = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        marks = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        man_pages = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        git_files = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        git_status = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        git_commits = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+
+        command_history = {
+          theme = "ivy";
+          sort_mru = true;
+          sort_lastused = true;
+          initial_mode = "normal";
+        };
+      };
     };
 
     keymaps = {
-      "<leader>ff" = "find_files";
+
+      "<leader>fb" = {
+        action = "buffers";
+        options = {
+          desc = "[P]Open telescope buffers";
+        };
+      };
+
+      "<leader>ff" = {
+        action = "find_files";
+        options = {
+          desc = "[P]Find files in the current working directory";
+        };
+      };
+
       "<leader>fo" = "oldfiles";
       "<leader>fr" = "live_grep";
       "<leader>sh" = "help_tags";
@@ -63,14 +186,15 @@
     #keymapsSilent = true;
   };
 
-  programs.nixvim.keymaps = [
-    {
-      mode = "n";
-      key = "<leader>b";
-      action = "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<cr>";
-      options = {
-        desc = "[P]Open telescope buffers";
-      };
-    }
-  ];
+  # Keeping this here for reference on how I can add pretty nice custom keys
+  # programs.nixvim.keymaps = [
+  #   {
+  #     mode = "n";
+  #     key = "<leader>b";
+  #     action = "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<cr>";
+  #     options = {
+  #       desc = "[P]Open telescope buffers";
+  #     };
+  #   }
+  # ];
 }

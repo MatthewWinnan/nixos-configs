@@ -33,7 +33,7 @@ in {
   xdg.configFile."lf/icons".source = iconsFile;
 
   programs.lf = {
-    enable = true;
+    enable = false;
     commands = {
       dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx"'';
       editor-open = ''$$EDITOR $f'';

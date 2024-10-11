@@ -23,7 +23,7 @@
     {
       mode = "n";
       key = "<leader>ss";
-      action = "require('snipe').create_buffer_menu_toggler({max_path_width = 1,})";
+      action = "<cmd>lua require('snipe').open_buffer_menu()<cr>";
       options = {
         desc = "Open Snipe Buffer Menu";
       };
