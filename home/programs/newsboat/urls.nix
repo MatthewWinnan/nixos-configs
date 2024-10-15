@@ -70,6 +70,5 @@
     { url = "https://programming.dev/feeds/c/commandline.xml?sort=Active"; }
     { url = "https://beehaw.org/feeds/c/technology.xml?sort=Active"; }
     { url = "https://lobste.rs/rss"; }
-    { url = "https://kiszamolo.hu/feed"; }
   ];
 }
