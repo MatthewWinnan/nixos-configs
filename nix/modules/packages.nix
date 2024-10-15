@@ -12,7 +12,6 @@
     chromium
     gparted
     obsidian
-    blueman
     udiskie
 
     # Default coding stuff
@@ -35,10 +34,11 @@
     # TUI/GUI utils
     dmenu
     xdragon
-    bat
     pistol
     hyprcursor
-    zathura
+    # https://github.com/darkhz/bluetuith
+    bluetuith
+    blueman
 
     # Cursors
     inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
