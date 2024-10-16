@@ -4,5 +4,6 @@
     ./which-key.nix
     ./alpha.nix
     ./precognition.nix
+    ./barbar.nix
   ];
 }

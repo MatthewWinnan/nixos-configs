@@ -1,6 +1,6 @@
 {
   programs.nixvim.plugins.none-ls = {
-    enable = true;
+    enable = false;
     enableLspFormat = true;
     settings = {
       updateInInsert = false;

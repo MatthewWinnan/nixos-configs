@@ -120,6 +120,11 @@ in {
           URL = "https://nix-community.github.io/nixvim/user-guide/install.html";
           Folder = "nvim";
         }
+        {
+          Title = "CapibaraZero";
+          URL = "https://capibarazero.github.io/docs/";
+          Folder = "personal";
+        }
       ];
     };
   };

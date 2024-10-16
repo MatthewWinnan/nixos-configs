@@ -14,5 +14,6 @@
     ./ufo.nix
     ./autopairs.nix
     ./oil.nix
+    ./floaterm.nix
   ];
 }

@@ -31,12 +31,6 @@
           # save by Ctrl+s
           "<C-s>" = ":w<CR>";
 
-          # navigate windows
-          "<leader>h" = "<C-w>h";
-          "<leader>j" = "<C-w>j";
-          "<leader>k" = "<C-w>k";
-          "<leader>l" = "<C-w>l";
-
           # resize with arrows
           "<C-Up>" = ":resize -2<CR>";
           "<C-Down>" = ":resize +2<CR>";

@@ -1,8 +1,6 @@
 {
   imports = [
     ./lualine.nix
-    ./floaterm.nix
-    ./barbar.nix
     ./nix.nix
     ./lsp/default.nix
     ./completion/default.nix

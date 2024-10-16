@@ -5,7 +5,8 @@
     ./fidget.nix
     ./hlchunk.nix
     ./lspsaga.nix
-    # ./none-ls.nix
+    ./none-ls.nix
     ./trouble.nix
+    ./lspkind.nix
   ];
 }
