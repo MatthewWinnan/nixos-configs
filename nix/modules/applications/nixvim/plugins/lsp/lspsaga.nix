@@ -1,3 +1,4 @@
+# Docs -> https://nvimdev.github.io/lspsaga
 {
   programs.nixvim.plugins.lspsaga = {
     enable = true;
@@ -34,8 +35,8 @@
       };
     };
     lightbulb = {
-      enable = false;
-      sign = false;
+      enable = true;
+      sign = true;
       virtualText = true;
     };
     implement = {
@@ -65,8 +66,8 @@
       };
     };
     scrollPreview = {
-      scrollDown = "<C-f>";
-      scrollUp = "<C-b>";
+      scrollDown = "<C-k>";
+      scrollUp = "<C-j>";
     };
   };
   programs.nixvim.keymaps = [
