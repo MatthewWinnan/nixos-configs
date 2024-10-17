@@ -5,10 +5,15 @@
     enable = true;
 
     extensions = {
+      # https://github.com/nvim-telescope/telescope-file-browser.nvim
       file-browser = {
         enable = true;
       };
       fzf-native = {
+        enable = true;
+      };
+      # https://github.com/debugloop/telescope-undo.nvim
+      undo = {
         enable = true;
       };
     };
@@ -187,14 +192,22 @@
   };
 
   # Keeping this here for reference on how I can add pretty nice custom keys
-  # programs.nixvim.keymaps = [
-  #   {
-  #     mode = "n";
-  #     key = "<leader>b";
-  #     action = "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<cr>";
-  #     options = {
-  #       desc = "[P]Open telescope buffers";
-  #     };
-  #   }
-  # ];
+  programs.nixvim.keymaps = [
+    {
+      mode = "n";
+      key = "<leader>fe";
+      action = "<cmd>Telescope file_browser sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<cr>";
+      options = {
+        desc = "[P]Open telescope file_browser";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>fu";
+      action = "<cmd>Telescope undo initial_mode=normal theme=ivy<cr>";
+      options = {
+        desc = "[P]Open telescope undo";
+      };
+    }
+  ];
 }
