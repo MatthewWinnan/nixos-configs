@@ -5,5 +5,7 @@
     ./alpha.nix
     ./precognition.nix
     ./barbar.nix
+    ./noice.nix
+    ./nvim-notify.nix
   ];
 }

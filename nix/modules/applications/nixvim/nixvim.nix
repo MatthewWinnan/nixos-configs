@@ -1,5 +1,7 @@
+# Some generic useful links:
+# VIM Plugins -> https://vimawesome.com/
+# NIXVIM Docs -> https://nix-community.github.io/nixvim/user-guide/install.html
 {
-
   imports = [
     ./opts.nix
     ./keymaps.nix
