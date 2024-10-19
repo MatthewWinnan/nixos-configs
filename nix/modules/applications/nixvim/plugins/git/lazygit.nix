@@ -1,3 +1,4 @@
+# Docs -> https://github.com/kdheepak/lazygit.nvim/
 {
   programs.nixvim.plugins.lazygit = {
     enable = true;
