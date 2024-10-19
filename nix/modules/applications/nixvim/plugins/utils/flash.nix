@@ -22,7 +22,7 @@
         "x"
         "o"
       ];
-      key = "s";
+      key = "<leader>fs";
       action = "<cmd>lua require('flash').jump()<cr>";
       options = {
         desc = "Flash";
@@ -35,7 +35,7 @@
         "x"
         "o"
       ];
-      key = "S";
+      key = "<leader>fS";
       action = "<cmd>lua require('flash').treesitter()<cr>";
       options = {
         desc = "Flash Treesitter";
@@ -55,8 +55,9 @@
       mode = [
         "x"
         "o"
+        "n"
       ];
-      key = "R";
+      key = "<leader>fr";
       action = "<cmd>lua require('flash').treesitter_search()<cr>";
       options = {
         desc = "Treesitter Search";

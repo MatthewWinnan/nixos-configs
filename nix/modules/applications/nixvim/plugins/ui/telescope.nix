@@ -62,13 +62,6 @@
           initial_mode = "normal";
         };
 
-        oldfiles = {
-          theme = "ivy";
-          sort_mru = true;
-          sort_lastused = true;
-          initial_mode = "normal";
-        };
-
         live_grep = {
           theme = "ivy";
           sort_mru = true;
@@ -157,22 +150,21 @@
 
     keymaps = {
 
-      "<leader>fb" = {
+      "<leader>tb" = {
         action = "buffers";
         options = {
           desc = "[P]Open telescope buffers";
         };
       };
 
-      "<leader>ff" = {
+      "<leader>tf" = {
         action = "find_files";
         options = {
           desc = "[P]Find files in the current working directory";
         };
       };
 
-      "<leader>fo" = "oldfiles";
-      "<leader>fr" = "live_grep";
+      "<leader>tr" = "live_grep";
       "<leader>sh" = "help_tags";
       "<leader>sk" = "keymaps";
       "<leader>sd" = "diagnostics";
@@ -183,7 +175,7 @@
       "<leader>gf" = "git_files";
       "<leader>gc" = "git_commits";
       "<leader>gs" = "git_status";
-      "<leader>:" = "command_history";
+      "<leader>tc" = "command_history";
     };
 
     # The option definition `plugins.telescope.keymapsSilent' no longer has effect
@@ -195,7 +187,7 @@
   programs.nixvim.keymaps = [
     {
       mode = "n";
-      key = "<leader>fe";
+      key = "<leader>te";
       action = "<cmd>Telescope file_browser sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<cr>";
       options = {
         desc = "[P]Open telescope file_browser";
@@ -203,7 +195,7 @@
     }
     {
       mode = "n";
-      key = "<leader>fu";
+      key = "<leader>tu";
       action = "<cmd>Telescope undo initial_mode=normal theme=ivy<cr>";
       options = {
         desc = "[P]Open telescope undo";

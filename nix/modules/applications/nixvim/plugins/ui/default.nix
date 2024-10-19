@@ -7,5 +7,6 @@
     ./barbar.nix
     ./noice.nix
     ./nvim-notify.nix
+    ./yazi.nix
   ];
 }
