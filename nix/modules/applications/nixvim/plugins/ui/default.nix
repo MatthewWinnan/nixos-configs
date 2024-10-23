@@ -8,5 +8,6 @@
     ./noice.nix
     ./nvim-notify.nix
     ./yazi.nix
+    ./yaml_companion.nix
   ];
 }

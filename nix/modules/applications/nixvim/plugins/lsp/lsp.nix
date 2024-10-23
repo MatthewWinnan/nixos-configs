@@ -16,6 +16,7 @@
         jsonls.enable = true;
         nginx-language-server.enable = true;
         pylsp.enable = true;
+        yamlls.enable = true;
       };
 
        keymaps = {
