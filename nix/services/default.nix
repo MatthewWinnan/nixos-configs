@@ -5,11 +5,8 @@
     ./gnome.nix
     ./dbus.nix
     ./udisks2.nix
-    ./dumpcap.nix
+    ./blueman.nix
   ];
 
-  # Enable blueman
-  services.blueman.enable = true;
-  # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 }
