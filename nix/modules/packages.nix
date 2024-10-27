@@ -1,4 +1,10 @@
-{config, pkgs, lib, inputs, ...}: {
+{config, pkgs, lib, inputs, ...}:
+
+let
+  lowfi = pkgs.callPackage ../../derivations/lowfi/lowfi.nix {};
+  screen_recorder = pkgs.callPackage ../../derivations/screen_record.nix {};
+in
+{
   # If something has been delared with .enable and points to pkgs or homemanager's
   # pkgs we do not need to add it here
   # Here we only do the basic global packages and load up module declerations
@@ -30,6 +36,10 @@
     nvd
     wf-recorder # Else we do not have access to it on CLI
     mpv # To view the recordings
+
+    # This tool generates derivations for me from git projects
+    # DOCS -> https://github.com/nix-community/nix-init?tab=readme-ov-file
+    nix-init
 
     # TUI/GUI utils
     dmenu
@@ -75,7 +85,7 @@
     # flameshot
 
     # Custom recorder
-    (pkgs.callPackage ../../derivations/screen_record.nix {})
+    screen_recorder
 
   ] ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") [
       # Desktop apps for my personal and gaming use
@@ -97,6 +107,10 @@
       # Embedded coding, see arduino-ide too
       adafruit-nrfutil
       rpi-imager
+
+      # TUI Lowfi player
+      # DOCS -> https://github.com/talwat/lowfi
+      lowfi
 
   ] ++ lib.optionals (config.systemSettings.profile == "work")[
 
