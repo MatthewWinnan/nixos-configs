@@ -21,7 +21,7 @@
   i18n.defaultLocale = config.systemSettings.locale;
 
   # Enable FLakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes  
+  nix.settings.experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -33,9 +33,9 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-  
-  # For bluetooth support 
+
+  # For bluetooth support
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on bootboot
-  
+
 }

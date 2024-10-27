@@ -35,7 +35,7 @@
         "x"
         "o"
       ];
-      key = "<leader>fS";
+      key = "<leader>ft";
       action = "<cmd>lua require('flash').treesitter()<cr>";
       options = {
         desc = "Flash Treesitter";

@@ -1,6 +1,7 @@
 # Some generic useful links:
 # VIM Plugins -> https://vimawesome.com/
 # NIXVIM Docs -> https://nix-community.github.io/nixvim/user-guide/install.html
+# Basic commands -> https://www.worldtimzone.com/res/vi.html
 {
   imports = [
     ./opts.nix

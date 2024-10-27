@@ -105,6 +105,12 @@
         ];
       };
 
+    devShells.x86_64-linux = import ./shells/default.nix {
+        pkgs = import nixpkgs {
+          system = system;
+        };
+    };
+
     };
 
 }
