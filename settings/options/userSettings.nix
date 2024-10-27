@@ -6,7 +6,7 @@ in {
   options = {
       userSettings = {
       username = lib.mkOption {
-        type = str; 
+        type = str;
         default = "h3rm3s";
         description = "Username of the system user.";
       };
