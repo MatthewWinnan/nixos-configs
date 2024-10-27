@@ -4,5 +4,6 @@
     ./hyprland.nix
     ./pulseaudio.nix
     ./greetd.nix
+    ./wireshark.nix
   ];
 }
