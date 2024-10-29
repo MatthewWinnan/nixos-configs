@@ -7,7 +7,7 @@
     };
 
     opts = {
-      updatetime = 100; # Faster completion
+      updatetime = 50; # Faster completion
 
       relativenumber = true; # Relative line numbers
       number = true; # Display the absolute line number of the current line
@@ -17,7 +17,7 @@
       mouse = "a"; # Enable mouse control
       mousemodel = "extend"; # Mouse right-click extends the current selection
 
-      splitbelow = true; # A new window is put below the current one
+      splitbelow = true; # A new window is put below nvimthe current one
       splitright = true; # A new window is put right of the current one
 
       swapfile = false; # Disable the swap file
@@ -57,7 +57,13 @@
 
       textwidth = 0; # Maximum width of text that is being inserted.  A longer line will be
 
-      foldlevel = 99; # Folds with a level higher than this number will be closed
+      # Set fold settings
+      # These options were reccommended by nvim-ufo
+      # See: https://github.com/kevinhwang91/nvim-ufo#minimal-configuration
+      foldcolumn = "0";
+      foldlevel = 99;
+      foldlevelstart = 99;
+      foldenable = true;
 
       completeopt = ["menu" "menuone" "noselect"]; # For CMP plugin
     };

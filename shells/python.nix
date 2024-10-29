@@ -1,18 +1,32 @@
 { pkgs }:
-
-pkgs.mkShell {
-    # packages = [ pythonPackages ];
-  venvDir = ".venv";
-   packages = with pkgs;
-          [python312]
-          ++ (with pkgs.python312Packages; [
+let
+  pythonPackages = pkgs.python312Packages;
+  pyPkgs = pythonPackages: with pythonPackages; [
             pip
             venvShellHook
             ipython
-            black
             setuptools
+
+            # Packages I need to develop with
+            paramiko
+
+            # This is for LSP uses
             pylint
-    ]);
+            pyflakes
+            pycodestyle
+            pydocstyle
+
+            # This is for styling
+            black
+  ];
+in
+pkgs.mkShell {
+  venvDir = ".venv";
+
+  buildInputs = [
+      pkgs.python312
+      (pkgs.python312.withPackages pyPkgs)
+    ];
 
   shellHook = ''
     echo "Python development environment"

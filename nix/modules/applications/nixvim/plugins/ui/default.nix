@@ -9,5 +9,6 @@
     ./nvim-notify.nix
     ./yazi.nix
     ./yaml_companion.nix
+    ./image.nix
   ];
 }
