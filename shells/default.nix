@@ -1,5 +1,5 @@
 { pkgs }:
 
 {
-  python = import ./python.nix {inherit pkgs;};
+ python = import ./python.nix {inherit pkgs;};
 }

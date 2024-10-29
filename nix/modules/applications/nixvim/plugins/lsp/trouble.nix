@@ -8,7 +8,7 @@
     {
       mode = "n";
       key = "<leader>dx";
-      action = "<cmd>Trouble diagnostics toggle<cr>";
+      action = "<cmd>Trouble diagnostics toggle focus=false win.positon=right<cr>";
       options = {
         desc = "Diagnostics (Trouble)";
       };
@@ -35,7 +35,7 @@
     {
       mode = "n";
       key = "<leader>dl";
-      action = "<cmd>Trouble lsp toggle focus=false win.position=left<cr>";
+      action = "<cmd>Trouble lsp toggle focus=false win.position=right<cr>";
       options = {
         desc = "LSP Definitions / references / ... (Trouble)";
       };
