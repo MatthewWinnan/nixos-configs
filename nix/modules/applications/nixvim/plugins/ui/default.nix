@@ -10,5 +10,6 @@
     ./yazi.nix
     ./yaml_companion.nix
     ./image.nix
+    ./auto-session.nix
   ];
 }

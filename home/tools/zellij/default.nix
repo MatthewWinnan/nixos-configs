@@ -1,5 +1,6 @@
 #
 # Zellij - Terminal multiplexer with batteries included
+# DOCS -> https://zellij.dev
 #
 {config, ...}: {
   programs.zellij = {

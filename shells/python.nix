@@ -1,3 +1,4 @@
+# Good DOCS for setting this up -> https://nixos.org/manual/nixpkgs/stable/#python
 { pkgs }:
 let
   pythonPackages = pkgs.python312Packages;
@@ -9,6 +10,8 @@ let
 
             # Packages I need to develop with
             paramiko
+            pyyaml
+            robotframework
 
             # This is for LSP uses
             pylint
@@ -20,8 +23,8 @@ let
             black
   ];
 in
-pkgs.mkShell {
-  venvDir = ".venv";
+pkgs.mkShell rec {
+  venvDir = "./.venv";
 
   buildInputs = [
       pkgs.python312
@@ -44,6 +47,15 @@ pkgs.mkShell {
     export PYLINTHOME="$XDG_DATA_HOME/pylint"
     export PYLINTRC="$XDG_CONFIG_HOME/pylint/pylintrc"
     export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
+    '';
 
-  '';
+    postVenvCreation = ''
+      unset SOURCE_DATE_EPOCH
+      pip install -r requirements.txt
+      '';
+
+    postShellHook = ''
+      # Allow pip ro install wheels
+      unset SOURCE_DATE_EPOCH
+    '';
 }

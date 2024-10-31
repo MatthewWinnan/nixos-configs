@@ -16,6 +16,10 @@
       undo = {
         enable = true;
       };
+
+      ui-select = {
+        enable = true;
+      };
     };
 
     settings = {
