@@ -2,6 +2,7 @@
 # VIM Plugins -> https://vimawesome.com/
 # NIXVIM Docs -> https://nix-community.github.io/nixvim/user-guide/install.html
 # Basic commands -> https://www.worldtimzone.com/res/vi.html
+# Useful guide on using macros -> https://www.redhat.com/en/blog/use-vim-macro
 {
   imports = [
     ./opts.nix

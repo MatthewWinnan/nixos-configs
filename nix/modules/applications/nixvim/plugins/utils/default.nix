@@ -15,5 +15,6 @@
     ./autopairs.nix
     ./oil.nix
     ./floaterm.nix
+    ./multicursors.nix
   ];
 }
