@@ -11,5 +11,7 @@
     ./yaml_companion.nix
     ./image.nix
     ./auto-session.nix
+    ./lualine.nix
+    ./staline.nix
   ];
 }

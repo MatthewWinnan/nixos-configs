@@ -13,9 +13,6 @@
           inherit action key;
         })
         {
-          # Open Neotree
-          "<leader>n" = ":Neotree<CR>";
-
           # Esc to clear search results
           "<esc>" = ":noh<CR>";
 
