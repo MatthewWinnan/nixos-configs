@@ -1,10 +1,10 @@
 {lib, ...}:{
   programs.kitty = lib.mkForce {
     enable = true;
-    
+
     shellIntegration = {
      enableFishIntegration = true;
-    };    
+    };
 
     settings = {
      hide_window_decorations = "yes";
