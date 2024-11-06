@@ -31,7 +31,6 @@ in
     wget
     htop
     openssl
-    nh
     nix-output-monitor
     nvd
     wf-recorder # Else we do not have access to it on CLI

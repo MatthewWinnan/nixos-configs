@@ -231,7 +231,7 @@
 in {
   config = {
     programs.starship = {
-      enable = true;
+      enable = false;
     };
 
     # Update Starship Config everytime user logs in. This way I can keep track
