@@ -13,5 +13,7 @@
     ./auto-session.nix
     ./lualine.nix
     ./staline.nix
+    ./navic.nix
+    ./navbuddy.nix
   ];
 }

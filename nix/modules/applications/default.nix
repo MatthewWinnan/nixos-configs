@@ -5,5 +5,7 @@
     ./pulseaudio.nix
     ./greetd.nix
     ./wireshark.nix
+    ./nh.nix
+    ./thunar.nix
   ];
 }
