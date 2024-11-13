@@ -24,6 +24,7 @@ in
     clean = {
       enable = true;
       dates = "weekly";
+      extraArgs = "--keep 5";
     };
   };
 
