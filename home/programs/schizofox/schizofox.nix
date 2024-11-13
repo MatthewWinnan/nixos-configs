@@ -38,8 +38,13 @@ in {
       search = rec {
         defaultSearchEngine = "Searxng";
         removeEngines = ["Bing" "Amazon.com" "eBay" "Twitter" "Wikipedia" "LibRedirect" "DuckDuckGo"];
-        searxUrl = "https://search.xilain.dev";
-        searxQuery = "${searxUrl}/search?q={searchTerms}&categories=general";
+
+        # This was used by sukhmancs, can't use anymore
+        # searxUrl = "https://search.xilain.dev";
+        # searxQuery = "${searxUrl}/search?q={searchTerms}&categories=general";
+
+        searxUrl = "https://searx.be";
+        searxQuery = "https://searx.be/search?q={searchTerms}&categories=general";
         addEngines = [
           {
             Name = "Searxng";
@@ -47,6 +52,13 @@ in {
             Alias = "sx";
             Method = "GET";
             URLTemplate = "${searxQuery}";
+          }
+          {
+            Name = "Etherscan";
+            Description = "Checking balances";
+            Alias = "!eth";
+            Method = "GET";
+            URLTemplate = "https://etherscan.io/search?f=0&q={searchTerms}";
           }
         ];
       };

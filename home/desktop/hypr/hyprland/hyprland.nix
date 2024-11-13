@@ -1,3 +1,5 @@
+# NB Remember do not map ATL-><vim_nav>
+
 { config, pkgs, lib, ... }:
 let
    last_monitor = lib.lists.last config.deviceSettings.monitors;
@@ -155,7 +157,6 @@ in
         "$mainMod, M, exit,"
         "$mainMod, F, fullscreen,"
         "$mainMod, D, exec, rofi -show drun"
-        "$mainMod, J, togglesplit, # dwindle"
 
         # Move focus with mainMod + arrow keys
         "$mainMod, left,  movefocus, l"
