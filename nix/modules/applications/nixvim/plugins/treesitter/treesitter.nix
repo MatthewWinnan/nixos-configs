@@ -1,3 +1,6 @@
+# DOCS -> https://github.com/nvim-treesitter/nvim-treesitter/
+# NixVim DOCS -> https://nix-community.github.io/nixvim/plugins/treesitter/index.html
+
 { pkgs, ... }:
 {
   programs.nixvim.filetype.extension.liq = "liquidsoap";

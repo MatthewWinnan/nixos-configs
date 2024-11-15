@@ -15,5 +15,7 @@
     ./staline.nix
     ./navic.nix
     ./navbuddy.nix
+    ./marks.nix
+    ./web-devicons.nix
   ];
 }

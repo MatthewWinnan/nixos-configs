@@ -16,5 +16,8 @@
     ./oil.nix
     ./floaterm.nix
     ./multicursors.nix
+    ./neoclip.nix
+    ./markview.nix
+    ./obsidian.nix
   ];
 }
