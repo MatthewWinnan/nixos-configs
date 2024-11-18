@@ -11,8 +11,12 @@
       new_notes_location = "current_dir";
       workspaces = [
         {
-          name = "work";
+          name = "personal";
           path = "~/obsidian_vault/matthew_notes";
+        }
+        {
+          name = "work";
+          path = "~/DEV/obsidian_vault";
         }
       ];
       mappings = {

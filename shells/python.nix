@@ -16,10 +16,10 @@ let
             # This is for LSP uses
             pylint
             pyflakes
-            pycodestyle
-            pydocstyle
 
-            # This is for styling
+            # This is for styling, hard to conform now drop it
+            #pycodestyle
+            pydocstyle
             black
   ];
 in
