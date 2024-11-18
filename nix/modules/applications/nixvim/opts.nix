@@ -66,6 +66,9 @@
       foldenable = true;
 
       completeopt = ["menu" "menuone" "noselect"]; # For CMP plugin
+
+      # See https://github.com/epwalsh/obsidian.nvim/issues/286 for more details.
+      conceallevel = 1;
     };
   };
 }
