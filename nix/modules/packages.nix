@@ -20,10 +20,10 @@ in
     obsidian
     udiskie
 
-    # Default coding stuff
+    # Default coding stuff (I want to progressively strip these away)
+    # pyserial is needed for my arduino-ide
     gnumake
     gcc
-    nodejs
     python
     (python3.withPackages (ps: with ps; [ requests pyserial]))
 

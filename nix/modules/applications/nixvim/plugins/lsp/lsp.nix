@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   programs.nixvim.plugins = {
 
     hmts.enable = true;
@@ -9,19 +9,32 @@
 
     lsp = {
       enable = true;
-      servers = {
-        # We use the updated version
-        nil-ls.enable = true;
-        html.enable = true;
-        jsonls.enable = true;
-        nginx-language-server.enable = true;
-        pylsp.enable = true;
-        yamlls.enable = true;
+      servers = lib.recursiveUpdate {
+      # We use the updated version
+      nil-ls.enable = true;
+      html.enable = true;
+      jsonls.enable = true;
+      nginx-language-server.enable = true;
+      pylsp.enable = true;
+      yamlls.enable = true;
+
+      }
+        (lib.optionals (config.systemSettings.profile == "work") {
+        # Additional servers for "work" profile
+        dockerls.enable = true;
+        docker-compose-language-service = {
+            enable = true;
+            filetypes = [
+              "yaml.docker-compose"
+              "docker-compose.yaml"
+            ];
+            };
 
         # This says it is included https://nix-community.github.io/nixvim/plugins/lsp/servers/robotframework_ls/index.html#robotframework_ls
         # However I can not install it since it is listed as unpackeged on https://github.com/nix-community/nixvim/blob/7d882356a486cf44b7fab842ac26885ecd985af3/plugins/lsp/lsp-packages.nix#L20
         # robotframework_ls.enable = true;
-      };
+
+         });
 
        keymaps = {
         silent = true;

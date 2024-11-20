@@ -43,8 +43,12 @@ in {
         # searxUrl = "https://search.xilain.dev";
         # searxQuery = "${searxUrl}/search?q={searchTerms}&categories=general";
 
-        searxUrl = "https://searx.be";
-        searxQuery = "https://searx.be/search?q={searchTerms}&categories=general";
+        # Conditionally set searxUrl and searxQuery based on the profile
+        searxUrl = if config.systemSettings.profile == "work"
+             then "http://taskit-searchxng/searxng"
+             else "https://searxng.site";
+
+        searxQuery = "${searxUrl}/search?q={searchTerms}&categories=general";
         addEngines = [
           {
             Name = "Searxng";

@@ -1,4 +1,10 @@
+# This is a specific environment for my TaskIT project.
+# The nodejs is needed for dockerls please see:
+# 1) https://nix-community.github.io/nixvim/plugins/lsp/servers/dockerls/index.html
+# 2) https://nix-community.github.io/nixvim/plugins/lsp/servers/docker_compose_language_service/index.html
+#
 # Good DOCS for setting this up -> https://nixos.org/manual/nixpkgs/stable/#python
+
 { pkgs }:
 let
   pythonPackages = pkgs.python312Packages;
@@ -29,30 +35,20 @@ let
   ];
 in
 pkgs.mkShell rec {
-  venvDir = "./.venv";
+  venvDir = "./.taskit_venv";
 
   buildInputs = [
       pkgs.python312
+      pkgs.nodejs_20
+      pkgs.docker-compose-language-service
+      pkgs.dockerfile-language-server-nodejs
+      pkgs.docker-compose
+      pkgs.docker
       (pkgs.python312.withPackages pyPkgs)
     ];
 
   shellHook = ''
-    echo "Python development environment"
-
-    # Set environment variables
-    # export PYTHONPYCACHEPREFIX="$XDG_CACHE_HOME/python"
-    # export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
-    # export PYTHONUSERBASE="$XDG_DATA_HOME/python"
-    # export PYTHON_EGG_CACHE="$XDG_CACHE_HOME/python-eggs"
-    # export PYTHONHISTFILE="$XDG_DATA_HOME/python/python_history"
-    # export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
-    # export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
-    # export PIP_CONFIG_FILE="$XDG_CONFIG_HOME/pip/pip.conf"
-    # export PIP_LOG_FILE="$XDG_STATE_HOME/pip/log"
-    # export PYLINTHOME="$XDG_DATA_HOME/pylint"
-    # export PYLINTRC="$XDG_CONFIG_HOME/pylint/pylintrc"
-    # export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
-
+    echo "TaskIT development environment"
 
     if [ -d "${venvDir}" ]; then
       echo "Skipping venv creation, '${venvDir}' already exists"
@@ -68,6 +64,10 @@ pkgs.mkShell rec {
     # PYTHONPATH=$PWD/${venvDir}/${pythonPackages.python.sitePackages}/:$PYTHONPATH
 
     source "${venvDir}/bin/activate"
+
+    # Now we install our node things
+    npm install @microsoft/compose-language-service
+    npm install dockerfile-language-server-nodejs
     '';
 
     postVenvCreation = ''
