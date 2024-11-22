@@ -44,6 +44,8 @@ pkgs.mkShell rec {
       pkgs.dockerfile-language-server-nodejs
       pkgs.docker-compose
       pkgs.docker
+      pkgs.nix-prefetch-docker
+      #pkgs.dockerTools
       (pkgs.python312.withPackages pyPkgs)
     ];
 
@@ -66,8 +68,22 @@ pkgs.mkShell rec {
     source "${venvDir}/bin/activate"
 
     # Now we install our node things
-    npm install @microsoft/compose-language-service
-    npm install dockerfile-language-server-nodejs
+    echo "Configuring docker LSP"
+
+    npm install @microsoft/compose-language-service > /tmp/npm_taskit.log 2>&1
+    npm install dockerfile-language-server-nodejs >> /tmp/npm_taskit.log 2>&1
+
+    # Now we have to configure docker
+    echo "Configuring rootless docker daemon"
+
+    if pgrep -x rootlesskit > /dev/null; then
+      echo "dockerd-rootless is already running"
+    else
+      nohup dockerd-rootless > /tmp/dockerd-rootless.log 2>&1 & disown
+      echo "dockerd-rootless started in the background"
+    fi
+
+    export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
     '';
 
     postVenvCreation = ''
