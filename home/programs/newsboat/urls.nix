@@ -59,6 +59,12 @@
       tags = [ "tech" "security" ];
     }
 
+    {
+      title = "Axio";
+      url = "https://axio.ms/feed.xml";
+      tage = ["tech" "hobby"];
+    }
+
     { url = "https://feeds.feedburner.com/ThePragmaticEngineer"; }
     { url = "https://www.reddit.com/r/ExperiencedDevs/.rss"; }
     { url = "https://news.ycombinator.com/rss"; }
