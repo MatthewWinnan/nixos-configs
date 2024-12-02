@@ -26,13 +26,26 @@ let
             # This is for LSP uses
             pylint
             pyflakes
-            pylsp-rope
+            #pylsp-rope
 
             # This is for styling, hard to conform now drop it
             #pycodestyle
             pydocstyle
             black
   ];
+
+  # Create the docker start script
+  docker-rootless-script = ''
+    # Now we have to configure docker
+    echo "Configuring rootless docker daemon"
+
+    if pgrep -x rootlesskit > /dev/null; then
+      echo "dockerd-rootless is already running"
+    else
+      nohup dockerd-rootless > /tmp/dockerd-rootless.log 2>&1 & disown
+      echo "dockerd-rootless started in the background"
+    fi
+  '';
 in
 pkgs.mkShell rec {
   venvDir = "./.taskit_venv";
@@ -69,20 +82,22 @@ pkgs.mkShell rec {
 
     # Now we install our node things
     echo "Configuring docker LSP"
+    echo "Verifying internet access"
 
-    npm install @microsoft/compose-language-service > /tmp/npm_taskit.log 2>&1
-    npm install dockerfile-language-server-nodejs >> /tmp/npm_taskit.log 2>&1
-
-    # Now we have to configure docker
-    echo "Configuring rootless docker daemon"
-
-    if pgrep -x rootlesskit > /dev/null; then
-      echo "dockerd-rootless is already running"
+    if ping -c 1 8.8.8.8 &> /dev/null
+    then
+      npm install @microsoft/compose-language-service > /tmp/npm_taskit.log 2>&1
+      npm install dockerfile-language-server-nodejs >> /tmp/npm_taskit.log 2>&1
     else
-      nohup dockerd-rootless > /tmp/dockerd-rootless.log 2>&1 & disown
-      echo "dockerd-rootless started in the background"
+      echo "Could not install docker LSP NPM packages due to no internet"
     fi
 
+    script_path="$PWD/docker-rootless-script.sh"
+    echo "Writing docker start script to: $script_path"
+    echo "${docker-rootless-script}" > "$script_path"
+    chmod +x "$script_path"
+
+    # Export the socket
     export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
     '';
 

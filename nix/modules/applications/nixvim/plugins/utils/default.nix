@@ -19,5 +19,6 @@
     ./neoclip.nix
     ./markview.nix
     ./obsidian.nix
+    ./muren.nix
   ];
 }
