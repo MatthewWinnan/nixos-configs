@@ -8,5 +8,6 @@
     ./snippets/default.nix
     ./utils/default.nix
     ./ui/default.nix
+    ./misc/default.nix
   ];
 }

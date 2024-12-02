@@ -42,7 +42,21 @@
         mappings = {
       n = {
         "d" = {
-          __raw = "require('telescope.actions').delete_buffer";
+            __raw = "require('telescope.actions').delete_buffer";
+              # We instead use the command from https://github.com/moll/vim-bbye
+
+            # I am getting:
+            # 11:18:09 msg_show   Bdelete :!Bdelete
+            # [No write since last change]
+            # 11:18:09 msg_show   Bdelete fish: Unknown command: Bdelete
+            # fish:
+            # Bdelet
+            # 11:18:09 msg_show   Bdelete e
+            # ^~~~~~^
+            # 11:18:09 msg_show   Bdelete shell returned 127
+
+            # Check DOCS :help telescope.mappings
+              #__raw = "{\"<cmd>Bdelete<cr>\", type = \"command\"}";
         };
         "q" = {
           __raw = "require('telescope.actions').close";

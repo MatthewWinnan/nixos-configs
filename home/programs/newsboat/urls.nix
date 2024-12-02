@@ -62,7 +62,7 @@
     {
       title = "Axio";
       url = "https://axio.ms/feed.xml";
-      tage = ["tech" "hobby"];
+      tags = ["tech" "hobby"];
     }
 
     { url = "https://feeds.feedburner.com/ThePragmaticEngineer"; }
