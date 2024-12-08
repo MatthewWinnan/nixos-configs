@@ -107,10 +107,14 @@ in
 
   ] ++ lib.optionals (config.systemSettings.profile == "personal")[
       # Only for personal use
-      orca-slicer
       arduino-ide
       openvpn
       skypeforlinux
+
+      # For 3D printing/designing
+      orca-slicer
+      kicad
+      freecad-wayland
 
       # Embedded coding, see arduino-ide too
       adafruit-nrfutil
