@@ -112,6 +112,11 @@ in {
       Folder = "WorkTools";
         }
         {
+          Title = "Godbolt";
+          URL = "https://godbolt.org/";
+          Folder = "WorkTools";
+        }
+        {
           Title = "NVIMDEV (lspsaga doc)";
           URL = "https://nvimdev.github.io/lspsaga/";
           Folder = "nvim";

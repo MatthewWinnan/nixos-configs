@@ -138,7 +138,7 @@
             [
               (mkButton "f" "<CMD>lua require('telescope.builtin').find_files({hidden = true})<CR>" "🔍 Find File" "Operator")
 
-              (mkButton "r" "<CMD>Telescope live_grep<CR>" "📝" "Operator")
+              (mkButton "r" "<CMD>Telescope live_grep<CR>" "📝 Perform Live Grep" "Operator")
 
               (mkButton "q" "<CMD>qa<CR>" "💣 Quit Neovim" "String")
 

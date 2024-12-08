@@ -18,5 +18,6 @@
     ./marks.nix
     ./web-devicons.nix
     ./vimade.nix
+    #./helpview.nix
   ];
 }

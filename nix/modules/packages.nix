@@ -3,6 +3,7 @@
 let
   lowfi = pkgs.callPackage ../../derivations/lowfi/lowfi.nix {};
   screen_recorder = pkgs.callPackage ../../derivations/screen_record.nix {};
+  #himalaya = pkgs.callPackage ../../derivations/himalaya/himalaya.nix {};
 in
 {
   # If something has been delared with .enable and points to pkgs or homemanager's
@@ -85,6 +86,14 @@ in
 
     # Custom recorder
     screen_recorder
+
+    # CLI to manage emails, based on email-lib
+    #himalaya
+    # Seems things are missing by just building myself, use this https://github.com/pimalaya/himalaya/issues/468
+    # inputs.himalaya.packages.${system}.himalaya
+    # Instead I will for now use it from home manager hopefully
+    # FOr now I am gettin the issue: Unable to parse authentication response, I will wait for stable NIX
+    #himalaya
 
   ] ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") [
       # Desktop apps for my personal and gaming use
