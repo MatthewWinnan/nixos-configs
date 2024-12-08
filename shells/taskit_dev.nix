@@ -22,6 +22,15 @@ let
             urllib3
             bravado-core
             numpy
+            matplotlib
+            scipy
+            metalog
+            pandas
+            pingouin
+            pem
+            gspread
+            google-api-python-client
+            oauth2client
 
             # This is for LSP uses
             pylint

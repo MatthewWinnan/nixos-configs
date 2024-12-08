@@ -1,5 +1,6 @@
 {
   description = "My system configuration";
+
   inputs = {
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -21,6 +22,7 @@
     };
 
     swww.url = "github:LGFae/swww";
+    himalaya.url = "github:pimalaya/himalaya";
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
 
     # Browse manga
@@ -65,7 +67,7 @@
 
   };
 
-  outputs = { self, alejandra, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, nix-index-database, sops-nix, nix-vscode-extensions, ... }@inputs:
+  outputs = { self, alejandra, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, nix-index-database, sops-nix, nix-vscode-extensions, himalaya, ... }@inputs:
 
     let
       system = "x86_64-linux";
