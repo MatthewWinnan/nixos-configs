@@ -106,6 +106,21 @@
         ];
       };
 
+    # ba1dr - Old Lenovo Legion, using it for gaming and development
+    nixosConfigurations.ba1dr = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        pkgs-stable = import nixpkgs-stable {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        inherit inputs system flakePath;
+      };
+        modules = [
+          ./settings/ba1dr/nixos/nix_config.nix
+          ./settings/ba1dr/home/default.nix
+        ];
+      };
+
     devShells.x86_64-linux = import ./shells/default.nix {
         pkgs = import nixpkgs {
           system = system;
