@@ -19,7 +19,7 @@
       yamlls.enable = true;
 
       }
-        (lib.optionals (config.systemSettings.profile == "work") {
+        (lib.mkIf (config.systemSettings.profile == "work") {
         # Additional servers for "work" profile
         dockerls.enable = true;
         docker-compose-language-service = {
