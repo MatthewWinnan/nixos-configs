@@ -1,5 +1,5 @@
 {config, pkgs, lib, ...}: {
-programs.fish.enable = true;
+  programs.fish.enable = true;
 
   users = lib.mkMerge [
       (lib.mkIf (config.systemSettings.profile == "work"){

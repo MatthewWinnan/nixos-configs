@@ -35,6 +35,7 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
   # For bluetooth support
+  # TODO I should ideally move this to hardware or something
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on bootboot
 

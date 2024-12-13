@@ -20,6 +20,7 @@ Will be adding some more meat I just wanted to give the needed acknowledgements 
     - Used his LF setup video for mine ([Repo](https://github.com/vimjoyer/lf-nix-video), [Video](https://www.youtube.com/watch?v=z8y_qRUYEWU)).
     - A good video is his one on [Stylix](https://github.com/danth/stylix), I will be using this in conjunction with colors listed later on ([Video](https://www.youtube.com/watch?v=ljHkWgBaQWU)).
     - Yet another nix helper is also quite great, however I have moved my home manager to instead be used as a Nix module ([NH](https://github.com/viperML/nh), [Video](https://www.youtube.com/watch?v=DnA4xNTrrqY&t=298s)).
+    - Gaming on NixOS helped me get a decent enough introduction on what was needed ([Video](https://www.youtube.com/watch?v=qlfm3MEbqYA))
 - [Ampersand](https://www.youtube.com/@Ampersand-xc9jp)
     - Makes some good Nix content too.
     - His intro [video](https://www.youtube.com/watch?v=nLwbNhSxLd4&t=832s) helped a ton.
