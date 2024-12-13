@@ -24,9 +24,7 @@ let
             numpy
             matplotlib
             scipy
-            metalog
             pandas
-            pingouin
             pem
             gspread
             google-api-python-client
@@ -35,6 +33,7 @@ let
             # This is for LSP uses
             pylint
             pyflakes
+            ruff-lsp
             #pylsp-rope
 
             # This is for styling, hard to conform now drop it

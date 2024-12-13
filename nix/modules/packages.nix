@@ -70,6 +70,7 @@ in
 
     # WMs and stuff
     xdg-desktop-portal-hyprland
+    xdg-desktop-portal-gnome
     wttrbar # Weather
 
     # Sound support
@@ -93,7 +94,7 @@ in
     # inputs.himalaya.packages.${system}.himalaya
     # Instead I will for now use it from home manager hopefully
     # FOr now I am gettin the issue: Unable to parse authentication response, I will wait for stable NIX
-    #himalaya
+    himalaya
 
   ] ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") [
       # Desktop apps for my personal and gaming use

@@ -15,7 +15,17 @@
       html.enable = true;
       jsonls.enable = true;
       nginx-language-server.enable = true;
-      pylsp.enable = true;
+      #pylsp.enable = true;
+      # Pyright DOCS -> https://microsoft.github.io/pyright/#/configuration
+      pyright = {
+          enable = true;
+          settings = {
+            typeCheckingMode = "off";
+            reportAttributeAccessIssue = "none";
+            reportArgumentType = "none";
+          };
+        };
+      ruff-lsp.enable = true;
       yamlls.enable = true;
 
       }
@@ -33,6 +43,7 @@
         # This says it is included https://nix-community.github.io/nixvim/plugins/lsp/servers/robotframework_ls/index.html#robotframework_ls
         # However I can not install it since it is listed as unpackeged on https://github.com/nix-community/nixvim/blob/7d882356a486cf44b7fab842ac26885ecd985af3/plugins/lsp/lsp-packages.nix#L20
         # robotframework_ls.enable = true;
+        #robotcode.enable = true;
 
          });
 
