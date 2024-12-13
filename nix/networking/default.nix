@@ -9,9 +9,12 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Firewall DOCS-> https://nixos.wiki/wiki/Firewall
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    5000
+    465
+    993
+  ];
 }

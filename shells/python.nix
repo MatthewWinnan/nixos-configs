@@ -21,6 +21,7 @@ let
             pylint
             pyflakes
             pylsp-rope
+            ruff-lsp
 
             # This is for styling, hard to conform now drop it
             #pycodestyle
