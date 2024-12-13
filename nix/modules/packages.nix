@@ -106,6 +106,10 @@ in
       # To watch anime
       ani-cli
 
+      # TUI Lowfi player
+      # DOCS -> https://github.com/talwat/lowfi
+      lowfi
+
   ] ++ lib.optionals (config.systemSettings.profile == "personal")[
       # Only for personal use
       arduino-ide
@@ -121,9 +125,11 @@ in
       adafruit-nrfutil
       rpi-imager
 
-      # TUI Lowfi player
-      # DOCS -> https://github.com/talwat/lowfi
-      lowfi
+  ] ++ lib.optionals (config.systemSettings.profile == "gaming")[
+
+      # CLI program and API to automate the installation and update of GloriousEggroll's Proton-GE.
+      # DOCS Check more on mangohub -> https://github.com/flightlessmango/MangoHud
+      mangohud
 
   ] ++ lib.optionals (config.systemSettings.profile == "work")[
 

@@ -120,6 +120,11 @@
       };
         modules = [
           nixos-hardware.nixosModules.lenovo-legion-y530-15ich
+          ./gaming/ba1dr/default.nix
+
+          # For this one just directly import not sure if worth making conditionals in nixos/nix_config.nix
+          ./nix/gaming/default.nix
+
           ./settings/ba1dr/nixos/nix_config.nix
           ./settings/ba1dr/home/default.nix
         ];
