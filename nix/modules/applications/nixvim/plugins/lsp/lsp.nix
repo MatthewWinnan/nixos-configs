@@ -29,7 +29,7 @@
       yamlls.enable = true;
 
       }
-        (lib.mkIf (config.systemSettings.profile == "work") {
+        (if config.systemSettings.profile == "work" then {
         # Additional servers for "work" profile
         dockerls.enable = true;
         docker-compose-language-service = {
@@ -45,7 +45,9 @@
         # robotframework_ls.enable = true;
         #robotcode.enable = true;
 
-         });
+      }
+    # We need to make sure recursiveUpdate gets a valid alternative if not work
+    else {});
 
        keymaps = {
         silent = true;
