@@ -4,7 +4,7 @@ deviceSettings = {
     type = "laptop";
     monitors = [
     {
-      name = "HDMI-A-2";
+      name = "HDMI-A-1";
       width = 1920;
       height = 1080;
       workspace = "1";

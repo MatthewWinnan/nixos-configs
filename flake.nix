@@ -65,9 +65,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Needed for my Legion Y530-15ICH
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
   };
 
-  outputs = { self, alejandra, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, nix-index-database, sops-nix, nix-vscode-extensions, himalaya, ... }@inputs:
+  outputs = { self, alejandra, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, nix-index-database, sops-nix, nix-vscode-extensions, himalaya, nixos-hardware, ... }@inputs:
 
     let
       system = "x86_64-linux";
@@ -106,7 +109,7 @@
         ];
       };
 
-    # ba1dr - Old Lenovo Legion, using it for gaming and development
+    # ba1dr - Old Lenovo Legion (Legion Y530-15ICH), using it for gaming and development
     nixosConfigurations.ba1dr = nixpkgs.lib.nixosSystem {
       specialArgs = {
         pkgs-stable = import nixpkgs-stable {
@@ -116,6 +119,7 @@
         inherit inputs system flakePath;
       };
         modules = [
+          nixos-hardware.nixosModules.lenovo-legion-y530-15ich
           ./settings/ba1dr/nixos/nix_config.nix
           ./settings/ba1dr/home/default.nix
         ];

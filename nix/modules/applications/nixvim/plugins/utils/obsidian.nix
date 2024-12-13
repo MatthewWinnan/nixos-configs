@@ -2,7 +2,7 @@
 { lib, config, ... }:
 {
   programs.nixvim.plugins.obsidian = {
-    enable = true;
+    enable = false;
     settings = {
       completion = {
         min_chars = 2;
