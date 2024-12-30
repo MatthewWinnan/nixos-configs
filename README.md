@@ -58,3 +58,4 @@ the specific monitor ID's for my environment which seems to change at times.
 - The initial Git-Hub setup needs to be done imperatively.
     - I do want to automate this, will probably use SOPS for this, however sops relies on me having some key somewhere at anyrate.
 - Nix gaming will be done mostly imperatively due to the rolling update nature of Steam.
+- Arduino development is still done imperatively for the most part, specifically board selection and libraries.

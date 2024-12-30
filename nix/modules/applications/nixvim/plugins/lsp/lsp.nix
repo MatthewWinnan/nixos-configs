@@ -46,6 +46,9 @@
         #robotcode.enable = true;
 
       }
+      else if config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming" then {
+          # arduino_language_server.enable = true;
+        }
     # We need to make sure recursiveUpdate gets a valid alternative if not work
     else {});
 
@@ -125,6 +128,6 @@ programs.nixvim.extraConfigLua = ''
     require('lspconfig.ui.windows').default_options = {
       border = _border
     }
-  '';
+      '';
 
 }

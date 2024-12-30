@@ -123,7 +123,7 @@ in {
         }
         {
         Title = "None-LS";
-        URL = "https://github.com/nvimtools/none-ls.nvim/blob/main/doc/MAIN.md";
+        URL = "";
         Folder = "nvim";
         }
         {
@@ -145,6 +145,31 @@ in {
           Title = "CapibaraZero";
           URL = "https://capibarazero.github.io/docs/";
           Folder = "personal";
+        }
+        {
+        Title = "Ngram Type";
+        URL = "https://ranelpadon.github.io/ngram-type/";
+        Folder = "Typing Lessons";
+        }
+        {
+        Title = "Monkey Type";
+        URL = "https://monkeytype.com/";
+        Folder = "Typing Lessons";
+        }
+        {
+        Title = "KEYBR";
+        URL = "https://www.keybr.com/";
+        Folder = "Typing Lessons";
+        }
+        {
+        Title = "Typing Club";
+        URL = "https://www.edclub.com/sportal/";
+        Folder = "Typing Lessons";
+        }
+        {
+          Title = "Keyboard Layout Editor";
+          URL = "https://nickcoutsos.github.io/keymap-editor/";
+          Folder = "Ergo Keyboards";
         }
       ];
     };

@@ -68,14 +68,27 @@
     # Needed for my Legion Y530-15ICH
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    # Needed for zephyr development see -> https://github.com/adisbladis/zephyr-nix/tree/master
+    zephyr.url = "github:zephyrproject-rtos/zephyr/v3.5.0";
+    zephyr.flake = false;
+
+    zephyr-nix = {
+      url = "github:adisbladis/zephyr-nix";
+      inputs = {
+          nixpkgs.follows = "nixpkgs";
+          zephyr.follows = "zephyr";
+      };
+    };
   };
 
-  outputs = { self, alejandra, nixpkgs, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, nix-index-database, sops-nix, nix-vscode-extensions, himalaya, nixos-hardware, ... }@inputs:
+  outputs = { self, alejandra, nixpkgs, zephyr-nix, nixpkgs-stable, stylix, home-manager, manga-tui, schizofox, nix-index-database, sops-nix, nix-vscode-extensions, himalaya, nixos-hardware, ... }@inputs:
 
     let
       system = "x86_64-linux";
       flakePath = toString ./.;  # This is the path to the flake's director
       lib = nixpkgs.lib // home-manager.lib;
+      pkgs_pkgs = import nixpkgs { inherit system; };
+      zephyr = zephyr-nix.packages.x86_64-linux;
     in {
       inherit lib;
 
@@ -134,6 +147,12 @@
         pkgs = import nixpkgs {
           system = system;
         };
+        system = system;
+        lib = lib;
+        stdenvNoCC = nixpkgs.legacyPackages.${system}.stdenvNoCC;
+        runCommand = nixpkgs.runCommand;
+        fetchgit = pkgs_pkgs.fetchgit;
+        zephyr = zephyr;
     };
 
     };
