@@ -20,8 +20,16 @@
   # Select internationalisation properties.
   i18n.defaultLocale = config.systemSettings.locale;
 
-  # Enable FLakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes
+  # We need these settings for typical work....
+  nix.settings = {
+
+    # Enable FLakes
+    experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes
+
+    # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
+    sandbox = "relaxed";
+
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

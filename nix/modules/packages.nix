@@ -110,20 +110,20 @@ in
       # DOCS -> https://github.com/talwat/lowfi
       lowfi
 
-  ] ++ lib.optionals (config.systemSettings.profile == "personal")[
-      # Only for personal use
+      # Embedded coding, see arduino-ide too
       arduino-ide
-      openvpn
-      skypeforlinux
+      adafruit-nrfutil
+      rpi-imager
 
       # For 3D printing/designing
       orca-slicer
       kicad
       freecad-wayland
 
-      # Embedded coding, see arduino-ide too
-      adafruit-nrfutil
-      rpi-imager
+  ] ++ lib.optionals (config.systemSettings.profile == "personal")[
+      # Only for personal use
+      openvpn
+      skypeforlinux
 
   ] ++ lib.optionals (config.systemSettings.profile == "gaming")[
 
