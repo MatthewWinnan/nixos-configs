@@ -49,6 +49,8 @@ in
     # https://github.com/darkhz/bluetuith
     bluetuith
     blueman
+    # https://github.com/rvaiya/warpd?tab=readme-ov-file#wayland
+    #warpd
 
     # Cursors
     inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default

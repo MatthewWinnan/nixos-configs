@@ -98,22 +98,23 @@ in
     # export GNUARMEMB_TOOLCHAIN_PATH="${pkgs.gcc-arm-embedded}"
 
     # Clone the ZMK firmware repository if it doesn't already exist
-    if [ ! -d "zmk" ]; then
-      echo "Cloning ZMK repository..."
-      git clone https://github.com/zmkfirmware/zmk.git
+    if [ ! -d "zmk-facehugger" ]; then
+      echo "Cloning Personal ZMK repository..."
+      git clone https://github.com/MatthewWinnan/zmk-facehugger.git
     else
       echo "ZMK repository already exists."
     fi
 
     # Next we want to setup west
-    if [ ! -d "zmk/zephyr" ]; then west init -l zmk/app/ ; cd zmk/; west update; west zephyr-export;
+    if [ ! -d "zmk-facehugger/zephyr" ]; then west init -l zmk-facehugger/app/ ; cd zmk-facehugger/; west update; west zephyr-export;
     else
       echo "WEST is already initialized."
     fi
 
 
     # Setup the needed python packages for zephyr
-    pip install -r $HOME/ZYPHER/zmk/zephyr/scripts/requirements.txt;
+    pip install -r $HOME/ZYPHER/zmk-facehugger/zephyr/scripts/requirements.txt;
+    # Do I even need this?
     #source zephyr/zephyr-env.sh;
     '';
 
