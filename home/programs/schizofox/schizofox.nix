@@ -171,6 +171,11 @@ in {
           URL = "https://nickcoutsos.github.io/keymap-editor/";
           Folder = "Ergo Keyboards";
         }
+        {
+          Title = "Alternate Layout Tester";
+          URL = "https://keyboard-layout-try-out.pages.dev/";
+          Folder = "Typing Lessons";
+        }
       ];
     };
   };

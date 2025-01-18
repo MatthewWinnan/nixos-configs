@@ -144,6 +144,12 @@ in
 
       bind = [
 
+        # For the warpd keybindings see -> https://github.com/rvaiya/warpd?tab=readme-ov-file#wayland
+        # Sucks does not work maybe due to https://www.reddit.com/r/linux/comments/1eaxgy4/hyprland_has_become_independent_dropping_wlroots/
+        #"$mainMod SHIFT, X, exec, ${lib.getExe pkgs.warpd} --hint"
+        #"$mainMod SHIFT, C, exec, ${lib.getExe pkgs.warpd} --normal"
+        #"$mainMod SHIFT, G, exec, ${lib.getExe pkgs.warpd} --grid"
+
         # For the clip board
         "$mainMod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
 
