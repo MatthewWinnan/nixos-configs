@@ -84,7 +84,7 @@ pkgs.mkShell rec {
 
     # Under some circumstances it might be necessary to add your virtual
     # environment to PYTHONPATH, which you can do here too;
-    # PYTHONPATH=$PWD/${venvDir}/${pythonPackages.python.sitePackages}/:$PYTHONPATH
+    PYTHONPATH=$PWD/${venvDir}/${pythonPackages.python.sitePackages}/:$PYTHONPATH
 
     source "${venvDir}/bin/activate"
 
