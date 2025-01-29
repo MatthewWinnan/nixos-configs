@@ -45,8 +45,10 @@ in {
 
         # Conditionally set searxUrl and searxQuery based on the profile
         searxUrl = if config.systemSettings.profile == "work"
-             then "http://taskit-searchxng/searxng"
-             else "https://searxng.site";
+             /* then "http://taskit-searchxng/searxng" */
+           # I switched my taskit inspection service off for now so fetch from standard place
+            then "https://searxng.site"
+            else "https://searxng.site";
 
         searxQuery = "${searxUrl}/search?q={searchTerms}&categories=general";
         addEngines = [
@@ -123,7 +125,7 @@ in {
         }
         {
         Title = "None-LS";
-        URL = "";
+        URL = "https://github.com/nvimtools/none-ls.nvim/blob/main/doc/MAIN.md";
         Folder = "nvim";
         }
         {
@@ -147,34 +149,9 @@ in {
           Folder = "personal";
         }
         {
-        Title = "Ngram Type";
-        URL = "https://ranelpadon.github.io/ngram-type/";
-        Folder = "Typing Lessons";
-        }
-        {
-        Title = "Monkey Type";
-        URL = "https://monkeytype.com/";
-        Folder = "Typing Lessons";
-        }
-        {
-        Title = "KEYBR";
-        URL = "https://www.keybr.com/";
-        Folder = "Typing Lessons";
-        }
-        {
-        Title = "Typing Club";
-        URL = "https://www.edclub.com/sportal/";
-        Folder = "Typing Lessons";
-        }
-        {
-          Title = "Keyboard Layout Editor";
-          URL = "https://nickcoutsos.github.io/keymap-editor/";
-          Folder = "Ergo Keyboards";
-        }
-        {
-          Title = "Alternate Layout Tester";
-          URL = "https://keyboard-layout-try-out.pages.dev/";
-          Folder = "Typing Lessons";
+          Title = "Falcon";
+          URL = "https://falcon-sign.info/";
+          Folder = "Post-Quantum-Crypto";
         }
       ];
     };
