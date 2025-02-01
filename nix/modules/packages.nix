@@ -26,7 +26,10 @@ in
     gnumake
     gcc
     python
-    (python3.withPackages (ps: with ps; [ requests pyserial]))
+    (python3.withPackages (ps: with ps; [
+      requests
+      pyserial
+    ]))
 
     # Default CLI tools for everyone
     wget
@@ -83,6 +86,9 @@ in
 
     # Screenshotting
     grimblast
+
+    # To watch general content
+    mov-cli
 
     # Looks good not sure how it works, I baically made equivelant
     # flameshot

@@ -5,5 +5,6 @@
   taskit = import ./taskit_dev.nix {inherit pkgs;};
   arduino = import ./arduino.nix {inherit pkgs;};
   keymap_editor = import ./keymap_editor.nix {inherit pkgs;};
-  zypher = import ./zypher/default.nix {inherit pkgs system lib stdenvNoCC runCommand fetchgit zephyr;};
+  zephyr = import ./zephyr/default.nix {inherit pkgs system lib stdenvNoCC runCommand fetchgit zephyr;};
+  zmk = import ./zephyr/zmk.nix {inherit pkgs system lib stdenvNoCC runCommand fetchgit zephyr;};
 }
