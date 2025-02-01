@@ -1,7 +1,7 @@
 # Good DOCS for zmk setup can be found here
 # https://zmk.dev/docs/development/local-toolchain/setup/native
-# We also need to install zypher according to this
-# https://docs.zephyrproject.org/3.5.0/develop/getting_started/index.html
+# Most of the Zypher things will be installed by the package zephyr
+# The the typical use case for the shell is to just be able to compile one of my ZMK boards
 
 {pkgs, system, lib, stdenvNoCC, runCommand, fetchgit, zephyr, ... }:
 let
@@ -29,8 +29,6 @@ let
   # worth checking how they patch it, feels like I am close??
   #zephyr_sdk = import ./zephyr-sdk.nix { inherit pkgs; }
 
-  # Add the source for Zephyr
-  zephyr_source = import ./zypher.nix { inherit lib stdenvNoCC runCommand fetchgit; };
 in
   stdenv.mkDerivation rec {
 
@@ -66,16 +64,14 @@ in
       pkgs.gcc-arm-embedded
 
       # Zephyr toolchains
-      zephyr_source
-
-    (zephyr.sdk.override {
+      (zephyr.sdk.override {
       targets = [
         "arm-zephyr-eabi"
       ];
-    })
-    zephyr.pythonEnv
-    # Use zephyr.hosttools-nix to use nixpkgs built tooling instead of official Zephyr binaries
-    zephyr.hosttools
+      })
+      zephyr.pythonEnv
+      # Use zephyr.hosttools-nix to use nixpkgs built tooling instead of official Zephyr binaries
+      zephyr.hosttools
     ];
 
     shellHook = ''
@@ -92,25 +88,6 @@ in
     fi
 
     source "${venvDir}/bin/activate"
-
-    # Setup env variables
-    # export ZEPHYR_TOOLCHAIN_VARIANT="gnuarmemb"
-    # export GNUARMEMB_TOOLCHAIN_PATH="${pkgs.gcc-arm-embedded}"
-
-    # Clone the ZMK firmware repository if it doesn't already exist
-    if [ ! -d "zmk-facehugger" ]; then
-      echo "Cloning Personal ZMK repository..."
-      git clone https://github.com/MatthewWinnan/zmk-facehugger.git
-    else
-      echo "ZMK repository already exists."
-    fi
-
-    # Next we want to setup west
-    if [ ! -d "zmk-facehugger/zephyr" ]; then west init -l zmk-facehugger/app/ ; cd zmk-facehugger/; west update; west zephyr-export;
-    else
-      echo "WEST is already initialized."
-    fi
-
 
     # Setup the needed python packages for zephyr
     pip install -r $HOME/ZYPHER/zmk-facehugger/zephyr/scripts/requirements.txt;
