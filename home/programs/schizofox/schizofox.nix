@@ -70,8 +70,8 @@ in {
       };
 
       security = {
-        sanitizeOnShutdown = false;
-        sandbox = true;
+        #sanitizeOnShutdown = false;
+        #sandbox = true;
         noSessionRestore = false;
         userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0";
       };
@@ -94,7 +94,6 @@ in {
           "2.0@disconnect.me".install_url = "https://addons.mozilla.org/firefox/downloads/latest/disconnect/latest.xpi";
           # "extension@one-tab.com".install_url = "https://addons.mozilla.org/firefox/downloads/latest/onetab/latest.xpi";
           "browser-extension@anonaddy".install_url = "https://addons.mozilla.org/firefox/downloads/latest/addy_io/latest.xpi";
-          #  "vimium-c@gdh1995.cn".install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-c/latest.xpi";
           "{1018e4d6-728f-4b20-ad56-37578a4de76b}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/flagfox/latest.xpi";
           "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/auto-tab-discard/latest.xpi";
           "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/refined-github-/latest.xpi";
@@ -136,6 +135,11 @@ in {
         {
           Title = "NixOptions";
           URL = "https://mynixos.com/";
+          Folder = "utils";
+        }
+        {
+          Title = "Nix Manual";
+          URL = "https://nix.dev/manual/nix/2.24/introduction";
           Folder = "utils";
         }
         {

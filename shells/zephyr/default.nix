@@ -25,7 +25,7 @@ let
 
   # We need to add the sdk elements
   # I tried paching it myself, I need a way to pathch the ELF so I can use it withint nixos,
-  # instead I am using the solution in https://github.com/adisbladis/zephyr-nix/tree/master, 
+  # instead I am using the solution in https://github.com/adisbladis/zephyr-nix/tree/master,
   # worth checking how they patch it, feels like I am close??
   #zephyr_sdk = import ./zephyr-sdk.nix { inherit pkgs; }
 
@@ -105,17 +105,29 @@ in
       echo "ZMK repository already exists."
     fi
 
+    cd zmk-facehugger/;
+
     # Next we want to setup west
-    if [ ! -d "zmk-facehugger/zephyr" ]; then west init -l zmk-facehugger/app/ ; cd zmk-facehugger/; west update; west zephyr-export;
+    if [ ! -d ".west" ]; then
+      west init -l app/;
     else
       echo "WEST is already initialized."
     fi
 
+    # Some west functions that need to always be written
+    west update;
+    west zephyr-export;
+    west config build.cmake-args -- "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
 
     # Setup the needed python packages for zephyr
-    pip install -r $HOME/ZYPHER/zmk-facehugger/zephyr/scripts/requirements.txt;
-    # Do I even need this?
-    #source zephyr/zephyr-env.sh;
+    pip install -r zephyr/scripts/requirements.txt;
+
+    # Now if the build does exist we can symlink the compile_commands
+    if [ -d "build" ]; then
+      ln -s build/compile_commands.json .;
+    else
+      echo "There has been no builds yet, as such can not symlink compile_commands";
+    fi
     '';
 
   postVenvCreation = ''

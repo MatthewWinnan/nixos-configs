@@ -2,11 +2,16 @@
 {
   programs.nixvim.plugins.noice = {
     enable = true;
+    settings = {
+    messages = {
+      enabled = true; # Adds a padding-bottom to neovim statusline when set to false for some reason
+    };
     notify = {
       enabled = false;
     };
-    messages = {
-      enabled = true; # Adds a padding-bottom to neovim statusline when set to false for some reason
+    popupmenu = {
+      enabled = true;
+      backend = "nui";
     };
     lsp = {
       message = {
@@ -16,10 +21,6 @@
         enabled = true;
         view = "mini";
       };
-    };
-    popupmenu = {
-      enabled = true;
-      backend = "nui";
     };
     format = {
       filter = {
@@ -46,6 +47,7 @@
         icon = "󱞪";
         lang = "regex";
       };
+    };
     };
   };
 

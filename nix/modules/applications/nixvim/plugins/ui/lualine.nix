@@ -2,7 +2,9 @@
   programs.nixvim.plugins.lualine = {
 
     enable = false;
-    globalstatus = true;
+
+    settings = {
+      globalstatus = true;
 
     # +-------------------------------------------------+
     # | A | B | C                             X | Y | Z |
@@ -42,6 +44,7 @@
         "fileformat"
         "filetype"
       ];
+      };
     };
   };
 }

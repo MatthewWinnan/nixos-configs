@@ -1,4 +1,6 @@
 # DOCS -> https://github.com/AckslD/muren.nvim/
+# I am getting the following errors
+# E5108: Error executing lua ...5w3yzp6bxhw73dp5cc-vimplugin-muren-main/lua/muren/ui.lua:3: module 'plenary.path' not found:
 
 {pkgs, ...}:
 {

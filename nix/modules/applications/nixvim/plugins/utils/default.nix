@@ -17,8 +17,8 @@
     ./floaterm.nix
     ./multicursors.nix
     ./neoclip.nix
-    ./markview.nix
+    #./markview.nix
     ./obsidian.nix
-    ./muren.nix
+    #./muren.nix
   ];
 }

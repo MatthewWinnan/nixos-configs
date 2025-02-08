@@ -8,7 +8,7 @@ fonts.packages = with pkgs; [
     font-awesome
     powerline-fonts
     powerline-symbols
-    nerdfonts
+    nerd-fonts._0xproto
     #(nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
   ];
 

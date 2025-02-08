@@ -7,4 +7,5 @@
   keymap_editor = import ./keymap_editor.nix {inherit pkgs;};
   zephyr = import ./zephyr/default.nix {inherit pkgs system lib stdenvNoCC runCommand fetchgit zephyr;};
   zmk = import ./zephyr/zmk.nix {inherit pkgs system lib stdenvNoCC runCommand fetchgit zephyr;};
+  zmk_kyria = import ./zephyr/zmk_kyria.nix {inherit pkgs system lib stdenvNoCC runCommand fetchgit zephyr;};
 }
