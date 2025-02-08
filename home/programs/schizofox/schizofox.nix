@@ -70,8 +70,8 @@ in {
       };
 
       security = {
-        sanitizeOnShutdown = false;
-        sandbox = true;
+        # sanitizeOnShutdown = false;
+        # sandbox = true;
         noSessionRestore = false;
         userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0";
       };
@@ -142,6 +142,11 @@ in {
           Title = "NixVim";
           URL = "https://nix-community.github.io/nixvim/user-guide/install.html";
           Folder = "nvim";
+        }
+        {
+          Title = "Nix Manual";
+          URL = "https://nix.dev/manual/nix/2.24/introduction";
+          Folder = "utils";
         }
         {
           Title = "CapibaraZero";

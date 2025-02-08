@@ -1,5 +1,5 @@
-{flakePath, config, ...}:{
-  programs.hyprlock = {
+{flakePath, config, lib, ...}:{
+  programs.hyprlock = lib.mkForce {
     enable = true;
     settings = {
       general = {

@@ -4,8 +4,8 @@
   stylix = {
     enable = true;
     targets = {
-      gtk.enable = true;
-      gnome.enable = true;
+      gtk.enable = false;
+      gnome.enable = false;
     };
     image = config.images.stylix_wallpaper;
     polarity = "dark";

@@ -109,7 +109,7 @@ in
       discord
 
       # To read manga
-      inputs.manga-tui.packages.${system}.manga-tui
+      #inputs.manga-tui.packages.${system}.manga-tui
 
       # To watch anime
       ani-cli

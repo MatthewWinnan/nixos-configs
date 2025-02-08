@@ -1,10 +1,10 @@
-{
-  description = "My system configuration";
+{ description = "My system configuration";
 
   inputs = {
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -21,12 +21,26 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    swww.url = "github:LGFae/swww";
-    himalaya.url = "github:pimalaya/himalaya";
-    rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
+    swww = {
+      url = "github:LGFae/swww";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    himalaya = {
+      url = "github:pimalaya/himalaya";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    rose-pine-hyprcursor = {
+      url = "github:ndom91/rose-pine-hyprcursor";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Browse manga
-    manga-tui.url = "github:josueBarretogit/manga-tui";
+    manga-tui = {
+      url = "github:josueBarretogit/manga-tui";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Schizophrenic Firefox configuration
     schizofox = {
@@ -66,11 +80,15 @@
     };
 
     # Needed for my Legion Y530-15ICH
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+    };
 
     # Needed for zephyr development see -> https://github.com/adisbladis/zephyr-nix/tree/master
-    zephyr.url = "github:zephyrproject-rtos/zephyr/v3.5.0";
-    zephyr.flake = false;
+    zephyr = {
+      url = "github:zephyrproject-rtos/zephyr/v3.5.0";
+      flake = false;
+    };
 
     zephyr-nix = {
       url = "github:adisbladis/zephyr-nix";
@@ -125,7 +143,7 @@
     # ba1dr - Old Lenovo Legion (Legion Y530-15ICH), using it for gaming and development
     nixosConfigurations.ba1dr = nixpkgs.lib.nixosSystem {
       specialArgs = {
-        pkgs-stable = import nixpkgs-stable {
+        pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         };
