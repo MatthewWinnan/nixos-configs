@@ -11,11 +11,13 @@
       enable = true;
       servers = lib.recursiveUpdate {
       # We use the updated version
-      nil-ls.enable = true;
+      nil_ls.enable = true;
       html.enable = true;
       jsonls.enable = true;
-      nginx-language-server.enable = true;
+      nginx_language_server.enable = true;
+
       #pylsp.enable = true;
+
       # Pyright DOCS -> https://microsoft.github.io/pyright/#/configuration
       pyright = {
           enable = true;
@@ -25,8 +27,15 @@
             reportArgumentType = "none";
           };
         };
-      ruff-lsp.enable = true;
+
+      ruff_lsp.enable = true;
+
       yamlls.enable = true;
+
+      # Rember the docs here, important to get running correctly, the compile commands will be handled by my dev shells
+      # https://nix-community.github.io/nixvim/plugins/lsp/servers/clangd/index.html#clangd
+      clangd.enable = true;
+      cmake.enable = true;
 
       }
         (if config.systemSettings.profile == "work" then {

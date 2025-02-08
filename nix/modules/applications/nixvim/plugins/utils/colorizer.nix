@@ -1,6 +1,6 @@
 # https://github.com/norcalli/nvim-colorizer.lua
 {
-  programs.nixvim.plugins.nvim-colorizer = {
+  programs.nixvim.plugins.colorizer = {
     enable = true;
   };
 }

@@ -127,6 +127,7 @@ in
       orca-slicer
       kicad
       freecad-wayland
+      openscad-unstable
 
   ] ++ lib.optionals (config.systemSettings.profile == "personal")[
       # Only for personal use

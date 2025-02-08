@@ -64,13 +64,14 @@ in
       ];
       })
       zephyr.pythonEnv
+
       # Use zephyr.hosttools-nix to use nixpkgs built tooling instead of official Zephyr binaries
       zephyr.hosttools
     ];
 
     shellHook = ''
 
-    echo "ZMK development environment"
+    echo "KYRIA Rev3 Development Environment"
 
     if [ -d "${venvDir}" ]; then
         echo "Skipping venv creation, '${venvDir}' already exists"
@@ -83,9 +84,44 @@ in
 
     source "${venvDir}/bin/activate"
 
+    # Clone the Kyria Config repository if it doesn't already exist
+    if [ ! -d "kyria_zmk_config" ]; then
+      echo "Cloning Personal Kyria repository..."
+      git clone https://github.com/MatthewWinnan/kyria_zmk_config.git
+    else
+      echo "Kyria repository already exists."
+    fi
+
+    # Move into the directory
+    cd kyria_zmk_config/
+
+    # We need to establish if this is the first time west has been used, thus has it been initialized
+    if [ -d ".west" ]; then
+      echo "West has been initialized.";
+    else
+      echo "West has not been initialized. Initializing";
+      west init -l config/;
+    fi
+
+    # We always need to update
+    west update;
+
     # Setup the needed python packages for zephyr
-    # This one does not assume you pull a zephyr repo, so you need to point it to a valid requirement path later
-    #pip install -r zephyr/scripts/requirements.txt;
+    pip install -r kyria_zmk_config/zephyr/scripts/requirements.txt;
+
+    # Export runtime variables
+    west zephyr-export;
+
+    # Configure the cmake exports, we can use west config -l to see if this is done, but complex bash is annoying
+    west config build.cmake-args -- "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DZMK_CONFIG=/home/matthew/KYRIA_CONF/kyria_zmk_config/config"
+
+    # Now if the build does exist we can symlink the compile_commands
+    if [ ! -d "build" ]; then
+      ln -s build/compile_commands.json .;
+    else
+      echo "There has been no builds yet, as such can not symlink compile_commands";
+    fi
+
     '';
 
   postVenvCreation = ''
