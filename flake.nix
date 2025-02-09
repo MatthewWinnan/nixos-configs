@@ -8,7 +8,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
     # I generally keep with the unstable when possible
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -79,7 +79,8 @@
     zephyr-nix = {
       url = "github:adisbladis/zephyr-nix";
       inputs = {
-          nixpkgs.follows = "nixpkgs";
+          # Need to pint it to nixpkgs stable since this is the last point in time it worked...
+          nixpkgs.follows = "nixpkgs-stable";
           zephyr.follows = "zephyr";
       };
     };
@@ -92,7 +93,12 @@
       flakePath = toString ./.;  # This is the path to the flake's director
       lib = nixpkgs.lib // home-manager.lib;
       pkgs_pkgs = import nixpkgs { inherit system; };
+
+      # For zephyr tooling
+      # We keep an old copy of a working nix pkgs, zephyr does not seem to like newer
+      pkgs_stable = import nixpkgs-stable { inherit system;};
       zephyr = zephyr-nix.packages.x86_64-linux;
+
     in {
       inherit lib;
 
@@ -151,6 +157,7 @@
         pkgs = import nixpkgs {
           system = system;
         };
+        pkgs_stable = pkgs_stable;
         system = system;
         lib = lib;
         stdenvNoCC = nixpkgs.legacyPackages.${system}.stdenvNoCC;

@@ -8,8 +8,14 @@ fonts.packages = with pkgs; [
     font-awesome
     powerline-fonts
     powerline-symbols
+
+    # From the following change we need to refer to it per package
+    # https://github.com/NixOS/nixpkgs/pull/354543
+    # For the list of packages
+    # https://mynixos.com/nixpkgs/packages/nerd-fonts
     nerd-fonts._0xproto
-    #(nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.hack
   ];
 
 }

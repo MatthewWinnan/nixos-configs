@@ -17,8 +17,13 @@
     ./floaterm.nix
     ./multicursors.nix
     ./neoclip.nix
-    #./markview.nix
+    ./web-devicons.nix
+    ./markview.nix
     ./obsidian.nix
+
+    # Does not build due to package manager mismatch
+    #./plenary.nix
+    # Does not build due to not being able to find plenary
     #./muren.nix
   ];
 }

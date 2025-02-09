@@ -3,6 +3,6 @@
 {pkgs, ...}:
 {
   programs.nixvim.plugins.helpview = {
-    enable = true;
+    enable = false;
   };
 }

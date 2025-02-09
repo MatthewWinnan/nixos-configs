@@ -28,7 +28,7 @@
           };
         };
 
-      ruff_lsp.enable = true;
+      ruff.enable = true;
 
       yamlls.enable = true;
 

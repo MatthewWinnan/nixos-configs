@@ -2,6 +2,6 @@
 # https://github.com/numToStr/Comment.nvim
 {
   programs.nixvim.plugins.comment = {
-    enable = true; 
+    enable = true;
   };
 }
