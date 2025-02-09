@@ -73,14 +73,14 @@ in
       decoration = {
         rounding = 1;
 
-        "col.shadow" = "rgba(1E202966)";
-
+        # Does not exist since Hyprland 0.47.2 built from branch v0.47.2-b at commit 882f7ad7d2bbfc7440d0ccaef93b1cdd78e8e3ff
         #suggested shadow setting
-        drop_shadow = true;
-        shadow_range = 60;
-        shadow_offset = "1 2";
-        shadow_render_power = 3;
-        shadow_scale = 0.97;
+        # drop_shadow = true;
+        #"col.shadow" = "rgba(1E202966)";
+        # shadow_offset = "1 2";
+        # shadow_range = 60;
+        # shadow_render_power = 3;
+        # shadow_scale = 0.97;
 
         blur = {
           enabled = true;

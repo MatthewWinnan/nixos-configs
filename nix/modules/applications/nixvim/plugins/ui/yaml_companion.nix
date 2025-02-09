@@ -1,9 +1,12 @@
 # DOCS -> https://github.com/someone-stole-my-name/yaml-companion.nvim
 # Not working due to E5108: Error executing lua ...lugin-yaml-companion-0.1.3/lua/yaml-companion/config.lua:4: module 'lspconfig.util' not found: 
 
+
+
 { pkgs, ... }:
 {
-  programs.nixvim.extraPlugins = with pkgs.vimUtils; [
+  programs.nixvim = {
+  extraPlugins = with pkgs.vimUtils; [
     (buildVimPlugin {
       pname = "yaml-companion";
       version = "0.1.3";
@@ -15,6 +18,9 @@
       };
     })
   ];
+
+  extraPackages = [pkgs.vimPlugins.nvim-lspconfig];
+  };
 
   programs.nixvim.extraConfigLua = ''
     require("telescope").load_extension("yaml_schema")

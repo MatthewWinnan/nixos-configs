@@ -8,7 +8,10 @@
     ./noice.nix
     ./nvim-notify.nix
     ./yazi.nix
+
+    # Something must have changed can't even fing lspconfig
     #./yaml_companion.nix
+
     ./image.nix
     ./auto-session.nix
     ./lualine.nix
@@ -16,8 +19,7 @@
     ./navic.nix
     ./navbuddy.nix
     ./marks.nix
-    ./web-devicons.nix
     ./vimade.nix
-    #./helpview.nix
+    ./helpview.nix
   ];
 }

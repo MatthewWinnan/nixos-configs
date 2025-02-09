@@ -3,8 +3,9 @@
 # Most of the Zypher things will be installed by the package zephyr
 # The the typical use case for the shell is to just be able to compile one of my ZMK boards
 
-{pkgs, system, lib, stdenvNoCC, runCommand, fetchgit, zephyr, ... }:
+{system, lib, stdenvNoCC, runCommand, fetchgit, zephyr, pkgs_stable, ... }:
 let
+  pkgs = pkgs_stable;
   pythonPackages = pkgs.python312Packages;
   pyPkgs = pythonPackages: with pythonPackages; [
       pip
@@ -49,12 +50,14 @@ in
       pkgs.gcc
       pkgs.glibc
       pkgs.zlib
-      pkgs.libstdcxx5
       pkgs.libtool
       pkgs.xz
       pkgs.jq
 
+      pkgs.libstdcxx5
+
       # ARM toolchain
+      # More as a fall back, I've seen people use it
       pkgs.gcc-arm-embedded
 
       # Zephyr toolchains

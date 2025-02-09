@@ -88,7 +88,8 @@ in
     grimblast
 
     # To watch general content
-    mov-cli
+    # Getting build issues with 25.05
+    #mov-cli
 
     # Looks good not sure how it works, I baically made equivelant
     # flameshot
