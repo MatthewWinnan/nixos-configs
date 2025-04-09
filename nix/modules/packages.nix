@@ -37,6 +37,7 @@ in
     openssl
     nix-output-monitor
     nvd
+    just
     wf-recorder # Else we do not have access to it on CLI
     mpv # To view the recordings
 
@@ -60,6 +61,7 @@ in
 
     # Wallpaper
     waypaper
+    hyprpaper
     inputs.swww.packages.${system}.swww
 
     # Wayland stuff
@@ -129,6 +131,9 @@ in
       kicad
       freecad-wayland
       openscad-unstable
+
+      # For the logic analyzer
+      pulseview
 
   ] ++ lib.optionals (config.systemSettings.profile == "personal")[
       # Only for personal use
