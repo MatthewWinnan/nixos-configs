@@ -1,7 +1,6 @@
 # vimade is not out on nixvim
 # DOCS -> https://github.com/TaDaa/vimade
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nixvim.extraPlugins = with pkgs.vimUtils; [
     (buildVimPlugin {
       pname = "vimade.nvim";
@@ -9,7 +8,7 @@
       src = pkgs.fetchFromGitHub {
         owner = "TaDaa";
         repo = "vimade";
-        rev = "cde9665d44225d9eb40007780211d1bb9dc2f19f";  # Use the branch name, or you can specify a specific commit hash
+        rev = "cde9665d44225d9eb40007780211d1bb9dc2f19f"; # Use the branch name, or you can specify a specific commit hash
         hash = "sha256-wEDZGwsfO/jYObTulUNeVHxd0mgGinKpBsAEz7jjmrA=";
       };
     })
@@ -32,5 +31,4 @@
       };
     }
   ];
-
 }

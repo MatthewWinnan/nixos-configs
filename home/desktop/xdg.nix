@@ -65,7 +65,6 @@ in {
       music = "${config.home.homeDirectory}/Media/Music";
       pictures = "${config.home.homeDirectory}/Media/Pictures";
       videos = "${config.home.homeDirectory}/Media/Videos";
-
     };
 
     mimeApps = {

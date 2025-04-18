@@ -74,35 +74,35 @@
                 ];
                 content = {
                   type = "btrfs";
-                  extraArgs = [ "-f" ]; # Force override existing partition
+                  extraArgs = ["-f"]; # Force override existing partition
                   subvolumes = {
                     "root" = {
                       mountpoint = "/";
-                      mountOptions = [ "compress=zstd" "noatime" ];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                     "home" = {
                       mountpoint = "/home";
-                      mountOptions = [ "compress=zstd" "noatime" ];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                     "nix" = {
                       mountpoint = "/nix";
-                      mountOptions = [ "compress=zstd" "noatime" ];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                     "persist" = {
                       mountpoint = "/persist";
-                      mountOptions = [ "compress=zstd" "noatime" ];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                     "snapshots" = {
                       mountpoint = "/snapshots";
-                      mountOptions = [ "compress=zstd" "noatime" ];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                     "log" = {
                       mountpoint = "/var/log";
-                      mountOptions = [ "compress=zstd" "noatime" ];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                     "tmp" = {
                       mountpoint = "/tmp";
-                      mountOptions = [ "compress=zstd" "noatime" ];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                   };
                 };

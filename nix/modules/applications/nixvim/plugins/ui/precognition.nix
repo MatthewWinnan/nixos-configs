@@ -1,6 +1,5 @@
 # https://github.com/tris203/precognition.nvim
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nixvim.extraPlugins = with pkgs.vimUtils; [
     (buildVimPlugin {
       pname = "precognition.nvim";
@@ -17,5 +16,3 @@
     require('precognition').setup({ })
   '';
 }
-
-

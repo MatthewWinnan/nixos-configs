@@ -1,7 +1,7 @@
 {
-lib,
-pkgs,
-config,
+  lib,
+  pkgs,
+  config,
   ...
 }: let
   inherit (config.lib.stylix) colors;

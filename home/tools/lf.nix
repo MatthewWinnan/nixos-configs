@@ -1,6 +1,9 @@
-{ pkgs, config, lib, ... }:
-
-let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
   # Fetch the icons file using fetchurl
   iconsFile = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/gokcehan/lf/master/etc/icons.example";
@@ -28,7 +31,6 @@ let
   cleaner = pkgs.writeShellScriptBin "clean.sh" ''
     ${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
   '';
-
 in {
   xdg.configFile."lf/icons".source = iconsFile;
 
@@ -39,11 +41,11 @@ in {
       editor-open = ''$$EDITOR $f'';
       zathura-open = ''${pkgs.zathura}/bin/zathura $f'';
       mkdir = ''
-      ''${{
-        printf "Directory Name: "
-        read DIR
-        mkdir $DIR
-      }}
+        ''${{
+          printf "Directory Name: "
+          read DIR
+          mkdir $DIR
+        }}
       '';
     };
 

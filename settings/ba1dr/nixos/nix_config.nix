@@ -1,5 +1,10 @@
-{config, pkgs, inputs, flakePath, ...}:{
-
+{
+  config,
+  pkgs,
+  inputs,
+  flakePath,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../../nix/default.nix
@@ -10,5 +15,4 @@
     ../config.nix
     ../../../themes/image_store/ba1dr.nix
   ];
-
 }

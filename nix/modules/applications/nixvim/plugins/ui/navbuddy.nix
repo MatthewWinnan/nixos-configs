@@ -1,11 +1,10 @@
 # DOCS -> https://github.com/SmiteshP/nvim-navbuddy
-
 {
   programs.nixvim.plugins.navbuddy = {
     enable = true;
     lsp = {
-        autoAttach = true;
-        preference = [];
+      autoAttach = true;
+      preference = [];
     };
   };
 

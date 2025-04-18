@@ -1,9 +1,7 @@
 # This is done so I can at least do some edits in nvim for my Arduino projects.
 # This will setup the needed tools to get arduino-lsp up and running
 # DOCS arduino-lsp -> https://nix-community.github.io/nixvim/plugins/lsp/servers/arduino_language_server/index.html
-
-{ pkgs, ... }:
-
+{pkgs, ...}:
 pkgs.mkShell rec {
   buildInputs = [
     pkgs.arduino-cli

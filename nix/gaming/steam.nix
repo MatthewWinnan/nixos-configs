@@ -1,6 +1,9 @@
 # DOCS -> https://mynixos.com/nixpkgs/options/programs.steam
-{pkgs, config, ...}:
 {
+  pkgs,
+  config,
+  ...
+}: {
   programs.steam = {
     # Obviously only enable if this is a gaming machine
     enable = config.systemSettings.profile == "gaming";
@@ -12,6 +15,5 @@
     remotePlay.openFirewall = false;
 
     gamescopeSession.enable = config.systemSettings.profile == "gaming";
-
   };
 }

@@ -2,31 +2,40 @@
 # https://zmk.dev/docs/development/local-toolchain/setup/native
 # Most of the Zypher things will be installed by the package zephyr
 # The the typical use case for the shell is to just be able to compile one of my ZMK boards
-
-{system, lib, stdenvNoCC, runCommand, fetchgit, zephyr, pkgs_stable, ... }:
-let
+{
+  system,
+  lib,
+  stdenvNoCC,
+  runCommand,
+  fetchgit,
+  zephyr,
+  pkgs_stable,
+  ...
+}: let
   pkgs = pkgs_stable;
   pythonPackages = pkgs.python312Packages;
-  pyPkgs = pythonPackages: with pythonPackages; [
+  pyPkgs = pythonPackages:
+    with pythonPackages; [
       pip
       venvShellHook
       ipython
       setuptools
       west
       pyelftools
-    pyyaml
-    packaging
-    progress
-    anytree
-    intelhex
-  ];
+      pyyaml
+      packaging
+      progress
+      anytree
+      intelhex
+    ];
 
   # We need 32-bit support
-  stdenv = if pkgs.stdenv.hostPlatform.isLinux then pkgs.multiStdenv else pkgs.stdenv;
-
+  stdenv =
+    if pkgs.stdenv.hostPlatform.isLinux
+    then pkgs.multiStdenv
+    else pkgs.stdenv;
 in
   stdenv.mkDerivation rec {
-
     name = "zmk-shell";
 
     venvDir = "./.zephyr_venv";
@@ -62,9 +71,9 @@ in
 
       # Zephyr toolchains
       (zephyr.sdk.override {
-      targets = [
-        "arm-zephyr-eabi"
-      ];
+        targets = [
+          "arm-zephyr-eabi"
+        ];
       })
       zephyr.pythonEnv
 
@@ -74,67 +83,66 @@ in
 
     shellHook = ''
 
-    echo "KYRIA Rev3 Development Environment"
+      echo "KYRIA Rev3 Development Environment"
 
-    if [ -d "${venvDir}" ]; then
-        echo "Skipping venv creation, '${venvDir}' already exists"
-    else
-        echo "Creating new venv environment in path: '${venvDir}'"
-        # Note that the module venv was only introduced in python 3, so for 2.7
-        # this needs to be replaced with a call to virtualenv
-        ${pythonPackages.python.interpreter} -m venv "${venvDir}"
-    fi
+      if [ -d "${venvDir}" ]; then
+          echo "Skipping venv creation, '${venvDir}' already exists"
+      else
+          echo "Creating new venv environment in path: '${venvDir}'"
+          # Note that the module venv was only introduced in python 3, so for 2.7
+          # this needs to be replaced with a call to virtualenv
+          ${pythonPackages.python.interpreter} -m venv "${venvDir}"
+      fi
 
-    source "${venvDir}/bin/activate"
+      source "${venvDir}/bin/activate"
 
-    # Clone the Kyria Config repository if it doesn't already exist
-    if [ ! -d "kyria_zmk_config" ]; then
-      echo "Cloning Personal Kyria repository..."
-      git clone https://github.com/MatthewWinnan/kyria_zmk_config.git
-    else
-      echo "Kyria repository already exists."
-    fi
+      # Clone the Kyria Config repository if it doesn't already exist
+      if [ ! -d "kyria_zmk_config" ]; then
+        echo "Cloning Personal Kyria repository..."
+        git clone https://github.com/MatthewWinnan/kyria_zmk_config.git
+      else
+        echo "Kyria repository already exists."
+      fi
 
-    # Move into the directory
-    cd kyria_zmk_config/
+      # Move into the directory
+      cd kyria_zmk_config/
 
-    # We need to establish if this is the first time west has been used, thus has it been initialized
-    if [ -d ".west" ]; then
-      echo "West has been initialized.";
-    else
-      echo "West has not been initialized. Initializing";
-      west init -l config/;
-    fi
+      # We need to establish if this is the first time west has been used, thus has it been initialized
+      if [ -d ".west" ]; then
+        echo "West has been initialized.";
+      else
+        echo "West has not been initialized. Initializing";
+        west init -l config/;
+      fi
 
-    # We always need to update
-    west update;
+      # We always need to update
+      west update;
 
-    # Setup the needed python packages for zephyr
-    pip install -r kyria_zmk_config/zephyr/scripts/requirements.txt;
+      # Setup the needed python packages for zephyr
+      pip install -r kyria_zmk_config/zephyr/scripts/requirements.txt;
 
-    # Export runtime variables
-    west zephyr-export;
+      # Export runtime variables
+      west zephyr-export;
 
-    # Configure the cmake exports, we can use west config -l to see if this is done, but complex bash is annoying
-    west config build.cmake-args -- "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DZMK_CONFIG=/home/matthew/KYRIA_CONF/kyria_zmk_config/config"
+      # Configure the cmake exports, we can use west config -l to see if this is done, but complex bash is annoying
+      west config build.cmake-args -- "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DZMK_CONFIG=/home/matthew/KYRIA_CONF/kyria_zmk_config/config"
 
-    # Now if the build does exist we can symlink the compile_commands
-    if [ ! -d "build" ]; then
-      ln -s build/compile_commands.json .;
-    else
-      echo "There has been no builds yet, as such can not symlink compile_commands";
-    fi
+      # Now if the build does exist we can symlink the compile_commands
+      if [ ! -d "build" ]; then
+        ln -s build/compile_commands.json .;
+      else
+        echo "There has been no builds yet, as such can not symlink compile_commands";
+      fi
 
     '';
 
-  postVenvCreation = ''
+    postVenvCreation = ''
       unset SOURCE_DATE_EPOCH
       pip install -r requirements.txt
-      '';
+    '';
 
-  postShellHook = ''
+    postShellHook = ''
       # Allow pip ro install wheels
       unset SOURCE_DATE_EPOCH
     '';
-
   }

@@ -2,33 +2,33 @@
   programs.nixvim = {
     autoCmd = [
       {
-        event = [ "VimEnter" ];
+        event = ["VimEnter"];
         command = ":TransparentEnable";
       }
 
       # Vertically center document when entering insert mode
       {
-      event = "InsertEnter";
-      command = "norm zz";
+        event = "InsertEnter";
+        command = "norm zz";
       }
 
       # Open help in a vertical split
-    {
-      event = "FileType";
-      pattern = "help";
-      command = "wincmd L";
+      {
+        event = "FileType";
+        pattern = "help";
+        command = "wincmd L";
       }
 
       # Enable spellcheck for some filetypes
-    {
-      event = "FileType";
-      pattern = [
-        "tex"
-        "latex"
-        "markdown"
-      ];
-      command = "setlocal spell spelllang=en";
-    }
+      {
+        event = "FileType";
+        pattern = [
+          "tex"
+          "latex"
+          "markdown"
+        ];
+        command = "setlocal spell spelllang=en";
+      }
     ];
   };
 }

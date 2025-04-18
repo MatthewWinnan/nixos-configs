@@ -1,7 +1,6 @@
 # NixOptions DOCS -> https://mynixos.com/home-manager/options/programs.bash
 # TODO:
 # - Still need to add my aliases if I want to use this
-
 {config, ...}: {
   programs.bash = {
     enable = false;

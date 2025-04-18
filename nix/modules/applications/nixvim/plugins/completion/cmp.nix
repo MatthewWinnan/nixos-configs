@@ -1,11 +1,9 @@
 {
   programs.nixvim.plugins = {
-
     # https://github.com/hrsh7th/cmp-emoji
     cmp-emoji = {
       enable = true;
     };
-
 
     cmp = {
       enable = true;
@@ -34,8 +32,8 @@
           ];
         };
         sources = [
-          { name = "nvim_lsp"; }
-          { name = "emoji"; }
+          {name = "nvim_lsp";}
+          {name = "emoji";}
           {
             name = "buffer"; # text within current buffer
             option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";

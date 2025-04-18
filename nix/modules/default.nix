@@ -1,5 +1,9 @@
-{pkgs, lib, config, ...}: {
-
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   imports = [
     ./packages.nix
     ./environment
@@ -7,5 +11,5 @@
     ./boot
     ./applications
     ./misc.nix
-    ];
+  ];
 }

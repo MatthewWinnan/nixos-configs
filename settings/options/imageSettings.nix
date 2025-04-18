@@ -1,6 +1,4 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   inherit (lib.types) path attrsOf;
 in {
   options = {

@@ -1,9 +1,7 @@
 # DOCS -> https://github.com/AckslD/muren.nvim/
 # I am getting the following errors
 # E5108: Error executing lua ...5w3yzp6bxhw73dp5cc-vimplugin-muren-main/lua/muren/ui.lua:3: module 'plenary.path' not found:
-
-{pkgs, ...}:
-{
+{pkgs, ...}: {
   programs.nixvim.extraPlugins = with pkgs.vimUtils; [
     (buildVimPlugin {
       pname = "muren";
@@ -11,7 +9,7 @@
       src = pkgs.fetchFromGitHub {
         owner = "AckslD";
         repo = "muren.nvim";
-        rev = "818c09097dba1322b2ca099e35f7471feccfef93";  # Use the branch name, or you can specify a specific commit hash
+        rev = "818c09097dba1322b2ca099e35f7471feccfef93"; # Use the branch name, or you can specify a specific commit hash
         hash = "sha256-KDXytsyvUQVZoKdr6ieoUE3e0v5NT2gf3M1d15aYVFs=";
       };
     })
@@ -19,7 +17,7 @@
 
   programs.nixvim.extraConfigLua = ''
     require('muren').setup{}
-    '';
+  '';
 
   programs.nixvim.keymaps = [
     {
@@ -29,5 +27,4 @@
       options.desc = "Neovim plugin for doing multiple search and replace with ease.";
     }
   ];
-
 }

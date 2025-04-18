@@ -89,7 +89,7 @@
         silent = true;
       };
     }
- 
+
     {
       mode = "n";
       key = "gI";

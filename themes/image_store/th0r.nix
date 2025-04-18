@@ -1,5 +1,5 @@
 {
- images = {
+  images = {
     stylix_wallpaper = ./images/wallpaper_1.png;
     hyprland_wallpaper = ./images/wallpaper_3.jpg;
     fastfetch_logo = ./images/fastfetch_logo.jpg;

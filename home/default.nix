@@ -1,4 +1,8 @@
-{config, lib, ...}:{
+{
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./tools/default.nix
     ./desktop/default.nix

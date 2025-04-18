@@ -1,9 +1,19 @@
 # I got this from https://github.com/moergo-sc/zmk/tree/fd3aa4b64f7cb1d5879a18dd0dda0330ef9f618f/nix
-{ stdenvNoCC, lib, fetchgit, runCommand }:
-let
+{
+  stdenvNoCC,
+  lib,
+  fetchgit,
+  runCommand,
+}: let
   manifestJSON = builtins.fromJSON (builtins.readFile ./manifest.json);
 
-  mkModule = { name, revision, url, sha256, ... }:
+  mkModule = {
+    name,
+    revision,
+    url,
+    sha256,
+    ...
+  }:
     stdenvNoCC.mkDerivation (finalAttrs: {
       name = "zmk-module-${name}";
 
@@ -23,31 +33,30 @@ let
       passthru = {
         modulePath = "${finalAttrs.finalPackage}/${name}";
       };
-   });
+    });
 
-  modules = lib.listToAttrs (lib.forEach manifestJSON ({ name, ... }@args:
-    lib.nameValuePair name (mkModule args)));
+  modules =
+    lib.listToAttrs (lib.forEach manifestJSON ({name, ...} @ args:
+        lib.nameValuePair name (mkModule args)));
 in
+  # Zephyr with no modules, from the frozen manifest.
+  # For now the modules are passed through as passthru
+  stdenvNoCC.mkDerivation {
+    name = "zephyr";
+    src = modules.zephyr.src;
 
+    dontBuild = true;
 
-# Zephyr with no modules, from the frozen manifest.
-# For now the modules are passed through as passthru
-stdenvNoCC.mkDerivation {
-  name = "zephyr";
-  src = modules.zephyr.src;
+    # This awkward structure is required by
+    #   COMMAND ${PYTHON_EXECUTABLE} ${ZEPHYR_BASE}/../tools/uf2/utils/uf2conv.py
+    installPhase = ''
+      mkdir -p $out/zephyr
+      mv * $out/zephyr
 
-  dontBuild = true;
+      # uf2 is gone, not sure what replaced it
+    '';
 
-  # This awkward structure is required by
-  #   COMMAND ${PYTHON_EXECUTABLE} ${ZEPHYR_BASE}/../tools/uf2/utils/uf2conv.py
-  installPhase = ''
-    mkdir -p $out/zephyr
-    mv * $out/zephyr
-
-    # uf2 is gone, not sure what replaced it
-  '';
-
-  passthru = {
-    modules = removeAttrs modules ["zephyr"];
-  };
-}
+    passthru = {
+      modules = removeAttrs modules ["zephyr"];
+    };
+  }

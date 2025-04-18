@@ -10,6 +10,5 @@
       width = 0.8;
       keymap_toggle = "<C-b>";
     };
-
   };
 }

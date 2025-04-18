@@ -1,6 +1,6 @@
 {
   imports = [
-  ./fonts.nix
-  ./stylix.nix
+    ./fonts.nix
+    ./stylix.nix
   ];
 }

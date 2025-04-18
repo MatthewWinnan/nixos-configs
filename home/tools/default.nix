@@ -1,5 +1,4 @@
 {config, ...}: {
-
   imports = [
     ./lf.nix
     ./wofi.nix

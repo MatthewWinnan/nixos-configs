@@ -1,10 +1,12 @@
 # NB Remember do not map ATL-><vim_nav>
-
-{ config, pkgs, lib, ... }:
-let
-   last_monitor = lib.lists.last config.deviceSettings.monitors;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  last_monitor = lib.lists.last config.deviceSettings.monitors;
+in {
   wayland.windowManager.hyprland = lib.mkForce {
     enable = true;
     xwayland.enable = true;
@@ -16,17 +18,17 @@ in
       "$mainMod" = "ALT";
       "$terminal" = "kitty";
 
-      monitor = (map (
-          m: "${m.name},${
-            if m.enabled
-            then "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},1"
-            else "disable"
-          }"
-      ) (config.deviceSettings.monitors));
+      monitor = map (
+        m: "${m.name},${
+          if m.enabled
+          then "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},1"
+          else "disable"
+        }"
+      ) (config.deviceSettings.monitors);
 
-      workspace = (map (
-          m: lib.optionalString m.enabled  "${m.workspace},monitor:${m.name},default:true"
-      ) (config.deviceSettings.monitors));
+      workspace = map (
+        m: lib.optionalString m.enabled "${m.workspace},monitor:${m.name},default:true"
+      ) (config.deviceSettings.monitors);
 
       env = [
         "XDG_CURRENT_DESKTOP,Hyprland"
@@ -67,7 +69,6 @@ in
           "col.active" = "rgb(bd93f9) rgb(44475a) 90deg";
           "col.inactive" = "rgba(282a36dd)";
         };
-
       };
 
       decoration = {
@@ -133,7 +134,7 @@ in
         "float, ^(mpv)$"
       ];
 
-      # Since NixOS 25.05 hyprpaper keeps conflicting with swww, I need to rather use hyprpaper as the backend, I suspect this is due to sylix 
+      # Since NixOS 25.05 hyprpaper keeps conflicting with swww, I need to rather use hyprpaper as the backend, I suspect this is due to sylix
       exec-once = [
         "waybar"
         "waypaper --restore --backend ${pkgs.hyprpaper}/bin/hyprpaper"
@@ -143,103 +144,104 @@ in
         #"${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
       ];
 
-      bind = [
+      bind =
+        [
+          # For the warpd keybindings see -> https://github.com/rvaiya/warpd?tab=readme-ov-file#wayland
+          # Sucks does not work maybe due to https://www.reddit.com/r/linux/comments/1eaxgy4/hyprland_has_become_independent_dropping_wlroots/
+          #"$mainMod SHIFT, X, exec, ${lib.getExe pkgs.warpd} --hint"
+          #"$mainMod SHIFT, C, exec, ${lib.getExe pkgs.warpd} --normal"
+          #"$mainMod SHIFT, G, exec, ${lib.getExe pkgs.warpd} --grid"
 
-        # For the warpd keybindings see -> https://github.com/rvaiya/warpd?tab=readme-ov-file#wayland
-        # Sucks does not work maybe due to https://www.reddit.com/r/linux/comments/1eaxgy4/hyprland_has_become_independent_dropping_wlroots/
-        #"$mainMod SHIFT, X, exec, ${lib.getExe pkgs.warpd} --hint"
-        #"$mainMod SHIFT, C, exec, ${lib.getExe pkgs.warpd} --normal"
-        #"$mainMod SHIFT, G, exec, ${lib.getExe pkgs.warpd} --grid"
+          # For the clip board
+          "$mainMod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
 
-        # For the clip board
-        "$mainMod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+          # For screen shotting and recording
+          "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${lib.getExe pkgs.swappy} -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png"
+          ''$mainMod, R, exec, ${lib.getExe pkgs.wf-recorder} -al -g "$(${lib.getExe pkgs.slurp} -w 0 -d)" -f $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).mp4 > $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).log ''
+          "$mainMod SHIFT, R, exec, pkill wf-recorder"
+          # General functions
+          "$mainMod, Return, exec, kitty"
+          "$mainMod, Q, killactive,"
+          "$mainMod, M, exit,"
+          "$mainMod, F, fullscreen,"
+          "$mainMod, D, exec, rofi -show drun"
 
-        # For screen shotting and recording
-        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${lib.getExe pkgs.swappy} -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png"
-        ''$mainMod, R, exec, ${lib.getExe pkgs.wf-recorder} -al -g "$(${lib.getExe pkgs.slurp} -w 0 -d)" -f $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).mp4 > $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).log ''
-        "$mainMod SHIFT, R, exec, pkill wf-recorder"
-        # General functions
-        "$mainMod, Return, exec, kitty"
-        "$mainMod, Q, killactive,"
-        "$mainMod, M, exit,"
-        "$mainMod, F, fullscreen,"
-        "$mainMod, D, exec, rofi -show drun"
+          # Move focus with mainMod + arrow keys
+          "$mainMod, left,  movefocus, l"
+          "$mainMod, right, movefocus, r"
+          "$mainMod, up,    movefocus, u"
+          "$mainMod, down,  movefocus, d"
 
-        # Move focus with mainMod + arrow keys
-        "$mainMod, left,  movefocus, l"
-        "$mainMod, right, movefocus, r"
-        "$mainMod, up,    movefocus, u"
-        "$mainMod, down,  movefocus, d"
+          # Moving windows
+          "$mainMod SHIFT, left,  swapwindow, l"
+          "$mainMod SHIFT, right, swapwindow, r"
+          "$mainMod SHIFT, up,    swapwindow, u"
+          "$mainMod SHIFT, down,  swapwindow, d"
 
-        # Moving windows
-        "$mainMod SHIFT, left,  swapwindow, l"
-        "$mainMod SHIFT, right, swapwindow, r"
-        "$mainMod SHIFT, up,    swapwindow, u"
-        "$mainMod SHIFT, down,  swapwindow, d"
+          # Moving windowszs between monitors
+          "$mainMod SHIFT, comma, movecurrentworkspacetomonitor, l"
+          "$mainMod SHIFT, period, movecurrentworkspacetomonitor, r"
 
-        # Moving windowszs between monitors
-        "$mainMod SHIFT, comma, movecurrentworkspacetomonitor, l"
-        "$mainMod SHIFT, period, movecurrentworkspacetomonitor, r"
+          # Window resizing                     X  Y
+          "$mainMod CTRL, left,  resizeactive, -60 0"
+          "$mainMod CTRL, right, resizeactive,  60 0"
+          "$mainMod CTRL, up,    resizeactive,  0 -60"
+          "$mainMod CTRL, down,  resizeactive,  0  60"
 
-        # Window resizing                     X  Y
-        "$mainMod CTRL, left,  resizeactive, -60 0"
-        "$mainMod CTRL, right, resizeactive,  60 0"
-        "$mainMod CTRL, up,    resizeactive,  0 -60"
-        "$mainMod CTRL, down,  resizeactive,  0  60"
+          # Switch workspaces with mainMod + [0-9]
+          "$mainMod, 1, workspace, 1"
+          "$mainMod, 2, workspace, 2"
+          "$mainMod, 3, workspace, 3"
+          "$mainMod, 4, workspace, 4"
+          "$mainMod, 5, workspace, 5"
+          "$mainMod, 6, workspace, 6"
+          "$mainMod, 7, workspace, 7"
+          "$mainMod, 8, workspace, 8"
+          "$mainMod, 9, workspace, 9"
+          "$mainMod, 0, workspace, 10"
 
-        # Switch workspaces with mainMod + [0-9]
-        "$mainMod, 1, workspace, 1"
-        "$mainMod, 2, workspace, 2"
-        "$mainMod, 3, workspace, 3"
-        "$mainMod, 4, workspace, 4"
-        "$mainMod, 5, workspace, 5"
-        "$mainMod, 6, workspace, 6"
-        "$mainMod, 7, workspace, 7"
-        "$mainMod, 8, workspace, 8"
-        "$mainMod, 9, workspace, 9"
-        "$mainMod, 0, workspace, 10"
+          # Move active window to a workspace with mainMod + SHIFT + [0-9]
+          "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
+          "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
+          "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
+          "$mainMod SHIFT, 4, movetoworkspacesilent, 4"
+          "$mainMod SHIFT, 5, movetoworkspacesilent, 5"
+          "$mainMod SHIFT, 6, movetoworkspacesilent, 6"
+          "$mainMod SHIFT, 7, movetoworkspacesilent, 7"
+          "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
+          "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
+          "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
 
-        # Move active window to a workspace with mainMod + SHIFT + [0-9]
-        "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
-        "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
-        "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
-        "$mainMod SHIFT, 4, movetoworkspacesilent, 4"
-        "$mainMod SHIFT, 5, movetoworkspacesilent, 5"
-        "$mainMod SHIFT, 6, movetoworkspacesilent, 6"
-        "$mainMod SHIFT, 7, movetoworkspacesilent, 7"
-        "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
-        "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
-        "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
+          # Scroll through existing workspaces with mainMod + scroll
+          "$mainMod, mouse_down, workspace, e+1"
+          "$mainMod, mouse_up, workspace, e-1"
 
-        # Scroll through existing workspaces with mainMod + scroll
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
+          # Keyboard backlight
+          #"$mainMod, F3, exec, brightnessctl -d *::kbd_backlight set +33%"
+          #"$mainMod, F2, exec, brightnessctl -d *::kbd_backlight set 33%-"
 
-        # Keyboard backlight
-        #"$mainMod, F3, exec, brightnessctl -d *::kbd_backlight set +33%"
-        #"$mainMod, F2, exec, brightnessctl -d *::kbd_backlight set 33%-"
+          # Volume and Media Control
+          #", XF86AudioRaiseVolume, exec, pamixer -i 5 "
+          #", XF86AudioLowerVolume, exec, pamixer -d 5 "
+          #", XF86AudioMute, exec, pamixer -t"
+          #", XF86AudioMicMute, exec, pamixer --default-source -m"
 
-        # Volume and Media Control
-        #", XF86AudioRaiseVolume, exec, pamixer -i 5 "
-        #", XF86AudioLowerVolume, exec, pamixer -d 5 "
-        #", XF86AudioMute, exec, pamixer -t"
-        #", XF86AudioMicMute, exec, pamixer --default-source -m"
+          # Brightness control
+          #", XF86MonBrightnessDown, exec, brightnessctl set 5%- "
+          #", XF86MonBrightnessUp, exec, brightnessctl set +5% "
 
-        # Brightness control
-        #", XF86MonBrightnessDown, exec, brightnessctl set 5%- "
-        #", XF86MonBrightnessUp, exec, brightnessctl set +5% "
+          # Configuration files
+          #''$mainMod SHIFT, N, exec, alacritty -e sh -c "rb"''
+          #''$mainMod SHIFT, C, exec, alacritty -e sh -c "conf"''
+          #''$mainMod SHIFT, H, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/hyprland.nix"''
+          #''$mainMod SHIFT, W, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/waybar.nix''
+          #'', Print, exec, grim -g "$(slurp)" - | swappy -f -''
 
-        # Configuration files
-        #''$mainMod SHIFT, N, exec, alacritty -e sh -c "rb"''
-        #''$mainMod SHIFT, C, exec, alacritty -e sh -c "conf"''
-        #''$mainMod SHIFT, H, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/hyprland.nix"''
-        #''$mainMod SHIFT, W, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/waybar.nix''
-        #'', Print, exec, grim -g "$(slurp)" - | swappy -f -''
-
-        # Waybar
-        "$mainMod, B, exec, pkill -SIGUSR1 waybar"
-        "$mainMod, W, exec, pkill -SIGUSR2 waybar"
-      ] ++ lib.optionals (config.systemSettings.profile == "work") [
+          # Waybar
+          "$mainMod, B, exec, pkill -SIGUSR1 waybar"
+          "$mainMod, W, exec, pkill -SIGUSR2 waybar"
+        ]
+        ++ lib.optionals (config.systemSettings.profile == "work") [
           # Allows me to toggle the display if I am on my work
           ''$mainMod, T, exec, hyprctl keyword monitor "eDP-1, disable"''
           # Allows me to turn the built in laptop monitor on again

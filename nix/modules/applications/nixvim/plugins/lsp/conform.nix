@@ -8,7 +8,7 @@
       };
       notifyOnError = true;
       formattersByFt = {
-        liquidsoap = [ "liquidsoap-prettier" ];
+        liquidsoap = ["liquidsoap-prettier"];
         html = [
           [
             "prettierd"
@@ -45,9 +45,9 @@
             "prettier"
           ]
         ];
-        python = [ "black" ];
-        lua = [ "stylua" ];
-        nix = [ "nixfmt" ];
+        python = ["black"];
+        lua = ["stylua"];
+        nix = ["nixfmt"];
         markdown = [
           [
             "prettierd"

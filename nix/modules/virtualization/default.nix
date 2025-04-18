@@ -1,5 +1,4 @@
-{pkgs, ...}:
-{
+{pkgs, ...}: {
   imports = [
     ./docker.nix
     ./podman.nix

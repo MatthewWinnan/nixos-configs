@@ -1,6 +1,6 @@
 {
   programs.nixvim.plugins = {
-  treesitter-refactor = {
+    treesitter-refactor = {
       enable = true;
       highlightDefinitions = {
         enable = true;
@@ -8,7 +8,5 @@
         clearOnCursorMove = false;
       };
     };
-
   };
-
 }

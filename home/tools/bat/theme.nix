@@ -1,5 +1,5 @@
 {config, ...}: let
-inherit (config.lib.stylix) colors;
+  inherit (config.lib.stylix) colors;
   tmTheme = ''
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">

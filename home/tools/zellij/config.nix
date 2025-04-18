@@ -1,6 +1,5 @@
 {config, ...}: let
-   inherit (config.lib.stylix) colors;
-
+  inherit (config.lib.stylix) colors;
 
   zellijConfig = ''
     // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"

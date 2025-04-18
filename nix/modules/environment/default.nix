@@ -1,6 +1,5 @@
 {config, ...}: {
-
-environment.variables = {
+  environment.variables = {
     EDITOR = "nvim";
     BROWSER = "schizofox";
     TERMINAL = "kitty";

@@ -1,10 +1,8 @@
 # https://github.com/LudoPinelli/comment-box.nvim
 # Impressive the guy made it, learn API and LUA myself, how?
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   version = "v1.0.2";
-in
-{
+in {
   programs.nixvim.extraPlugins = with pkgs.vimUtils; [
     (buildVimPlugin {
       pname = "comment-box.nvim";
