@@ -38,6 +38,19 @@ in {
     dataHome = "${config.home.homeDirectory}/.local/share";
     stateHome = "${config.home.homeDirectory}/.local/state";
 
+    portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+      config = {
+        common.default = ["gtk"];
+        hyprland.default = ["gtk" "hyprland"];
+      };
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-hyprland
+      ];
+    };
+
     userDirs = {
       enable = pkgs.stdenv.isLinux;
       createDirectories = true;

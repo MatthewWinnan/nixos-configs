@@ -9,37 +9,39 @@
 let
   pythonPackages = pkgs.python312Packages;
   pyPkgs = pythonPackages: with pythonPackages; [
-            pip
-            venvShellHook
-            ipython
-            setuptools
+    pip
+    venvShellHook
+    ipython
+    setuptools
 
-            # Packages I need to develop with
-            paramiko
-            pyyaml
-            robotframework
-            flask
-            urllib3
-            bravado-core
-            numpy
-            matplotlib
-            scipy
-            pandas
-            pem
-            gspread
-            google-api-python-client
-            oauth2client
+    # Packages I need to develop with
+    paramiko
+    pyyaml
+    robotframework
+    flask
+    urllib3
+    bravado-core
+    numpy
+    matplotlib
+    scipy
+    pandas
+    pem
+    gspread
+    google-api-python-client
+    oauth2client
+    beautifulsoup4
+    netifaces
 
-            # This is for LSP uses
-            pylint
-            pyflakes
-            ruff-lsp
-            #pylsp-rope
+    # This is for LSP uses
+    pylint
+    pyflakes
+    ruff-lsp
+    #pylsp-rope
 
-            # This is for styling, hard to conform now drop it
-            #pycodestyle
-            pydocstyle
-            black
+    # This is for styling, hard to conform now drop it
+    #pycodestyle
+    pydocstyle
+    black
   ];
 
   # Create the docker start script

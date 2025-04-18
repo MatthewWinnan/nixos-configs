@@ -9,16 +9,7 @@
         nvim_cmp = true;
       };
       new_notes_location = "current_dir";
-      workspaces = [
-        {
-          name = "personal";
-          path = "~/obsidian_vault/matthew_notes";
-        }
-        {
-          name = "work";
-          path = "~/DEV/obsidian_vault";
-        }
-      ];
+      workspaces = [];
       mappings = {
         "<leader>og" = {
           action = "require('obsidian').util.gf_passthrough";

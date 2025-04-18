@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, flakePath, ... }:
+{ config, lib, pkgs, inputs, flakePath, ... }:
 
 {
   imports =
@@ -21,15 +21,29 @@
   i18n.defaultLocale = config.systemSettings.locale;
 
   # We need these settings for typical work....
-  nix.settings = {
-
+  nix.settings = lib.mkMerge [
+    (lib.mkIf (config.systemSettings.profile == "work")
+      {
     # Enable FLakes
     experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes
-
     # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
     sandbox = "relaxed";
-
-  };
+    # So we can use our local cache
+        #always-allow-substitutes = true;
+    substituters = [ "http://cachix:8080/fossil?priority=30" ];
+    trusted-public-keys = ["fossil:p3AAkC0+gc/JTzfyajd3W+ewQAQhpuq2bwv5Wa3wcIg="];
+    trusted-users = [config.userSettings.username "root"];
+      }
+    )
+    (lib.mkIf (config.systemSettings.profile == "personal")
+      {
+    # Enable FLakes
+    experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes
+    # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
+    sandbox = "relaxed";
+      }
+    )
+  ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

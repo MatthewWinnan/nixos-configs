@@ -9,7 +9,7 @@
            isNormalUser = true;
           description = "${config.userSettings.name}";
 
-            extraGroups = [ "networkmanager" "wheel" "input" "libvirtd" "wireshark"];
+            extraGroups = [ "networkmanager" "wheel" "input" "libvirtd" "wireshark" "docker" "podman"];
             packages = with pkgs; [];
       };
 
