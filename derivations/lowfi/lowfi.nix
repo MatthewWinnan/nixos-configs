@@ -13,16 +13,17 @@ alsa-lib,
 
 rustPlatform.buildRustPackage rec {
   pname = "lowfi";
-  version = "1.5.2";
+  version = "1.6.4-dev";
 
   src = fetchFromGitHub {
     owner = "talwat";
     repo = "lowfi";
     rev = version;
-    hash = "sha256-+LO1hyQUPcRM3MCtUsYBvFqXHXfOOSb1X543zRAVj/A=";
+    hash = "sha256-6wrozXFLek08/FlhaLaOfmgpJGTE8sWBRWG2w7Dz1oU=";
   };
 
-  cargoHash = "sha256-AkpM3Qd9w51GFXxT/qoAP84H3moXlyY7NcaaASbzeQE=";
+  cargoHash = "sha256-qywhf9lF7cocPVeOJEfKdF+9Ho7lP2pd6T1t1EJg9qc=";
+  useFetchCargoVendor = true;
 
   nativeBuildInputs = [
     pkg-config

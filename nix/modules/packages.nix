@@ -3,6 +3,7 @@
 let
   lowfi = pkgs.callPackage ../../derivations/lowfi/lowfi.nix {};
   screen_recorder = pkgs.callPackage ../../derivations/screen_record.nix {};
+  flamelens = pkgs.callPackage ../../derivations/flamelens {};
   #himalaya = pkgs.callPackage ../../derivations/himalaya/himalaya.nix {};
 in
 {
@@ -40,6 +41,9 @@ in
     just
     wf-recorder # Else we do not have access to it on CLI
     mpv # To view the recordings
+
+    # Some performance tracing tools
+    flamelens
 
     # This tool generates derivations for me from git projects
     # DOCS -> https://github.com/nix-community/nix-init?tab=readme-ov-file
