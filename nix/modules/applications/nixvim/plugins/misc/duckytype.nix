@@ -1,7 +1,5 @@
 # DOCS -> https://github.com/kwakzalver/duckytype.nvim
-
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nixvim.extraPlugins = [
     (pkgs.vimUtils.buildVimPlugin {
       name = "duckytype";
@@ -14,17 +12,16 @@
     })
   ];
 
-
   programs.nixvim.extraConfigLua = ''
-    require('duckytype').setup{
-    number_of_words = 10,
-    highlight = {
-      good = "String",
-      bad = "Error",
-      remaining = "Function",
-  },
-    }
-    '';
+      require('duckytype').setup{
+      number_of_words = 10,
+      highlight = {
+        good = "String",
+        bad = "Error",
+        remaining = "Function",
+    },
+      }
+  '';
 
   programs.nixvim.keymaps = [
     {

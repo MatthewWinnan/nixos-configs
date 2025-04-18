@@ -1,10 +1,12 @@
 # NixOptions DOCS -> https://mynixos.com/home-manager/options/programs.fish
-
-{ config, lib, pkgs,... }:
-let
-  dig = lib.meta.getExe' pkgs.dnsutils "dig";
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  dig = lib.meta.getExe' pkgs.dnsutils "dig";
+in {
   programs.fish = {
     enable = true;
     interactiveShellInit = "clear;sleep 0.1;fastfetch";
@@ -25,40 +27,36 @@ in
 
       # Alias for fuzzy finding and previewing files if fzf and bat is present
       (
-        lib.mkIf (config.programs.fzf.enable && config.programs.bat.enable){
+        lib.mkIf (config.programs.fzf.enable && config.programs.bat.enable) {
           ff = ''find * -type f | ${lib.getExe pkgs.fzf} --preview "${lib.getExe pkgs.bat} --color=always --style=numbers --line-range=:500 {}" > selected'';
         }
       )
 
       # Default options
       # Just making everything cute
-      (
-        {
+      {
         df = "${pkgs.duf}/bin/duf";
         find = "${pkgs.fd}/bin/fd";
         grep = "${pkgs.ripgrep}/bin/rg";
-          tree = "${pkgs.eza}/bin/eza --git --icons --tree";
+        tree = "${pkgs.eza}/bin/eza --git --icons --tree";
 
         # Some x programs do no like running in wayland, we force to go through the xwayland translation layer
         set_x = "export WAYLAND_DISPLAY= ; export QT_QPA_PLATFORM=xcb";
 
-          # faster navigation
-          ".." = "cd ..";
-          "..." = "cd ../../";
-          "...." = "cd ../../../";
-          "....." = "cd ../../../../";
-          "......" = "cd ../../../../../";
+        # faster navigation
+        ".." = "cd ..";
+        "..." = "cd ../../";
+        "...." = "cd ../../../";
+        "....." = "cd ../../../../";
+        "......" = "cd ../../../../../";
 
-          # insteaed of querying some weird and random"what is my ip" service
-          # we get our public ip by querying opendns directly.
-          # <https://unix.stackexchange.com/a/81699>
-          canihazip = "${dig} @resolver4.opendns.com myip.opendns.com +short";
-          canihazip4 = "${dig} @resolver4.opendns.com myip.opendns.com +short -4";
-          canihazip6 = "${dig} @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6";          
-        }
-      )
-
+        # insteaed of querying some weird and random"what is my ip" service
+        # we get our public ip by querying opendns directly.
+        # <https://unix.stackexchange.com/a/81699>
+        canihazip = "${dig} @resolver4.opendns.com myip.opendns.com +short";
+        canihazip4 = "${dig} @resolver4.opendns.com myip.opendns.com +short -4";
+        canihazip6 = "${dig} @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6";
+      }
     ];
-
   };
 }

@@ -1,7 +1,10 @@
 # Direnv DOCS -> https://direnv.net/
 # Nix-Direnv DOCS -> https://github.com/nix-community/nix-direnv
-
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   # Set the log format to an empty string to avoid direnv from polluting the
   # shell output with log messages.
   home.sessionVariables = {
@@ -17,6 +20,8 @@
     enableZshIntegration = config.programs.zsh.enable;
 
     # Enable fish if activated, seems that home fish does this for me?
-    /* enableFishIntegration = config.programs.fish.enable; */
+    /*
+    enableFishIntegration = config.programs.fish.enable;
+    */
   };
 }

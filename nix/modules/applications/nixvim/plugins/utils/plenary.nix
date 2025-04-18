@@ -1,7 +1,5 @@
 # DOCS -> https://github.com/nvim-lua/plenary.nvim
-
-{pkgs, ...}:
-{
+{pkgs, ...}: {
   programs.nixvim.plugins.plenary.enable = true;
   # programs.nixvim.extraPlugins = with pkgs.vimUtils; [
   #   (buildVimPlugin rec {
@@ -19,5 +17,4 @@
   # programs.nixvim.extraConfigLua = ''
   #   require('plenary').setup{}
   #   '';
-
 }

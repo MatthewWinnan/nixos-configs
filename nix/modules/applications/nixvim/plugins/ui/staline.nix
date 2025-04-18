@@ -1,6 +1,5 @@
 # DOCS -> https://github.com/tamton-aquib/staline.nvim
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nixvim.extraPlugins = with pkgs.vimUtils; [
     (buildVimPlugin {
       pname = "staline.nvim";

@@ -1,7 +1,5 @@
 # DOCS -> https://github.com/nvim-tree/nvim-web-devicons
-
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nixvim.extraPlugins = with pkgs.vimUtils; [
     (buildVimPlugin rec {
       pname = "nvim-web-devicons";

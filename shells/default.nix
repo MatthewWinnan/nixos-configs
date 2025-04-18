@@ -1,6 +1,14 @@
-{ pkgs, system, lib, stdenvNoCC, runCommand, fetchgit, zephyr, pkgs_stable, ...}:
-
 {
+  pkgs,
+  system,
+  lib,
+  stdenvNoCC,
+  runCommand,
+  fetchgit,
+  zephyr,
+  pkgs_stable,
+  ...
+}: {
   python = import ./python.nix {inherit pkgs;};
   taskit = import ./taskit_dev.nix {inherit pkgs;};
   arduino = import ./arduino.nix {inherit pkgs;};
@@ -11,7 +19,7 @@
   # With NixOS 25.04 I am getting buffer overflow issues, and it does not support libstdcxx5, we pin it to pkgs_stable, which is guarenteed to work
   zmk_kyria = import ./zephyr/zmk_kyria.nix {
     inherit pkgs system lib stdenvNoCC runCommand fetchgit;
-    zephyr=zephyr;
+    zephyr = zephyr;
     pkgs_stable = pkgs_stable;
   };
 

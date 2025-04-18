@@ -1,6 +1,5 @@
-{pkgs, ...}:{
-
-fonts.packages = with pkgs; [
+{pkgs, ...}: {
+  fonts.packages = with pkgs; [
     jetbrains-mono
     noto-fonts
     noto-fonts-emoji
@@ -17,5 +16,4 @@ fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.hack
   ];
-
 }

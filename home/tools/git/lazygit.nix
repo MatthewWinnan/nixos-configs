@@ -1,8 +1,5 @@
 # Obtained from https://github.com/sukhmancs/nixos-configs/blob/94b744f0f81d4a610fccdab94e5b25a2138d4c92/homes/shared/programs/git/lazygit.nix
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     lazygit
   ];

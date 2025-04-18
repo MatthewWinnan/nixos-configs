@@ -3,9 +3,9 @@
   programs.nixvim.plugins.flash = {
     enable = true;
     settings = {
-        jump.autojump = true;
-        search.mode = "fuzzy";
-        labels = "asdfghjklqwertyuiopzxcvbnm";
+      jump.autojump = true;
+      search.mode = "fuzzy";
+      labels = "asdfghjklqwertyuiopzxcvbnm";
       label = {
         uppercase = false;
         rainbow = {

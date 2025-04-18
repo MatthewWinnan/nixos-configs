@@ -1,5 +1,4 @@
-{pkgs, ...}:
-{
+{pkgs, ...}: {
   services.xserver.videoDrivers = ["nvidia"];
 
   # This part is already done by https://github.com/NixOS/nixos-hardware/blob/master/lenovo/legion/15ich/default.nix

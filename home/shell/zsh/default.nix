@@ -7,8 +7,8 @@
   lib,
   ...
 }: let
-    inherit (config.lib.stylix) colors;
-  in {
+  inherit (config.lib.stylix) colors;
+in {
   imports = [
     ./aliases.nix
     ./init.nix
@@ -113,7 +113,6 @@
 
         # ignore commands that start with a space
         ignoreSpace = true;
-
       };
 
       # aliases for different directories

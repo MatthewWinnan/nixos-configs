@@ -10,7 +10,7 @@
       key = "<leader>tt";
       action = "<cmd>TransparentToggle<cr>";
       options = {
-        desc  = "Toggles the transparent plugin";
+        desc = "Toggles the transparent plugin";
       };
     }
   ];

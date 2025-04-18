@@ -1,18 +1,22 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, lib, pkgs, inputs, flakePath, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./modules
-      ./services
-      ./networking
-      ../themes/default.nix
-      ../settings/security/default.nix
-    ];
+  config,
+  lib,
+  pkgs,
+  inputs,
+  flakePath,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./modules
+    ./services
+    ./networking
+    ../themes/default.nix
+    ../settings/security/default.nix
+  ];
 
   # Set your time zone.
   time.timeZone = config.systemSettings.timezone;
@@ -22,25 +26,27 @@
 
   # We need these settings for typical work....
   nix.settings = lib.mkMerge [
-    (lib.mkIf (config.systemSettings.profile == "work")
+    (
+      lib.mkIf (config.systemSettings.profile == "work")
       {
-    # Enable FLakes
-    experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes
-    # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
-    sandbox = "relaxed";
-    # So we can use our local cache
+        # Enable FLakes
+        experimental-features = ["nix-command" "flakes"]; # Enabling flakes
+        # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
+        sandbox = "relaxed";
+        # So we can use our local cache
         #always-allow-substitutes = true;
-    substituters = [ "http://cachix:8080/fossil?priority=30" ];
-    trusted-public-keys = ["fossil:p3AAkC0+gc/JTzfyajd3W+ewQAQhpuq2bwv5Wa3wcIg="];
-    trusted-users = [config.userSettings.username "root"];
+        substituters = ["http://cachix:8080/fossil?priority=30"];
+        trusted-public-keys = ["fossil:p3AAkC0+gc/JTzfyajd3W+ewQAQhpuq2bwv5Wa3wcIg="];
+        trusted-users = [config.userSettings.username "root"];
       }
     )
-    (lib.mkIf (config.systemSettings.profile == "personal")
+    (
+      lib.mkIf (config.systemSettings.profile == "personal")
       {
-    # Enable FLakes
-    experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes
-    # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
-    sandbox = "relaxed";
+        # Enable FLakes
+        experimental-features = ["nix-command" "flakes"]; # Enabling flakes
+        # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
+        sandbox = "relaxed";
       }
     )
   ];
@@ -60,5 +66,4 @@
   # TODO I should ideally move this to hardware or something
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on bootboot
-
 }

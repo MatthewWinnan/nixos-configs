@@ -19,9 +19,12 @@
   extensions = inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.system};
 
   # Apply the `forVSCodeVersion` to all extensions in vscode-marketplace
-  setForVSCodeVersion = extList: map (ext: ext.overrideAttrs (oldAttrs: {
-    forVSCodeVersion = "1.92.2"; # Set your desired VSCode version here
-  })) extList;
+  setForVSCodeVersion = extList:
+    map (ext:
+      ext.overrideAttrs (oldAttrs: {
+        forVSCodeVersion = "1.92.2"; # Set your desired VSCode version here
+      }))
+    extList;
 
   # vscode-marketplace, open-vsx-release provides all the latest extensions including
   # those in the vscode-marketplace-release and open-vsx-release channels
@@ -102,7 +105,6 @@ in {
         ++ openVsxExtensions
         ++ vscodeMarketplaceExtensionsRelease
         ++ openVsxExtensionsRelease;
-
 
       userSettings = lib.mkForce {
         # General
@@ -216,7 +218,7 @@ in {
           "info"
           "hint"
         ];
-       # "python.linting.flake8Args" = [
+        # "python.linting.flake8Args" = [
         #   "--extend-ignore=E501"
         # ];
         # "python.linting.flake8CategorySeverity.F" = "Warning";

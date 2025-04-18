@@ -1,6 +1,5 @@
 # Thunar GITHUB -> https://github.com/xfce-mirror/thunar
 # Thunar NixOptions DOCS -> https://mynixos.com/nixpkgs/option/programs.thunar.enable
-
 {pkgs, ...}: {
   # the thunar file manager
   programs.thunar = {

@@ -1,3 +1,7 @@
-{config, lib, ...}:{
- programs.wireshark.enable = config.systemSettings.profile == "work";
+{
+  config,
+  lib,
+  ...
+}: {
+  programs.wireshark.enable = config.systemSettings.profile == "work";
 }

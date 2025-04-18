@@ -1,5 +1,9 @@
-{ pkgs, lib, config, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   services.openssh = {
     enable = true;
 
@@ -13,6 +17,5 @@
         Subsystem = "sftp internal-sftp";
       })
     ];
-
   };
 }

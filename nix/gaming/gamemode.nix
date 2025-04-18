@@ -1,8 +1,10 @@
 # DOCS -> https://mynixos.com/nixpkgs/options/programs.gamemode
-{pkgs, config, ...}:
 {
+  pkgs,
+  config,
+  ...
+}: {
   programs.gamemode = {
     enable = config.systemSettings.profile == "gaming";
-
   };
 }

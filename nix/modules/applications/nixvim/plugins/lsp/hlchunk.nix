@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nixvim.extraPlugins = [
     (pkgs.vimUtils.buildVimPlugin {
       name = "hlchunk";
@@ -12,15 +11,14 @@
     })
   ];
 
-
   programs.nixvim.extraConfigLua = ''
-  require('hlchunk').setup({
-    chunk = {
-      enable = true
-    },
-    indent = {
-        enable = true
-    },}
-)
+      require('hlchunk').setup({
+        chunk = {
+          enable = true
+        },
+        indent = {
+            enable = true
+        },}
+    )
   '';
 }

@@ -1,7 +1,6 @@
 # This is to addresst the annoying differences between docker and systemd so I can run arion
 # https://github.com/hercules-ci/arion/issues/122
-{pkgs, ...}:
-{
+{pkgs, ...}: {
   virtualisation = {
     podman = {
       enable = true;

@@ -1,10 +1,7 @@
 #
 # Original Code by NotAShelf - https://github.com/notashelf/nyx
 #
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   gitPackage = pkgs.gitFull;
 in {
   config = {

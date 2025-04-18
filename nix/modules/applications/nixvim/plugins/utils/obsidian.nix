@@ -1,6 +1,9 @@
 # DOCS -> https://github.com/epwalsh/obsidian.nvim
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  ...
+}: {
   programs.nixvim.plugins.obsidian = {
     enable = false;
     settings = {

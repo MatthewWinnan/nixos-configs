@@ -1,5 +1,4 @@
-{config, ...}:
-{
+{config, ...}: {
   imports = [
     ./newsboat/default.nix
     ./schizofox/default.nix

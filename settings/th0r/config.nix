@@ -1,15 +1,15 @@
 {
-
-deviceSettings = {
+  deviceSettings = {
     type = "laptop";
     monitors = [
-    {
-      name = "HDMI-A-2";
-      width = 1920;
-      height = 1080;
-      workspace = "1";
-      primary = true;
-    }];
+      {
+        name = "HDMI-A-2";
+        width = 1920;
+        height = 1080;
+        workspace = "1";
+        primary = true;
+      }
+    ];
   };
 
   systemSettings = {
@@ -25,6 +25,4 @@ deviceSettings = {
     name = "Matthew";
     email = "mcwinnan@gmail.com";
   };
-
-
 }

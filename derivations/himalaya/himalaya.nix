@@ -10,7 +10,6 @@
   stdenv,
   darwin,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "himalaya";
   version = "latest";
@@ -30,15 +29,17 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    bzip2
-    gpgme
-    libgpg-error
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-    darwin.apple_sdk.frameworks.SystemConfiguration
-  ];
+  buildInputs =
+    [
+      bzip2
+      gpgme
+      libgpg-error
+      zstd
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.Security
+      darwin.apple_sdk.frameworks.SystemConfiguration
+    ];
 
   env = {
     ZSTD_SYS_USE_PKG_CONFIG = true;
@@ -49,7 +50,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/pimalaya/himalaya";
     changelog = "https://github.com/pimalaya/himalaya/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "himalaya";
   };
 }

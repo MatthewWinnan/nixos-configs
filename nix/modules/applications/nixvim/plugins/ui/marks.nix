@@ -1,5 +1,4 @@
 # DOCS -> https://github.com/chentoast/marks.nvim
-
 # Some mappings:
 #   mx              Set mark x
 #   m,              Set the next available alphabetical (lowercase) mark
@@ -19,10 +18,8 @@
 #   m{              Move to the previous bookmark having the same type as the bookmark under
 #                   the cursor. Works across buffers.
 #   dm=             Delete the bookmark under the cursor.
-
 {
   programs.nixvim.plugins.marks = {
     enable = true;
   };
 }
-

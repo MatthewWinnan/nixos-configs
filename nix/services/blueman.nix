@@ -1,5 +1,4 @@
 {
-# Enable blueman
+  # Enable blueman
   services.blueman.enable = true;
 }
-

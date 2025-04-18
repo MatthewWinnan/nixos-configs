@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "flamelens";
   version = "0.3.1";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/YS-L/flamelens";
     changelog = "https://github.com/YS-L/flamelens/releases/tag/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.averdow ];
+    maintainers = [lib.maintainers.averdow];
   };
 }

@@ -44,11 +44,14 @@ in {
         # searxQuery = "${searxUrl}/search?q={searchTerms}&categories=general";
 
         # Conditionally set searxUrl and searxQuery based on the profile
-        searxUrl = if config.systemSettings.profile == "work"
-             /* then "http://taskit-searchxng/searxng" */
-           # I switched my taskit inspection service off for now so fetch from standard place
-            then "https://searxng.site"
-            else "https://searxng.site";
+        searxUrl =
+          if config.systemSettings.profile == "work"
+          /*
+          then "http://taskit-searchxng/searxng"
+          */
+          # I switched my taskit inspection service off for now so fetch from standard place
+          then "https://searxng.site"
+          else "https://searxng.site";
 
         searxQuery = "${searxUrl}/search?q={searchTerms}&categories=general";
         addEngines = [
@@ -105,26 +108,26 @@ in {
       };
 
       # Periodically add to book marks
-       misc.bookmarks = [
+      misc.bookmarks = [
         {
           Title = "Godbolt";
           URL = "https://godbolt.org/";
           Folder = "WorkTools";
-        } 
+        }
         {
           Title = "NVIMDEV (lspsaga doc)";
           URL = "https://nvimdev.github.io/lspsaga/";
           Folder = "nvim";
         }
         {
-        Title = "None-LS";
-        URL = "https://github.com/nvimtools/none-ls.nvim/blob/main/doc/MAIN.md";
-        Folder = "nvim";
+          Title = "None-LS";
+          URL = "https://github.com/nvimtools/none-ls.nvim/blob/main/doc/MAIN.md";
+          Folder = "nvim";
         }
         {
-        Title = "Trouble-LS";
-        URL = "https://github.com/folke/trouble.nvim";
-        Folder = "nvim";
+          Title = "Trouble-LS";
+          URL = "https://github.com/folke/trouble.nvim";
+          Folder = "nvim";
         }
         {
           Title = "NixOptions";

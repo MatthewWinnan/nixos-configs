@@ -1,8 +1,6 @@
 # DOCS -> https://github.com/eza-community/eza
 # NixOptions DOCS -> https://mynixos.com/home-manager/options/programs.eza
-
-{config, ...}:
-{
+{config, ...}: {
   programs.eza = {
     enable = true;
     icons = "auto";

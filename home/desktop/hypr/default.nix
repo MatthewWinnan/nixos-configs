@@ -1,4 +1,8 @@
-{config, lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./hypridle.nix
     ./hyprlock/hyprlock.nix

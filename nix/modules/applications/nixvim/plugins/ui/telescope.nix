@@ -26,13 +26,13 @@
       defaults = {
         set_env.COLORTERM = "truecolor";
         file_ignore_patterns = [
-        "^.git/"
-        "^.mypy_cache/"
-        "^__pycache__/"
-        "^output/"
-        "^data/"
-        "%.ipynb"
-      ];
+          "^.git/"
+          "^.mypy_cache/"
+          "^__pycache__/"
+          "^output/"
+          "^data/"
+          "%.ipynb"
+        ];
         layout_config = {
           horizontal = {
             prompt_position = "bottom";
@@ -40,29 +40,29 @@
         };
         sorting_strategy = "ascending";
         mappings = {
-      n = {
-        "d" = {
-            __raw = "require('telescope.actions').delete_buffer";
+          n = {
+            "d" = {
+              __raw = "require('telescope.actions').delete_buffer";
               # We instead use the command from https://github.com/moll/vim-bbye
 
-            # I am getting:
-            # 11:18:09 msg_show   Bdelete :!Bdelete
-            # [No write since last change]
-            # 11:18:09 msg_show   Bdelete fish: Unknown command: Bdelete
-            # fish:
-            # Bdelet
-            # 11:18:09 msg_show   Bdelete e
-            # ^~~~~~^
-            # 11:18:09 msg_show   Bdelete shell returned 127
+              # I am getting:
+              # 11:18:09 msg_show   Bdelete :!Bdelete
+              # [No write since last change]
+              # 11:18:09 msg_show   Bdelete fish: Unknown command: Bdelete
+              # fish:
+              # Bdelet
+              # 11:18:09 msg_show   Bdelete e
+              # ^~~~~~^
+              # 11:18:09 msg_show   Bdelete shell returned 127
 
-            # Check DOCS :help telescope.mappings
+              # Check DOCS :help telescope.mappings
               #__raw = "{\"<cmd>Bdelete<cr>\", type = \"command\"}";
+            };
+            "q" = {
+              __raw = "require('telescope.actions').close";
+            };
+          };
         };
-        "q" = {
-          __raw = "require('telescope.actions').close";
-        };
-      };
-    };
       };
 
       pickers = {
@@ -167,7 +167,6 @@
     };
 
     keymaps = {
-
       "<leader>tb" = {
         action = "buffers";
         options = {

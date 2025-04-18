@@ -1,10 +1,8 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   inherit (lib.types) str enum listOf;
 in {
-options = {
-systemSettings = {
+  options = {
+    systemSettings = {
       system = lib.mkOption {
         type = str;
         default = "x86_64-linux";
@@ -16,7 +14,7 @@ systemSettings = {
         description = "Hostname of the system.";
       };
       profile = lib.mkOption {
-        type = enum [ "personal" "work" "gaming" ];
+        type = enum ["personal" "work" "gaming"];
         default = "personal";
         description = "The role for this system.";
       };
