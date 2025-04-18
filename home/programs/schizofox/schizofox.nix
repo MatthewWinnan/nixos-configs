@@ -107,16 +107,10 @@ in {
       # Periodically add to book marks
        misc.bookmarks = [
         {
-      Title = "Cloud-04";
-      URL = "https://172.16.2.125:8006/";
-      Placement = "toolbar";
-      Folder = "WorkTools";
-        }
-        {
           Title = "Godbolt";
           URL = "https://godbolt.org/";
           Folder = "WorkTools";
-        }
+        } 
         {
           Title = "NVIMDEV (lspsaga doc)";
           URL = "https://nvimdev.github.io/lspsaga/";
@@ -140,6 +134,16 @@ in {
         {
           Title = "Nix Manual";
           URL = "https://nix.dev/manual/nix/2.24/introduction";
+          Folder = "utils";
+        }
+        {
+          Title = "Noogle";
+          URL = "https://noogle.dev/";
+          Folder = "utils";
+        }
+        {
+          Title = "Terminal Trove";
+          URL = "https://terminaltrove.com/";
           Folder = "utils";
         }
         {

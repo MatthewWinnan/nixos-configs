@@ -39,6 +39,9 @@ in
         grep = "${pkgs.ripgrep}/bin/rg";
           tree = "${pkgs.eza}/bin/eza --git --icons --tree";
 
+        # Some x programs do no like running in wayland, we force to go through the xwayland translation layer
+        set_x = "export WAYLAND_DISPLAY= ; export QT_QPA_PLATFORM=xcb";
+
           # faster navigation
           ".." = "cd ..";
           "..." = "cd ../../";

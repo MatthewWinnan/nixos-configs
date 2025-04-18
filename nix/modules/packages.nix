@@ -42,8 +42,9 @@ in
     wf-recorder # Else we do not have access to it on CLI
     mpv # To view the recordings
 
-    # Some performance tracing tools
-    flamelens
+    # For caching setup
+    attic-client
+    attic-server
 
     # This tool generates derivations for me from git projects
     # DOCS -> https://github.com/nix-community/nix-init?tab=readme-ov-file
@@ -86,9 +87,12 @@ in
 
     # Sound support
     pavucontrol
-    pipewire
     pulseaudio
     pamixer
+
+    # Support for multimedia routing and pipeline processing
+    pipewire
+    wireplumber
 
     # Screenshotting
     grimblast
@@ -162,6 +166,9 @@ in
       # We use gerrit
       git-review
 
+      # I am also moving to Fossil
+      fossil
+
       # I need telnet and the like for networking
       inetutils
 
@@ -174,6 +181,19 @@ in
       bitwise # https://github.com/mellowcandle/bitwise
       programmer-calculator # https://github.com/alt-romes/programmer-calculator
       qalculate-gtk
+
+      # Some performance analysis tools
+      flamelens
+      xan
+      inferno
+
+      # Manage containers
+      docker-client
+      arion
+
+      # Manage secrets
+      vault
+      sops
     ];
 
 }

@@ -129,6 +129,7 @@
         modules = [
           ./settings/od1n/nixos/nix_config.nix
           ./settings/od1n/home/default.nix
+          ./nix/modules/virtualization
         ];
       };
 

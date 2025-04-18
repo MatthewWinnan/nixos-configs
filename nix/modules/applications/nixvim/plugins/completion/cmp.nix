@@ -49,7 +49,8 @@
             name = "luasnip"; # snippets
             keywordLength = 3;
           }
-          {name = "cmp_tabby";}
+          # Keeps giving me silly errors and notifications
+          #{name = "cmp_tabby";}
           {name = "neorg";}
         ];
 
