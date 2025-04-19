@@ -117,59 +117,8 @@
     # Formatter of choice
     formatter = forAllSystemsInputs (inputs: system: inputs.alejandra.defaultPackage.${system});
 
-    nixosConfigurations = import ./machines {inherit inputs;};
-
-    # th0r - lattepanda delta for home lab use
-    # nixosConfigurations.th0r = nixpkgs.lib.nixosSystem {
-    #   specialArgs = {
-    #     pkgs-stable = import nixpkgs-stable {
-    #       inherit system;
-    #       config.allowUnfree = true;
-    #     };
-    #     inherit inputs system flakePath;
-    #   };
-    #   modules = [
-    #     ./settings/th0r/nixos/nix_config.nix
-    #     ./settings/th0r/home/default.nix
-    #   ];
-    # };
-    #
-    # # od1n - T580 for coding use
-    # nixosConfigurations.od1n = nixpkgs.lib.nixosSystem {
-    #   specialArgs = {
-    #     pkgs-stable = import nixpkgs-stable {
-    #       inherit system;
-    #       config.allowUnfree = true;
-    #     };
-    #     inherit inputs system flakePath;
-    #   };
-    #   modules = [
-    #     ./settings/od1n/nixos/nix_config.nix
-    #     ./settings/od1n/home/default.nix
-    #     ./nix/modules/virtualization
-    #   ];
-    # };
-    #
-    # # ba1dr - Old Lenovo Legion (Legion Y530-15ICH), using it for gaming and development
-    # nixosConfigurations.ba1dr = nixpkgs.lib.nixosSystem {
-    #   specialArgs = {
-    #     pkgs-stable = import nixpkgs-stable {
-    #       inherit system;
-    #       config.allowUnfree = true;
-    #     };
-    #     inherit inputs system flakePath;
-    #   };
-    #   modules = [
-    #     nixos-hardware.nixosModules.lenovo-legion-y530-15ich
-    #     ./gaming/ba1dr/default.nix
-    #
-    #     # For this one just directly import not sure if worth making conditionals in nixos/nix_config.nix
-    #     ./nix/gaming/default.nix
-    #
-    #     ./settings/ba1dr/nixos/nix_config.nix
-    #     ./settings/ba1dr/home/default.nix
-    #   ];
-    # };
+    # NixOS machine configurations, now modular
+    nixosConfigurations = (import ./machines {inherit inputs;}) ;
 
     devShells.x86_64-linux = import ./shells/default.nix {
       pkgs = import nixpkgs {
