@@ -7,7 +7,6 @@
   requests,
   devgoldyutils,
 }:
-
 buildPythonPackage rec {
   pname = "mov-cli-test";
   version = "1.1.7";
@@ -22,17 +21,17 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     # We need to import this specific one since some tests are known to fail
-    (callPackage ./pytubefix.nix { })
+    (callPackage ./pytubefix.nix {})
     requests
     devgoldyutils
   ];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   meta = {
     description = "A mov-cli plugin that let's you test mov-cli's capabilities by watching free films and animations in the creative commons";
     homepage = "https://github.com/mov-cli/mov-cli-test";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ youhaveme9 ];
+    maintainers = with lib.maintainers; [youhaveme9];
   };
 }

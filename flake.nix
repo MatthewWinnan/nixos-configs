@@ -118,7 +118,7 @@
     formatter = forAllSystemsInputs (inputs: system: inputs.alejandra.defaultPackage.${system});
 
     # NixOS machine configurations, now modular
-    nixosConfigurations = (import ./machines {inherit inputs;}) ;
+    nixosConfigurations = import ./machines {inherit inputs;};
 
     devShells.x86_64-linux = import ./shells/default.nix {
       pkgs = import nixpkgs {
