@@ -19,10 +19,8 @@
       # Import your home-manager configuration
       ${config.userSettings.username} = {
         imports = [
-          ../../../home/default.nix
-          ../../options/default.nix
-          ../config.nix
-          ../../../themes/image_store/ba1dr.nix
+          ../../../home
+          ../settings
         ];
 
         home = {

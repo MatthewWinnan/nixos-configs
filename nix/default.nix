@@ -1,21 +1,15 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# Main modules import
 {
   config,
   lib,
-  pkgs,
-  inputs,
-  flakePath,
   ...
 }: {
   imports = [
-    # Include the results of the hardware scan.
     ./modules
     ./services
     ./networking
-    ../themes/default.nix
-    ../settings/security/default.nix
+    ../themes
+    ./security
   ];
 
   # Set your time zone.
@@ -38,6 +32,15 @@
         substituters = ["http://cachix:8080/fossil?priority=30"];
         trusted-public-keys = ["fossil:p3AAkC0+gc/JTzfyajd3W+ewQAQhpuq2bwv5Wa3wcIg="];
         trusted-users = [config.userSettings.username "root"];
+      }
+    )
+    (
+      lib.mkIf (config.systemSettings.profile == "gaming")
+      {
+        # Enable FLakes
+        experimental-features = ["nix-command" "flakes"]; # Enabling flakes
+        # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
+        sandbox = "relaxed";
       }
     )
     (

@@ -1,3 +1,4 @@
+# Generic machine configuration and role selection
 {
   deviceSettings = {
     type = "laptop";
