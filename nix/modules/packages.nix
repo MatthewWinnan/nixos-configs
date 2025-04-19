@@ -8,6 +8,7 @@
   lowfi = pkgs.callPackage ../../derivations/lowfi/lowfi.nix {};
   screen_recorder = pkgs.callPackage ../../derivations/screen_record.nix {};
   flamelens = pkgs.callPackage ../../derivations/flamelens {};
+  mov-cli = pkgs.callPackage ../../derivations/mov-cli {};
   #himalaya = pkgs.callPackage ../../derivations/himalaya/himalaya.nix {};
 in {
   # If something has been delared with .enable and points to pkgs or homemanager's
@@ -103,8 +104,7 @@ in {
       grimblast
 
       # To watch general content
-      # Getting build issues with 25.05
-      #mov-cli
+      mov-cli
 
       # Looks good not sure how it works, I baically made equivelant
       # flameshot

@@ -48,4 +48,22 @@ in {
       ./ba1dr
     ];
   };
+
+  # od1n - T580 for coding use
+  nixosConfigurations.od1n = inputs.nixpkgs.lib.nixosSystem {
+    specialArgs = {
+      inherit inputs;
+    };
+    modules = [
+      # General inputs
+      host_platform
+      nixvim
+      stylix
+      nix-index
+      hm
+
+      # Remaining modules
+      ./od1n
+    ];
+  };
 }
