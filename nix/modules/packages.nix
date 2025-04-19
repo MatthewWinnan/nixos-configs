@@ -16,7 +16,6 @@ in {
   # Here we only do the basic global packages and load up module declerations
   nixpkgs.config = {
     allowUnfree = true;
-    permittedInsecurePackages = ["python-2.7.18.8" "electron-25.9.0"];
   };
 
   environment.systemPackages = with pkgs;
@@ -31,7 +30,6 @@ in {
       # pyserial is needed for my arduino-ide
       gnumake
       gcc
-      python
       (python3.withPackages (ps:
         with ps; [
           requests
@@ -106,7 +104,7 @@ in {
       # To watch general content
       mov-cli
 
-      # Looks good not sure how it works, I baically made equivelant
+      # Looks good not sure how it works, I basically made equivelant
       # flameshot
 
       # Custom recorder
