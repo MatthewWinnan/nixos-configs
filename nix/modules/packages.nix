@@ -149,7 +149,6 @@ in {
     ++ lib.optionals (config.systemSettings.profile == "personal") [
       # Only for personal use
       openvpn
-      skypeforlinux
     ]
     ++ lib.optionals (config.systemSettings.profile == "gaming") [
       # CLI program and API to automate the installation and update of GloriousEggroll's Proton-GE.
@@ -159,7 +158,6 @@ in {
     ++ lib.optionals (config.systemSettings.profile == "work") [
       # Only for professional life
       openvpn
-      skypeforlinux
 
       # I still need to flash
       rpi-imager
