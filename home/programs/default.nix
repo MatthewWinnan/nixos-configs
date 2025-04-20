@@ -6,5 +6,6 @@
     ./yazi
     ./chromium
     ./direnv.nix
+    ./helix
   ];
 }

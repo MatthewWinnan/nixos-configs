@@ -2,7 +2,6 @@
   imports = [
     ./lf.nix
     ./wofi.nix
-    ./helix.nix
     ./fastfetch.nix
     ./zathura.nix
     ./rofi/default.nix
