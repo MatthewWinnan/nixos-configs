@@ -1,9 +1,10 @@
 {config, ...}: {
   imports = [
-    ./newsboat/default.nix
-    ./schizofox/default.nix
-    ./vscode/default.nix
-    ./yazi/default.nix
+    ./newsboat
+    ./schizofox
+    ./vscode
+    ./yazi
+    ./chromium
     ./direnv.nix
   ];
 }

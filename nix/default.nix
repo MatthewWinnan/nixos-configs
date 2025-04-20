@@ -5,10 +5,13 @@
   ...
 }: {
   imports = [
-    ./modules
+    ./applications
     ./services
     ./networking
     ./security
+    ./boot
+    ./environment
+    ./user
   ];
 
   # Set your time zone.
