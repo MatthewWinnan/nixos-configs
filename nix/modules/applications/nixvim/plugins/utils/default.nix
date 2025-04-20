@@ -17,9 +17,9 @@
     ./floaterm.nix
     ./multicursors.nix
     ./neoclip.nix
-    ./web-devicons.nix
     ./markview.nix
     ./obsidian.nix
+    ./web-devicons.nix
 
     # Does not build due to package manager mismatch
     #./plenary.nix
