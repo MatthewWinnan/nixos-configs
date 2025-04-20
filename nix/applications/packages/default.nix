@@ -87,6 +87,7 @@ in {
       # WMs and stuff
       xdg-desktop-portal-hyprland
       xdg-desktop-portal-gnome
+      xdg-desktop-portal-gtk
       wttrbar # Weather
 
       # Sound support
