@@ -8,7 +8,6 @@
     ./modules
     ./services
     ./networking
-    ../themes
     ./security
   ];
 
