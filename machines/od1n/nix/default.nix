@@ -7,5 +7,9 @@
     ../../../nix
     # Settings
     ../settings
+    # I also for this one want to import virtualization
+    ../../../nix/modules/virtualization
+    # Rather import themes here
+    ../../../themes
   ];
 }
