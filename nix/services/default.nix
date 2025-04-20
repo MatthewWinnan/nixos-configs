@@ -11,6 +11,8 @@
     ./udisks2.nix
     ./blueman.nix
     ./printing.nix
+    ./greetd.nix
+    ./pulseaudio.nix
   ];
 
   # services.xserver.libinput.enable = true;
