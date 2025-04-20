@@ -24,12 +24,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    swww.url = "github:LGFae/swww";
-    himalaya.url = "github:pimalaya/himalaya";
-    rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
+    swww = {
+      url = "github:LGFae/swww";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    himalaya = {
+      url = "github:pimalaya/himalaya";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    rose-pine-hyprcursor = {
+      url = "github:ndom91/rose-pine-hyprcursor";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Browse manga
-    manga-tui.url = "github:josueBarretogit/manga-tui";
+    manga-tui = {
+      url = "github:josueBarretogit/manga-tui";
+    };
 
     # Schizophrenic Firefox configuration
     schizofox = {
@@ -69,12 +82,15 @@
     };
 
     # Needed for my Legion Y530-15ICH
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+    };
 
     # Needed for zephyr development see -> https://github.com/adisbladis/zephyr-nix/tree/master
-    zephyr.url = "github:zephyrproject-rtos/zephyr/v3.5.0";
-    zephyr.flake = false;
-
+    zephyr = {
+      url = "github:zephyrproject-rtos/zephyr/v3.5.0";
+      flake = false;
+    };
     zephyr-nix = {
       url = "github:adisbladis/zephyr-nix";
       inputs = {
@@ -87,50 +103,19 @@
 
   outputs = {
     self,
-    alejandra,
     nixpkgs,
-    zephyr-nix,
-    nixpkgs-stable,
-    stylix,
-    home-manager,
-    manga-tui,
-    schizofox,
-    nix-index-database,
-    sops-nix,
-    nix-vscode-extensions,
-    himalaya,
-    nixos-hardware,
     ...
   } @ inputs: let
-    system = "x86_64-linux";
-    lib = nixpkgs.lib // home-manager.lib;
-    pkgs_pkgs = import nixpkgs {inherit system;};
-
-    # For zephyr tooling
-    # We keep an old copy of a working nix pkgs, zephyr does not seem to like newer
-    pkgs_stable = import nixpkgs-stable {inherit system;};
-    zephyr = zephyr-nix.packages.x86_64-linux;
-
     # Modular import to allow for all systems
     forAllSystemsInputs = function: nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: function inputs system);
   in {
     # Formatter of choice
     formatter = forAllSystemsInputs (inputs: system: inputs.alejandra.defaultPackage.${system});
 
+    # My own local devshells
+    devShells = forAllSystemsInputs (inputs: system: import ./shells {inherit system inputs;});
+
     # NixOS machine configurations, now modular
     nixosConfigurations = import ./machines {inherit inputs;};
-
-    devShells.x86_64-linux = import ./shells/default.nix {
-      pkgs = import nixpkgs {
-        system = system;
-      };
-      pkgs_stable = pkgs_stable;
-      system = system;
-      lib = lib;
-      stdenvNoCC = nixpkgs.legacyPackages.${system}.stdenvNoCC;
-      runCommand = nixpkgs.runCommand;
-      fetchgit = pkgs_pkgs.fetchgit;
-      zephyr = zephyr;
-    };
   };
 }

@@ -3,7 +3,7 @@
 # Most of the Zypher things will be installed by the package zephyr
 # The the typical use case for the shell is to just be able to compile one of my ZMK boards
 {
-  pkgs,
+  pkgs_stable,
   system,
   lib,
   stdenvNoCC,
@@ -13,6 +13,7 @@
   ...
 }: let
   pythonPackages = pkgs.python312Packages;
+  pkgs = pkgs_stable;
   pyPkgs = pythonPackages:
     with pythonPackages; [
       pip
