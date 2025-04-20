@@ -19,6 +19,8 @@
   };
 
   programs.nixvim.extraConfigLua = ''
+    local yaml_companion_cfg = require("yaml-companion").setup({})
+    require("lspconfig")["yamlls"].setup(yaml_companion_cfg)
     require("telescope").load_extension("yaml_schema")
   '';
 }

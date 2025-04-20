@@ -20,10 +20,6 @@
     ./markview.nix
     ./obsidian.nix
     ./web-devicons.nix
-
-    # Does not build due to package manager mismatch
-    #./plenary.nix
-    # Does not build due to not being able to find plenary
-    #./muren.nix
+    ./muren.nix
   ];
 }
