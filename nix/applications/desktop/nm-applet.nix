@@ -1,8 +1,6 @@
 # networkmanager tray uility
-{inputs, ...}:
-{
+{inputs, ...}: {
   programs.nm-applet = {
     enable = true;
   };
 }
-

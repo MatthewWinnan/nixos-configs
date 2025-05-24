@@ -1,8 +1,5 @@
 # show network usage
-{
-  inputs, ...
-}:
-{
+{inputs, ...}: {
   programs.bandwhich = {
     enable = true;
   };

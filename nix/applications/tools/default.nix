@@ -1,5 +1,4 @@
-{inputs, ...}:
-{
+{inputs, ...}: {
   imports = [
     ./nh.nix
     ./wireshark.nix
