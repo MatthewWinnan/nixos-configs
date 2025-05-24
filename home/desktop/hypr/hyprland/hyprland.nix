@@ -10,6 +10,9 @@ in {
   wayland.windowManager.hyprland = lib.mkForce {
     enable = true;
     xwayland.enable = true;
+    systemd = {
+      enable = true;
+    };
 
     # We need to use an old compatible package
     #package = pinnedHyprland;
@@ -136,8 +139,8 @@ in {
 
       # Since NixOS 25.05 hyprpaper keeps conflicting with swww, I need to rather use hyprpaper as the backend, I suspect this is due to sylix
       exec-once = [
-        "waybar"
-        "waypaper --restore --backend ${pkgs.hyprpaper}/bin/hyprpaper"
+        "${pkgs.waybar}/bin/waybar"
+        "${pkgs.waypaper}/bin/waypaper --restore --backend hyprpaper"
         "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"
 
         # I might be doing something wrong but this does break my normal copy and paste
@@ -153,14 +156,14 @@ in {
           #"$mainMod SHIFT, G, exec, ${lib.getExe pkgs.warpd} --grid"
 
           # For the clip board
-          "$mainMod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+          "$mainMod, C, exec, ${lib.getExe pkgs.cliphist} list | ${lib.getExe pkgs.rofi} -dmenu | ${lib.getExe pkgs.cliphist} decode | wl-copy"
 
           # For screen shotting and recording
           "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${lib.getExe pkgs.swappy} -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png"
           ''$mainMod, R, exec, ${lib.getExe pkgs.wf-recorder} -al -g "$(${lib.getExe pkgs.slurp} -w 0 -d)" -f $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).mp4 > $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).log ''
-          "$mainMod SHIFT, R, exec, pkill wf-recorder"
+          "$mainMod SHIFT, R, exec, pkill ${lib.getExe pkgs.wf-recorder}"
           # General functions
-          "$mainMod, Return, exec, kitty"
+          "$mainMod, Return, exec, ${lib.getExe pkgs.kitty}"
           "$mainMod, Q, killactive,"
           "$mainMod, M, exit,"
           "$mainMod, F, fullscreen,"

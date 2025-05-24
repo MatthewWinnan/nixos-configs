@@ -1,70 +1,58 @@
-{
-  lib,
-  fetchFromGitHub,
-  ffmpeg,
-  fzf,
-  mpv,
-  python3,
-}: let
-  pname = "mov-cli";
-  version = "4.4.19";
-in
-  python3.pkgs.buildPythonPackage {
-    inherit pname version;
-    pyproject = true;
+{pkgs}: let
+  python = pkgs.python312;
+  pythonPackages = pkgs.python312Packages;
 
-    src = fetchFromGitHub {
-      owner = "mov-cli";
-      repo = "mov-cli";
-      tag = version;
-      hash = "sha256-sNeScHmQYR4Avr5OEFpE90Qn7udBgi1Ox5elFSyKXrY=";
-    };
+  callPackage = pkgs.callPackage;
 
-    doCheck = false;
+  config = ./config/config.toml;
 
-    propagatedBuildInputs = with python3.pkgs; [
-      beautifulsoup4
-      click
-      colorama
-      deprecation
-      httpx
-      inquirer
-      krfzf-py
+  mov-cli = callPackage ./packages/mov-cli {};
+  mov-cli-youtube = callPackage ./packages/youtube {};
+
+  pyPkgs = pythonPackages:
+    with pythonPackages; [
       lxml
-      poetry-core
-      pycrypto
-      python-decouple
-      setuptools
-      six
-      thefuzz
-      tldextract
-      toml
-      typer
-      unidecode
-      # On default the pyproject.toml has this as a dependency so we need to build it
-      (callPackage ./mov-cli-test.nix {})
     ];
 
-    pythonRelaxDeps = [
-      "httpx"
-      "tldextract"
+  pythonEnv = python.withPackages (ps: [
+    mov-cli
+    mov-cli-youtube
+    (pkgs.python312.withPackages pyPkgs)
+  ]);
+
+in
+  pkgs.stdenv.mkDerivation {
+    pname = "mov-cli-wrapper";
+    version = "1.0";
+
+    # Apparently this is safer
+    # https://github.com/NixOS/nixpkgs/issues/65434
+    unpackPhase = ":";
+
+    # Dependencies https://github.com/mov-cli/mov-cli?tab=readme-ov-file#prerequisites
+    buildInputs = [
+      pythonEnv
+      pkgs.fzf
+      pkgs.mpv
+      pkgs.ffmpeg
+      pkgs.libxml2
     ];
 
-    makeWrapperArgs = let
-      binPath = lib.makeBinPath [
-        ffmpeg
-        fzf
-        mpv
-      ];
-    in [
-      "--prefix PATH : ${binPath}"
-    ];
+    installPhase = ''
+    mkdir -p $out/bin
 
-    meta = with lib; {
-      homepage = "https://github.com/mov-cli/mov-cli";
-      description = "Cli tool to browse and watch movies";
-      license = with lib.licenses; [gpl3Only];
-      mainProgram = "mov-cli";
-      maintainers = with lib.maintainers; [baitinq];
-    };
+    cat > $out/bin/mov-cli <<EOF
+    #!${pkgs.runtimeShell}
+    CONFIG_HOME="\$HOME/.config/mov-cli"
+    if [ ! -e "\$CONFIG_HOME/config.toml" ]; then
+      mkdir -p "\$CONFIG_HOME"
+      ln -sf "${config}" "\$CONFIG_HOME/config.toml"
+    fi
+
+    export PYTHONPATH=${pythonEnv}/${python.sitePackages}
+    ${mov-cli}/bin/mov-cli "\$@"
+    EOF
+
+    chmod +x $out/bin/mov-cli
+  '';
   }

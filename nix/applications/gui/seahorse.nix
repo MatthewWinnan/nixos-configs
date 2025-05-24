@@ -1,6 +1,5 @@
 # gnome's keyring manager
-{inputs, ...}:
-{
+{inputs, ...}: {
   programs.seahorse = {
     enable = true;
   };

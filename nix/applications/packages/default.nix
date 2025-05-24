@@ -73,22 +73,25 @@ in {
       hyprpaper
       inputs.swww.packages.${system}.swww
 
-      # Wayland stuff
-      xwayland
-
-      # Screenshot stuff
-      cliphist
+      # Clipboard stuff
       wl-clipboard
       wl-clip-persist
+
+      # Screenshot stuff
       slurp
       grim
       swappy
+      grimblast
 
       # WMs and stuff
+      xwayland
+      wttrbar # Weather
+
+      # XDG Stuff
       xdg-desktop-portal-hyprland
       xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk
-      wttrbar # Weather
+      xdg-utils
 
       # Sound support
       pavucontrol
@@ -99,11 +102,8 @@ in {
       pipewire
       wireplumber
 
-      # Screenshotting
-      grimblast
-
-      # To watch general content
-      mov-cli
+      # For faster XML scraping
+      libxml2
 
       # Looks good not sure how it works, I basically made equivelant
       # flameshot
@@ -132,6 +132,9 @@ in {
       # TUI Lowfi player
       # DOCS -> https://github.com/talwat/lowfi
       lowfi
+
+      # To watch general content
+      mov-cli
 
       # Embedded coding, see arduino-ide too
       arduino-ide

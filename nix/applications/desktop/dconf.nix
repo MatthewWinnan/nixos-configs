@@ -1,6 +1,5 @@
 # registry for linux, thanks to gnome
-{inputs, ...}:
-{
+{inputs, ...}: {
   programs.dconf = {
     enable = true;
   };

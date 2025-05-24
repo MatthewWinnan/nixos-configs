@@ -18,6 +18,7 @@ in {
   arduino = import ./arduino.nix {inherit pkgs;};
   keymap_editor = import ./keymap_editor.nix {inherit pkgs;};
   freecad = import ./freecad.nix {inherit pkgs;};
+  mov-cli = import ./mov_cli.nix {inherit pkgs;};
 
   # With NixOS 25.04 I am getting buffer overflow issues, and it does not support libstdcxx5, we pin it to pkgs_stable, which is guarenteed to work
   zmk = import ./zephyr/zmk.nix {

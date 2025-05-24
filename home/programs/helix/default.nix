@@ -1,5 +1,4 @@
-{inputs, ...}:
-{
+{inputs, ...}: {
   config.programs.helix = {
     enable = true;
     settings = {
@@ -12,8 +11,8 @@
             d = "diagnostics_picker";
           };
         };
-          G = "goto_last_line";
-  };
+        G = "goto_last_line";
+      };
     };
   };
 }

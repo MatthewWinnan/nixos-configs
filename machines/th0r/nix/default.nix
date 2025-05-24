@@ -1,6 +1,5 @@
 # For nixOS specific imports
-{inputs, ...}:
-{
+{inputs, ...}: {
   imports = [
     # Hardware declarations
     ./hardware-configuration.nix
@@ -11,5 +10,4 @@
     # Rather import themes here
     ../../../themes
   ];
-
 }
