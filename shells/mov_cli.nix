@@ -14,8 +14,9 @@ in
     buildInputs = [
       pkgs.python312
       (pkgs.python312.withPackages pyPkgs)
-      (callPackage ../derivations/mov-cli/packages/mov-cli {})
-      (callPackage ../derivations/mov-cli/packages/youtube {})
+      (callPackage ../derivations/mov-cli/mov-cli {})
+      (callPackage ../derivations/mov-cli/plugins/youtube {})
+      (callPackage ../derivations/mov-cli/plugins/otaku {})
     ];
 
     shellHook = ''
