@@ -44,6 +44,12 @@
       url = "github:josueBarretogit/manga-tui";
     };
 
+    # For movie viewing
+    lobster = {
+      url = "github:justchokingaround/lobster";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Schizophrenic Firefox configuration
     schizofox = {
       url = "github:schizofox/schizofox";
