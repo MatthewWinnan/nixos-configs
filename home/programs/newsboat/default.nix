@@ -55,7 +55,7 @@ in {
         bind-key x pb-delete
 
         # I want a different macro prefix
-        bind-key + macro-prefix
+        bind-key m macro-prefix
         unbind-key ,
 
         color listnormal         cyan default
