@@ -74,7 +74,6 @@
       title = "Pragmatic Engineer";
       url = "https://feeds.feedburner.com/ThePragmaticEngineer";
       tags = ["tech" "hobby"];
-
     }
 
     # Programming.dev
@@ -83,5 +82,5 @@
       url = "https://programming.dev/feeds/c/commandline.xml?sort=Active";
       tags = ["tech" "hobby"];
     }
-];
+  ];
 }

@@ -7,5 +7,6 @@
     ./chromium
     ./direnv.nix
     ./helix
+    ./qutebrowser
   ];
 }
