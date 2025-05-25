@@ -6,8 +6,9 @@
 
   config = ./config/config.toml;
 
-  mov-cli = callPackage ./packages/mov-cli {};
-  mov-cli-youtube = callPackage ./packages/youtube {};
+  mov-cli = callPackage ./mov-cli {};
+  mov-cli-youtube = callPackage ./plugins/youtube {};
+  otaku-watcher = callPackage ./plugins/otaku {};
 
   pyPkgs = pythonPackages:
     with pythonPackages; [
@@ -17,9 +18,9 @@
   pythonEnv = python.withPackages (ps: [
     mov-cli
     mov-cli-youtube
+    otaku-watcher
     (pkgs.python312.withPackages pyPkgs)
   ]);
-
 in
   pkgs.stdenv.mkDerivation {
     pname = "mov-cli-wrapper";
@@ -30,7 +31,7 @@ in
     unpackPhase = ":";
 
     # Dependencies https://github.com/mov-cli/mov-cli?tab=readme-ov-file#prerequisites
-    buildInputs = [
+    propagateBuildInputs = [
       pythonEnv
       pkgs.fzf
       pkgs.mpv
@@ -39,20 +40,21 @@ in
     ];
 
     installPhase = ''
-    mkdir -p $out/bin
+      mkdir -p $out/bin
 
-    cat > $out/bin/mov-cli <<EOF
-    #!${pkgs.runtimeShell}
-    CONFIG_HOME="\$HOME/.config/mov-cli"
-    if [ ! -e "\$CONFIG_HOME/config.toml" ]; then
-      mkdir -p "\$CONFIG_HOME"
+      cat > $out/bin/mov-cli <<EOF
+      #!${pkgs.runtimeShell}
+      CONFIG_HOME="\$HOME/.config/mov-cli"
+      if [ ! -e "\$CONFIG_HOME/config.toml" ]; then
+        mkdir -p "\$CONFIG_HOME"
+      fi
+
       ln -sf "${config}" "\$CONFIG_HOME/config.toml"
-    fi
 
-    export PYTHONPATH=${pythonEnv}/${python.sitePackages}
-    ${mov-cli}/bin/mov-cli "\$@"
-    EOF
+      export PYTHONPATH=${pythonEnv}/${python.sitePackages}
+      ${mov-cli}/bin/mov-cli "\$@"
+      EOF
 
-    chmod +x $out/bin/mov-cli
-  '';
+      chmod +x $out/bin/mov-cli
+    '';
   }
