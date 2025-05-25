@@ -136,6 +136,9 @@ in {
       # To watch general content
       mov-cli
 
+      # To watch movies
+      inputs.lobster.packages.${system}.lobster
+
       # Embedded coding, see arduino-ide too
       arduino-ide
       adafruit-nrfutil
