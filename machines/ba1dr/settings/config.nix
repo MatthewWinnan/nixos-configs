@@ -25,5 +25,6 @@
     username = "matthew";
     name = "Matthew";
     email = "mcwinnan@gmail.com";
+    browser = "qutebrowser";
   };
 }

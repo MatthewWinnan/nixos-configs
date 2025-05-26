@@ -13,6 +13,7 @@
     ./printing.nix
     ./greetd.nix
     ./pulseaudio.nix
+    ./mpd.nix
   ];
 
   # services.xserver.libinput.enable = true;
