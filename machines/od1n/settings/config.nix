@@ -46,5 +46,6 @@
     username = "matthew";
     name = "Matthew";
     email = "matthew.winnan@mirasecurity.com";
+    browser = "qutebrowser";
   };
 }

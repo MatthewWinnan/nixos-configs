@@ -8,5 +8,6 @@
     ./direnv.nix
     ./helix
     ./qutebrowser
+    ./rmpc
   ];
 }

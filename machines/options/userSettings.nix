@@ -18,6 +18,11 @@ in {
         default = "mcwinnan@gmail.com";
         description = "Email address of the user.";
       };
+      browser = lib.mkOption {
+        type = str;
+        default = "qutebrowser";
+        description = "The default browser of the user.";
+      };
     };
   };
 }

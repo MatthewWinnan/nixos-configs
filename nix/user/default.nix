@@ -34,7 +34,7 @@
 
           # We need to add dialout so I can serial and program MCU
 
-          extraGroups = ["networkmanager" "wheel" "input" "libvirtd" "dialout"];
+          extraGroups = ["networkmanager" "wheel" "input" "libvirtd" "dialout" "mpd"];
           packages = with pkgs; [];
         };
       }
