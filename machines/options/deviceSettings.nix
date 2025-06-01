@@ -47,6 +47,12 @@ in {
                 type = lib.types.nullOr lib.types.str;
                 default = "1";
               };
+
+              # For mode definitions check https://wiki.hyprland.org/Configuring/Monitors/#rotating
+              rotate_mode = lib.mkOption {
+                type = enum ["0" "1" "2" "3" "4" "5" "6" "7"];
+                default = "0";
+              };
             };
           }
         );
