@@ -13,7 +13,9 @@
       w = "https://en.wikipedia.org/wiki/Special:Search?search={}&amp;go=Go&amp;ns0=1";
       aw = "https://wiki.archlinux.org/?search={}";
       nw = "https://wiki.nixos.org/index.php?search={}";
+      nh = "https://home-manager-options.extranix.com/?query={}";
       no = "https://mynixos.com/search?q={}";
+      nv = "https://nix-community.github.io/nixvim/?search={}";
       g = "https://www.google.com/search?q={}";
       d = "https://duckduckgo.com/?q={}";
       pd = "https://protondb.com/search?q={}";
@@ -31,6 +33,9 @@
     ];
 
     settings = {
+      editor = {
+        command = ["${pkgs.kitty}/bin/kitty" "${pkgs.neovim}/bin/nvim" "{file}" "-c" "normal {line}G{column0}l"];
+      };
       window = {
         transparent = true;
       };

@@ -16,7 +16,7 @@ in {
   # config = mkIf config.programs.firefox.enable
   config = {
     programs.schizofox = {
-      enable = true;
+      enable = false;
       theme = {
         font = "Inter";
         colors = {
