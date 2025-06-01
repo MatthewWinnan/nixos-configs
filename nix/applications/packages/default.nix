@@ -9,6 +9,7 @@
   screen_recorder = pkgs.callPackage ../../../derivations/screen_record.nix {};
   flamelens = pkgs.callPackage ../../../derivations/flamelens {};
   mov-cli = pkgs.callPackage ../../../derivations/mov-cli {};
+  yt-dlp = pkgs.callPackage ../../../derivations/mov-cli/packages/yt-dlp.nix {};
   #himalaya = pkgs.callPackage ../../../derivations/himalaya/himalaya.nix {};
 in {
   # If something has been delared with .enable and points to pkgs or homemanager's
@@ -45,6 +46,7 @@ in {
       just
       wf-recorder # Else we do not have access to it on CLI
       mpv # To view the recordings
+      rpi-imager # For flashing images
 
       # For caching setup
       attic-client
@@ -142,7 +144,6 @@ in {
       # Embedded coding, see arduino-ide too
       arduino-ide
       adafruit-nrfutil
-      rpi-imager
 
       # For 3D printing/designing
       orca-slicer
@@ -152,6 +153,12 @@ in {
 
       # For the logic analyzer
       pulseview
+
+      # Minimal client for mpd
+      mpc
+
+      # To manually download yt videos
+      yt-dlp
     ]
     ++ lib.optionals (config.systemSettings.profile == "personal") [
       # Only for personal use
@@ -161,13 +168,16 @@ in {
       # CLI program and API to automate the installation and update of GloriousEggroll's Proton-GE.
       # DOCS Check more on mangohub -> https://github.com/flightlessmango/MangoHud
       mangohud
+
+      # https://heroicgameslauncher.com/
+      heroic
+
+      # https://mynixos.com/nixpkgs/package/wine-wayland
+      wine-wayland
     ]
     ++ lib.optionals (config.systemSettings.profile == "work") [
       # Only for professional life
       openvpn
-
-      # I still need to flash
-      rpi-imager
 
       # We use gerrit
       git-review

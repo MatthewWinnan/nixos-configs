@@ -109,142 +109,142 @@ in {
             ++ openVsxExtensionsRelease;
         };
 
-      #   userSettings = lib.mkForce {
-      #     # General
-      #     "update.mode" = "none";
-      #     "update.showReleaseNotes" = false; # disable update release notes
-      #     # "[nix]"."editor.tabSize" = 2;
-      #     "files.trimTrailingWhitespace" = true;
-      #
-      #     # Security settings
-      #     "security.workspace.trust.untrustedFiles" = "open";
-      #     "security.workspace.trust.enabled" = false;
-      #
-      #     # BreadCrumbs settings
-      #     "notebook.breadcrumbs.showCodeCells" = false;
-      #
-      #     # Terminal settings
-      #     "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font Mono";
-      #     "terminal.integrated.defaultProfile.linux" = "fish";
-      #     "terminal.integrated.enableVisualBell" = false;
-      #     "terminal.integrated.tabs.enabled" = true;
-      #     # "terminal.integrated.enableMultiLinePasteWarning" = false;
-      #     "terminal.integrated.tabs.separator" = " | ";
-      #     "terminal.integrated.cursorBlinking" = true;
-      #
-      #     # Editor settings
-      #     #"editor.fontFamily" = "JetBrainsMono Nerd Font, Material Design Icons, 'monospace', monospace";
-      #     # "editor.lineNumbers" = "relative";
-      #     # "editor.scrollbar.verticalScrollbarSize" = 6;
-      #     #"editor.fontSize" = 16;
-      #     # "editor.formatOnPaste" = true;
-      #     # "editor.formatOnSave" = true;
-      #     # "editor.formatOnType" = false;
-      #     # "editor.inlayHints.enabled" = "off";
-      #     # "editor.lightbulb.enabled" = "off";
-      #     #"editor.fontLigatures" = true;
-      #     # "editor.overviewRulerBorder" = false;
-      #     # "editor.renderLineHighlight" = "all";
-      #     # "editor.inlineSuggest.enabled" = true;
-      #     # "editor.smoothScrolling" = true;
-      #     # "editor.suggestSelection" = "first";
-      #     # "editor.guides.indentation" = true;
-      #     # "editor.guides.bracketPairs" = true;
-      #     # "editor.scrollbar.horizontalScrollbarSize" = 0;
-      #
-      #     # "editor.minimap.enabled" = false;
-      #     # "editor.minimap.renderCharacters" = false;
-      #     # "editor.cursorBlinking" = "phase";
-      #
-      #     # Window settings
-      #     "window.titleBarStyle" = "custom";
-      #     "window.titleSeparator" = " | ";
-      #     "window.title" = "!Neovim";
-      #     "window.restoreWindows" = "all";
-      #     "window.menuBarVisibility" = "toggle";
-      #
-      #     # Workbench settings
-      #     # "workbench.colorTheme" = "Xi's theme";
-      #     # "workbench.iconTheme" = "material-icon-theme";
-      #     "workbench.layoutControl.enabled" = false;
-      #     "workbench.editor.enablePreview" = false;
-      #     "workbench.panel.defaultLocation" = "right";
-      #     "workbench.startupEditor" = "none";
-      #     "workbench.list.smoothScrolling" = true;
-      #
-      #     # Git settings
-      #     "git.openRepositoryInParentFolders" = "always";
-      #     "git.enableSmartCommit" = true;
-      #     "git.confirmSync" = false;
-      #     "git.autofetch" = true;
-      #
-      #     # Extension settings
-      #     "extensions.autoCheckUpdates" = false;
-      #     "extensions.autoUpdate" = false;
-      #
-      #     # "vim.useSystemClipboard" = true;
-      #     # "haskell.manageHLS" = "PATH";
-      #     # "vscode-neovim.highlightGroups.highlights" = {
-      #     #   "IncSearch" = {
-      #     #     "backgroundColor" = "theme.editor.findMatchBackground";
-      #     #     "borderColor" = "theme.editor.findMatchBorder";
-      #     #   };
-      #     #   "Search" = {
-      #     #     "backgroundColor" = "theme.editor.findMatchHighlightBackground";
-      #     #     "borderColor" = "theme.editor.findMatchHighlightBorder";
-      #     #   };
-      #     #   "Visual" = {
-      #     #     "backgroundColor" = "theme.editor.selectionBackground";
-      #     #   };
-      #     # };
-      #     # "extensions.experimental.affinity" = {
-      #     #   "asvetliakov.vscode-neovim" = 1;
-      #     # };
-      #
-      #     # Explorer settings
-      #     "explorer.openEditors.visible" = 1;
-      #     "explorer.compactFolders" = false; # disable compact mode
-      #     "explorer.confirmDelete" = false;
-      #     "explorer.confirmDragAndDrop" = false;
-      #     "explorer.autoReveal" = false;
-      #
-      #     # Error Lens settings
-      #     # "errorLens.gutterIconsEnabled" = true;
-      #     # "errorLens.gutterIconSize" = "115%";
-      #     # "errorLens.messageBackgroundMode" = "message";
-      #     # "errorLens.enabledDiagnosticLevels" = [
-      #     #   "error"
-      #     #   "warning"
-      #     #   "info"
-      #     #   "hint"
-      #     # ];
-      #     # "python.linting.flake8Args" = [
-      #     #   "--extend-ignore=E501"
-      #     # ];
-      #     # "python.linting.flake8CategorySeverity.F" = "Warning";
-      #     # "flake8.severity" = {
-      #     #   "E" = "Information";
-      #     #   "F" = "Hint";
-      #     #   "W" = "Error";
-      #     # };
-      #
-      #     # Formatters for different languages
-      #     # "[python]" = {
-      #     #   # use black vs code extension to format python code
-      #     #   "editor.defaultFormatter" = "ms-python.black-formatter";
-      #     #   "editor.formatOnSave" = true;
-      #     # };
-      #
-      #     # "[nix]" = {
-      #     #   # use alejandra to format nix code
-      #     #   "editor.defaultFormatter" = "kamadorueda.alejandra";
-      #     #   "editor.formatOnPaste" = true;
-      #     #   "editor.formatOnSave" = true;
-      #     #   "editor.formatOnType" = false;
-      #     # };
-      #     # "alejandra.program" = "alejandra";
-      #   };
-       };
+        #   userSettings = lib.mkForce {
+        #     # General
+        #     "update.mode" = "none";
+        #     "update.showReleaseNotes" = false; # disable update release notes
+        #     # "[nix]"."editor.tabSize" = 2;
+        #     "files.trimTrailingWhitespace" = true;
+        #
+        #     # Security settings
+        #     "security.workspace.trust.untrustedFiles" = "open";
+        #     "security.workspace.trust.enabled" = false;
+        #
+        #     # BreadCrumbs settings
+        #     "notebook.breadcrumbs.showCodeCells" = false;
+        #
+        #     # Terminal settings
+        #     "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font Mono";
+        #     "terminal.integrated.defaultProfile.linux" = "fish";
+        #     "terminal.integrated.enableVisualBell" = false;
+        #     "terminal.integrated.tabs.enabled" = true;
+        #     # "terminal.integrated.enableMultiLinePasteWarning" = false;
+        #     "terminal.integrated.tabs.separator" = " | ";
+        #     "terminal.integrated.cursorBlinking" = true;
+        #
+        #     # Editor settings
+        #     #"editor.fontFamily" = "JetBrainsMono Nerd Font, Material Design Icons, 'monospace', monospace";
+        #     # "editor.lineNumbers" = "relative";
+        #     # "editor.scrollbar.verticalScrollbarSize" = 6;
+        #     #"editor.fontSize" = 16;
+        #     # "editor.formatOnPaste" = true;
+        #     # "editor.formatOnSave" = true;
+        #     # "editor.formatOnType" = false;
+        #     # "editor.inlayHints.enabled" = "off";
+        #     # "editor.lightbulb.enabled" = "off";
+        #     #"editor.fontLigatures" = true;
+        #     # "editor.overviewRulerBorder" = false;
+        #     # "editor.renderLineHighlight" = "all";
+        #     # "editor.inlineSuggest.enabled" = true;
+        #     # "editor.smoothScrolling" = true;
+        #     # "editor.suggestSelection" = "first";
+        #     # "editor.guides.indentation" = true;
+        #     # "editor.guides.bracketPairs" = true;
+        #     # "editor.scrollbar.horizontalScrollbarSize" = 0;
+        #
+        #     # "editor.minimap.enabled" = false;
+        #     # "editor.minimap.renderCharacters" = false;
+        #     # "editor.cursorBlinking" = "phase";
+        #
+        #     # Window settings
+        #     "window.titleBarStyle" = "custom";
+        #     "window.titleSeparator" = " | ";
+        #     "window.title" = "!Neovim";
+        #     "window.restoreWindows" = "all";
+        #     "window.menuBarVisibility" = "toggle";
+        #
+        #     # Workbench settings
+        #     # "workbench.colorTheme" = "Xi's theme";
+        #     # "workbench.iconTheme" = "material-icon-theme";
+        #     "workbench.layoutControl.enabled" = false;
+        #     "workbench.editor.enablePreview" = false;
+        #     "workbench.panel.defaultLocation" = "right";
+        #     "workbench.startupEditor" = "none";
+        #     "workbench.list.smoothScrolling" = true;
+        #
+        #     # Git settings
+        #     "git.openRepositoryInParentFolders" = "always";
+        #     "git.enableSmartCommit" = true;
+        #     "git.confirmSync" = false;
+        #     "git.autofetch" = true;
+        #
+        #     # Extension settings
+        #     "extensions.autoCheckUpdates" = false;
+        #     "extensions.autoUpdate" = false;
+        #
+        #     # "vim.useSystemClipboard" = true;
+        #     # "haskell.manageHLS" = "PATH";
+        #     # "vscode-neovim.highlightGroups.highlights" = {
+        #     #   "IncSearch" = {
+        #     #     "backgroundColor" = "theme.editor.findMatchBackground";
+        #     #     "borderColor" = "theme.editor.findMatchBorder";
+        #     #   };
+        #     #   "Search" = {
+        #     #     "backgroundColor" = "theme.editor.findMatchHighlightBackground";
+        #     #     "borderColor" = "theme.editor.findMatchHighlightBorder";
+        #     #   };
+        #     #   "Visual" = {
+        #     #     "backgroundColor" = "theme.editor.selectionBackground";
+        #     #   };
+        #     # };
+        #     # "extensions.experimental.affinity" = {
+        #     #   "asvetliakov.vscode-neovim" = 1;
+        #     # };
+        #
+        #     # Explorer settings
+        #     "explorer.openEditors.visible" = 1;
+        #     "explorer.compactFolders" = false; # disable compact mode
+        #     "explorer.confirmDelete" = false;
+        #     "explorer.confirmDragAndDrop" = false;
+        #     "explorer.autoReveal" = false;
+        #
+        #     # Error Lens settings
+        #     # "errorLens.gutterIconsEnabled" = true;
+        #     # "errorLens.gutterIconSize" = "115%";
+        #     # "errorLens.messageBackgroundMode" = "message";
+        #     # "errorLens.enabledDiagnosticLevels" = [
+        #     #   "error"
+        #     #   "warning"
+        #     #   "info"
+        #     #   "hint"
+        #     # ];
+        #     # "python.linting.flake8Args" = [
+        #     #   "--extend-ignore=E501"
+        #     # ];
+        #     # "python.linting.flake8CategorySeverity.F" = "Warning";
+        #     # "flake8.severity" = {
+        #     #   "E" = "Information";
+        #     #   "F" = "Hint";
+        #     #   "W" = "Error";
+        #     # };
+        #
+        #     # Formatters for different languages
+        #     # "[python]" = {
+        #     #   # use black vs code extension to format python code
+        #     #   "editor.defaultFormatter" = "ms-python.black-formatter";
+        #     #   "editor.formatOnSave" = true;
+        #     # };
+        #
+        #     # "[nix]" = {
+        #     #   # use alejandra to format nix code
+        #     #   "editor.defaultFormatter" = "kamadorueda.alejandra";
+        #     #   "editor.formatOnPaste" = true;
+        #     #   "editor.formatOnSave" = true;
+        #     #   "editor.formatOnType" = false;
+        #     # };
+        #     # "alejandra.program" = "alejandra";
+        #   };
+      };
 
       # keybindings = [
       #   {

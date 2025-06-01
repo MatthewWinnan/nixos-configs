@@ -9,51 +9,49 @@
   inherit (lib.strings) fileContents;
 
   initContent = lib.mkBefore ''
-      # avoid duplicated entries in PATH
-      typeset -U PATH
+    # avoid duplicated entries in PATH
+    typeset -U PATH
 
-      # try to correct the spelling of commands
-      setopt correct
-      # disable C-S/C-Q
-      setopt noflowcontrol
-      # disable "no matches found" check
-      unsetopt nomatch
+    # try to correct the spelling of commands
+    setopt correct
+    # disable C-S/C-Q
+    setopt noflowcontrol
+    # disable "no matches found" check
+    unsetopt nomatch
 
-      # autosuggests otherwise breaks these widgets.
-      # <https://github.com/zsh-users/zsh-autosuggestions/issues/619>
-      ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-beginning-search-forward-end)
+    # autosuggests otherwise breaks these widgets.
+    # <https://github.com/zsh-users/zsh-autosuggestions/issues/619>
+    ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-beginning-search-forward-end)
 
-      # Do this early so fast-syntax-highlighting can wrap and override this
-      if autoload history-search-end; then
-        zle -N history-beginning-search-backward-end history-search-end
-        zle -N history-beginning-search-forward-end  history-search-end
-      fi
+    # Do this early so fast-syntax-highlighting can wrap and override this
+    if autoload history-search-end; then
+      zle -N history-beginning-search-backward-end history-search-end
+      zle -N history-beginning-search-forward-end  history-search-end
+    fi
 
-      source <(${lib.getExe pkgs.fzf} --zsh)
-      source ${config.programs.git.package}/share/git/contrib/completion/git-prompt.sh
+    source <(${lib.getExe pkgs.fzf} --zsh)
+    source ${config.programs.git.package}/share/git/contrib/completion/git-prompt.sh
   '';
 
   initExtra = lib.mkOrder 1000 ''
-      # my helper functions for setting zsh options that I normally use on my shell
-      # a description of each option can be found in the Zsh manual
-      # <https://zsh.sourceforge.io/Doc/Release/Options.html>
-      # NOTE: this slows down shell startup time considerably
-      ${fileContents ./rc/unset.zsh}
-      ${fileContents ./rc/set.zsh}
+    # my helper functions for setting zsh options that I normally use on my shell
+    # a description of each option can be found in the Zsh manual
+    # <https://zsh.sourceforge.io/Doc/Release/Options.html>
+    # NOTE: this slows down shell startup time considerably
+    ${fileContents ./rc/unset.zsh}
+    ${fileContents ./rc/set.zsh}
 
-      # binds, zsh modules and everything else
-      ${fileContents ./rc/binds.zsh}
-      ${fileContents ./rc/modules.zsh}
-      ${fileContents ./rc/fzf-tab.zsh}
-      ${fileContents ./rc/misc.zsh}
+    # binds, zsh modules and everything else
+    ${fileContents ./rc/binds.zsh}
+    ${fileContents ./rc/modules.zsh}
+    ${fileContents ./rc/fzf-tab.zsh}
+    ${fileContents ./rc/misc.zsh}
 
-      # Set LS_COLORS by parsing dircolors output
-      LS_COLORS="$(${pkgs.coreutils}/bin/dircolors --sh)"
-      LS_COLORS="''${''${LS_COLORS#*\'}%\'*}"
-      export LS_COLORS
-    '';
-
-
+    # Set LS_COLORS by parsing dircolors output
+    LS_COLORS="$(${pkgs.coreutils}/bin/dircolors --sh)"
+    LS_COLORS="''${''${LS_COLORS#*\'}%\'*}"
+    export LS_COLORS
+  '';
 in {
   programs.zsh = {
     completionInit = ''

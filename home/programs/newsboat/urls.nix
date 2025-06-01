@@ -1,11 +1,5 @@
 {
   urls = [
-    # Weekly NixOS news and some other stuff
-    {
-      title = "NixOS Weekly";
-      tags = ["news" "twitter"];
-      url = "https://weekly.nixos.org/feeds/all.rss.xml";
-    }
     # https://hackaday.com/blog/feed/
     {
       title = "Hacker News";
