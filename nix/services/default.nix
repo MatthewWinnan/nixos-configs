@@ -14,6 +14,7 @@
     ./greetd.nix
     ./pulseaudio.nix
     ./mpd.nix
+    ./systemd.nix
   ];
 
   # services.xserver.libinput.enable = true;

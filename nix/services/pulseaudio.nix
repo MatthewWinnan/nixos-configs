@@ -1,3 +1,4 @@
+# https://nixos.wiki/wiki/PipeWire#Enabling_PipeWire
 {
   # Enable sound with pipewire.
   #services.pulseaudio.enable = false;
