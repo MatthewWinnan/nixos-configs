@@ -49,6 +49,24 @@ in {
     ];
   };
 
+  # h31mda11 - Desktop Computer Used For Gaming
+  h31mda11 = inputs.nixpkgs.lib.nixosSystem {
+    specialArgs = {
+      inherit inputs;
+    };
+    modules = [
+      # General inputs
+      host_platform
+      nixvim
+      stylix
+      nix-index
+      hm
+
+      # Remaining modules
+      ./h31mda11
+    ];
+  };
+
   # od1n - T580 for coding use
   nixosConfigurations.od1n = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {

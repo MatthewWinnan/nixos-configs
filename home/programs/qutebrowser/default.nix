@@ -14,8 +14,9 @@
       aw = "https://wiki.archlinux.org/?search={}";
       nw = "https://wiki.nixos.org/index.php?search={}";
       no = "https://mynixos.com/search?q={}";
-      g = "https://www.google.com/search?hl=en&amp;q={}";
+      g = "https://www.google.com/search?q={}";
       d = "https://duckduckgo.com/?q={}";
+      pd = "https://protondb.com/search?q={}";
     };
 
     greasemonkey = [

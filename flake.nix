@@ -1,5 +1,5 @@
 {
-  description = "My system configuration";
+  description = "My Homelab Configuration";
 
   inputs = {
     # Just so I can swap between versions that I know works

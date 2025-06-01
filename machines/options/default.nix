@@ -1,7 +1,7 @@
 {lib, ...}: {
   imports = [
     ./deviceSettings.nix
-    ./SystemSettings.nix
+    ./systemSettings.nix
     ./userSettings.nix
     ./imageSettings.nix
   ];
