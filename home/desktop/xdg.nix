@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  browser = ["Schizofox.desktop"];
+  browser = ["org.qutebrowser.qutebrowser.desktop"];
   zathura = ["org.pwmt.zathura.desktop.desktop"];
 
   associations = {

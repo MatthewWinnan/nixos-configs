@@ -33,7 +33,7 @@ in {
         #show-read-feeds no
         auto-reload yes
 
-        external-url-viewer "${urs} -dc -r 'schizofox {}'"
+        external-url-viewer "${urs} -dc -r 'qutebrowser {}'"
 
         bind-key j down
         bind-key k up
@@ -70,7 +70,7 @@ in {
         color hint-description   default color8
         color title              color14 color8
 
-        browser "schizofox %u"
+        browser "qutebrowser %u"
         macro , open-in-browser
         html-renderer "${pandoc} --from=html -t markdown_github-raw_html"
         pager "${glow} --pager --width 72"
