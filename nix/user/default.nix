@@ -5,7 +5,7 @@
   ...
 }: {
   # I need it here since Home manager is managing it and I set default user shell here
-  programs.fish.enable = true;
+  #programs.fish.enable = true;
 
   users = lib.mkMerge [
     (

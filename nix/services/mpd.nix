@@ -1,7 +1,8 @@
 # Also worthwhile to check https://nixos.wiki/wiki/MPD#PipeWire
 {pkgs, config, ...}: {
   services.mpd = {
-    enable = true;
+    # Only enable if this is not my offical working systems
+    enable = builtins.elem config.systemSettings.profile ["gaming" "personal"];
 
     # Rather have it run under my name, makes things easier to do a per user
     # https://wiki.archlinux.org/title/Music_Player_Daemon#Per-user_configuration
