@@ -17,6 +17,7 @@
       no = "https://mynixos.com/search?q={}";
       nv = "https://nix-community.github.io/nixvim/?search={}";
       g = "https://www.google.com/search?q={}";
+      gh = "https://www.github.com/search?q={}&type=repositories";
       d = "https://duckduckgo.com/?q={}";
       pd = "https://protondb.com/search?q={}";
     };

@@ -1,5 +1,9 @@
 # Also worthwhile to check https://nixos.wiki/wiki/MPD#PipeWire
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   services.mpd = {
     # Only enable if this is not my offical working systems
     enable = builtins.elem config.systemSettings.profile ["gaming" "personal"];
