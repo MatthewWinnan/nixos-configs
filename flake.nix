@@ -7,7 +7,8 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
     # I generally keep with the unstable when possible
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # For now pin it to stable since new unstable is too fresh (June 4 2025)
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";

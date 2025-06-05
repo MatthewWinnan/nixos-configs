@@ -5,7 +5,7 @@
   ...
 }: let
   # This should only go for personal machines outside of work
-  isPersonal = builtins.elem config.user.roles ["gaming" "personal"];
+  isPersonal = builtins.elem config.systemSettings.profile ["gaming" "personal"];
 in {
   systemd.services.mpd.environment = lib.optionalAttrs isPersonal {
     # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/609
