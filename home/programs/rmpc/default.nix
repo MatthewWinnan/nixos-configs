@@ -1,7 +1,9 @@
 # https://mynixos.com/home-manager/options/programs.rmpc
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   config.programs.rmpc = {
-    enable = true;
+    # Only enable if my system is either gaming or personal
+    enable = builtins.elem config.systemSettings.profile ["gaming" "personal"];
+
     config = ''#![enable(implicit_some)]
 #![enable(unwrap_newtypes)]
 #![enable(unwrap_variant_newtypes)]

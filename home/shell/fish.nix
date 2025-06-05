@@ -53,9 +53,9 @@ in {
         # insteaed of querying some weird and random"what is my ip" service
         # we get our public ip by querying opendns directly.
         # <https://unix.stackexchange.com/a/81699>
-        canihazip = "${dig} @resolver4.opendns.com myip.opendns.com +short";
-        canihazip4 = "${dig} @resolver4.opendns.com myip.opendns.com +short -4";
-        canihazip6 = "${dig} @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6";
+        my_ip = "${dig} @resolver4.opendns.com myip.opendns.com +short";
+        my_ipv4 = "${dig} @resolver4.opendns.com myip.opendns.com +short -4";
+        my_ipv6 = "${dig} @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6";
       }
     ];
   };
