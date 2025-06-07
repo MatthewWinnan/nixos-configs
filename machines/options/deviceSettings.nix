@@ -9,6 +9,12 @@ in {
         description = "The type/purpose of the device.";
       };
 
+      headless = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Is this machine headless (will use the headless packages)";
+      };
+
       monitors = lib.mkOption {
         type = lib.types.listOf (
           lib.types.submodule {

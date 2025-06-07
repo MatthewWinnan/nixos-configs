@@ -1,6 +1,7 @@
 {
   deviceSettings = {
     type = "work";
+    headless = false;
     monitors = [
       {
         name = "DP-5";

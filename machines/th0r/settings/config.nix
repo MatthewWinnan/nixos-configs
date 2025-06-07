@@ -2,6 +2,7 @@
 {
   deviceSettings = {
     type = "laptop";
+    headless = true;
     monitors = [
       {
         name = "HDMI-A-2";

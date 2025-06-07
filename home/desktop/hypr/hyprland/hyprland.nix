@@ -39,7 +39,7 @@ in {
         "XDG_SESSION_DESKTOP,Hyprland"
         "XCURSOR_SIZE,24"
         "QT_QPA_PLATFORM,wayland"
-        "XDG_SCREENSHOTS_DIR,~/screens"
+        "XDG_SCREENSHOTS_DIR,~/Media/Pictures"
         "HYPRCURSOR_THEME,rose-pine-hyprcursor"
       ];
 

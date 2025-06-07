@@ -4,7 +4,7 @@
     # Hardware declarations
     ./hardware-configuration.nix
     # Import nixOS settings
-    ../../../nix
+    ../../../nix/headless
     # Settings
     ../settings
     # Rather import themes here
