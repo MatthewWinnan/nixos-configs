@@ -3,17 +3,17 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: let
   inherit (builtins) concatStringsSep length;
   inherit (lib.lists) zipListsWith;
   inherit (lib.strings) escapeShellArg;
+  nh_package = inputs.nh.packages.${config.systemSettings.system}.nh;
 in {
-  environment.variables.FLAKE = "/home/${config.userSettings.username}/NIX_REPO";
-
   programs.nh = {
     enable = true;
-    package = pkgs.nh;
+    package = nh_package;
 
     # path to the system flake
     flake = "/home/${config.userSettings.username}/NIX_REPO";
