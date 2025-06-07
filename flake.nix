@@ -67,6 +67,14 @@
       };
     };
 
+    # Nix helper, need to keep it newer than the current nixpkgs
+    nh = {
+      url = "github:nix-community/nh/master";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     # For secrets management
     sops-nix = {
       url = "github:Mic92/sops-nix";
