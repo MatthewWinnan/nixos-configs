@@ -5,12 +5,13 @@
   ...
 }: {
   imports = [
-    ../applications/packages/headless
+    ./packages.nix
     ./services.nix
     ../networking
     ../boot
     ./environment.nix
     ../user
+    ../applications/nixvim
   ];
 
   # Set your time zone.
