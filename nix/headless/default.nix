@@ -8,7 +8,6 @@
     ./packages.nix
     ./services.nix
     ../networking
-    ../boot
     ./environment.nix
     ../user
     ../applications/nixvim
