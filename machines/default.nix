@@ -11,6 +11,7 @@
   hm = inputs.home-manager.nixosModules.home-manager;
 in {
   # th0r - lattepanda delta for home lab use
+  # headless
   th0r = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs;
@@ -19,12 +20,27 @@ in {
       # General inputs
       host_platform
       nixvim
-      stylix
       nix-index
-      hm
 
       # Remaining modules
       ./th0r
+    ];
+  };
+
+  # m1m1r - proxmox VM running on Odroid H3+
+  # headless
+  m1m1r = inputs.nixpkgs.lib.nixosSystem {
+    specialArgs = {
+      inherit inputs;
+    };
+    modules = [
+      # General inputs
+      host_platform
+      nixvim
+      nix-index
+
+      # Remaining modules
+      ./m1m1r
     ];
   };
 
