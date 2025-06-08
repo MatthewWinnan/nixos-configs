@@ -4,7 +4,7 @@ in {
   options = {
     deviceSettings = {
       type = lib.mkOption {
-        type = enum ["laptop" "desktop"];
+        type = enum ["laptop" "desktop" "vm"];
         default = "laptop";
         description = "The type/purpose of the device.";
       };
