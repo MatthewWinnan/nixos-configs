@@ -9,7 +9,6 @@
     ./services
     ./networking
     ./security
-    ./boot
     ./environment
     ./user
   ];

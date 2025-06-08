@@ -7,5 +7,7 @@
     ../../../nix/headless
     # Settings
     ../settings
+    # Boot settings
+    ./boot.nix
   ];
 }

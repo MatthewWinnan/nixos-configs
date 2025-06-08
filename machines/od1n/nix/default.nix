@@ -11,5 +11,7 @@
     ../../../nix/virtualization
     # Rather import themes here
     ../../../themes
+    # Boot settings
+    ./boot.nix
   ];
 }
