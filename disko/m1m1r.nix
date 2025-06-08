@@ -10,21 +10,26 @@
 {
   disko.devices = {
     disk = {
-      main = {
-        device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
+      vdb = {
         type = "disk";
+        # Actual disk
+        device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
         content = {
           type = "gpt";
           partitions = {
             ESP = {
-              type = "EF00";
+              priority = 1;
+              name = "ESP";
               start = "1M";
               end = "1G";
+              type = "EF00";
               content = {
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "umask=0077" ];
+                mountOptions = [
+                  "defaults"
+                ];
               };
             };
             plainSwap = {
@@ -36,14 +41,71 @@
                 resumeDevice = true; # resume from hiberation from this device
               };
             };
-            root = {
+            luks = {
               start = "18874368";
               # For a 256 disk using 512 byte sectors
               end = "534775740";
               content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
+                type = "luks";
+                name = "crypted";
+                # disable settings.keyFile if you want to use interactive password entry
+                #passwordFile = "/tmp/secret.key"; # Interactive
+                settings = {
+                  allowDiscards = true; # beware of write-pattern attacks
+                  #keyFile = "/tmp/secret.key";
+                };
+                # Whether to add a boot.initrd.luks.devices entry for the specified disk.
+                initrdUnlock = true;
+
+                # encrypt the root partition with luks2 and argon2id, will prompt for a passphrase, which will be used to unlock the partition.
+                # cryptsetup luksFormat
+                extraFormatArgs = [
+                  "--type luks2"
+                  "--cipher aes-xts-plain64"
+                  "--hash sha512"
+                  "--iter-time 5000"
+                  "--key-size 256"
+                  "--pbkdf argon2id"
+                  # use true random data from /dev/random, will block until enough entropy is available
+                  "--use-random"
+                ];
+                extraOpenArgs = [
+                  "--timeout 10"
+                ];
+                content = {
+                  type = "btrfs";
+                  extraArgs = ["-f"]; # Force override existing partition
+                  subvolumes = {
+                    "root" = {
+                      mountpoint = "/";
+                      mountOptions = ["compress=zstd" "noatime"];
+                    };
+                    "home" = {
+                      mountpoint = "/home";
+                      mountOptions = ["compress=zstd" "noatime"];
+                    };
+                    "nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = ["compress=zstd" "noatime"];
+                    };
+                    "persist" = {
+                      mountpoint = "/persist";
+                      mountOptions = ["compress=zstd" "noatime"];
+                    };
+                    "snapshots" = {
+                      mountpoint = "/snapshots";
+                      mountOptions = ["compress=zstd" "noatime"];
+                    };
+                    "log" = {
+                      mountpoint = "/var/log";
+                      mountOptions = ["compress=zstd" "noatime"];
+                    };
+                    "tmp" = {
+                      mountpoint = "/tmp";
+                      mountOptions = ["compress=zstd" "noatime"];
+                    };
+                  };
+                };
               };
             };
           };
