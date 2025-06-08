@@ -7,7 +7,5 @@
     ../../../nix/headless
     # Settings
     ../settings
-    # Rather import themes here
-    ../../../themes
   ];
 }
