@@ -2,8 +2,6 @@
 #
 # Run this in the terminal:
 # DISK='/dev/disk/by-id/ata-Samsung_SSD_870_EVO_250GB_S6PENL0T902873K'
-# curl https://raw.githubusercontent.com/sukhmancs/nixos-configs/main/disko//default.nix \
-#     -o /tmp/disko.nix
 # sed -i "s|/dev/disk/by-id/ata-CT500MX500SSD1_1804E10BA2D6|$DISK|" /tmp/disko.nix
 # nix --experimental-features "nix-command flakes" run github:nix-community/disko \
 #     -- --mode disko /tmp/disko.nix
@@ -14,7 +12,8 @@
     disk = {
       vdb = {
         type = "disk";
-        device = "/dev/disk/by-id/ata-CT500MX500SSD1_1804E10BA2D6";
+        # Actual disk
+        device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
         content = {
           type = "gpt";
           partitions = {
@@ -44,7 +43,8 @@
             };
             luks = {
               start = "18874368";
-              end = "976773000";
+              # For a 256 disk using 512 byte sectors
+              end = "534775740";
               content = {
                 type = "luks";
                 name = "crypted";
