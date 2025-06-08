@@ -18,6 +18,7 @@ in {
       ''
       else ''
         ${pkgs.greetd.tuigreet}/bin/tuigreet \
+          --remember \
           --time \
           --asterisks \
           --user-menu \

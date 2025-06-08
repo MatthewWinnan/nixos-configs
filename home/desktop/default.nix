@@ -5,8 +5,9 @@
 }: {
   imports = [
     ./dunst.nix
-    ./hypr/default.nix
+    ./hypr
     ./wlogout/wlogout.nix
     ./xdg.nix
+    ./waybar
   ];
 }
