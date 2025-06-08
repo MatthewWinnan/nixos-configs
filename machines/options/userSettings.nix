@@ -23,6 +23,11 @@ in {
         default = "qutebrowser";
         description = "The default browser of the user.";
       };
+      waybar = lib.mkOption {
+        type = enum ["catppuccin" "gruvbox"];
+        default = "catppuccin";
+        description = "Select which waybar theme you want to use.";
+      };
     };
   };
 }
