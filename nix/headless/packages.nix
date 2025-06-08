@@ -25,6 +25,8 @@
     nvd
     just
     mpv # To view the recordings
+    git
+    nh
 
     # For caching setup
     attic-client
