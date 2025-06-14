@@ -10,6 +10,7 @@
   flamelens = pkgs.callPackage ../../../derivations/flamelens {};
   mov-cli = pkgs.callPackage ../../../derivations/mov-cli {};
   yt-dlp = pkgs.callPackage ../../../derivations/mov-cli/packages/yt-dlp.nix {};
+  basalt = pkgs.callPackage ../../../derivations/basalt {};
   #himalaya = pkgs.callPackage ../../../derivations/himalaya/himalaya.nix {};
 in {
   # If something has been delared with .enable and points to pkgs or homemanager's
@@ -47,6 +48,9 @@ in {
       wf-recorder # Else we do not have access to it on CLI
       mpv # To view the recordings
       rpi-imager # For flashing images
+      # User-friendly, lightweight TUI for disk imaging
+      # https://github.com/ifd3f/caligula
+      caligula
 
       # For caching setup
       attic-client
@@ -120,6 +124,20 @@ in {
       # Instead I will for now use it from home manager hopefully
       # FOr now I am gettin the issue: Unable to parse authentication response, I will wait for stable NIX
       himalaya
+
+      # Some interesing terminal tools from -> https://terminaltrove.com/list/
+      # https://asciinema.org/
+      asciinema
+      # https://github.com/nitefood/asn?tab=readme-ov-file#usage
+      asn
+      # https://github.com/erikjuhani/basalt
+      basalt
+
+      # Rice flexing
+      # https://github.com/abishekvashok/cmatrix
+      cmatrix
+      # https://github.com/da-luce/astroterm
+      astroterm
     ]
     ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") [
       # Desktop apps for my personal and gaming use
@@ -197,15 +215,20 @@ in {
       bitwise # https://github.com/mellowcandle/bitwise
       programmer-calculator # https://github.com/alt-romes/programmer-calculator
       qalculate-gtk
+      bcal # https://github.com/jarun/bcal
 
       # Some performance analysis tools
       flamelens
       xan
       inferno
+      # This should help me get some symbols
+      # https://github.com/orhun/binsider
+      binsider
 
       # Manage containers
       docker-client
       arion
+      dive # https://github.com/wagoodman/dive
 
       # Manage secrets
       vault
