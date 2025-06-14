@@ -1,14 +1,12 @@
 {
   lib,
   pkgs,
-config,
+  config,
   ...
-}:
-let
-  settings = import (./settings + "/${config.userSettings.waybar}.nix"){inherit pkgs;};
+}: let
+  settings = import (./settings + "/${config.userSettings.waybar}.nix") {inherit pkgs;};
   style = builtins.readFile (./style + "/${config.userSettings.waybar}.css");
-in
-{
+in {
   # We need to override stylix mostly
   programs.waybar = lib.mkForce {
     enable = true;

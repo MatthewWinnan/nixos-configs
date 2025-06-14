@@ -41,6 +41,8 @@ in {
         "QT_QPA_PLATFORM,wayland"
         "XDG_SCREENSHOTS_DIR,~/Media/Pictures"
         "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+        "LIBVA_DRIVER_NAME,nvidia"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
       ];
 
       debug = {
@@ -132,10 +134,10 @@ in {
         initial_workspace_tracking = 2;
       };
 
-      windowrule = [
-        "float, ^(imv)$"
-        "float, ^(mpv)$"
-      ];
+      # windowrule = [
+      #   "float, ^(imv)$"
+      #   "float, ^(mpv)$"
+      # ];
 
       # Since NixOS 25.05 hyprpaper keeps conflicting with swww, I need to rather use hyprpaper as the backend, I suspect this is due to sylix
       exec-once = [

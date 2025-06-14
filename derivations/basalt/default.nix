@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "basalt";
   version = "0.6.1";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     description = "TUI Application to manage Obsidian notes directly from the terminal";
     homepage = "https://github.com/erikjuhani/basalt";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "basalt";
   };
 }

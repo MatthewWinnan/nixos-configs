@@ -55,6 +55,14 @@ in {
               };
 
               # For mode definitions check https://wiki.hyprland.org/Configuring/Monitors/#rotating
+              # 0 -> normal (no transforms)
+              # 1 -> 90 degrees
+              # 2 -> 180 degrees
+              # 3 -> 270 degrees
+              # 4 -> flipped
+              # 5 -> flipped + 90 degrees
+              # 6 -> flipped + 180 degrees
+              # 7 -> flipped + 270 degrees
               rotate_mode = lib.mkOption {
                 type = enum ["0" "1" "2" "3" "4" "5" "6" "7"];
                 default = "0";
