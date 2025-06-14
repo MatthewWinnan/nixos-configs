@@ -2,7 +2,7 @@
 {inputs, ...}: {
   imports = [
     # Gaming specific imports
-    ../../../gaming/ba1dr
+    ../../../gaming/h31mda11
     # Hardware declarations
     ./hardware-configuration.nix
     # Import nixOS settings

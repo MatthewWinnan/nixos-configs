@@ -14,7 +14,7 @@
     disk = {
       vdb = {
         type = "disk";
-        device = "/dev/disk/by-id/ata-CT500MX500SSD1_1804E10BA2D6";
+        device = "/dev/disk/by-id/ata-KBG50ZNV256G_KIOXIA_44NC902DEH7U";
         content = {
           type = "gpt";
           partitions = {
@@ -44,7 +44,7 @@
             };
             luks = {
               start = "18874368";
-              end = "976773000";
+              end = "500118100";
               content = {
                 type = "luks";
                 name = "crypted";
