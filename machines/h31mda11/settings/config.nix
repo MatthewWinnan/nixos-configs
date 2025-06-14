@@ -5,21 +5,20 @@
     headless = false;
     monitors = [
       {
-        name = "HDMI-1";
+        name = "HDMI-A-1";
         width = 1920;
         height = 1080;
         workspace = "1";
         primary = true;
       }
-	{
-        name = "HDMI-2";
-        width = 1080;
-        height = 1920;
+      {
+        name = "HDMI-A-2";
+        height = 1080;
+        width = 1920;
         workspace = "2";
-	rotate_mode = "5";
+        rotate_mode = "3";
         position = "-1080x0";
       }
-
     ];
   };
 
