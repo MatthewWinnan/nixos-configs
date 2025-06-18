@@ -13,9 +13,9 @@
       }
       {
         name = "HDMI-A-2";
-        height = 1080;
         width = 1920;
-        workspace = "2";
+        height = 1080;
+        workspace = "5";
         rotate_mode = "3";
         position = "-1080x0";
       }

@@ -46,11 +46,25 @@ in {
       nvd
       just
       wf-recorder # Else we do not have access to it on CLI
-      mpv # To view the recordings
+      wttrbar # Weather
+      fq
+      jq
+      yq
+
+      # Flasher tools
       rpi-imager # For flashing images
       # User-friendly, lightweight TUI for disk imaging
       # https://github.com/ifd3f/caligula
       caligula
+
+      # Media players
+      # https://github.com/mpv-player/mpv
+      mpv
+      # https://github.com/videolan/vlc
+      vlc
+      # https://github.com/FFmpeg/FFmpeg
+      ffmpeg-full
+
 
       # For caching setup
       attic-client
@@ -70,6 +84,8 @@ in {
       blueman
       # https://github.com/rvaiya/warpd?tab=readme-ov-file#wayland
       #warpd
+      # https://github.com/samuela/remod?tab=readme-ov-file
+      remod
 
       # Cursors
       inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
@@ -91,7 +107,6 @@ in {
 
       # WMs and stuff
       xwayland
-      wttrbar # Weather
 
       # XDG Stuff
       xdg-desktop-portal-hyprland
@@ -132,12 +147,21 @@ in {
       asn
       # https://github.com/erikjuhani/basalt
       basalt
+      # https://github.com/mixn/carbon-now-cli
+      # carbon-now-cli
+      # https://github.com/xgi/castero
+      castero
+      # https://github.com/bensadeh/circumflex
+      circumflex
+      # https://github.com/AlDanial/cloc
+      cloc
+      # https://github.com/nik-rev/countryfetch
+      countryfetch
+      # https://github.com/Dr-Noob/cpufetch?tab=readme-ov-file#8-cpufetch-for-gpus-gpufetch
+      cpufetch
+      # https://github.com/tuna-f1sh/cyme
+      cyme
 
-      # Rice flexing
-      # https://github.com/abishekvashok/cmatrix
-      cmatrix
-      # https://github.com/da-luce/astroterm
-      astroterm
     ]
     ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") [
       # Desktop apps for my personal and gaming use
@@ -177,6 +201,19 @@ in {
 
       # To manually download yt videos
       yt-dlp
+
+      # Rice flexing
+      # https://github.com/abishekvashok/cmatrix
+      cmatrix
+      # https://github.com/da-luce/astroterm
+      astroterm
+      # https://github.com/karlstav/cava
+      cava
+      # https://gitlab.com/jallbrit/cbonsai
+      # https://www.reddit.com/r/unixporn/comments/axedr4/oc_watch_a_bonsai_tree_grow_in_your_terminal/
+      cbonsai
+      # https://github.com/lhvy/pipes-rs
+      pipes-rs
     ]
     ++ lib.optionals (config.systemSettings.profile == "personal") [
       # Only for personal use
@@ -192,6 +229,7 @@ in {
 
       # https://mynixos.com/nixpkgs/package/wine-wayland
       wine-wayland
+
     ]
     ++ lib.optionals (config.systemSettings.profile == "work") [
       # Only for professional life
@@ -229,9 +267,16 @@ in {
       docker-client
       arion
       dive # https://github.com/wagoodman/dive
+      ctop # https://github.com/bcicen/ctop
+      ducker # https://github.com/robertpsoane/ducker
 
       # Manage secrets
       vault
       sops
+
+      # For debugging C and things
+      gdb
+      # https://cgdb.github.io/docs/cgdb-split.html
+      cgdb
     ];
 }
