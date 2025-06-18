@@ -22,7 +22,7 @@ in {
         ++ lib.optionals (hostname == "h31mda11")
         [
           # Mask the stypid tpm device, getting firmware issues
-          "L /etc/systemd/system/dev-tpmrm0.device - - - - /dev/null"
+          "L /etc/systemd/system/tpm2.target - - - - /dev/null"
         ];
     };
 

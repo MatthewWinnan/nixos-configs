@@ -9,5 +9,6 @@
     ./helix
     ./qutebrowser
     ./rmpc
+    ./anyrun
   ];
 }
