@@ -40,6 +40,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Fetches some of the anyrun plugins
+    # Fork for examples?
+    # https://github.com/anyrun-org/anyrun
+    anyrun = {
+      url = "github:anyrun-org/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Browse manga
     manga-tui = {
       url = "github:josueBarretogit/manga-tui";

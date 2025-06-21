@@ -169,7 +169,8 @@ in {
           "$mainMod, Q, killactive,"
           "$mainMod, M, exit,"
           "$mainMod, F, fullscreen,"
-          "$mainMod, D, exec, rofi -show drun"
+          "$mainMod, D, exec, ${lib.getExe pkgs.rofi} -show drun"
+          "$mainMod, A, exec, ${lib.getExe pkgs.anyrun}"
 
           # Move focus with mainMod + arrow keys
           "$mainMod, left,  movefocus, l"

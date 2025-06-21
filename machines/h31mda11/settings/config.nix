@@ -35,5 +35,6 @@
     name = "Matthew";
     email = "mcwinnan@gmail.com";
     browser = "qutebrowser";
+    waybar = "catppuccin";
   };
 }

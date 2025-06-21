@@ -24,7 +24,7 @@ in {
         description = "The default browser of the user.";
       };
       waybar = lib.mkOption {
-        type = enum ["catppuccin" "gruvbox"];
+        type = enum ["catppuccin" "gruvbox" "elifouts"];
         default = "catppuccin";
         description = "Select which waybar theme you want to use.";
       };
