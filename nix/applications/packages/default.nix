@@ -65,7 +65,6 @@ in {
       # https://github.com/FFmpeg/FFmpeg
       ffmpeg-full
 
-
       # For caching setup
       attic-client
       attic-server
@@ -161,7 +160,6 @@ in {
       cpufetch
       # https://github.com/tuna-f1sh/cyme
       cyme
-
     ]
     ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") [
       # Desktop apps for my personal and gaming use
@@ -229,7 +227,6 @@ in {
 
       # https://mynixos.com/nixpkgs/package/wine-wayland
       wine-wayland
-
     ]
     ++ lib.optionals (config.systemSettings.profile == "work") [
       # Only for professional life
