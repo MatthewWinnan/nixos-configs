@@ -18,7 +18,10 @@ in {
     #package = pinnedHyprland;
 
     settings = {
-      "$mainMod" = "ALT";
+      "$mainMod" =
+        if config.systemSettings.profile == "gaming"
+        then "SUPER"
+        else "ALT";
       "$terminal" = "kitty";
 
       monitor = map (
