@@ -142,10 +142,10 @@ in {
       #   "float, ^(mpv)$"
       # ];
 
-      # Since NixOS 25.05 hyprpaper keeps conflicting with swww, I need to rather use hyprpaper as the backend, I suspect this is due to sylix
+      # I have now fixed stylix to not import hyprland, now uses swww
       exec-once = [
         "${pkgs.waybar}/bin/waybar"
-        "${pkgs.waypaper}/bin/waypaper --restore --backend hyprpaper"
+        "${pkgs.waypaper}/bin/waypaper --restore --backend swww"
         "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"
 
         # I might be doing something wrong but this does break my normal copy and paste

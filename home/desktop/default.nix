@@ -9,5 +9,6 @@
     ./wlogout/wlogout.nix
     ./xdg.nix
     ./waybar
+    ./stylix.nix
   ];
 }

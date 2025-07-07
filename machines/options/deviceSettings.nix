@@ -38,8 +38,8 @@ in {
                 default = 1080;
               };
               refreshRate = lib.mkOption {
-                type = lib.types.int;
-                default = 60;
+                type = lib.types.float;
+                default = 60.00;
               };
               position = lib.mkOption {
                 type = lib.types.str;
