@@ -10,6 +10,7 @@
         height = 1080;
         workspace = "1";
         primary = true;
+        refreshRate = 74.97;
       }
       {
         name = "HDMI-A-2";
@@ -18,6 +19,7 @@
         workspace = "5";
         rotate_mode = "3";
         position = "-1080x0";
+        refreshRate = 100.00;
       }
     ];
   };

@@ -41,6 +41,16 @@
           # https://nix-community.github.io/nixvim/plugins/lsp/servers/clangd/index.html#clangd
           clangd.enable = true;
           cmake.enable = true;
+
+          # For my RUST adventures
+          # NB I ensure that rustup, rustc and cargo are in my environment
+          # in order to silence the warnings I disable here, enable to ensure it is
+          # with main NixOS
+          rust_analyzer = {
+            enable = true;
+            installCargo = false;
+            installRustc = false;
+          };
         }
         (
           if config.systemSettings.profile == "work"
