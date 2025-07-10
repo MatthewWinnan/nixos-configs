@@ -5,5 +5,6 @@
     ./clipse.nix
     ./cliphist.nix
     ./swww.nix
+    ./hyprpaper.nix
   ];
 }

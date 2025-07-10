@@ -14,7 +14,7 @@
     disk = {
       vdb = {
         type = "disk";
-        device = "/dev/disk/by-id/ata-KBG50ZNV256G_KIOXIA_44NC902DEH7U";
+        device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S4EWNM0TC29549F";
         content = {
           type = "gpt";
           partitions = {
@@ -44,7 +44,7 @@
             };
             luks = {
               start = "18874368";
-              end = "500118100";
+              end = "1953525000";
               content = {
                 type = "luks";
                 name = "crypted";

@@ -1,11 +1,13 @@
 {
-  flakePath,
+  inputs,
   config,
   lib,
+  pkgs,
   ...
 }: {
   programs.hyprlock = lib.mkForce {
     enable = true;
+    # package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
     settings = {
       general = {
         disable_loading_bar = true;
