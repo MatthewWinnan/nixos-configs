@@ -10,7 +10,7 @@
         height = 1080;
         workspace = "1";
         primary = true;
-        refreshRate = 74.97;
+        refreshRate = 60.00;
       }
       {
         name = "HDMI-A-2";

@@ -10,6 +10,9 @@ in {
   # We need to override stylix mostly
   programs.waybar = lib.mkForce {
     enable = true;
+    systemd = {
+      enable = true;
+    };
     inherit settings style;
   };
 }

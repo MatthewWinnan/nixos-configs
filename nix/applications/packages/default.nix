@@ -91,6 +91,7 @@ in {
 
       # Wallpaper
       waypaper
+      waytrogen
       hyprpaper
       inputs.swww.packages.${system}.swww
 

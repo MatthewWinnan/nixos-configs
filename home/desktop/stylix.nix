@@ -10,7 +10,7 @@
       gnome.enable = true;
       nixvim.enable = false;
       # Disable hyrpaper from automatically starting so I can rather use swww
-      hyprland.hyprpaper.enable = false;
+      hyprland.hyprpaper.enable = !config.services.swww.enable;
     };
   };
 }

@@ -64,7 +64,7 @@ in {
       general = {
         gaps_in = 5;
         gaps_out = 20;
-        border_size = 4;
+        border_size = 3;
 
         layout = "dwindle";
 
@@ -142,15 +142,16 @@ in {
       #   "float, ^(mpv)$"
       # ];
 
-      # I have now fixed stylix to not import hyprland, now uses swww
       exec-once = [
-        "${pkgs.waybar}/bin/waybar"
-        "${pkgs.waypaper}/bin/waypaper --restore --backend swww"
         "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"
 
         # I might be doing something wrong but this does break my normal copy and paste
         #"${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
-      ];
+      ] ++ lib.optionals (config.services.swww.enable) [
+          "${pkgs.waytrogen}/bin/waytrogen --restore --backend swww"
+      ] ++ lib.optionals (!config.services.swww.enable) [
+          "${pkgs.waytrogen}/bin/waytrogen --restore --backend hyprpaper"
+        ];
 
       bind =
         [
@@ -172,8 +173,8 @@ in {
           "$mainMod, Q, killactive,"
           "$mainMod, M, exit,"
           "$mainMod, F, fullscreen,"
-          "$mainMod, D, exec, ${lib.getExe pkgs.rofi} -show drun"
-          "$mainMod, A, exec, ${lib.getExe pkgs.anyrun}"
+          #"$mainMod, D, exec, ${lib.getExe pkgs.rofi} -show drun"
+          "$mainMod, D, exec, ${lib.getExe pkgs.anyrun}"
 
           # Move focus with mainMod + arrow keys
           "$mainMod, left,  movefocus, l"
