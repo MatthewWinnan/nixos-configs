@@ -10,5 +10,6 @@
     ./qutebrowser
     ./rmpc
     ./anyrun
+    ./nixcord
   ];
 }

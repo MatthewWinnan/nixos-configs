@@ -1,3 +1,4 @@
+# https://rycee.gitlab.io/home-manager/options.xhtml
 {
   inputs,
   config,
@@ -22,7 +23,8 @@
         imports = [
           ../../../home
           ../settings
-        ];
+        ] ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") 
+        [inputs.nixcord.homeModules.nixcord];
 
         home = {
           username = config.userSettings.username;

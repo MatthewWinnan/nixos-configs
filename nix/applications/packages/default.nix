@@ -164,7 +164,10 @@ in {
     ]
     ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") [
       # Desktop apps for my personal and gaming use
-      discord
+      # (discord.override {
+      # withOpenASAR = true; # can do this here too
+      # withVencord = true;
+      # })
 
       # To read manga
       inputs.manga-tui.packages.${system}.manga-tui
