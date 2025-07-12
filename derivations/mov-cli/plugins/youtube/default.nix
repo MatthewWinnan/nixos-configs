@@ -6,14 +6,14 @@
 }:
 python3.pkgs.buildPythonPackage rec {
   pname = "mov-cli-youtube";
-  version = "1.3.8";
+  version = "1.3.9";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mov-cli";
     repo = "mov-cli-youtube";
     rev = version;
-    hash = "sha256-2dc6EYy+6vCOCy+FZBVKWzeV3xFAswUaX9XfYk0jz1E=";
+    hash = "sha256-g3eJQ2tn/TQdLjfGp3mtpybtfUycCBUiZciBoPB5CfI=";
   };
 
   build-system = [

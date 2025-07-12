@@ -10,14 +10,23 @@
   hostname = config.systemSettings.hostname;
 in {
   systemd = {
+    user = {
+    tmpfiles = {
+      users.${username} = {
+          rules = []
+            ++ lib.optionalAttrs isPersonal [
+          # nixos-user-tmpfiles.d-${username}
+          # Ensure the directory exists for use by mpd
+          "d /home/${username}/.config/mpd 0755 ${username} ${username} -"
+          "d /home/${username}/.config/mpd/playlists 0755 ${username} ${username} -"
+        ];
+
+      };
+    };
+    };
     tmpfiles = {
       rules =
         [
-        ]
-        ++ lib.optionalAttrs isPersonal
-        [
-          # Ensure the directory exists for use by mpd
-          "d /home/${username}/.config/mpd 0755 ${username} ${username} -"
         ]
         ++ lib.optionals (hostname == "h31mda11")
         [

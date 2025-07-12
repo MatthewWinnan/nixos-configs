@@ -22,7 +22,8 @@
         imports = [
           ../../../home
           ../settings
-        ];
+        ] ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") 
+          [inputs.nixcord.homeModules.nixcord];
 
         home = {
           username = config.userSettings.username;
