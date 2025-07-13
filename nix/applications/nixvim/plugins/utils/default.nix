@@ -18,8 +18,11 @@
     ./multicursors.nix
     ./neoclip.nix
     ./markview.nix
+    ./render-markdown.nix
     ./obsidian.nix
     ./web-devicons.nix
     ./muren.nix
+    ./spectre.nix
+    #./comfy-line-numbers.nix
   ];
 }

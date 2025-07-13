@@ -21,5 +21,7 @@
     ./marks.nix
     ./vimade.nix
     ./helpview.nix
+    ./twilight.nix
+    ./biscuits.nix
   ];
 }
