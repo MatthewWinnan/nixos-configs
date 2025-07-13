@@ -6,8 +6,8 @@ Will be adding some more meat I just wanted to give the needed acknowledgements 
 - [XNM1](https://github.com/XNM1/linux-nixos-hyprland-config-dotfiles)
     - I used the dot files here as an initial basis for my project and for general inspiration.
 - [Sukhmancs](https://github.com/sukhmancs/nixos-configs)
-    - Used the`rofi-wayland`config with my own`stylix`colors/overrides.
-    - Used his`disko`config, specifically [luks-btrfs](https://github.com/sukhmancs/nixos-configs/tree/f7df37cd6f994be5e5cfbaa1bc9029b8a2399813/disko/luks-btrfs-subvolumes)
+    - Used the `rofi-wayland` config with my own `stylix` colors/overrides.
+    - Used his `disko` config, specifically [luks-btrfs](https://github.com/sukhmancs/nixos-configs/tree/f7df37cd6f994be5e5cfbaa1bc9029b8a2399813/disko/luks-btrfs-subvolumes)
     - Taking inspiration for the nixvim config.
         - Currently using their LSP config.
     - Currently using their GIT config.
