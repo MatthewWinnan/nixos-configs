@@ -11,5 +11,6 @@
     ./rmpc
     ./anyrun
     ./nixcord
+    ./streamlink
   ];
 }

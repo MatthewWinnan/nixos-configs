@@ -204,6 +204,10 @@ in {
       # To manually download yt videos
       yt-dlp
 
+      # Twitch chat for the CLI
+      #https://github.com/Xithrius/twitch-tui
+      twitch-cli
+
       # Rice flexing
       # https://github.com/abishekvashok/cmatrix
       cmatrix
