@@ -17,7 +17,8 @@
     enableFishIntegration = true;
 
     settings = {
-      manager = {
+      # `[manager]` has been deprecated in favor of the new `[mgr]`, see #2803 for more details: https://github.com/sxyazi/yazi/pull/2803
+      mgr = {
         layout = [1 4 3];
         sort_by = "alphabetical";
         sort_sensitive = true;

@@ -23,7 +23,7 @@
           # fix Y behaviour
           Y = "y$";
 
-          # back and fourth between the two most recent files
+          # back and forth between the two most recent files
           "<C-c>" = ":b#<CR>";
 
           # close by Ctrl+x

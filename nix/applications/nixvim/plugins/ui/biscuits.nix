@@ -1,6 +1,5 @@
 # https://github.com/code-biscuits/nvim-biscuits
-{pkgs, ...}:{
-
+{pkgs, ...}: {
   programs.nixvim.extraPlugins = with pkgs.vimUtils; [
     (buildVimPlugin rec {
       pname = "nvim-biscuits.nvim";
@@ -18,22 +17,22 @@
   ];
 
   programs.nixvim.extraConfigLua = ''
-    require('nvim-biscuits').setup({
-    cursor_line_only = true,
-  default_config = {
-    max_length = 12,
-    min_distance = 5,
-    prefix_string = " 🍪 "
-  },
-  language_config = {
-    python = {
-      prefix_string = " 🐍 ",
+      require('nvim-biscuits').setup({
+      cursor_line_only = true,
+    default_config = {
+      max_length = 12,
+      min_distance = 5,
+      prefix_string = " 🍪 "
     },
-    rust = {
-      prefix_string = " 🦀 ",
+    language_config = {
+      python = {
+        prefix_string = " 🐍 ",
+      },
+      rust = {
+        prefix_string = " 🦀 ",
+      },
     },
-  },
-    }); '';
+      }); '';
 
   programs.nixvim.keymaps = [
     {
@@ -46,4 +45,3 @@
     }
   ];
 }
-

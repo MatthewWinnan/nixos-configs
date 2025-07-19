@@ -73,11 +73,11 @@
     };
 
     nixcord = {
-    url = "github:kaylorben/nixcord";
-    inputs = {
+      url = "github:kaylorben/nixcord";
+      inputs = {
         nixpkgs.follows = "nixpkgs";
       };
-  };
+    };
 
     # To help with package searching and indexing
     nix-index-database = {

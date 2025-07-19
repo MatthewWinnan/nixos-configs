@@ -11,18 +11,18 @@
 in {
   systemd = {
     user = {
-    tmpfiles = {
-      users.${username} = {
-          rules = []
+      tmpfiles = {
+        users.${username} = {
+          rules =
+            []
             ++ lib.optionals isPersonal [
-          # nixos-user-tmpfiles.d-${username}
-          # Ensure the directory exists for use by mpd
-          "d /home/${username}/.config/mpd 0755 ${username} ${username} -"
-          "d /home/${username}/.config/mpd/playlists 0755 ${username} ${username} -"
-        ];
-
+              # nixos-user-tmpfiles.d-${username}
+              # Ensure the directory exists for use by mpd
+              "d /home/${username}/.config/mpd 0755 ${username} ${username} -"
+              "d /home/${username}/.config/mpd/playlists 0755 ${username} ${username} -"
+            ];
+        };
       };
-    };
     };
     tmpfiles = {
       rules =

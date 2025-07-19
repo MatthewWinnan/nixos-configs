@@ -142,14 +142,17 @@ in {
       #   "float, ^(mpv)$"
       # ];
 
-      exec-once = [
-        "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"
+      exec-once =
+        [
+          "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"
 
-        # I might be doing something wrong but this does break my normal copy and paste
-        #"${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
-      ] ++ lib.optionals (config.services.swww.enable) [
+          # I might be doing something wrong but this does break my normal copy and paste
+          #"${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
+        ]
+        ++ lib.optionals (config.services.swww.enable) [
           "${pkgs.waytrogen}/bin/waytrogen --restore --backend swww"
-      ] ++ lib.optionals (!config.services.swww.enable) [
+        ]
+        ++ lib.optionals (!config.services.swww.enable) [
           "${pkgs.waytrogen}/bin/waytrogen --restore --backend hyprpaper"
         ];
 

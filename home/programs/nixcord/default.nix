@@ -1,6 +1,10 @@
 # https://kaylorben.github.io/nixcord/#getting-started
 # https://github.com/KaylorBen/nixcord
-{inputs, config, ...}: {
+{
+  inputs,
+  config,
+  ...
+}: {
   config.programs.nixcord = {
     enable = config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming";
     discord = {

@@ -1,4 +1,8 @@
-{config, lib, ...}:
+{
+  config,
+  lib,
+  ...
+}:
 # let
 #   not_work = builtins.elem config.systemSettings.profile ["gaming" "personal"];
 # in
