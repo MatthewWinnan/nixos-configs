@@ -14,7 +14,7 @@ in {
     tmpfiles = {
       users.${username} = {
           rules = []
-            ++ lib.optionalAttrs isPersonal [
+            ++ lib.optionals isPersonal [
           # nixos-user-tmpfiles.d-${username}
           # Ensure the directory exists for use by mpd
           "d /home/${username}/.config/mpd 0755 ${username} ${username} -"

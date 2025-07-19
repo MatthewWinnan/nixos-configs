@@ -84,7 +84,7 @@ in {
   };
 
   # od1n - T580 for coding use
-  nixosConfigurations.od1n = inputs.nixpkgs.lib.nixosSystem {
+  od1n = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs;
     };
