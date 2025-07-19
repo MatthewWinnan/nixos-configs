@@ -2,11 +2,9 @@
 # Has been migrated to nixvim, using that now instead
 # https://nix-community.github.io/nixvim/plugins/markview/index.html
 {pkgs, ...}: {
-
   programs.nixvim.plugins.markview = {
     enable = false;
   };
-
 
   # Original method how I packaged it
   # programs.nixvim.extraPlugins = with pkgs.vimUtils; [

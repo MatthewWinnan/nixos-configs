@@ -19,10 +19,12 @@
     users = {
       # Import your home-manager configuration
       ${config.userSettings.username} = {
-        imports = [
-          ../../../home
-          ../settings
-        ] ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") 
+        imports =
+          [
+            ../../../home
+            ../settings
+          ]
+          ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming")
           [inputs.nixcord.homeModules.nixcord];
 
         home = {
