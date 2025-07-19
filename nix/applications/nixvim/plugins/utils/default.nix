@@ -23,6 +23,7 @@
     ./web-devicons.nix
     ./muren.nix
     ./spectre.nix
+    ./texpresso.nix
     #./comfy-line-numbers.nix
   ];
 }
