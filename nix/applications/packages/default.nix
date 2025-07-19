@@ -11,6 +11,7 @@
   mov-cli = pkgs.callPackage ../../../derivations/mov-cli {};
   yt-dlp = pkgs.callPackage ../../../derivations/mov-cli/packages/yt-dlp.nix {};
   basalt = pkgs.callPackage ../../../derivations/basalt {};
+  ducker = pkgs.callPackage ../../../derivations/ducker {};
   #himalaya = pkgs.callPackage ../../../derivations/himalaya/himalaya.nix {};
 in {
   # If something has been delared with .enable and points to pkgs or homemanager's

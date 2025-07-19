@@ -1,4 +1,8 @@
-{config, ...}: {
+{config, lib, ...}:
+# let
+#   not_work = builtins.elem config.systemSettings.profile ["gaming" "personal"];
+# in
+{
   imports = [
     ./newsboat
     ./schizofox
@@ -10,7 +14,6 @@
     ./qutebrowser
     ./rmpc
     ./anyrun
-    ./nixcord
     ./streamlink
   ];
 }

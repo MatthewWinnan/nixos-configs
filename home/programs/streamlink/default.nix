@@ -6,6 +6,6 @@
   ...
 }: {
   config.programs.streamlink = {
-    enable = true;
+    enable = builtins.elem config.systemSettings.profile ["gaming" "personal"];
   };
 }
