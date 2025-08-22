@@ -12,6 +12,9 @@
   yt-dlp = pkgs.callPackage ../../../derivations/mov-cli/packages/yt-dlp.nix {};
   basalt = pkgs.callPackage ../../../derivations/basalt {};
   ducker = pkgs.callPackage ../../../derivations/ducker {};
+  orca-slicer-mesa = pkgs.callPackage ../../../derivations/orca-wrapped {};
+  kicad-mesa = pkgs.callPackage ../../../derivations/kicad-wrapped {};
+  freecad-wayland-mesa = pkgs.callPackage ../../../derivations/freecad-wrapped {};
   #himalaya = pkgs.callPackage ../../../derivations/himalaya/himalaya.nix {};
 in {
   # If something has been delared with .enable and points to pkgs or homemanager's
@@ -192,8 +195,11 @@ in {
 
       # For 3D printing/designing
       orca-slicer
+      orca-slicer-mesa
       kicad
+      kicad-mesa
       freecad-wayland
+      freecad-wayland-mesa
       openscad-unstable
 
       # For the logic analyzer
