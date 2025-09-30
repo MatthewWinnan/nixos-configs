@@ -1,5 +1,6 @@
 # https://yazi-rs.github.io/docs/
 # https://yazi-rs.github.io/docs/configuration/yazi/ -> this is for configuration spcififcally
+# https://mynixos.com/home-manager/options/programs.yazi
 {
   config,
   pkgs,
@@ -14,7 +15,18 @@
   programs.yazi = {
     enable = true;
 
-    enableFishIntegration = true;
+    # List off of our shell integrations here
+    enableZshIntegration = config.programs.zsh.enable;
+    enableBashIntegration = config.programs.bash.enable;
+    enableNushellIntegration = config.programs.nushell.enable;
+    enableFishIntegration = config.programs.fish.enable;
+
+    plugins = {
+      # https://github.com/wylie102/duckdb.yazi
+      duckdb = pkgs.yaziPlugins.duckdb;
+      # https://github.com/boydaihungst/mediainfo.yazi
+      mediainfo = pkgs.yaziPlugins.mediainfo;
+    };
 
     settings = {
       # `[manager]` has been deprecated in favor of the new `[mgr]`, see #2803 for more details: https://github.com/sxyazi/yazi/pull/2803
