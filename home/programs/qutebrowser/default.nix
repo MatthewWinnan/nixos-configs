@@ -12,6 +12,7 @@
     searchEngines = {
       w = "https://en.wikipedia.org/wiki/Special:Search?search={}&amp;go=Go&amp;ns0=1";
       aw = "https://wiki.archlinux.org/?search={}";
+      cio = "https://crates.io/search?q={}";
       nw = "https://wiki.nixos.org/index.php?search={}";
       nh = "https://home-manager-options.extranix.com/?query={}";
       no = "https://mynixos.com/search?q={}";

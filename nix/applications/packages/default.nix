@@ -12,9 +12,6 @@
   yt-dlp = pkgs.callPackage ../../../derivations/mov-cli/packages/yt-dlp.nix {};
   basalt = pkgs.callPackage ../../../derivations/basalt {};
   ducker = pkgs.callPackage ../../../derivations/ducker {};
-  orca-slicer-mesa = pkgs.callPackage ../../../derivations/orca-wrapped {};
-  kicad-mesa = pkgs.callPackage ../../../derivations/kicad-wrapped {};
-  freecad-wayland-mesa = pkgs.callPackage ../../../derivations/freecad-wrapped {};
   #himalaya = pkgs.callPackage ../../../derivations/himalaya/himalaya.nix {};
 in {
   # If something has been delared with .enable and points to pkgs or homemanager's
@@ -89,6 +86,8 @@ in {
       #warpd
       # https://github.com/samuela/remod?tab=readme-ov-file
       remod
+      # Just in general useful to have some way of editing files
+      libreoffice
 
       # Cursors
       inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
@@ -195,11 +194,8 @@ in {
 
       # For 3D printing/designing
       orca-slicer
-      orca-slicer-mesa
       kicad
-      kicad-mesa
       freecad-wayland
-      freecad-wayland-mesa
       openscad-unstable
 
       # For the logic analyzer
@@ -270,6 +266,7 @@ in {
       # Some performance analysis tools
       flamelens
       xan
+      xlsx2csv
       inferno
       # This should help me get some symbols
       # https://github.com/orhun/binsider

@@ -20,8 +20,9 @@ in {
     settings = {
       "$mainMod" =
         if config.systemSettings.profile == "gaming"
+        # We still keep is separated incase we need to have different behaviours.
         then "SUPER"
-        else "ALT";
+        else "SUPER";
       "$terminal" = "kitty";
 
       monitor = map (
