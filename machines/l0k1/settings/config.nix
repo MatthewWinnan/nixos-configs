@@ -5,7 +5,7 @@
     headless = false;
     monitors = [
       {
-        name = "HDMI-A-2";
+        name = "Virtual-1";
         width = 1280;
         height = 800;
         workspace = "1";
