@@ -2,6 +2,6 @@
   imports = [
     ../../options
     ./config.nix
-    ../../../image_store/od1n.nix
+    ../../../image_store/l0k1.nix
   ];
 }
