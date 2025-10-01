@@ -100,4 +100,22 @@ in {
       ./od1n
     ];
   };
+
+  # l0k1 used for work
+  l0k1 = inputs.nixpkgs.lib.nixosSystem {
+    specialArgs = {
+      inherit inputs;
+    };
+    modules = [
+      # General inputs
+      host_platform
+      nixvim
+      stylix
+      nix-index
+      hm
+
+      # Remaining modules
+      ./l0k1
+    ];
+  };
 }
