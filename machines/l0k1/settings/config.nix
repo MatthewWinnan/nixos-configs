@@ -2,12 +2,12 @@
 {
   deviceSettings = {
     type = "laptop";
-    headless = true;
+    headless = false;
     monitors = [
       {
         name = "HDMI-A-2";
-        width = 1920;
-        height = 1080;
+        width = 1280;
+        height = 800;
         workspace = "1";
         primary = true;
       }

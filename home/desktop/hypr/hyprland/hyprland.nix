@@ -23,7 +23,11 @@ in {
         # We still keep is separated incase we need to have different behaviours.
         then "SUPER"
         else "SUPER";
-      "$terminal" = "kitty";
+      "$terminal" =
+        if config.systemSettings.profile == "gaming"
+        # We still keep is separated incase we need to have different behaviours.
+        then "wezterm"
+        else "kitty";
 
       monitor = map (
         m: "${m.name},${
@@ -45,9 +49,10 @@ in {
         "QT_QPA_PLATFORM,wayland"
         "XDG_SCREENSHOTS_DIR,~/Media/Pictures"
         "HYPRCURSOR_THEME,rose-pine-hyprcursor"
-        "LIBVA_DRIVER_NAME,nvidia"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-      ];
+      ] ++ lib.optionals (config.systemSettings.profile != "work") [
+          "LIBVA_DRIVER_NAME,nvidia"
+          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        ];
 
       debug = {
         disable_logs = false;
