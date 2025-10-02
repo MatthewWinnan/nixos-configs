@@ -2,6 +2,6 @@
   imports = [
     ../../options
     ./config.nix
-    ../../../image_store/ym1r.nix
+    ../../../image_store/nixos.nix
   ];
 }

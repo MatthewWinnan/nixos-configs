@@ -121,7 +121,7 @@ in {
   };
 
   # My WSL laptop
-  ym1r = inputs.nixpkgs.lib.nixosSystem {
+  nixos = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs;
     };
@@ -134,7 +134,7 @@ in {
       wsl
 
       # Remaining modules
-      ./ym1r
+      ./nixos
     ];
   };
 }

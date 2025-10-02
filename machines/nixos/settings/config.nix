@@ -7,7 +7,7 @@
 
   systemSettings = {
     system = "x86_64-linux";
-    hostname = "ym1r";
+    hostname = "nixos";
     profile = "work";
     locale = "en_ZA.UTF-8";
     timezone = "Africa/Johannesburg";
