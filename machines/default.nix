@@ -9,6 +9,7 @@
   stylix = inputs.stylix.nixosModules.stylix;
   nix-index = inputs.nix-index-database.nixosModules.nix-index;
   hm = inputs.home-manager.nixosModules.home-manager;
+  wsl = inputs.nixos-wsl.nixosModules.wsl;
 in {
   # th0r - lattepanda delta for home lab use
   # headless
@@ -116,6 +117,24 @@ in {
 
       # Remaining modules
       ./l0k1
+    ];
+  };
+
+  # My WSL laptop
+  ym1r = inputs.nixpkgs.lib.nixosSystem {
+    specialArgs = {
+      inherit inputs;
+    };
+    modules = [
+      # General inputs
+      host_platform
+      nixvim
+      nix-index
+      stylix
+      wsl
+
+      # Remaining modules
+      ./ym1r
     ];
   };
 }

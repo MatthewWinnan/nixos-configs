@@ -10,6 +10,13 @@
     # For now pin it to stable since new unstable is too fresh (June 4 2025)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
 
+    # We need to maintain nixosWSL now
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";

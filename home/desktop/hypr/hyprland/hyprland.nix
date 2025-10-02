@@ -20,12 +20,12 @@ in {
     settings = {
       "$mainMod" =
         if config.systemSettings.profile == "gaming"
-        # We still keep is separated incase we need to have different behaviours.
+        # We keep is separated incase we need to have different behaviours.
         then "SUPER"
-        else "SUPER";
+        else "ALT";
       "$terminal" =
         if config.systemSettings.profile == "gaming"
-        # We still keep is separated incase we need to have different behaviours.
+        # We keep is separated incase we need to have different behaviours.
         then "wezterm"
         else "kitty";
 
@@ -49,10 +49,11 @@ in {
         "QT_QPA_PLATFORM,wayland"
         "XDG_SCREENSHOTS_DIR,~/Media/Pictures"
         "HYPRCURSOR_THEME,rose-pine-hyprcursor"
-        "LIBGL_ALWAYS_SOFTWARE,1"
       ] ++ lib.optionals (config.systemSettings.profile != "work") [
           "LIBVA_DRIVER_NAME,nvidia"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        ] ++ lib.optionals (config.systemSettings.profile == "work") [
+          "LIBGL_ALWAYS_SOFTWARE,1"
         ];
 
       debug = {
