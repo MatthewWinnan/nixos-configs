@@ -9,7 +9,7 @@
     ./services.nix
     ./networking.nix
     # ../../../../nix/security
-    # ./environment.nix
+    ./environment.nix
     ./user.nix
   ];
 
