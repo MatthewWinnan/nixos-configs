@@ -19,7 +19,7 @@
       # Import your home-manager configuration
       ${config.userSettings.username} = {
         imports = [
-          ../../../home
+          ../../../home/wsl
           ../settings
         ];
 
