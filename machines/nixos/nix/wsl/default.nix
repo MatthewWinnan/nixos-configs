@@ -15,7 +15,7 @@
 
   wsl = {
     enable = true;
-    defaultUser = config.systemSettings.hostname;
+    defaultUser = config.userSettings.username;
   };
 
   # Set your time zone.
