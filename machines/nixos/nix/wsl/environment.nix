@@ -15,6 +15,6 @@
     QT_QPA_PLATFORMTHEME = "qt5ct";
     XDG_SCREENSHOTS_DIR = "~/Media/Pictures";
     HYPRCURSOR_THEME = "rose-pine-hyprcursor";
-    LIBGL_ALWAYS_SOFTWARE "1";
+    LIBGL_ALWAYS_SOFTWARE = "1";
   };
 }
