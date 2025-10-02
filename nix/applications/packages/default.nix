@@ -51,6 +51,7 @@ in {
       fq
       jq
       yq
+      unzip
 
       # Flasher tools
       rpi-imager # For flashing images

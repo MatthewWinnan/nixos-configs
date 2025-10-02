@@ -21,6 +21,7 @@
       gh = "https://www.github.com/search?q={}&type=repositories";
       d = "https://duckduckgo.com/?q={}";
       pd = "https://protondb.com/search?q={}";
+      bg = "https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&q={}";
     };
 
     greasemonkey = [
