@@ -5,13 +5,18 @@
   ...
 }: {
   imports = [
-    ../applications
+    ../../../../nix/applications
     ./services.nix
     ./networking.nix
-    ../security
+    # ../../../../nix/security
     # ./environment.nix
     ./user.nix
   ];
+
+  wsl = {
+    enable = true;
+    defaultUser = config.systemSettings.hostname;
+  };
 
   # Set your time zone.
   time.timeZone = config.systemSettings.timezone;
@@ -30,8 +35,6 @@
         sandbox = "relaxed";
         # So we can use our local cache
         #always-allow-substitutes = true;
-        substituters = ["http://cachix:8080/fossil?priority=30"];
-        trusted-public-keys = ["fossil:p3AAkC0+gc/JTzfyajd3W+ewQAQhpuq2bwv5Wa3wcIg="];
         trusted-users = [config.userSettings.username "root"];
       }
     )
@@ -61,7 +64,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 
   # For bluetooth support
   # TODO I should ideally move this to hardware or something
