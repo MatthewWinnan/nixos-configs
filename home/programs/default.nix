@@ -19,5 +19,6 @@
     ./rmpc
     ./anyrun
     ./streamlink
+    ./obs-studio
   ];
 }
