@@ -145,25 +145,21 @@
     };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      ...
-    }@inputs:
-    let
-      # Modular import to allow for all systems
-      forAllSystemsInputs =
-        function: nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: function inputs system);
-    in
-    {
-      # Formatter of choice
-      formatter = forAllSystemsInputs (inputs: system: inputs.alejandra.defaultPackage.${system});
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  } @ inputs: let
+    # Modular import to allow for all systems
+    forAllSystemsInputs = function: nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: function inputs system);
+  in {
+    # Formatter of choice
+    formatter = forAllSystemsInputs (inputs: system: inputs.alejandra.defaultPackage.${system});
 
-      # My own local devshells
-      devShells = forAllSystemsInputs (inputs: system: import ./shells { inherit system inputs; });
+    # My own local devshells
+    devShells = forAllSystemsInputs (inputs: system: import ./shells {inherit system inputs;});
 
-      # NixOS machine configurations, now modular
-      nixosConfigurations = import ./machines { inherit inputs; };
-    };
+    # NixOS machine configurations, now modular
+    nixosConfigurations = import ./machines {inherit inputs;};
+  };
 }

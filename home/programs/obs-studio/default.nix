@@ -1,6 +1,9 @@
 # Snagged this directly from https://wiki.nixos.org/wiki/OBS_Studio
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.obs-studio = {
     enable = true;
 

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-
+{pkgs, ...}:
 pkgs.makeDesktopItem {
   name = "freecad-wayland-mesa";
   desktopName = "FreeCAD (MESA)";
@@ -16,12 +15,21 @@ pkgs.makeDesktopItem {
     "application/x-extension-fcstd1"
   ];
 
-  categories = [ "Graphics" "Engineering" "Science" ];
+  categories = ["Graphics" "Engineering" "Science"];
 
-  keywords = [ "CAD" "3D" "Modeling" "Parametric" "Design" "Simulation" "Drafting" "CAM" "FEM" "Rendering"
+  keywords = [
+    "CAD"
+    "3D"
+    "Modeling"
+    "Parametric"
+    "Design"
+    "Simulation"
+    "Drafting"
+    "CAM"
+    "FEM"
+    "Rendering"
   ];
 
   startupNotify = false;
   startupWMClass = "freecad";
 }
-
