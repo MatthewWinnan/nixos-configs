@@ -28,10 +28,10 @@ in {
       rules =
         [
         ]
-        ++ lib.optionals (hostname == "h31mda11")
-        [
-          # Mask the stypid tpm device, getting firmware issues
-          "L /etc/systemd/system/tpm2.target - - - - /dev/null"
+        ++ lib.optionals (hostname == "h31mda11") [
+          # Mask TPM services to prevent boot timeouts due to firmware issues
+          "L /etc/systemd/system/systemd-tpm2-setup-early.service - - - - /dev/null"
+          "L /etc/systemd/system/systemd-tpm2-setup.service - - - - /dev/null"
         ];
     };
 
