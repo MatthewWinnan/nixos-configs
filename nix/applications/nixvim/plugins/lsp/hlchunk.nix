@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+# https://github.com/shellRaining/hlchunk.nvim
+{ pkgs, ... }:
+{
   programs.nixvim.extraPlugins = [
     (pkgs.vimUtils.buildVimPlugin {
       name = "hlchunk";

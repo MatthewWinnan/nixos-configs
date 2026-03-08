@@ -9,6 +9,7 @@
     # When disabled hyprpaper will be the default
     # see ./hyprpaper.nix
     enable = true;
-    package = inputs.swww.packages.${pkgs.system}.swww;
+    # NB at some point this should be awww
+    # package = inputs.swww.packages.${pkgs.system}.swww;
   };
 }

@@ -10,14 +10,14 @@ in {
     settings.default_session.command =
       if isHeadless
       then ''
-        ${pkgs.greetd.tuigreet}/bin/tuigreet \
+        ${pkgs.tuigreet}/bin/tuigreet \
           --time \
           --asterisks \
           --user-menu \
           --cmd ${pkgs.fish}/bin/fish
       ''
       else ''
-        ${pkgs.greetd.tuigreet}/bin/tuigreet \
+        ${pkgs.tuigreet}/bin/tuigreet \
           --remember \
           --time \
           --asterisks \

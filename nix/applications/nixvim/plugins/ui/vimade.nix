@@ -1,6 +1,7 @@
 # vimade is not out on nixvim
 # DOCS -> https://github.com/TaDaa/vimade
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.nixvim.extraPlugins = with pkgs.vimUtils; [
     (buildVimPlugin {
       pname = "vimade.nvim";

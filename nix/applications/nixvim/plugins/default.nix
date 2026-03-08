@@ -8,6 +8,5 @@
     ./snippets
     ./utils
     ./ui
-    ./misc
   ];
 }

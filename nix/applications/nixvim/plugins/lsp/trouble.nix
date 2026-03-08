@@ -1,4 +1,5 @@
-# DOCS -> hTrouble diagnostics togglettps://github.com/folke/trouble.nvim
+# DOCS -> Trouble diagnostics toggle https://github.com/folke/trouble.nvim
+
 {
   programs.nixvim.plugins.trouble = {
     enable = true;

@@ -2,8 +2,10 @@
 {
   programs.nixvim.plugins.neo-tree = {
     enable = true;
+    settings = {
     filesystem.followCurrentFile.enabled = true;
-    closeIfLastWindow = true;
+    close_if_last_window = true;
+    };
   };
 
   programs.nixvim.keymaps = [
