@@ -8,7 +8,7 @@
 
     # I generally keep with the unstable when possible
     # For now pin it to stable since new unstable is too fresh (June 4 2025)
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # We need to maintain nixosWSL now
     nixos-wsl = {
@@ -16,9 +16,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -33,12 +32,15 @@
     };
 
     stylix = {
-      url = "github:nix-community/stylix/release-25.05";
+      url = "github:nix-community/stylix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    swww = {
-      url = "github:LGFae/swww";
+    # NB
+    # SWWW has been superseeded by awww, until the main nixpkgs have caught up I will have to use
+    # an unpinned swww, for now add the awww
+    awww = {
+      url = "git+https://codeberg.org/LGFae/awww";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -119,7 +121,7 @@
 
     # Nix Formatter
     alejandra = {
-      url = "github:kamadorueda/alejandra/3.0.0";
+      url = "github:kamadorueda/alejandra/4.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -143,21 +145,25 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs: let
-    # Modular import to allow for all systems
-    forAllSystemsInputs = function: nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: function inputs system);
-  in {
-    # Formatter of choice
-    formatter = forAllSystemsInputs (inputs: system: inputs.alejandra.defaultPackage.${system});
+  outputs =
+    {
+      self,
+      nixpkgs,
+      ...
+    }@inputs:
+    let
+      # Modular import to allow for all systems
+      forAllSystemsInputs =
+        function: nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: function inputs system);
+    in
+    {
+      # Formatter of choice
+      formatter = forAllSystemsInputs (inputs: system: inputs.alejandra.defaultPackage.${system});
 
-    # My own local devshells
-    devShells = forAllSystemsInputs (inputs: system: import ./shells {inherit system inputs;});
+      # My own local devshells
+      devShells = forAllSystemsInputs (inputs: system: import ./shells { inherit system inputs; });
 
-    # NixOS machine configurations, now modular
-    nixosConfigurations = import ./machines {inherit inputs;};
-  };
+      # NixOS machine configurations, now modular
+      nixosConfigurations = import ./machines { inherit inputs; };
+    };
 }

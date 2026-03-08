@@ -1,7 +1,7 @@
 # DOCS -> https://github.com/AUNaseef/protonup
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    protonup
+    protonup-ng
   ];
 
   environment.sessionVariables = {

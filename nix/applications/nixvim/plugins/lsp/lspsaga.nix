@@ -2,7 +2,8 @@
 {
   programs.nixvim.plugins.lspsaga = {
     enable = true;
-    beacon = {
+    settings = {
+      beacon = {
       enable = true;
     };
     ui = {
@@ -68,6 +69,7 @@
     scrollPreview = {
       scrollDown = "<C-k>";
       scrollUp = "<C-j>";
+    };
     };
   };
   programs.nixvim.keymaps = [

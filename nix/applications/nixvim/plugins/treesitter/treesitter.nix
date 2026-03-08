@@ -1,8 +1,7 @@
 # DOCS -> https://github.com/nvim-treesitter/nvim-treesitter/
 # NixVim DOCS -> https://nix-community.github.io/nixvim/plugins/treesitter/index.html
-{pkgs, ...}: {
-  programs.nixvim.filetype.extension.liq = "liquidsoap";
-
+{ pkgs, ... }:
+{
   programs.nixvim.plugins.treesitter = {
     enable = true;
 
@@ -15,17 +14,12 @@
       };
     };
 
-    folding = true;
-    languageRegister.liq = "liquidsoap";
+    folding.enable = true;
     nixvimInjections = true;
     grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
   };
 
   programs.nixvim.extraConfigLua = ''
     local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-
-    parser_config.liquidsoap = {
-      filetype = "liquidsoap",
-    }
   '';
 }

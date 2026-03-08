@@ -14,7 +14,7 @@ in {
   config = {
     programs.rofi = lib.mkForce {
       enable = true;
-      package = pkgs.rofi-wayland;
+      package = pkgs.rofi;
       font = "Terminess Nerd Font 14";
 
       extraConfig = {

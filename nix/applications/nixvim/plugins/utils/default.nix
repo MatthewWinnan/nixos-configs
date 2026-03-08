@@ -3,10 +3,9 @@
     ./mini.nix
     ./flash.nix
     ./comment.nix
-    ./neotree.nix
     ./colorizer.nix
-    ./comment-box.nix
-    ./transparent.nix
+    # I now let an inline AI do this
+    # ./comment-box.nix
     ./undotree.nix
     ./harpoon.nix
     ./snipe.nix
@@ -14,16 +13,14 @@
     ./ufo.nix
     ./autopairs.nix
     ./oil.nix
-    ./floaterm.nix
     ./multicursors.nix
     ./neoclip.nix
     ./markview.nix
     ./render-markdown.nix
-    ./obsidian.nix
     ./web-devicons.nix
     ./muren.nix
     ./spectre.nix
     ./texpresso.nix
-    #./comfy-line-numbers.nix
+    ./vim-bbye.nix
   ];
 }

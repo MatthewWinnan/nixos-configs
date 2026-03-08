@@ -2,10 +2,13 @@
 {
   programs.nixvim.plugins.navbuddy = {
     enable = true;
-    lsp = {
+    settings = {
+      lsp = {
       autoAttach = true;
       preference = [];
     };
+    };
+
   };
 
   programs.nixvim.keymaps = [

@@ -6,9 +6,11 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (config.lib.stylix) colors;
-in {
+in
+{
   imports = [
     ./aliases.nix
     ./init.nix
@@ -18,7 +20,7 @@ in {
   config = {
     programs.zsh = {
       enable = true;
-      dotDir = ".config/zsh";
+      dotDir = "${config.home.homeDirectory}/config/zsh";
       enableCompletion = true;
       enableVteIntegration = true;
       autosuggestion.enable = true;
@@ -85,7 +87,9 @@ in {
           cursor = "fg=#${colors.base0E}"; # highlights the cursor
         };
       };
-      sessionVariables = {LC_ALL = "en_US.UTF-8";};
+      sessionVariables = {
+        LC_ALL = "en_US.UTF-8";
+      };
 
       history = {
         # where to save the history
@@ -109,7 +113,12 @@ in {
         ignoreDups = true;
 
         # ignore these patterns
-        ignorePatterns = ["rm *" "pkill *" "kill *" "killall *"];
+        ignorePatterns = [
+          "rm *"
+          "pkill *"
+          "kill *"
+          "killall *"
+        ];
 
         # ignore commands that start with a space
         ignoreSpace = true;
