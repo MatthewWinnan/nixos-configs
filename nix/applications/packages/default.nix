@@ -4,21 +4,24 @@
   lib,
   inputs,
   ...
-}: let
-  lowfi = pkgs.callPackage ../../../derivations/lowfi/lowfi.nix {};
-  screen_recorder = pkgs.callPackage ../../../derivations/screen_record.nix {};
-  flamelens = pkgs.callPackage ../../../derivations/flamelens {};
+}:
+let
+  lowfi = pkgs.callPackage ../../../derivations/lowfi/lowfi.nix { };
+  screen_recorder = pkgs.callPackage ../../../derivations/screen_record.nix { };
+  flamelens = pkgs.callPackage ../../../derivations/flamelens { };
 
   # NB broken failing to install fix
   # mov-cli = pkgs.callPackage ../../../derivations/mov-cli {};
 
-  yt-dlp = pkgs.callPackage ../../../derivations/mov-cli/packages/yt-dlp.nix {};
-  basalt = pkgs.callPackage ../../../derivations/basalt {};
-  ducker = pkgs.callPackage ../../../derivations/ducker {};
-  kicad-wrapped = pkgs.callPackage ../../../derivations/kicad-wrapped {};
-  orca-wrapped = pkgs.callPackage ../../../derivations/orca-wrapped {};
+  yt-dlp = pkgs.callPackage ../../../derivations/mov-cli/packages/yt-dlp.nix { };
+  basalt = pkgs.callPackage ../../../derivations/basalt { };
+  ducker = pkgs.callPackage ../../../derivations/ducker { };
+  kicad-wrapped = pkgs.callPackage ../../../derivations/kicad-wrapped { };
+  orca-wrapped = pkgs.callPackage ../../../derivations/orca-wrapped { };
+  freecad-wrapped = pkgs.callPackage ../../../derivations/freecad-wrapped { };
   #himalaya = pkgs.callPackage ../../../derivations/himalaya/himalaya.nix {};
-in {
+in
+{
   # If something has been delared with .enable and points to pkgs or homemanager's
   # pkgs we do not need to add it here
   # Here we only do the basic global packages and load up module declerations
@@ -30,7 +33,8 @@ in {
     ];
   };
 
-  environment.systemPackages = with pkgs;
+  environment.systemPackages =
+    with pkgs;
     [
       # Default desktop apps
       chromium
@@ -43,12 +47,13 @@ in {
       gnumake
       gcc
       (python3.withPackages (
-        ps:
-          with ps; [
-            requests
-            pyserial
-          ]
+        ps: with ps; [
+          requests
+          pyserial
+        ]
       ))
+      nodejs # includes npx
+      uv
 
       # Default CLI tools for everyone
       wget
@@ -180,72 +185,74 @@ in {
       # Fromatter
       inputs.alejandra.defaultPackage.${system}
     ]
-    ++ lib.optionals
-    (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming")
-    [
-      # Desktop apps for my personal and gaming use
-      # (discord.override {
-      # withOpenASAR = true; # can do this here too
-      # withVencord = true;
-      # })
+    ++
+      lib.optionals
+        (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming")
+        [
+          # Desktop apps for my personal and gaming use
+          # (discord.override {
+          # withOpenASAR = true; # can do this here too
+          # withVencord = true;
+          # })
 
-      # To read manga
-      # NB will not build :(
-      # inputs.manga-tui.packages.${system}.manga-tui
+          # To read manga
+          # NB will not build :(
+          # inputs.manga-tui.packages.${system}.manga-tui
 
-      # To watch anime
-      ani-cli
+          # To watch anime
+          ani-cli
 
-      # TUI Lowfi player
-      # DOCS -> https://github.com/talwat/lowfi
-      lowfi
+          # TUI Lowfi player
+          # DOCS -> https://github.com/talwat/lowfi
+          lowfi
 
-      # # To watch general content
-      # mov-cli
+          # # To watch general content
+          # mov-cli
 
-      # To watch movies
-      inputs.lobster.packages.${system}.lobster
+          # To watch movies
+          inputs.lobster.packages.${system}.lobster
 
-      # Embedded coding, see arduino-ide too
-      # NB
-      # These still use "python3.13-ecdsa-0.19.1"
-      arduino-ide
-      adafruit-nrfutil
+          # Embedded coding, see arduino-ide too
+          # NB
+          # These still use "python3.13-ecdsa-0.19.1"
+          arduino-ide
+          adafruit-nrfutil
 
-      # For 3D printing/designing
-      orca-slicer
-      orca-wrapped
-      kicad
-      kicad-wrapped
-      freecad-wayland
-      openscad-unstable
+          # For 3D printing/designing
+          orca-slicer
+          orca-wrapped
+          kicad
+          kicad-wrapped
+          freecad-wayland
+          freecad-wrapped
+          openscad-unstable
 
-      # For the logic analyzer
-      pulseview
+          # For the logic analyzer
+          pulseview
 
-      # Minimal client for mpd
-      mpc
+          # Minimal client for mpd
+          mpc
 
-      # To manually download yt videos
-      yt-dlp
+          # To manually download yt videos
+          yt-dlp
 
-      # Twitch chat for the CLI
-      #https://github.com/Xithrius/twitch-tui
-      twitch-cli
+          # Twitch chat for the CLI
+          #https://github.com/Xithrius/twitch-tui
+          twitch-cli
 
-      # Rice flexing
-      # https://github.com/abishekvashok/cmatrix
-      cmatrix
-      # https://github.com/da-luce/astroterm
-      astroterm
-      # https://github.com/karlstav/cava
-      cava
-      # https://gitlab.com/jallbrit/cbonsai
-      # https://www.reddit.com/r/unixporn/comments/axedr4/oc_watch_a_bonsai_tree_grow_in_your_terminal/
-      cbonsai
-      # https://github.com/lhvy/pipes-rs
-      pipes-rs
-    ]
+          # Rice flexing
+          # https://github.com/abishekvashok/cmatrix
+          cmatrix
+          # https://github.com/da-luce/astroterm
+          astroterm
+          # https://github.com/karlstav/cava
+          cava
+          # https://gitlab.com/jallbrit/cbonsai
+          # https://www.reddit.com/r/unixporn/comments/axedr4/oc_watch_a_bonsai_tree_grow_in_your_terminal/
+          cbonsai
+          # https://github.com/lhvy/pipes-rs
+          pipes-rs
+        ]
     ++ lib.optionals (config.systemSettings.profile == "personal") [
       # Only for personal use
       openvpn
