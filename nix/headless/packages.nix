@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # If something has been delared with .enable and points to pkgs or homemanager's
   # pkgs we do not need to add it here
   # Here we only do the basic global packages and load up module declerations
@@ -11,11 +12,12 @@
     # pyserial is needed for my arduino-ide
     gnumake
     gcc
-    (python3.withPackages (ps:
-      with ps; [
+    (python3.withPackages (
+      ps: with ps; [
         requests
         pyserial
-      ]))
+      ]
+    ))
 
     # Default CLI tools for everyone
     wget
