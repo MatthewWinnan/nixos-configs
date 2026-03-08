@@ -11,7 +11,7 @@
       systemd-resolved.enable = false;
       systemd-udevd.enable = false;
     };
-  # Don't allow emergency mode, because we don't have a console.
+    # Don't allow emergency mode, because we don't have a console.
     enableEmergencyMode = false;
   };
 }

@@ -6,11 +6,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   inherit (config.lib.stylix) colors;
-in
-{
+in {
   imports = [
     ./aliases.nix
     ./init.nix

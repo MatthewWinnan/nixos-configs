@@ -1,6 +1,4 @@
-
-{ pkgs, ... }:
-
+{pkgs, ...}:
 pkgs.makeDesktopItem {
   name = "kicad-mesa";
   desktopName = "KiCad (MESA)";
@@ -25,14 +23,25 @@ pkgs.makeDesktopItem {
   ];
 
   # Must use valid freedesktop categories
-  categories = [ "Development" "Engineering" "Graphics"
+  categories = [
+    "Development"
+    "Engineering"
+    "Graphics"
   ];
 
   # Helpful search keywords
-  keywords = [ "EDA" "PCB" "Schematic" "Layout" "Circuit" "Board" "Electronics" "Design" "Hardware"
+  keywords = [
+    "EDA"
+    "PCB"
+    "Schematic"
+    "Layout"
+    "Circuit"
+    "Board"
+    "Electronics"
+    "Design"
+    "Hardware"
   ];
 
   startupNotify = false;
   startupWMClass = "kicad";
 }
-

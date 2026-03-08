@@ -44,9 +44,9 @@
             "prettier"
           ]
         ];
-        python = [ "black" ];
-        lua = [ "stylua" ];
-        nix = [ "alejandra" ];
+        python = ["black"];
+        lua = ["stylua"];
+        nix = ["alejandra"];
         markdown = [
           [
             "prettierd"

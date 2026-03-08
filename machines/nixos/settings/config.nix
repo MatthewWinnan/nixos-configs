@@ -3,7 +3,8 @@
   deviceSettings = {
     type = "laptop";
     headless = false;
-    monitors = [];  };
+    monitors = [];
+  };
 
   systemSettings = {
     system = "x86_64-linux";

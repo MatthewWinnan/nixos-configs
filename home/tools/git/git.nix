@@ -1,11 +1,9 @@
 #
 # Original Code by NotAShelf - https://github.com/notashelf/nyx
 #
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   gitPackage = pkgs.gitFull;
-in
-{
+in {
   config = {
     home.packages = with pkgs; [
       gist # manage github gists
