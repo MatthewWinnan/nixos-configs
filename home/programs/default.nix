@@ -20,5 +20,6 @@
     ./anyrun
     ./streamlink
     ./obs-studio
+    ./claude
   ];
 }

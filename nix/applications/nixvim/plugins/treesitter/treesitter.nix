@@ -12,9 +12,9 @@
       highlight = {
         enable = true;
       };
+      folding.enable = true;
     };
 
-    folding.enable = true;
     nixvimInjections = true;
     grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
   };
