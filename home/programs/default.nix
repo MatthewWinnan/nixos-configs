@@ -21,5 +21,6 @@
     ./streamlink
     ./obs-studio
     ./claude
+    ./tmux
   ];
 }

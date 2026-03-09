@@ -9,6 +9,7 @@ let
   lowfi = pkgs.callPackage ../../../derivations/lowfi/lowfi.nix { };
   screen_recorder = pkgs.callPackage ../../../derivations/screen_record.nix { };
   flamelens = pkgs.callPackage ../../../derivations/flamelens { };
+  kiro-cli = pkgs.callPackage ../../../derivations/kiro-cli { };
 
   # NB broken failing to install fix
   # mov-cli = pkgs.callPackage ../../../derivations/mov-cli {};
@@ -316,5 +317,8 @@ in
       gdb
       # https://cgdb.github.io/docs/cgdb-split.html
       cgdb
+
+      # For agentic workflows
+      kiro-cli
     ];
 }
