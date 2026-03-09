@@ -102,8 +102,8 @@ in {
     ];
   };
 
-  # l0k1 used for work
-  l0k1 = inputs.nixpkgs.lib.nixosSystem {
+  # fafn1r used for work
+  fafn1r = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs;
     };
@@ -116,7 +116,7 @@ in {
       hm
 
       # Remaining modules
-      ./l0k1
+      ./fafn1r
     ];
   };
 

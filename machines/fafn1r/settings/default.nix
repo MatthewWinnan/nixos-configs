@@ -2,6 +2,6 @@
   imports = [
     ../../options
     ./config.nix
-    ../../../image_store/l0k1.nix
+    ../../../image_store/fafn1r.nix
   ];
 }
