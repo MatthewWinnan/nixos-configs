@@ -11,7 +11,8 @@
         workspace = "1";
         primary = true;
       }
-    ];  };
+    ];
+  };
 
   systemSettings = {
     system = "x86_64-linux";
