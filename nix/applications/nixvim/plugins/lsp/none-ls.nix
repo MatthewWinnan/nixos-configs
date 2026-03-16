@@ -7,7 +7,7 @@
     };
     sources = {
       diagnostics = {
-        mypy.enable = true;
+        # mypy.enable = true;
         statix.enable = true;
       };
       formatting = {
