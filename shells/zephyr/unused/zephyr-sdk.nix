@@ -1,7 +1,7 @@
 # A lot of the contents in this script comes from https://www.ericjjohnson.dev/blog/nix-with-zephyr-rtos/
 {
   pkgs ? import <nixpkgs> {},
-  system ? pkgs.stdenv.system,
+  system ? pkgs.stdenv.hostPlatform.system,
 }:
 with pkgs; let
   pname = "zephyr-sdk";
