@@ -13,7 +13,7 @@
       hidePluginInfo = true;
       showResultsImmediately = true;
       maxEntries = 10;
-      plugins = with inputs.anyrun.packages.${pkgs.system}; [
+      plugins = with inputs.anyrun.packages.${pkgs.stdenv.hostPlatform.system}; [
         applications
         dictionary
         rink

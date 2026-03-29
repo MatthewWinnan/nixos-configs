@@ -16,7 +16,7 @@
   inputs,
   ...
 }: let
-  extensions = inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.system};
+  extensions = inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system};
 
   # Apply the `forVSCodeVersion` to all extensions in vscode-marketplace
   setForVSCodeVersion = extList:

@@ -8,7 +8,7 @@
 let
   # Import unstable packages for specific packages
   pkgs-unstable = import inputs.nixpkgs-unstable {
-    system = pkgs.system;
+    system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
   };
 
@@ -138,11 +138,11 @@ in
       warpd # Keyboard-driven mouse
 
       # Cursors
-      inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
+      inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       # Wallpaper
       hyprpaper
-      inputs.awww.packages.${system}.awww
+      inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
       waypaper
       waytrogen
 
@@ -199,7 +199,7 @@ in
       cyme # USB device lister
 
       # Formatter
-      inputs.alejandra.defaultPackage.${system}
+      inputs.alejandra.defaultPackage.${pkgs.stdenv.hostPlatform.system}
     ]
     ++
       lib.optionals
@@ -207,8 +207,8 @@ in
         [
           # Media streaming/downloading
           ani-cli # Anime streaming
-          # inputs.manga-tui.packages.${system}.manga-tui # Manga reader (NB will not build)
-          inputs.lobster.packages.${system}.lobster # Movie streaming
+          # inputs.manga-tui.packages.${pkgs.stdenv.hostPlatform.system}.manga-tui # Manga reader (NB will not build)
+          inputs.lobster.packages.${pkgs.stdenv.hostPlatform.system}.lobster # Movie streaming
           mov-cli # General content streaming
           yt-dlp # Video downloader
           stremio-fixed # Using unstable version with build fix
