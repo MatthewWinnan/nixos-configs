@@ -1,7 +1,11 @@
-{ inputs, ... }:
+{
+  inputs,
+  config,
+  ...
+}:
 {
   config.programs.claude-code = {
-    enable = true;
+    enable = config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming";
     mcpServers = {
       filesystem = {
         command = "npx";

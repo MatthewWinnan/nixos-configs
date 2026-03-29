@@ -10,6 +10,10 @@
     # For now pin it to stable since new unstable is too fresh (June 4 2025)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
+    # Unstable channel for specific packages
+    # Using a specific commit to avoid potential build issues
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     # We need to maintain nixosWSL now
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
