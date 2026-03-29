@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./ssh.nix
+    ./fail2ban.nix
     ./gnome.nix
     ./dbus.nix
     ./udisks2.nix

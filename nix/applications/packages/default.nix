@@ -6,6 +6,28 @@
   ...
 }:
 let
+  # Import unstable packages for specific packages
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+
+  # Override stremio to fix build issue (PR #503035)
+  # The cargo deps directory structure changed, adding */ after $cargoDepsCopy
+  stremio-fixed = pkgs-unstable.stremio-linux-shell.overrideAttrs (oldAttrs: {
+    postPatch =
+      lib.replaceStrings
+        [
+          "$cargoDepsCopy/libappindicator-sys-*"
+          "$cargoDepsCopy/xkbcommon-dl-*"
+        ]
+        [
+          "$cargoDepsCopy/*/libappindicator-sys-*"
+          "$cargoDepsCopy/*/xkbcommon-dl-*"
+        ]
+        oldAttrs.postPatch;
+  });
+
   lowfi = pkgs.callPackage ../../../derivations/lowfi/lowfi.nix { };
   screen_recorder = pkgs.callPackage ../../../derivations/screen_record.nix { };
   flamelens = pkgs.callPackage ../../../derivations/flamelens { };
@@ -15,12 +37,10 @@ let
   # mov-cli = pkgs.callPackage ../../../derivations/mov-cli {};
 
   yt-dlp = pkgs.callPackage ../../../derivations/mov-cli/packages/yt-dlp.nix { };
-  basalt = pkgs.callPackage ../../../derivations/basalt { };
   ducker = pkgs.callPackage ../../../derivations/ducker { };
   kicad-wrapped = pkgs.callPackage ../../../derivations/kicad-wrapped { };
   orca-wrapped = pkgs.callPackage ../../../derivations/orca-wrapped { };
   freecad-wrapped = pkgs.callPackage ../../../derivations/freecad-wrapped { };
-  #himalaya = pkgs.callPackage ../../../derivations/himalaya/himalaya.nix {};
 in
 {
   # If something has been delared with .enable and points to pkgs or homemanager's
@@ -34,55 +54,67 @@ in
     ];
   };
 
+  # Override libreoffice to bypass Stylix GTK theming
+  nixpkgs.overlays = [
+    (final: prev: {
+      libreoffice = prev.libreoffice.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ prev.makeWrapper ];
+        postFixup = (old.postFixup or "") + ''
+          for bin in $out/bin/*; do
+            wrapProgram "$bin" --set GTK_THEME "Adwaita"
+          done
+        '';
+      });
+    })
+  ];
+
   environment.systemPackages =
     with pkgs;
     [
       # Default desktop apps
-      chromium
-      gparted
-      obsidian
-      udiskie
+      gparted # Disk partitioning
+      libreoffice # Office suite
+      obsidian # Note-taking
+      udiskie # Automounter
 
       # Default coding stuff (I want to progressively strip these away)
       # pyserial is needed for my arduino-ide
-      gnumake
       gcc
+      gnumake
       (python3.withPackages (
         ps: with ps; [
-          requests
           pyserial
+          requests
         ]
       ))
-      nodejs # includes npx
       uv
 
       # Default CLI tools for everyone
-      wget
-      htop
-      openssl
-      nix-output-monitor
-      nvd
-      just
-      wf-recorder # Else we do not have access to it on CLI
+      fq # Binary data querying
+      htop # Process monitoring
+      jq # JSON querying
+      just # Task runner
+      nix-output-monitor # Nix build output
+      nvd # Nix version diff
+      openssl # Cryptography toolkit
+      unzip # Archive extraction
+      wf-recorder # Screen recording (CLI access)
+      wget # File downloading
       wttrbar # Weather
-      fq
-      jq
-      yq
-      unzip
+      yq # YAML querying
 
       # Flasher tools
-      rpi-imager # For flashing images
-      # User-friendly, lightweight TUI for disk imaging
       # https://github.com/ifd3f/caligula
-      caligula
+      caligula # TUI disk imaging
+      rpi-imager # Raspberry Pi imager
 
       # Media players
-      # https://github.com/mpv-player/mpv
-      mpv
-      # https://github.com/videolan/vlc
-      vlc
       # https://github.com/FFmpeg/FFmpeg
-      ffmpeg-full
+      ffmpeg-full # Media processing
+      # https://github.com/mpv-player/mpv
+      mpv # Minimal video player
+      # https://github.com/videolan/vlc
+      vlc # Full-featured media player
 
       # For caching setup
       attic-client
@@ -93,52 +125,53 @@ in
       nix-init
 
       # TUI/GUI utils
-      dmenu
-      dragon-drop
-      pistol
-      hyprcursor
       # https://github.com/darkhz/bluetuith
-      bluetuith
-      blueman
-      # https://github.com/rvaiya/warpd?tab=readme-ov-file#wayland
-      #warpd
+      bluetuith # Bluetooth TUI
+      blueman # Bluetooth GUI
+      dmenu # Application launcher
+      dragon-drop # Drag-and-drop utility
+      hyprcursor # Cursor theme
+      pistol # File previewer
       # https://github.com/samuela/remod?tab=readme-ov-file
-      remod
-      # Just in general useful to have some way of editing files
-      libreoffice
+      remod # File permission editor
+      # https://github.com/rvaiya/warpd?tab=readme-ov-file#wayland
+      warpd # Keyboard-driven mouse
 
       # Cursors
       inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
 
       # Wallpaper
-      waypaper
-      waytrogen
       hyprpaper
       inputs.awww.packages.${system}.awww
+      waypaper
+      waytrogen
 
       # Clipboard stuff
-      wl-clipboard
       wl-clip-persist
+      wl-clipboard
 
       # Screenshot stuff
-      slurp
-      grim
-      swappy
-      grimblast
+      grim # Screenshot capture
+      grimblast # Screenshot wrapper
+      slurp # Region selection
+      swappy # Screenshot editor
+
+      # Custom recorder
+      screen_recorder
 
       # WMs and stuff
       xwayland
 
       # XDG Stuff
-      xdg-desktop-portal-hyprland
       xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk
+      xdg-desktop-portal-hyprland
       xdg-utils
 
       # Sound support
-      pavucontrol
-      pulseaudio
-      pamixer
+      pamixer # PulseAudio CLI mixer
+      pavucontrol # PulseAudio GUI
+      pulseaudio # Audio server
 
       # Support for multimedia routing and pipeline processing
       pipewire
@@ -147,112 +180,83 @@ in
       # For faster XML scraping
       libxml2
 
-      # Looks good not sure how it works, I basically made equivelant
-      # flameshot
-
-      # Custom recorder
-      screen_recorder
-
-      # CLI to manage emails, based on email-lib
-      #himalaya
-      # Seems things are missing by just building myself, use this https://github.com/pimalaya/himalaya/issues/468
-      # inputs.himalaya.packages.${system}.himalaya
-      # Instead I will for now use it from home manager hopefully
-      # FOr now I am gettin the issue: Unable to parse authentication response, I will wait for stable NIX
-      himalaya
-
-      # Some interesing terminal tools from -> https://terminaltrove.com/list/
+      # Some interesting terminal tools from -> https://terminaltrove.com/list/
       # https://asciinema.org/
-      asciinema
+      asciinema # Terminal recording
       # https://github.com/nitefood/asn?tab=readme-ov-file#usage
-      asn
-      # https://github.com/erikjuhani/basalt
-      basalt
-      # https://github.com/mixn/carbon-now-cli
-      # carbon-now-cli
+      asn # ASN lookup
       # https://github.com/xgi/castero
-      castero
+      # castero # Podcast client
       # https://github.com/bensadeh/circumflex
-      circumflex
+      circumflex # Hacker News reader
       # https://github.com/AlDanial/cloc
-      cloc
+      cloc # Code line counter
       # https://github.com/nik-rev/countryfetch
-      countryfetch
+      countryfetch # System info (country theme)
       # https://github.com/Dr-Noob/cpufetch?tab=readme-ov-file#8-cpufetch-for-gpus-gpufetch
-      cpufetch
+      cpufetch # CPU info display
       # https://github.com/tuna-f1sh/cyme
-      cyme
+      cyme # USB device lister
 
-      # Fromatter
+      # Formatter
       inputs.alejandra.defaultPackage.${system}
     ]
     ++
       lib.optionals
         (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming")
         [
-          # Desktop apps for my personal and gaming use
-          # (discord.override {
-          # withOpenASAR = true; # can do this here too
-          # withVencord = true;
-          # })
+          # Media streaming/downloading
+          ani-cli # Anime streaming
+          # inputs.manga-tui.packages.${system}.manga-tui # Manga reader (NB will not build)
+          inputs.lobster.packages.${system}.lobster # Movie streaming
+          mov-cli # General content streaming
+          yt-dlp # Video downloader
+          stremio-fixed # Using unstable version with build fix
 
-          # To read manga
-          # NB will not build :(
-          # inputs.manga-tui.packages.${system}.manga-tui
+          # Music/audio
+          # https://github.com/talwat/lowfi
+          lowfi # TUI Lowfi player
+          mpc # Minimal mpd client
 
-          # To watch anime
-          ani-cli
-
-          # TUI Lowfi player
-          # DOCS -> https://github.com/talwat/lowfi
-          lowfi
-
-          # # To watch general content
-          # mov-cli
-
-          # To watch movies
-          inputs.lobster.packages.${system}.lobster
-
-          # Embedded coding, see arduino-ide too
-          # NB
-          # These still use "python3.13-ecdsa-0.19.1"
-          arduino-ide
+          # Embedded development (see arduino-ide too)
+          # NB: These still use "python3.13-ecdsa-0.19.1"
           adafruit-nrfutil
+          arduino-ide
 
-          # For 3D printing/designing
-          orca-slicer
-          orca-wrapped
-          kicad
-          kicad-wrapped
+          # 3D printing/designing - CAD
           freecad-wayland
           freecad-wrapped
           openscad-unstable
 
-          # For the logic analyzer
-          pulseview
+          # 3D printing/designing - Slicer
+          orca-slicer
+          orca-wrapped
 
-          # Minimal client for mpd
-          mpc
+          # 3D printing/designing - PCB/Electronics
+          kicad
+          kicad-wrapped
+          pulseview # Logic analyzer
 
-          # To manually download yt videos
-          yt-dlp
+          # Development tools
+          nodejs # includes npx (for MCP servers)
 
-          # Twitch chat for the CLI
-          #https://github.com/Xithrius/twitch-tui
-          twitch-cli
+          # Streaming/social
+          # https://github.com/Xithrius/twitch-tui
+          twitch-cli # Twitch chat CLI
 
-          # Rice flexing
-          # https://github.com/abishekvashok/cmatrix
-          cmatrix
-          # https://github.com/da-luce/astroterm
-          astroterm
+          # Rice flexing - visualizers
           # https://github.com/karlstav/cava
-          cava
+          cava # Audio visualizer
+          # Rice flexing - animations
+          # https://github.com/da-luce/astroterm
+          astroterm # Star map
           # https://gitlab.com/jallbrit/cbonsai
           # https://www.reddit.com/r/unixporn/comments/axedr4/oc_watch_a_bonsai_tree_grow_in_your_terminal/
-          cbonsai
+          cbonsai # Bonsai tree
+          # https://github.com/abishekvashok/cmatrix
+          cmatrix # Matrix rain
           # https://github.com/lhvy/pipes-rs
-          pipes-rs
+          pipes-rs # Pipe screensaver
         ]
     ++ lib.optionals (config.systemSettings.profile == "personal") [
       # Only for personal use
@@ -270,9 +274,6 @@ in
       wine-wayland
     ]
     ++ lib.optionals (config.systemSettings.profile == "work") [
-      # Only for professional life
-      openvpn
-
       # We use gerrit
       git-review
 
@@ -289,9 +290,9 @@ in
 
       # For some nice calculator functions
       bitwise # https://github.com/mellowcandle/bitwise
-      programmer-calculator # https://github.com/alt-romes/programmer-calculator
+      # programmer-calculator # https://github.com/alt-romes/programmer-calculator
       qalculate-gtk
-      bcal # https://github.com/jarun/bcal
+      # bcal # https://github.com/jarun/bcal
 
       # Some performance analysis tools
       flamelens
