@@ -2,9 +2,11 @@
   imports = [
     ./lf.nix
     ./wofi.nix
+    ./walker.nix
     ./fastfetch.nix
     ./zathura.nix
     ./sioyek.nix
+    ./imv.nix
     ./rofi/default.nix
     ./btop.nix
     ./git/default.nix

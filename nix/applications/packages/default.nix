@@ -61,6 +61,7 @@ let
     libreoffice # Office suite
     obsidian # Note-taking
     udiskie # Automounter
+    pinta # https://www.pinta-project.com/
   ];
 
   developmentPackages = with pkgs; [
@@ -88,6 +89,7 @@ let
     # https://github.com/videolan/vlc
     vlc # Full-featured media player
     wf-recorder # Screen recording (CLI access)
+    typora # https://typora.io/
   ];
 
   flasherPackages = with pkgs; [
@@ -133,6 +135,10 @@ let
     impala
     # https://github.com/tsowell/wiremix
     wiremix
+    # https://github.com/bootandy/dust
+    dust
+    # https://github.com/gferraro/voxtype
+    pkgs-unstable.voxtype-vulkan # Voice-to-text for Wayland
   ];
 
   # ============================================================================
@@ -212,9 +218,10 @@ let
     stremio-fixed # Using unstable version with build fix
   ];
 
-  musicPackages = with pkgs; [
+  musicPackages = [
     lowfi # TUI Lowfi player (custom derivation)
-    mpc # Minimal mpd client
+    pkgs.mpc # Minimal mpd client
+    pkgs-unstable.spotatui # TUI Spotify client
   ];
 
   embeddedDevPackages = with pkgs; [

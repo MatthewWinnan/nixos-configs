@@ -21,9 +21,12 @@
     };
 
     "custom/notification" = {
-      tooltip = false;
+      tooltip = true;
+      tooltip-format = "Left: restore | Right: dismiss all | Middle: DnD";
       format = "";
-      on-click = ''${pkgs.dunst}/bin/dunstctl history | ${pkgs.jq}/bin/jq -r '.data[][] | "[\(.appname.data)] \(.summary.data): \(.message.data)"' | ${pkgs.rofi}/bin/rofi -theme-str 'window { width: 85%; }' -dmenu -i -p "📋 Notification History" | ${pkgs.wl-clipboard}/bin/wl-copy'';
+      on-click = "${pkgs.mako}/bin/makoctl restore";
+      on-click-right = "${pkgs.mako}/bin/makoctl dismiss -a";
+      on-click-middle = "${pkgs.mako}/bin/makoctl mode -t do-not-disturb";
       escape = true;
     };
 

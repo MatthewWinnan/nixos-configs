@@ -10,7 +10,6 @@
   imports = [
     ./newsboat
     ./schizofox
-    ./vscode
     ./yazi
     ./chromium
     ./direnv.nix
@@ -22,5 +21,7 @@
     ./obs-studio
     ./claude
     ./tmux
+    ./lazydocker
+    ./satty
   ];
 }

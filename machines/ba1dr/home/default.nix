@@ -25,7 +25,11 @@
             ../settings
           ]
           ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming")
-          [inputs.nixcord.homeModules.nixcord];
+          [
+            inputs.nixcord.homeModules.nixcord
+            inputs.spicetify-nix.homeManagerModules.default
+            ../../../home/programs/spicetify
+          ];
 
         home = {
           username = config.userSettings.username;

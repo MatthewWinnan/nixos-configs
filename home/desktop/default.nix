@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    ./dunst.nix
+    ./mako.nix
     ./hypr
     ./wlogout/wlogout.nix
     ./xdg.nix

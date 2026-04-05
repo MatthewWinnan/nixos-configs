@@ -14,6 +14,8 @@
         gtk.enable = true;
         gnome.enable = true;
         nixvim.enable = false;
+        # Disable waybar to use custom styling in home/desktop/waybar
+        waybar.enable = false;
         # Disable hyrpaper from automatically starting so I can rather use swww
         hyprland.hyprpaper.enable = !config.services.swww.enable;
       }
@@ -25,6 +27,8 @@
           nixcord.enable = false;
           vencord.enable = false;
           vesktop.enable = false;
+          # Disable spicetify to use custom theme in home/programs/spicetify
+          spicetify.enable = false;
         }
       )
     ];

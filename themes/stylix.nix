@@ -10,5 +10,13 @@
     };
     image = config.images.stylix_wallpaper;
     polarity = "dark";
+
+    # Opacity settings - popups set to 1.0 to fix transparent context menus
+    opacity = {
+      applications = 1.0;
+      desktop = 1.0;
+      popups = 1.0;
+      terminal = 0.8; # Keep terminal transparency
+    };
   };
 }

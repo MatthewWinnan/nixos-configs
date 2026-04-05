@@ -1,270 +1,83 @@
 #
-# Starship Prompt
+# Starship Prompt - Omarchy-inspired minimal config
 #
-# This configuration also keeps track of the hostname and changes the prompt
-# accordingly. The prompt is a bit more colorful and has a few more features
-# than the default configuration. The prompt file is updated everytime user
-# logs in. This prompt does not get applied to the root user (because we are
-# using home-manager).
+# Clean, minimal prompt showing directory, git info, and status
+# Integrates with Stylix colors
 #
 {
   config,
-  pkgs,
-  lib,
   ...
 }: let
   inherit (config.lib.stylix) colors;
-  inherit (lib.modules) mkForce;
-  inherit (lib.strings) makeBinPath;
-
-  dependencies = with pkgs; [
-    perl
-    hostname
-  ];
-
-  starshipConfigDir = "$HOME/.config";
-  starshipConfigFile = "${starshipConfigDir}/starship.toml";
-  perlScript = pkgs.writeScript "generate_starship_config.pl" ''
-    #!/usr/bin/env -S perl
-
-    use 5.014;
-    use warnings;
-
-    chomp(my $hostname = `hostname`);
-
-    my $char = $ENV{USER} eq 'root' ? '#' : '\\\\$';
-    my $user = $ENV{USER} eq 'root' ? 'bright-red' : 'bright-blue';
-    my $host = {
-      'od1n' => '#${colors.base0E}',
-      'th0r' => '#${colors.base0D}',
-    }->{$hostname} // '#${colors.base06}';
-
-    while (<DATA>) {
-      s/\@\@CHAR\@\@/$char/;
-      s/\@\@USER\@\@/$user/;
-      s/\@\@HOST\@\@/$host/;
-      print;
-    }
-
-    __DATA__
-    format = """
-    \\([$os$directory](host)(|$shell$nix_shell|[$git_branch$git_commit$git_status(|$git_state)](host))\\)( $python) ($battery )$username@[$hostname](host) [\\[](host)$time[\\]](host) $line_break\
-    $status @@CHAR@@
-    """
-    right_format = '$character'
-    add_newline = false
-    palette = 'local'
-
-    [os]
-    disabled = false
-    format = '[ $symbol ]($style)'
-
-    [os.symbols]
-    NixOS = '󱄅'
-
-    [directory]
-    format = '$path$read_only'
-    style = 'bg'
-    repo_root_format = '$before_root_path$repo_root$path$read_only'
-    repo_root_style = 'git'
-    fish_style_pwd_dir_length = 1
-
-    [directory.substitutions]
-    '~/Dev' = 'Dev'
-    '~/Documents' = '󰈙 '
-    '~/Downloads' = ' '
-    '~/Music' = ' '
-    '~/Pictures' = ' '
-    '~' = ' '
-
-    [git_state]
-    format = '$state(:$progress_current/$progress_total)'
-    style = 'git'
-    rebase = 'r'
-    merge = 'm'
-    revert = 'v'
-    cherry_pick = 'c'
-    bisect = 'b'
-    am = 'a'
-    am_or_rebase = 'r'
-
-    [git_branch]
-    format = '$branch(:$remote_branch)'
-    style = 'git'
-    ignore_branches = ['main', 'master', 'HEAD']
-
-    [git_commit]
-    format = '$hash$tag'
-    style = 'git'
-
-    [git_status]
-    format = '$all_status$ahead_behind'
-    style = 'bold git'
-    modified = ' *'
-    stashed = ""
-    renamed = '»'
-    diverged = '+$ahead_count-$behind_count'
-    ahead = '+$count'
-    behind = '-$count'
-
-    [kubernetes]
-    disabled = false
-    format = '$symbol$context'
-    symbol = '☸ '
-    style = 'bg'
-
-    [pulumi]
-    format = '$symbol$stack'
-    symbol = ' '
-    style = 'bg'
-
-    [python]
-    format = '(🐍$virtualenv)'
-    style = 'bg'
-
-    [lua]
-    symbol = '[ ](#${colors.base07}) '
-
-    [rust]
-    symbol = '[ ](#${colors.base08}) '
-
-    [nix_shell]
-    symbol = '[󱄅 ](#${colors.base07}) '
-
-    [golang]
-    symbol = '[󰟓 ](#${colors.base06})'
-
-    [c]
-    symbol = '[ ](#${colors.base01})'
-
-    [nodejs]
-    symbol = '[󰎙 ](#${colors.base0A})'
-
-    [package]
-    symbol = '📦 '
-
-    # [fill]
-    # symbol = '─'
-    # style = 'bg'
-
-    [cmd_duration]
-    format = '\($duration\)'
-    style = 'bg'
-
-    [battery]
-    format = '$symbol'
-    unknown_symbol = ""
-
-    [[battery.display]]
-    threshold = 5
-    charging_symbol = '⚡️ '
-    discharging_symbol = ' '
-    style = 'bright-red'
-
-    [[battery.display]]
-    threshold = 15
-    charging_symbol = '⚡️ '
-    discharging_symbol = ' '
-    style = 'red'
-
-    [[battery.display]]
-    threshold = 40
-    charging_symbol = '⚡️ '
-    discharging_symbol = ' '
-    style = 'yellow'
-
-    [[battery.display]]
-    threshold = 80
-    charging_symbol = '⚡️ '
-    discharging_symbol = ' '
-    style = 'bright-black'
-
-    [[battery.display]]
-    threshold = 100
-    charging_symbol = '⚡️ '
-    discharging_symbol = ' '
-    style = 'green'
-
-    [username]
-    disabled = false
-    format = '$user'
-    style_user = 'user'
-    show_always = true
-
-    [hostname]
-    disabled = false
-    format = '$hostname'
-    style = 'host'
-    ssh_only = false
-
-    [time]
-    disabled = false
-    format = '$time'
-    style = 'bg'
-
-    [line_break]
-
-    [status]
-    disabled = false
-    format = '$status'
-
-    [character]
-    format = '[ $symbol ]($style)'
-    success_symbol = '[✓](bold green)'
-    error_symbol = '[✗](bold red)'
-    vimcmd_symbol = '[\[NOR\]](#${colors.base09})'
-    vimcmd_replace_one_symbol = '[R](bold green)'
-    vimcmd_replace_symbol = '[R](bold green)'
-    vimcmd_visual_symbol = '[V](bold green)'
-
-    [palettes.local]
-    bg = '#${colors.base04}'
-    git = '#${colors.base0B}'
-    user = '@@USER@@'
-    host = '@@HOST@@'
-  '';
-
-  shellScript = pkgs.writeScript "update_starship_config.sh" ''
-    #!/bin/sh
-    ${perlScript} > ${starshipConfigFile}
-  '';
 in {
-  config = {
-    programs.starship = {
-      enable = false;
-    };
+  programs.starship = {
+    enable = true;
+    settings = {
+      add_newline = true;
+      command_timeout = 200;
+      format = "[$directory$git_branch$git_status]($style)$nix_shell$character";
 
-    # Update Starship Config everytime user logs in. This way I can keep track
-    # of the hostname and change the prompt accordingly.
-    systemd.user.services.updateStarshipConfig = {
-      Unit = {
-        Description = "Update Starship Config";
+      character = {
+        error_symbol = "[✗](bold #${colors.base08})";
+        success_symbol = "[❯](bold #${colors.base0D})";
+        vimcmd_symbol = "[❮](bold #${colors.base0B})";
       };
-      Service = {
-        Type = "oneshot";
-        Environment = mkForce "PATH=/run/wrappers/bin:${makeBinPath dependencies}";
-        ExecStart = "${shellScript}";
-        Restart = "on-failure";
-      };
-      Install = {
-        WantedBy = ["default.target"];
-      };
-    };
 
-    systemd.user.timers.updateStarshipConfig = {
-      Unit = {
-        Description = "Timer for updating Starship Config";
+      directory = {
+        truncation_length = 2;
+        truncation_symbol = "…/";
+        style = "#${colors.base05}";
+        repo_root_style = "bold #${colors.base0D}";
+        repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) ";
       };
-      Timer = {
-        # call it after 5 seconds of login
-        # then every 10 minutes
-        OnBootSec = "5s";
-        # OnUnitActiveSec = "10min";
-        Persistent = true;
+
+      git_branch = {
+        format = "[$branch]($style) ";
+        style = "italic #${colors.base0E}";
       };
-      Install = {
-        WantedBy = ["timers.target"];
+
+      git_status = {
+        format = "[$all_status]($style)";
+        style = "#${colors.base0B}";
+        ahead = "⇡\${count} ";
+        diverged = "⇕⇡\${ahead_count}⇣\${behind_count} ";
+        behind = "⇣\${count} ";
+        conflicted = " ";
+        up_to_date = "";
+        untracked = "? ";
+        modified = "● ";
+        stashed = "";
+        staged = "+ ";
+        renamed = "» ";
+        deleted = "✘ ";
       };
+
+      nix_shell = {
+        format = "[$symbol$state]($style) ";
+        symbol = "󱄅 ";
+        style = "#${colors.base0C}";
+      };
+
+      # Disable modules we don't need for minimal prompt
+      aws.disabled = true;
+      gcloud.disabled = true;
+      kubernetes.disabled = true;
+      azure.disabled = true;
+      package.disabled = true;
+      nodejs.disabled = true;
+      python.disabled = true;
+      rust.disabled = true;
+      golang.disabled = true;
+      java.disabled = true;
+      ruby.disabled = true;
+      lua.disabled = true;
+      docker_context.disabled = true;
+      terraform.disabled = true;
+      cmd_duration.disabled = true;
+      time.disabled = true;
+      username.disabled = true;
+      hostname.disabled = true;
+      battery.disabled = true;
     };
   };
 }

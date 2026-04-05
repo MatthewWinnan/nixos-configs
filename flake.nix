@@ -92,6 +92,11 @@
       };
     };
 
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # To help with package searching and indexing
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
