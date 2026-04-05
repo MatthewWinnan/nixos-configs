@@ -4,6 +4,7 @@
     ./wofi.nix
     ./fastfetch.nix
     ./zathura.nix
+    ./sioyek.nix
     ./rofi/default.nix
     ./btop.nix
     ./git/default.nix
