@@ -1,0 +1,204 @@
+/* Omarchy-inspired waybar style */
+/* https://github.com/basecamp/omarchy */
+
+/* Catppuccin Macchiato colors for Omarchy style */
+@define-color background #24273a;
+@define-color foreground #cad3f5;
+@define-color surface0 #363a4f;
+@define-color surface1 #494d64;
+@define-color overlay0 #6e738d;
+@define-color blue #8aadf4;
+@define-color red #ed8796;
+@define-color yellow #eed49f;
+@define-color green #a6da95;
+@define-color teal #8bd5ca;
+
+* {
+    all: unset;
+    background-color: transparent;
+    color: @foreground;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    font-family: 'JetBrainsMono Nerd Font', 'CodeNewRoman Nerd Font Propo';
+    font-size: 12px;
+}
+
+window#waybar {
+    background-color: @background;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 0;
+    margin: 0;
+}
+
+.modules-left {
+    margin-left: 8px;
+}
+
+.modules-right {
+    margin-right: 8px;
+}
+
+#workspaces button {
+    all: initial;
+    color: @foreground;
+    padding: 0 6px;
+    margin: 0 1.5px;
+    min-width: 9px;
+    font-family: 'JetBrainsMono Nerd Font';
+    font-size: 12px;
+}
+
+#workspaces button.empty {
+    opacity: 0.4;
+}
+
+#workspaces button.active {
+    color: @blue;
+}
+
+#workspaces button:hover {
+    color: @teal;
+}
+
+#custom-launcher {
+    color: @blue;
+    font-size: 14px;
+    margin-right: 8px;
+    padding: 0 4px;
+}
+
+#custom-launcher:hover {
+    color: @teal;
+}
+
+#cpu,
+#battery,
+#pulseaudio,
+#custom-launcher {
+    min-width: 12px;
+    margin: 0 7.5px;
+}
+
+#tray {
+    margin-right: 16px;
+}
+
+#bluetooth {
+    margin-right: 17px;
+}
+
+#network {
+    margin-right: 13px;
+}
+
+tooltip {
+    background-color: @surface0;
+    color: @foreground;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+#clock {
+    margin-left: 8.75px;
+    margin-right: 8px;
+}
+
+.hidden {
+    opacity: 0;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+}
+
+#custom-screenrecord,
+#custom-idle,
+#custom-notification {
+    min-width: 12px;
+    margin-left: 5px;
+    margin-right: 0;
+    font-size: 10px;
+    padding-bottom: 1px;
+}
+
+#custom-screenrecord.active {
+    color: @red;
+}
+
+#custom-idle.active {
+    color: @yellow;
+}
+
+#custom-notification.active {
+    color: @red;
+}
+
+#battery {
+    color: @foreground;
+}
+
+#battery.charging {
+    color: @green;
+}
+
+#battery.warning:not(.charging) {
+    color: @yellow;
+}
+
+#battery.critical:not(.charging) {
+    color: @red;
+    animation: blink 0.5s linear infinite alternate;
+}
+
+@keyframes blink {
+    to {
+        color: @background;
+    }
+}
+
+#pulseaudio {
+    color: @foreground;
+}
+
+#pulseaudio.muted {
+    color: @overlay0;
+}
+
+#network {
+    color: @foreground;
+}
+
+#network.disconnected {
+    color: @overlay0;
+}
+
+#bluetooth {
+    color: @foreground;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: @overlay0;
+}
+
+#bluetooth.connected {
+    color: @blue;
+}
+
+#cpu {
+    color: @foreground;
+}
+
+#cpu:hover,
+#battery:hover,
+#pulseaudio:hover,
+#network:hover,
+#bluetooth:hover {
+    color: @teal;
+}

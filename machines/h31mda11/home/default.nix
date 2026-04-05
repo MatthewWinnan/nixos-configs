@@ -27,6 +27,10 @@
           # Here we import nixcord
           inputs.nixcord.homeModules.nixcord
           ../../../home/programs/nixcord
+
+          # Spicetify for Spotify theming
+          inputs.spicetify-nix.homeManagerModules.default
+          ../../../home/programs/spicetify
         ];
 
         home = {

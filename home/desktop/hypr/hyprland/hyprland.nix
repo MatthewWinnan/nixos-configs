@@ -82,9 +82,9 @@ in
       };
 
       general = {
-        gaps_in = 5;
-        gaps_out = 20;
-        border_size = 3;
+        gaps_in = 4;
+        gaps_out = 8;
+        border_size = 2;
 
         layout = "dwindle";
 
@@ -154,7 +154,7 @@ in
         enable_swallow = true;
         # render_ahead_of_time = false;
         disable_hyprland_logo = true;
-        initial_workspace_tracking = 2;
+        initial_workspace_tracking = 0;
       };
 
       # windowrule = [
@@ -186,18 +186,18 @@ in
         "$mainMod, C, exec, ${lib.getExe pkgs.cliphist} list | ${lib.getExe pkgs.rofi} -dmenu | ${lib.getExe pkgs.cliphist} decode | wl-copy"
 
         # For screen shotting and recording
-        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${lib.getExe pkgs.swappy} -f - -o $HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png"
+        "$mainMod, P, exec, ${lib.getExe pkgs.slurp} -w 0 -d | ${lib.getExe pkgs.grim} -g - - | ${lib.getExe pkgs.satty} --filename -"
         ''$mainMod, R, exec, ${lib.getExe pkgs.wf-recorder} -al -g "$(${lib.getExe pkgs.slurp} -w 0 -d)" -f $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).mp4 > $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).log ''
         "$mainMod SHIFT, R, exec, pkill ${lib.getExe pkgs.wf-recorder}"
         # General functions
         "$mainMod, Return, exec, ${
-          lib.getExe (if config.systemSettings.hostname == "fafn1r" then pkgs.wezterm else pkgs.kitty)
+          lib.getExe (if config.systemSettings.hostname == "fafn1r" then pkgs.wezterm else pkgs.ghostty)
         }"
         "$mainMod, Q, killactive,"
         "$mainMod, M, exit,"
         "$mainMod, F, fullscreen,"
         #"$mainMod, D, exec, ${lib.getExe pkgs.rofi} -show drun"
-        "$mainMod, D, exec, ${lib.getExe pkgs.anyrun}"
+        "$mainMod, D, exec, ${lib.getExe pkgs.walker}"
 
         # Move focus with mainMod + arrow keys
         "$mainMod, left,  movefocus, l"
@@ -248,27 +248,6 @@ in
         # Scroll through existing workspaces with mainMod + scroll
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
-
-        # Keyboard backlight
-        #"$mainMod, F3, exec, brightnessctl -d *::kbd_backlight set +33%"
-        #"$mainMod, F2, exec, brightnessctl -d *::kbd_backlight set 33%-"
-
-        # Volume and Media Control
-        #", XF86AudioRaiseVolume, exec, pamixer -i 5 "
-        #", XF86AudioLowerVolume, exec, pamixer -d 5 "
-        #", XF86AudioMute, exec, pamixer -t"
-        #", XF86AudioMicMute, exec, pamixer --default-source -m"
-
-        # Brightness control
-        #", XF86MonBrightnessDown, exec, brightnessctl set 5%- "
-        #", XF86MonBrightnessUp, exec, brightnessctl set +5% "
-
-        # Configuration files
-        #''$mainMod SHIFT, N, exec, alacritty -e sh -c "rb"''
-        #''$mainMod SHIFT, C, exec, alacritty -e sh -c "conf"''
-        #''$mainMod SHIFT, H, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/hyprland.nix"''
-        #''$mainMod SHIFT, W, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/wms/waybar.nix''
-        #'', Print, exec, grim -g "$(slurp)" - | swappy -f -''
 
         # Waybar
         "$mainMod, B, exec, pkill -SIGUSR1 waybar"

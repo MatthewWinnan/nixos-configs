@@ -1,14 +1,22 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.sioyek = {
     enable = true;
     package = pkgs.sioyek.overrideAttrs (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.makeWrapper];
-      postFixup =
-        (old.postFixup or "")
-        + ''
-          wrapProgram $out/bin/sioyek \
-            --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [pkgs.pipewire pkgs.libGL pkgs.mesa]}"
-        '';
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
+
+      postFixup = (old.postFixup or "") + ''
+        wrapProgram $out/bin/sioyek \
+          --set QT_QPA_PLATFORM xcb \
+          --set QT_XCB_GL_INTEGRATION xcb_glx \
+          --prefix LD_LIBRARY_PATH : "${
+            pkgs.lib.makeLibraryPath [
+              pkgs.pipewire
+              pkgs.libGL
+              pkgs.mesa
+            ]
+          }"
+      '';
     });
     config = {
       # Dark mode - matches zathura recolor preference

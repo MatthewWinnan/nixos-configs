@@ -5,7 +5,10 @@
   ...
 }: let
   browser = ["org.qutebrowser.qutebrowser.desktop"];
-  zathura = ["org.pwmt.zathura.desktop.desktop"];
+  pdf = ["sioyek.desktop"];
+  image = ["imv.desktop"];
+  markdown = ["typora.desktop"];
+  fallback = ["org.gnome.Evince.desktop"];
 
   associations = {
     "text/html" = browser;
@@ -22,13 +25,36 @@
     "application/x-extension-xht" = browser;
 
     "audio/*" = ["mpv.desktop"];
-    "video/*" = ["mpv.dekstop"];
-    "image/*" = ["imv.desktop"];
+    "video/*" = ["mpv.desktop"];
+
+    # Images - imv
+    "image/*" = image;
+    "image/png" = image;
+    "image/jpeg" = image;
+    "image/gif" = image;
+    "image/webp" = image;
+    "image/bmp" = image;
+    "image/tiff" = image;
+
+    # PDF - Sioyek
+    "application/pdf" = pdf;
+
+    # Markdown - Typora
+    "text/markdown" = markdown;
+    "text/x-markdown" = markdown;
+
+    # Fallback document types - Evince
+    "application/postscript" = fallback;
+    "application/x-dvi" = fallback;
+    "image/vnd.djvu" = fallback;
+    "application/x-cbr" = fallback;
+    "application/x-cbz" = fallback;
+    "application/epub+zip" = fallback;
+    "application/x-fictionbook+xml" = fallback;
+
     "application/json" = browser;
-    "application/pdf" = zathura;
   };
 
-  template = import lib.xdgTemplate "home-manager";
 in {
   #home.sessionVariables = template.sysEnv;
   xdg = {

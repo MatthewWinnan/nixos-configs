@@ -47,6 +47,38 @@
         max_height = 900;
         cache_dir = "${config.xdg.cacheHome}/yazi";
       };
+
+      opener = {
+        pdf = [
+          { run = ''sioyek "$@"''; desc = "Open with Sioyek"; orphan = true; }
+        ];
+        image = [
+          { run = ''imv "$@"''; desc = "Open with imv"; orphan = true; }
+        ];
+        markdown = [
+          { run = ''typora "$@"''; desc = "Open with Typora"; orphan = true; }
+        ];
+        fallback = [
+          { run = ''evince "$@"''; desc = "Open with Evince"; orphan = true; }
+        ];
+        edit = [
+          { run = ''$EDITOR "$@"''; block = true; desc = "Edit in $EDITOR"; }
+        ];
+      };
+
+      open = {
+        rules = [
+          { mime = "application/pdf"; use = "pdf"; }
+          { mime = "image/*"; use = "image"; }
+          { mime = "text/markdown"; use = "markdown"; }
+          { mime = "text/x-markdown"; use = "markdown"; }
+          { name = "*.md"; use = "markdown"; }
+          { mime = "application/epub+zip"; use = "fallback"; }
+          { mime = "application/postscript"; use = "fallback"; }
+          { mime = "image/vnd.djvu"; use = "fallback"; }
+          { mime = "text/*"; use = "edit"; }
+        ];
+      };
     };
   };
 }
