@@ -1,6 +1,8 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib.types) str enum listOf;
-in {
+in
+{
   options = {
     userSettings = {
       username = lib.mkOption {
@@ -24,7 +26,12 @@ in {
         description = "The default browser of the user.";
       };
       waybar = lib.mkOption {
-        type = enum ["catppuccin" "gruvbox" "elifouts"];
+        type = enum [
+          "catppuccin"
+          "gruvbox"
+          "elifouts"
+          "omarchy"
+        ];
         default = "catppuccin";
         description = "Select which waybar theme you want to use.";
       };
