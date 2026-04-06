@@ -1,0 +1,22 @@
+# For nixOS specific imports
+{ inputs, ... }:
+{
+  imports = [
+    # Hardware declarations
+    ./hardware-configuration.nix
+    # Import nixOS settings
+    ../../../nix/headless
+    # Settings
+    ../settings
+    # Boot settings
+    ./boot.nix
+    # Secrets management
+    ./sops.nix
+    # WiFi networking
+    ./networking.nix
+    # Home Assistant service
+    ../../../nix/services/home-assistant.nix
+    # Tailscale for remote access
+    ../../../nix/services/tailscale.nix
+  ];
+}

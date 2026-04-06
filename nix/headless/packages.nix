@@ -42,6 +42,8 @@
     pistol
     # https://github.com/darkhz/bluetuith
     bluetuith
+    # https://github.com/pythops/impala
+    impala
 
     # XDG management?
     xdg-utils
