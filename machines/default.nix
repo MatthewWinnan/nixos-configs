@@ -1,16 +1,22 @@
-{inputs, ...}: let
+{ inputs, ... }:
+let
   # Defaults
   system = "x86_64-linux";
-  host_platform = {nixpkgs.hostPlatform = system;};
+  host_platform = {
+    nixpkgs.hostPlatform = system;
+  };
 
   # Imports
   lenovo_legion = inputs.nixos-hardware.nixosModules.lenovo-legion-y530-15ich;
+  raspberry_pi_4 = inputs.nixos-hardware.nixosModules.raspberry-pi-4;
   nixvim = inputs.nixvim.nixosModules.nixvim;
   stylix = inputs.stylix.nixosModules.stylix;
   nix-index = inputs.nix-index-database.nixosModules.nix-index;
   hm = inputs.home-manager.nixosModules.home-manager;
   wsl = inputs.nixos-wsl.nixosModules.wsl;
-in {
+  sops = inputs.sops-nix.nixosModules.sops;
+in
+{
   # th0r - lattepanda delta for home lab use
   # headless
   th0r = inputs.nixpkgs.lib.nixosSystem {
@@ -25,6 +31,27 @@ in {
 
       # Remaining modules
       ./th0r
+    ];
+  };
+
+  # fr3yr - Raspberry Pi 4 running Home Assistant
+  # headless
+  fr3yr = inputs.nixpkgs.lib.nixosSystem {
+    specialArgs = {
+      inherit inputs;
+    };
+    modules = [
+      # General inputs
+      { nixpkgs.hostPlatform = "aarch64-linux"; }
+      nixvim
+      nix-index
+      sops
+
+      # Raspberry Pi 4 hardware support
+      raspberry_pi_4
+
+      # Remaining modules
+      ./fr3yr
     ];
   };
 
@@ -78,6 +105,7 @@ in {
       stylix
       nix-index
       hm
+      sops
 
       # Remaining modules
       ./h31mda11

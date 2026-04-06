@@ -1,0 +1,162 @@
+# Home Assistant configuration for fr3yr
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  # Home Assistant service
+  services.home-assistant = {
+    enable = true;
+
+    # Extra components to include
+    extraComponents = [
+      # Core integrations
+      "default_config"
+      "met" # Weather
+      "radio_browser" # Media
+
+      # Network & Discovery
+      "network"
+      "dhcp"
+      "ssdp"
+      "zeroconf"
+      "homeassistant_alerts"
+
+      # Mobile & Remote Access
+      "mobile_app"
+      "webhook"
+
+      # Smart Home Protocols
+      "mqtt" # MQTT messaging
+      "esphome" # ESP-based devices
+      "zha" # Zigbee Home Automation
+
+      # Automation
+      "automation"
+      "scene"
+      "script"
+      "input_boolean"
+      "input_number"
+      "input_select"
+      "input_text"
+      "input_datetime"
+      "input_button"
+      "counter"
+      "timer"
+
+      # Media
+      "media_player"
+      "media_source"
+
+      # History & Logging
+      "recorder"
+      "history"
+      "logbook"
+
+      # Utility
+      "sun"
+      "person"
+      "zone"
+    ];
+
+    # Extra Python packages for integrations
+    extraPackages =
+      python3Packages: with python3Packages; [
+        # MQTT support
+        aiomqtt
+        # For Zigbee
+        zigpy
+        # For ESPHome
+        aioesphomeapi
+        # Additional utilities
+        numpy
+        pillow
+      ];
+
+    # Home Assistant configuration (converted to YAML)
+    config = {
+      # Basic configuration
+      homeassistant = {
+        name = "Home";
+        latitude = "!secret latitude";
+        longitude = "!secret longitude";
+        elevation = "!secret elevation";
+        unit_system = "metric";
+        time_zone = config.systemSettings.timezone or "Africa/Johannesburg";
+        currency = "ZAR";
+        country = "ZA";
+        language = "en";
+      };
+
+      # Default integrations
+      default_config = { };
+
+      # Frontend configuration
+      frontend = {
+        themes = "!include_dir_merge_named themes";
+      };
+
+      # HTTP configuration for reverse proxy support
+      http = {
+        server_host = "0.0.0.0";
+        server_port = 8123;
+        use_x_forwarded_for = true;
+        trusted_proxies = [
+          "127.0.0.1"
+          "::1"
+          "100.64.0.0/10" # Tailscale CGNAT range
+        ];
+      };
+
+      # Recorder for history
+      recorder = {
+        db_url = "sqlite:////var/lib/hass/home-assistant_v2.db";
+        purge_keep_days = 10;
+      };
+
+      # Logging
+      logger = {
+        default = "info";
+        logs = {
+          "homeassistant.core" = "warning";
+          "homeassistant.components.mqtt" = "warning";
+        };
+      };
+
+      # Automation placeholder
+      automation = "!include automations.yaml";
+      script = "!include scripts.yaml";
+      scene = "!include scenes.yaml";
+    };
+  };
+
+  # Create required YAML files that Home Assistant expects
+  systemd.tmpfiles.rules = [
+    "f /var/lib/hass/automations.yaml 0644 hass hass - []"
+    "f /var/lib/hass/scripts.yaml 0644 hass hass - {}"
+    "f /var/lib/hass/scenes.yaml 0644 hass hass - []"
+    "d /var/lib/hass/themes 0755 hass hass -"
+  ];
+
+  # Open firewall for Home Assistant
+  networking.firewall = {
+    allowedTCPPorts = [
+      8123 # Home Assistant web UI
+      1883 # Mosquitto port
+    ];
+  };
+
+  # Optional: Mosquitto MQTT broker
+  services.mosquitto = {
+    enable = true;
+    listeners = [
+      {
+        acl = [ "pattern readwrite #" ];
+        omitPasswordAuth = true;
+        settings.allow_anonymous = true;
+      }
+    ];
+  };
+}

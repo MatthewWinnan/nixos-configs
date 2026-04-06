@@ -1,0 +1,26 @@
+# sops-nix configuration
+# See: https://github.com/Mic92/sops-nix
+
+keys:
+  # Add your age public keys here
+  # You can generate one with: age-keygen -o ~/.config/sops/age/keys.txt
+  # Or convert SSH key: nix-shell -p ssh-to-age --run 'cat ~/.ssh/id_ed25519.pub | ssh-to-age'
+  - &admin age1u5hz7axpty73amw5z7uzwwwmxnn438x89peaf4a0juxwep32s9lqt53ccd
+
+  # Machine host keys (generated on first boot, convert with ssh-to-age)
+  # ssh-keyscan fr3yr.tail-name.ts.net | ssh-to-age
+  - &fr3yr age1x4epl8frfh24kmzacpf897zng64kuqdavu8xr675t4p7hrse43qsva6rds
+
+creation_rules:
+  # Secrets for fr3yr (Home Assistant)
+  - path_regex: secrets/fr3yr\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          - *fr3yr
+
+  # Default rule for other secrets
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - *admin
