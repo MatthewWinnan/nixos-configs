@@ -5,11 +5,12 @@ A modular, multi-machine NixOS configuration with Home Manager integration, feat
 ## Features
 
 ### Multi-Machine Support
-Configuration for 7 different machines, each with tailored settings:
+Configuration for 8 different machines, each with tailored settings:
 - **ba1dr** - Lenovo Legion Y530-15ICH laptop (gaming/development)
 - **h31mda11** - Desktop computer (gaming)
 - **od1n** - ThinkPad T580 (coding)
 - **fafn1r** - Work machine
+- **fr3yr** - Raspberry Pi 4 (Home Assistant/home automation)
 - **th0r** - LattePanda Delta (headless homelab)
 - **m1m1r** - Proxmox VM on Odroid H3+ (headless)
 - **nixos** - WSL configuration
@@ -25,7 +26,7 @@ Configuration for 7 different machines, each with tailored settings:
 
 ### Theming
 - **Stylix** - System-wide theming with automatic color generation from wallpaper
-- **Catppuccin** - Primary color palette (Macchiato variant)
+- **Catppuccin** - Secondary color palette (Macchiato variant)
 - **GTK/Icon Themes** - Consistent theming across applications
 - **Per-machine wallpaper** - Custom wallpapers for each machine
 
@@ -40,11 +41,10 @@ Configuration for 7 different machines, each with tailored settings:
 - **Helix** - Alternative modal editor
 - **Claude Code** - AI coding assistant
 - **Direnv** - Per-directory environment management
-- **Development Shells** - Arduino, Zephyr/ZMK keyboard firmware, and more
 
 ### Shell Configuration
-- **Zsh** - Primary shell with extensive plugin support (fzf-tab, syntax highlighting)
-- **Fish** - Alternative shell configuration
+- **Fish** - Primary shell with syntax highlighting and autosuggestions
+- **Zsh** - Alternative shell with extensive plugin support (fzf-tab, syntax highlighting)
 - **Starship** - Cross-shell prompt
 - **Terminal Emulators** - Ghostty, Kitty, Wezterm
 
@@ -61,14 +61,13 @@ Configuration for 7 different machines, each with tailored settings:
 - **tealdeer** - tldr pages client
 
 ### Applications
+- **Qutebrowser** - Primary Keyboard-driven browser
 - **Schizofox** - Hardened Firefox configuration
 - **Chromium** - Secondary browser
-- **Qutebrowser** - Keyboard-driven browser
 - **Nixcord** - Declarative Discord (Vencord)
 - **Spicetify** - Customized Spotify
 - **OBS Studio** - Screen recording/streaming
 - **Newsboat** - RSS reader
-- **Himalaya** - CLI email client
 - **rmpc** - MPD client
 
 ### Gaming
@@ -85,12 +84,10 @@ Configuration for 7 different machines, each with tailored settings:
 Packages not in nixpkgs or requiring customization:
 - **mov-cli** - CLI movie/TV streaming with plugins
 - **lowfi** - Lo-fi music player
-- **basalt** - Rust application
-- **ducker** - Docker TUI
 - **flamelens** - Flame graph viewer
 - **freecad-wrapped/kicad-wrapped** - CAD tools with custom configs
-- **orca-wrapped** - Screen reader
-- **kiro-cli** - Custom CLI tool
+- **orca-wrapped** - Orca-slicer wrapped for Wayland
+- **kiro-cli** - Custom Kiro CLI tool
 
 ### Security & Services
 - **LUKS encryption** - Full disk encryption via Disko
