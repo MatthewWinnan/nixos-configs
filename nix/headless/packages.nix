@@ -44,6 +44,7 @@
     bluetuith
     # https://github.com/pythops/impala
     impala
+    lazygit
 
     # XDG management?
     xdg-utils

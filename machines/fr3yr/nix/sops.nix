@@ -24,9 +24,11 @@
       mode = "0600";
     };
 
-    # WiFi credentials for wpa_supplicant
-    secrets."wifi-secrets" = {
-      mode = "0400";
+    # iwd network profile - placed in /var/lib/iwd/<SSID>.psk
+    # SSID special chars are hex-encoded: space=20 [=5b ]=5d
+    secrets."iwd-network" = {
+      path = "/var/lib/iwd/Big_Moist=20=5b5Ghz=5d.psk";
+      mode = "0600";
     };
   };
 }
