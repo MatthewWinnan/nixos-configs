@@ -27,5 +27,6 @@
     name = "Matthew";
     email = "matthew.winnan@blahblah.com";
     browser = "qutebrowser";
+    waybar = "omarchy";
   };
 }
