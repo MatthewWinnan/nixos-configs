@@ -9,7 +9,25 @@
   pkgs,
   ...
 }: let
-  inherit (config.lib.stylix) colors;
+  # Catppuccin Macchiato colors (matching nixvim)
+  colors = {
+    base00 = "24273a"; # Base
+    base01 = "1e2030"; # Mantle
+    base02 = "363a4f"; # Surface0
+    base03 = "494d64"; # Surface1
+    base04 = "5b6078"; # Surface2
+    base05 = "cad3f5"; # Text
+    base06 = "f4dbd6"; # Rosewater
+    base07 = "b7bdf8"; # Lavender
+    base08 = "ed8796"; # Red
+    base09 = "f5a97f"; # Peach
+    base0A = "eed49f"; # Yellow
+    base0B = "a6da95"; # Green
+    base0C = "8bd5ca"; # Teal
+    base0D = "8aadf4"; # Blue
+    base0E = "c6a0f6"; # Mauve
+    base0F = "f0c6c6"; # Flamingo
+  };
 in {
   services.walker = {
     enable = true;
@@ -173,28 +191,28 @@ in {
 
         #box {
           background: #${colors.base00};
-          border: 3px solid #${colors.base0D};
-          border-radius: 12px;
+          border: 2px solid #${colors.base0D};
+          border-radius: 0;
         }
 
         .box-wrapper {
           background: #${colors.base00};
           padding: 20px;
-          border: 3px solid #${colors.base0D};
-          border-radius: 12px;
+          border: 2px solid #${colors.base0D};
+          border-radius: 0;
         }
 
         #search {
           background: #${colors.base01};
           padding: 12px;
-          border-radius: 8px;
+          border-radius: 0;
           border: 1px solid #${colors.base03};
         }
 
         .search-container {
           background: #${colors.base01};
           padding: 12px;
-          border-radius: 8px;
+          border-radius: 0;
           border: 1px solid #${colors.base03};
         }
 
@@ -218,7 +236,7 @@ in {
 
         child:selected .item-box {
           background: #${colors.base02};
-          border-radius: 6px;
+          border-radius: 0;
         }
 
         child:selected .item-box * {
@@ -251,7 +269,7 @@ in {
           background: #${colors.base01};
           padding: 10px;
           margin-top: 10px;
-          border-radius: 6px;
+          border-radius: 0;
         }
       '';
     };

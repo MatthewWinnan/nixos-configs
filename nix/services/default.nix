@@ -16,6 +16,7 @@
     ./pulseaudio.nix
     ./mpd.nix
     ./systemd.nix
+    ./tailscale.nix
   ];
 
   # services.xserver.libinput.enable = true;
