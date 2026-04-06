@@ -17,6 +17,7 @@
       "pulseaudio"
       "cpu"
       "battery"
+      "custom/power"
     ];
 
     "hyprland/workspaces" = {
@@ -169,6 +170,12 @@
     tray = {
       icon-size = 12;
       spacing = 17;
+    };
+
+    "custom/power" = {
+      tooltip = false;
+      format = "⏻";
+      on-click = "${pkgs.wlogout}/bin/wlogout &";
     };
   };
 }
