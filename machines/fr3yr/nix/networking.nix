@@ -1,20 +1,32 @@
-# WiFi networking configuration for fr3yr
+# WiFi networking configuration for fr3yr using iwd
 {
   config,
   lib,
   ...
-}: {
+}:
+{
   networking.wireless = {
-    enable = true;
+    # Disable wpa_supplicant since we're using iwd
+    enable = false;
 
-    # Use sops-nix secrets file for credentials
-    # File format: KEY=value pairs, referenced as @KEY@ in config
-    secretsFile = config.sops.secrets."wifi-secrets".path;
-
-    networks = {
-      "@WIFI_SSID@" = {
-        pskRaw = "@WIFI_PSK@";
+    iwd = {
+      enable = true;
+      settings = {
+        General = {
+          EnableNetworkConfiguration = false;
+          AddressRandomization = "once";
+        };
+        Network = {
+          EnableIPv6 = true;
+          NameResolvingService = "systemd";
+        };
+        Settings = {
+          AutoConnect = true;
+        };
       };
     };
   };
+
+  # iwd network profile is created by sops-nix
+  # The file will be placed at /var/lib/iwd/<SSID>.psk
 }

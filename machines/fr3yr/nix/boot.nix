@@ -1,22 +1,27 @@
 # Raspberry Pi 4 boot configuration
-# Uses extlinux bootloader (standard for Pi)
+{ pkgs, ... }:
 {
-  # Use the extlinux boot loader for Raspberry Pi
-  boot.loader.grub.enable = false;
-  boot.loader.generic-extlinux-compatible.enable = true;
+  boot = {
+    # Use the Raspberry Pi 4 optimized kernel
+    kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
 
-  # Kernel parameters for Pi 4
-  boot.kernelParams = [
-    "console=serial0,115200"
-    "console=tty1"
-  ];
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "usbhid"
+      "usb_storage"
+      "vc4"
+      "pcie_brcmstb" # For USB boot
+      "reset-raspberrypi" # Required for vl805 firmware to load
+    ];
 
-  # Initial RAM disk configuration
-  boot.initrd.availableKernelModules = [
-    "usbhid"
-    "usb_storage"
-    "vc4"
-    "pcie_brcmstb" # For USB boot
-    "reset-raspberrypi" # Required for vl805 firmware to load
-  ];
+    loader = {
+      grub.enable = false;
+      generic-extlinux-compatible.enable = true;
+    };
+
+    kernelParams = [
+      "console=serial0,115200"
+      "console=tty1"
+    ];
+  };
 }
