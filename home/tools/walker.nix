@@ -29,6 +29,10 @@
     base0F = "f0c6c6"; # Flamingo
   };
 in {
+  systemd.user.services.walker.Service.Environment = [
+    "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/${config.home.username}/bin:/run/wrappers/bin"
+  ];
+
   services.walker = {
     enable = true;
     systemd.enable = true;

@@ -34,8 +34,16 @@ in {
       };
 
       theme = let
-        inherit (config.lib.stylix) colors;
         inherit (config.lib.formats.rasi) mkLiteral;
+        # Catppuccin Macchiato
+        colors = {
+          base00 = "24273a"; # Base
+          base02 = "363a4f"; # Surface0
+          base04 = "5b6078"; # Surface2
+          base05 = "cad3f5"; # Text
+          base08 = "ed8796"; # Red
+          base0E = "c6a0f6"; # Mauve
+        };
       in {
         window = {
           transparency = "real";
@@ -48,7 +56,7 @@ in {
           enabled = mkLiteral "true";
           margin = mkLiteral "0px";
           padding = mkLiteral "0px";
-          border-radius = mkLiteral "20px";
+          border-radius = mkLiteral "0px";
           border = mkLiteral "4px";
           border-color = mkLiteral "#${colors.base02}";
           cursor = "default";
@@ -66,7 +74,7 @@ in {
         inputbar = {
           enabled = mkLiteral "true";
           border = mkLiteral "1px";
-          border-radius = mkLiteral "100%";
+          border-radius = mkLiteral "0px";
           border-color = mkLiteral "#${colors.base02}";
           background-color = mkLiteral "#${colors.base02}";
           children = mkLiteral "[textbox-prompt-colon, entry, dummy, mode-switcher]";
@@ -76,7 +84,7 @@ in {
           enabled = mkLiteral "true";
           expand = mkLiteral "false";
           padding = mkLiteral "12px 15px";
-          border-radius = mkLiteral "100%";
+          border-radius = mkLiteral "0px";
           background-color = mkLiteral "transparent";
           text-color = mkLiteral "#${colors.base0E}";
           str = " ";
@@ -87,7 +95,7 @@ in {
           expand = mkLiteral "false";
           width = mkLiteral "250px";
           padding = mkLiteral "12px 16px";
-          border-radius = mkLiteral "100%";
+          border-radius = mkLiteral "0px";
           background-color = mkLiteral "transparent";
           text-color = mkLiteral "#${colors.base05}";
           cursor = mkLiteral "text";
@@ -122,7 +130,7 @@ in {
           margin = mkLiteral "0px";
           padding = mkLiteral "5px";
           border = mkLiteral "0px";
-          border-radius = mkLiteral "100%";
+          border-radius = mkLiteral "0px";
           background-color = mkLiteral "transparent";
           text-color = mkLiteral "#${colors.base05}";
           cursor = mkLiteral "pointer";
