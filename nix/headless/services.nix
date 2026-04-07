@@ -4,11 +4,13 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   imports = [
     ../services/ssh.nix
     ../services/blueman.nix
     ../services/printing.nix
     ../services/greetd.nix
+    ../services/tailscale.nix
   ];
 }

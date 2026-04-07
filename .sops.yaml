@@ -8,8 +8,9 @@ keys:
   - &admin age1u5hz7axpty73amw5z7uzwwwmxnn438x89peaf4a0juxwep32s9lqt53ccd
 
   # Machine host keys (generated on first boot, convert with ssh-to-age)
-  # ssh-keyscan fr3yr.tail-name.ts.net | ssh-to-age
+  # ssh-keyscan <hostname> | nix-shell -p ssh-to-age --run ssh-to-age
   - &fr3yr age1x4epl8frfh24kmzacpf897zng64kuqdavu8xr675t4p7hrse43qsva6rds
+  - &th0r age1l7cvjpfj753fjf5famjq2s8mhd0cl76ceg3rdxmr0pcex77nt9gsdv905r
 
 creation_rules:
   # Secrets for fr3yr (Home Assistant)
@@ -18,6 +19,13 @@ creation_rules:
       - age:
           - *admin
           - *fr3yr
+
+  # Secrets for th0r (Proxy server)
+  - path_regex: secrets/th0r\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          - *th0r
 
   # Default rule for other secrets
   - path_regex: secrets/[^/]+\.yaml$

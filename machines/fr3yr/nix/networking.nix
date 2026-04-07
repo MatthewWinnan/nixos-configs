@@ -13,7 +13,7 @@
       enable = true;
       settings = {
         General = {
-          EnableNetworkConfiguration = false;
+          EnableNetworkConfiguration = lib.mkForce true;
           AddressRandomization = "once";
         };
         Network = {

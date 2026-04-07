@@ -18,7 +18,7 @@ let
 in
 {
   # th0r - lattepanda delta for home lab use
-  # headless
+  # headless proxy server
   th0r = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs;
@@ -28,6 +28,7 @@ in
       host_platform
       nixvim
       nix-index
+      sops
 
       # Remaining modules
       ./th0r
