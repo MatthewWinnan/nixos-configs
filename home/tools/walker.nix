@@ -8,31 +8,11 @@
   config,
   pkgs,
   ...
-}: let
-  # Catppuccin Macchiato colors (matching nixvim)
-  colors = {
-    base00 = "24273a"; # Base
-    base01 = "1e2030"; # Mantle
-    base02 = "363a4f"; # Surface0
-    base03 = "494d64"; # Surface1
-    base04 = "5b6078"; # Surface2
-    base05 = "cad3f5"; # Text
-    base06 = "f4dbd6"; # Rosewater
-    base07 = "b7bdf8"; # Lavender
-    base08 = "ed8796"; # Red
-    base09 = "f5a97f"; # Peach
-    base0A = "eed49f"; # Yellow
-    base0B = "a6da95"; # Green
-    base0C = "8bd5ca"; # Teal
-    base0D = "8aadf4"; # Blue
-    base0E = "c6a0f6"; # Mauve
-    base0F = "f0c6c6"; # Flamingo
-  };
-in {
-  systemd.user.services.walker.Service.Environment = [
-    "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/${config.home.username}/bin:/run/wrappers/bin"
-  ];
-
+}:
+let
+  colors = config.lib.stylix.colors;
+in
+{
   services.walker = {
     enable = true;
     systemd.enable = true;
@@ -48,7 +28,7 @@ in {
       };
 
       keybinds = {
-        quick_activate = [];
+        quick_activate = [ ];
       };
 
       columns = {
@@ -66,8 +46,16 @@ in {
 
       actions = {
         runner = [
-          { action = "run"; default = true; bind = "Return"; }
-          { action = "runterminal"; label = "run in terminal"; bind = "shift Return"; }
+          {
+            action = "run";
+            default = true;
+            bind = "Return";
+          }
+          {
+            action = "runterminal";
+            label = "run in terminal";
+            bind = "shift Return";
+          }
         ];
       };
 
@@ -127,15 +115,21 @@ in {
             box = {
               h_align = "center";
               width = 500;
-              margins = { top = 200; };
+              margins = {
+                top = 200;
+              };
               scroll = {
                 list = {
                   max_height = 400;
                   min_width = 450;
                   width = 450;
-                  margins = { top = 8; };
+                  margins = {
+                    top = 8;
+                  };
                   item = {
-                    icon = { pixel_size = 28; };
+                    icon = {
+                      pixel_size = 28;
+                    };
                     activation_label = {
                       h_align = "fill";
                       v_align = "fill";
@@ -158,7 +152,9 @@ in {
                   h_expand = true;
                   icons = true;
                 };
-                spinner = { hide = true; };
+                spinner = {
+                  hide = true;
+                };
               };
             };
           };
