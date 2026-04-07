@@ -58,12 +58,9 @@ in
           }
         }
 
-        # Default: proxy to Home Assistant
+        # Default: 404 for unknown paths
         handle {
-          reverse_proxy {$HA_BACKEND} {
-            header_up Host {upstream_hostport}
-            header_up X-Forwarded-Proto https
-          }
+          respond "Not Found" 404
         }
       }
     '';
