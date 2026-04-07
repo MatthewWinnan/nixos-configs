@@ -2,134 +2,17 @@
 
 A modular, multi-machine NixOS configuration with Home Manager integration, featuring a Hyprland-based desktop environment, comprehensive development tools, and gaming support.
 
-## Features
+## Documentation
 
-### Multi-Machine Support
-Configuration for 8 different machines, each with tailored settings:
-- **ba1dr** - Lenovo Legion Y530-15ICH laptop (gaming/development)
-- **h31mda11** - Desktop computer (gaming)
-- **od1n** - ThinkPad T580 (coding)
-- **fafn1r** - Work machine
-- **fr3yr** - Raspberry Pi 4 (Home Assistant/home automation)
-- **th0r** - LattePanda Delta (headless homelab)
-- **m1m1r** - Proxmox VM on Odroid H3+ (headless)
-- **nixos** - WSL configuration
+Detailed documentation is available in the [`docs/`](docs/) directory:
 
-### Desktop Environment
-- **Hyprland** - Tiling Wayland compositor with extensive customization
-- **Waybar** - Multiple theme options (Catppuccin, Gruvbox, custom)
-- **Hyprlock/Hypridle** - Screen locking and idle management
-- **wlogout** - Session logout menu
-- **Rofi/Anyrun/Walker** - Application launchers
-- **Mako/Dunst** - Notification daemons
-- **awww/swww** - Animated wallpaper support
-
-### Theming
-- **Stylix** - System-wide theming with automatic color generation from wallpaper
-- **Catppuccin** - Secondary color palette (Macchiato variant)
-- **GTK/Icon Themes** - Consistent theming across applications
-- **Per-machine wallpaper** - Custom wallpapers for each machine
-
-### Development Tools
-- **Nixvim** - Fully declarative Neovim configuration with:
-  - LSP support (multiple languages)
-  - Treesitter syntax highlighting
-  - Telescope fuzzy finder
-  - Git integration (lazygit, gitsigns)
-  - Completion (nvim-cmp)
-  - Many UI enhancements (noice, neo-tree, lualine)
-- **Helix** - Alternative modal editor
-- **Claude Code** - AI coding assistant
-- **Direnv** - Per-directory environment management
-
-### Shell Configuration
-- **Fish** - Primary shell with syntax highlighting and autosuggestions
-- **Zsh** - Alternative shell with extensive plugin support (fzf-tab, syntax highlighting)
-- **Starship** - Cross-shell prompt
-- **Terminal Emulators** - Ghostty, Kitty, Wezterm
-
-### CLI Tools
-- **Yazi/lf** - Terminal file managers
-- **bat** - Cat replacement with syntax highlighting
-- **eza** - Modern ls replacement
-- **fzf** - Fuzzy finder
-- **ripgrep** - Fast grep replacement
-- **zoxide** - Smart cd replacement
-- **btop** - Resource monitor
-- **lazygit/lazydocker** - TUI for Git and Docker
-- **tmux/zellij** - Terminal multiplexers
-- **tealdeer** - tldr pages client
-
-### Applications
-- **Qutebrowser** - Primary Keyboard-driven browser
-- **Schizofox** - Hardened Firefox configuration
-- **Chromium** - Secondary browser
-- **Nixcord** - Declarative Discord (Vencord)
-- **Spicetify** - Customized Spotify
-- **OBS Studio** - Screen recording/streaming
-- **Newsboat** - RSS reader
-- **rmpc** - MPD client
-
-### Gaming
-- **Steam** - With Proton support
-- **ProtonUp** - Proton version manager
-- **Gamemode** - Performance optimizations
-- **NoiseTorch** - Noise suppression for voice chat
-
-### Virtualization
-- **Docker** - Container runtime
-- **Podman** - Rootless containers
-
-### Custom Derivations
-Packages not in nixpkgs or requiring customization:
-- **mov-cli** - CLI movie/TV streaming with plugins
-- **lowfi** - Lo-fi music player
-- **flamelens** - Flame graph viewer
-- **freecad-wrapped/kicad-wrapped** - CAD tools with custom configs
-- **orca-wrapped** - Orca-slicer wrapped for Wayland
-- **kiro-cli** - Custom Kiro CLI tool
-
-### Security & Services
-- **LUKS encryption** - Full disk encryption via Disko
-- **fail2ban** - Intrusion prevention
-- **Polkit** - Privilege management
-- **SSH** - Secure remote access
-- **SOPS-nix** - Secrets management (planned)
-
-### Other Features
-- **Disko** - Declarative disk partitioning with LUKS + BTRFS subvolumes
-- **nix-index-database** - Package search and `comma` support
-- **nh** - Nix helper for easier rebuilds
-- **Alejandra** - Nix code formatter
-- **NixOS-Hardware** - Hardware-specific optimizations
-
-## Directory Structure
-
-```
-.
-├── derivations/     # Custom package derivations
-├── disko/           # Disk partitioning configurations
-├── flake.nix        # Main flake entry point
-├── gaming/          # Gaming-related configurations
-├── home/            # Home Manager configurations
-│   ├── desktop/     # Desktop environment (Hyprland, Waybar, etc.)
-│   ├── programs/    # User applications
-│   ├── services/    # User services
-│   ├── shell/       # Shell configurations
-│   ├── terminal/    # Terminal emulators
-│   ├── tools/       # CLI tools
-│   └── wsl/         # WSL-specific config
-├── image_store/     # Wallpapers and images
-├── machines/        # Per-machine configurations
-├── nix/             # System-level NixOS modules
-│   ├── applications/
-│   ├── networking/
-│   ├── security/
-│   ├── services/
-│   └── virtualization/
-├── shells/          # Development shell environments
-└── themes/          # Theming (Stylix, GTK, fonts)
-```
+- [Machine Inventory](docs/machines.md) — All 8 machines with their roles, settings, and module matrix
+- [Tools & Applications](docs/tools.md) — Categorized reference of every tool and application
+- [Repository Structure](docs/structure.md) — Directory layout, module flow, and architecture overview
+- [Nixvim Configuration](docs/nixvim.md) — Neovim setup: plugins, LSP servers, keymaps, options
+- [Theming](docs/theming.md) — Stylix, fonts, wallpapers, cursor, and Waybar themes
+- [Custom Derivations](docs/derivations.md) — Packages built from source or wrapped for this config
+- [Disk & Secrets](docs/disk-and-secrets.md) — LUKS+BTRFS partitioning via Disko and SOPS secrets
 
 ## Usage
 
