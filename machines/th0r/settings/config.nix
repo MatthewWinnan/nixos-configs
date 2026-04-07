@@ -23,7 +23,7 @@
   };
 
   userSettings = {
-    username = "h3rm3s";
+    username = "matthew";
     name = "Matthew";
     email = "mcwinnan@gmail.com";
     browser = "qutebrowser";

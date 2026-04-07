@@ -4,7 +4,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   services.swww = {
     # When disabled hyprpaper will be the default
     # see ./hyprpaper.nix

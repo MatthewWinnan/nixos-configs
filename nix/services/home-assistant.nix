@@ -14,6 +14,7 @@
     extraComponents = [
       # Core integrations
       "default_config"
+      "onboarding"
       "met" # Weather
       "radio_browser" # Media
 
@@ -23,6 +24,7 @@
       "ssdp"
       "zeroconf"
       "homeassistant_alerts"
+      "analytics"
 
       # Mobile & Remote Access
       "mobile_app"
@@ -49,6 +51,7 @@
       # Media
       "media_player"
       "media_source"
+      "google_translate" # TTS - requires gtts
 
       # History & Logging
       "recorder"
@@ -107,6 +110,7 @@
           "127.0.0.1"
           "::1"
           "100.64.0.0/10" # Tailscale CGNAT range
+          "192.168.101.0/24" # Local LAN (th0r proxy)
         ];
       };
 
@@ -159,4 +163,7 @@
       }
     ];
   };
+
+  # Mosquitto CLI tools for testing
+  environment.systemPackages = [ pkgs.mosquitto ];
 }
