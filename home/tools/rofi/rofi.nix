@@ -34,16 +34,8 @@ in {
       };
 
       theme = let
+        inherit (config.lib.stylix) colors;
         inherit (config.lib.formats.rasi) mkLiteral;
-        # Catppuccin Macchiato
-        colors = {
-          base00 = "24273a"; # Base
-          base02 = "363a4f"; # Surface0
-          base04 = "5b6078"; # Surface2
-          base05 = "cad3f5"; # Text
-          base08 = "ed8796"; # Red
-          base0E = "c6a0f6"; # Mauve
-        };
       in {
         window = {
           transparency = "real";
