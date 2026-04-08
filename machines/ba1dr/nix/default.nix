@@ -13,5 +13,9 @@
     ../../../themes
     # Boot settings
     ./boot.nix
+    # Tailscale for mesh networking
+    ./tailscale.nix
+    # Jellyfin media server
+    ../../../nix/services/jellyfin.nix
   ];
 }
