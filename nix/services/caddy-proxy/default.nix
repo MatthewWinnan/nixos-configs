@@ -41,17 +41,48 @@ in
           ranges openai deepseek githubcopilot
         }
 
-        # Serve landing page at root
-        @root path /
-        handle @root {
-          root * ${landingPageDir}
-          try_files /index.html
-          file_server
-        }
-
-        # Home Assistant proxy
+        # Home Assistant at /ha (strip prefix for main UI)
+        @ha path /ha
+        redir @ha /ha/
         handle /ha/* {
           uri strip_prefix /ha
+          reverse_proxy {$HA_BACKEND} {
+            header_up Host {upstream_hostport}
+            header_up X-Forwarded-Proto https
+          }
+        }
+
+        # Home Assistant supporting paths (HA frontend requests these at root level)
+        handle /static/* {
+          reverse_proxy {$HA_BACKEND} {
+            header_up Host {upstream_hostport}
+            header_up X-Forwarded-Proto https
+          }
+        }
+
+        handle /frontend_latest/* {
+          reverse_proxy {$HA_BACKEND} {
+            header_up Host {upstream_hostport}
+            header_up X-Forwarded-Proto https
+          }
+        }
+
+        handle /auth/* {
+          reverse_proxy {$HA_BACKEND} {
+            header_up Host {upstream_hostport}
+            header_up X-Forwarded-Proto https
+          }
+        }
+
+        # Jellyseerr API (must be before HA's /api/* catch-all)
+        handle /api/v1/* {
+          reverse_proxy {$JELLYSEERR_BACKEND} {
+            header_up Host {upstream_hostport}
+            header_up X-Forwarded-Proto https
+          }
+        }
+
+        handle /api/* {
           reverse_proxy {$HA_BACKEND} {
             header_up Host {upstream_hostport}
             header_up X-Forwarded-Proto https
@@ -69,21 +100,9 @@ in
           }
         }
 
-        # Jellyseerr request management proxy
-        # Note: Set Jellyseerr's URL Base to "/requests" in Settings > General
-        @requests path /requests
-        redir @requests /requests/
-        handle /requests/* {
-          reverse_proxy {$JELLYSEERR_BACKEND} {
-            header_up Host {upstream_hostport}
-            header_up X-Forwarded-Proto https
-          }
-        }
-
-        # Default: proxy to Home Assistant
-        # HA frontend makes requests to /api/*, /frontend_latest/*, etc.
+        # Default: Jellyseerr (set URL Base to empty in Settings > General)
         handle {
-          reverse_proxy {$HA_BACKEND} {
+          reverse_proxy {$JELLYSEERR_BACKEND} {
             header_up Host {upstream_hostport}
             header_up X-Forwarded-Proto https
           }
