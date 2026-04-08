@@ -23,6 +23,7 @@
           [
             ../../../home
             ../settings
+            ./hypridle.nix # Disable suspend for media server
           ]
           ++ lib.optionals (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming")
           [

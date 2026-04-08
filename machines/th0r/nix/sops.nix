@@ -13,7 +13,9 @@
 
     secrets = {
       # Caddy environment variables
-      # Contains: HA_BACKEND=<host>:<port>
+      # Contains:
+      #   HA_BACKEND=<host>:<port>
+      #   JELLYFIN_BACKEND=<host>:<port>
       "caddy-env" = {
         mode = "0400";
       };

@@ -58,9 +58,21 @@ in
           }
         }
 
-        # Default: 404 for unknown paths
+        # Jellyfin media server proxy
+        # Note: Set Jellyfin's base URL to "/media" in Admin > Networking
+        redir /media /media/
+        reverse_proxy /media/* {$JELLYFIN_BACKEND} {
+          header_up Host {upstream_hostport}
+          header_up X-Forwarded-Proto https
+        }
+
+        # Default: proxy to Home Assistant
+        # HA frontend makes requests to /api/*, /frontend_latest/*, etc.
         handle {
-          respond "Not Found" 404
+          reverse_proxy {$HA_BACKEND} {
+            header_up Host {upstream_hostport}
+            header_up X-Forwarded-Proto https
+          }
         }
       }
     '';
