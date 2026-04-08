@@ -17,5 +17,7 @@
     ./tailscale.nix
     # Jellyfin media server
     ../../../nix/services/jellyfin.nix
+    # Media automation stack (arr suite)
+    ../../../nix/services/media-stack.nix
   ];
 }

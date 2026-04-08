@@ -16,6 +16,7 @@
       # Contains:
       #   HA_BACKEND=<host>:<port>
       #   JELLYFIN_BACKEND=<host>:<port>
+      #   JELLYSEERR_BACKEND=<host>:<port>
       "caddy-env" = {
         mode = "0400";
       };

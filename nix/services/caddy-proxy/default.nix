@@ -60,10 +60,24 @@ in
 
         # Jellyfin media server proxy
         # Note: Set Jellyfin's base URL to "/media" in Admin > Networking
-        redir /media /media/
-        reverse_proxy /media/* {$JELLYFIN_BACKEND} {
-          header_up Host {upstream_hostport}
-          header_up X-Forwarded-Proto https
+        @media path /media
+        redir @media /media/
+        handle /media/* {
+          reverse_proxy {$JELLYFIN_BACKEND} {
+            header_up Host {upstream_hostport}
+            header_up X-Forwarded-Proto https
+          }
+        }
+
+        # Jellyseerr request management proxy
+        # Note: Set Jellyseerr's URL Base to "/requests" in Settings > General
+        @requests path /requests
+        redir @requests /requests/
+        handle /requests/* {
+          reverse_proxy {$JELLYSEERR_BACKEND} {
+            header_up Host {upstream_hostport}
+            header_up X-Forwarded-Proto https
+          }
         }
 
         # Default: proxy to Home Assistant
