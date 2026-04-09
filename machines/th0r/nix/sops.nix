@@ -20,6 +20,25 @@
       "caddy-env" = {
         mode = "0400";
       };
+
+      # Authelia secrets
+      "authelia-jwt-secret" = {
+        mode = "0400";
+        owner = "authelia-main";
+      };
+      "authelia-session-secret" = {
+        mode = "0400";
+        owner = "authelia-main";
+      };
+      "authelia-storage-encryption-key" = {
+        mode = "0400";
+        owner = "authelia-main";
+      };
+      # Users file in YAML format (see secrets/authelia-users-example.yaml)
+      "authelia-users" = {
+        mode = "0400";
+        owner = "authelia-main";
+      };
     };
   };
 }
