@@ -16,5 +16,7 @@
     ./tailscale.nix
     # Caddy reverse proxy with Tailscale integration
     ../../../nix/services/caddy-proxy
+    # Authelia authentication server
+    ../../../nix/services/authelia
   ];
 }

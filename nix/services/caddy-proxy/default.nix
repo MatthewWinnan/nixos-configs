@@ -41,6 +41,33 @@ in
           ranges openai deepseek githubcopilot
         }
 
+        # Authelia portal and its assets - handle without forward_auth
+        # Don't strip prefix - use Authelia's path rewriting instead
+        @authelia path /authelia /authelia/*
+        handle @authelia {
+          reverse_proxy 127.0.0.1:9091 {
+            header_up X-Forwarded-Proto https
+          }
+        }
+
+        # Authelia forward authentication
+        # Exclude authelia paths from auth check to avoid loops
+        @requireAuth not path /authelia /authelia/*
+        forward_auth @requireAuth 127.0.0.1:9091 {
+          uri /authelia/api/authz/forward-auth
+          copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+          # Tell Authelia the original request was HTTPS (Tailscale Funnel terminates TLS)
+          header_up X-Forwarded-Proto https
+        }
+
+        # Landing page at /home
+        @home path /home /home/
+        handle @home {
+          root * ${landingPageDir}
+          try_files /index.html
+          file_server
+        }
+
         # Home Assistant at /ha (strip prefix for main UI)
         @ha path /ha
         redir @ha /ha/
