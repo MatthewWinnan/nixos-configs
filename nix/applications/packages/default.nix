@@ -54,6 +54,7 @@ let
     wttrbar # Weather
     yq # YAML querying
     libxml2 # For faster XML scraping
+    tcpdump # For packet inspection
   ];
 
   desktopPackages = with pkgs; [
@@ -274,6 +275,8 @@ let
       nodejs # includes npx (for MCP servers)
       # https://github.com/Xithrius/twitch-tui
       twitch-cli # Twitch chat CLI
+      # For secrets
+      sops
     ]);
 
   # ============================================================================
