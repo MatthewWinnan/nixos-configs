@@ -138,20 +138,6 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
     };
-
-    # Needed for zephyr development see -> https://github.com/adisbladis/zephyr-nix/tree/master
-    zephyr = {
-      url = "github:zephyrproject-rtos/zephyr/v3.5.0";
-      flake = false;
-    };
-    zephyr-nix = {
-      url = "github:adisbladis/zephyr-nix";
-      inputs = {
-        # Need to pint it to nixpkgs stable since this is the last point in time it worked...
-        nixpkgs.follows = "nixpkgs-stable";
-        zephyr.follows = "zephyr";
-      };
-    };
   };
 
   outputs =

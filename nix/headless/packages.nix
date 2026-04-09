@@ -29,6 +29,7 @@
     mpv # To view the recordings
     git
     nh
+    tcpdump
 
     # For caching setup
     attic-client

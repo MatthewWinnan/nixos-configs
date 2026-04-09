@@ -60,9 +60,9 @@ in
           header_up X-Forwarded-Proto https
         }
 
-        # Landing page at /home
-        @home path /home /home/
-        handle @home {
+        # Landing page at root
+        @root path /
+        handle @root {
           root * ${landingPageDir}
           try_files /index.html
           file_server

@@ -121,15 +121,15 @@ in
           # Landing page - public
           {
             domain = "th0r.tail13fdb.ts.net";
-            resources = [ "^/$" "^/home.*" ];
-            policy = "bypass";
+            resources = [ "^/$" ];
+            policy = "one_factor";
           }
 
           # Jellyseerr API - bypass for app integrations
           {
             domain = "th0r.tail13fdb.ts.net";
             resources = [ "^/api/v1.*" ];
-            policy = "bypass";
+            policy = "one_factor";
           }
 
           # Media services - require one factor
