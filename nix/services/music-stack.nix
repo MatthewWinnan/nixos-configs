@@ -80,7 +80,9 @@ in
   };
 
   # Add qbittorrent user to user's group for file access
-  users.users.qbittorrent.extraGroups = lib.mkIf isEnabled [ "users" ];
+  users.users.qbittorrent = lib.mkIf isEnabled {
+    extraGroups = [ "users" ];
+  };
 
   # Create directories (~/Media/Music is created by XDG userDirs)
   systemd.tmpfiles.rules = lib.mkIf isEnabled [

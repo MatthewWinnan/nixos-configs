@@ -33,6 +33,8 @@
         substituters = ["http://cachix:8080/fossil?priority=30"];
         trusted-public-keys = ["fossil:p3AAkC0+gc/JTzfyajd3W+ewQAQhpuq2bwv5Wa3wcIg="];
         trusted-users = [config.userSettings.username "root"];
+        connect-timeout = 5;
+        fallback = true;
       }
     )
     (

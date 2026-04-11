@@ -91,6 +91,7 @@ let
     vlc # Full-featured media player
     wf-recorder # Screen recording (CLI access)
     typora # https://typora.io/
+    imagemagick # https://github.com/ImageMagick/ImageMagick
   ];
 
   flasherPackages = with pkgs; [

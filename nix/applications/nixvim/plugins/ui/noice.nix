@@ -7,7 +7,7 @@
         enabled = true; # Adds a padding-bottom to neovim statusline when set to false for some reason
       };
       notify = {
-        enabled = false;
+        enabled = true; # Route vim.notify() through noice -> nvim-notify
       };
       popupmenu = {
         enabled = true;
@@ -20,6 +20,13 @@
         progress = {
           enabled = true;
           view = "mini";
+          throttle = 33; # ~30fps, matches your nvim-notify fps=60 / 2
+        };
+        # Override LSP markdown rendering so cmp and other plugins use treesitter
+        override = {
+          "vim.lsp.util.convert_input_to_markdown_lines" = true;
+          "vim.lsp.util.stylize_markdown" = true;
+          "cmp.entry.get_documentation" = true;
         };
       };
       format = {
@@ -32,7 +39,7 @@
             ":%s*s!%s*"
             ":%s*s/%s*"
           ];
-          icon = "";
+          icon = "";
           lang = "regex";
         };
         replace = {
@@ -48,6 +55,34 @@
           lang = "regex";
         };
       };
+      # Routes replace your old hand-rolled vim.notify filter
+      routes = [
+        # Skip "No information available" hover messages (was filtered in nvim-notify extraConfigLua)
+        {
+          filter = {
+            event = "notify";
+            find = "No information available";
+          };
+          opts = {
+            skip = true;
+          };
+        }
+        # Suppress LSP progress in insert mode (was fidget's suppress_on_insert)
+        {
+          filter = {
+            event = "lsp";
+            kind = "progress";
+            cond.__raw = ''
+              function()
+                return vim.api.nvim_get_mode().mode:sub(1,1) == "i"
+              end
+            '';
+          };
+          opts = {
+            skip = true;
+          };
+        }
+      ];
     };
   };
 
@@ -82,6 +117,14 @@
       action = "<cmd>Noice telescope<cr>";
       options = {
         desc = "Noice opens the notifications as telescope";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>nd";
+      action = "<cmd>Noice dismiss<cr>";
+      options = {
+        desc = "Dismiss all visible notifications";
       };
     }
   ];
