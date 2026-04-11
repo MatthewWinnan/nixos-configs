@@ -21,6 +21,9 @@
       };
       symbolInWinbar = {
         enable = true; # Breadcrumbs
+        separator = " › ";
+        folderLevel = 1;
+        colorMode = true;
       };
       codeAction = {
         extendGitSigns = false;
@@ -76,7 +79,7 @@
     {
       mode = "n";
       key = "gd";
-      action = "<cmd>Lspsaga finder def<CR>";
+      action = "<cmd>Lspsaga goto_definition<CR>";
       options = {
         desc = "Goto Definition";
         silent = true;

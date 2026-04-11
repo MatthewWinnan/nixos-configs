@@ -25,6 +25,23 @@
     settings = {
       defaults = {
         set_env.COLORTERM = "truecolor";
+        prompt_prefix = "  ";
+        selection_caret = " ";
+        entry_prefix = "  ";
+        winblend = 20;
+        border = true;
+        borderchars = [
+          "─"
+          "│"
+          "─"
+          "│"
+          "╭"
+          "╮"
+          "╯"
+          "╰"
+        ];
+        path_display = [ "truncate" ];
+        results_title = false;
         file_ignore_patterns = [
           "^.git/"
           "^.mypy_cache/"

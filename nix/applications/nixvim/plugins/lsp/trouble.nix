@@ -8,7 +8,7 @@
     {
       mode = "n";
       key = "<leader>dx";
-      action = "<cmd>Trouble diagnostics toggle focus=false win.positon=right<cr>";
+      action = "<cmd>Trouble diagnostics toggle focus=false win.position=right<cr>";
       options = {
         desc = "Diagnostics (Trouble)";
       };
@@ -17,7 +17,7 @@
     {
       mode = "n";
       key = "<leader>dX";
-      action = "<cmd>Trouble diagnostics toggle filter.buf=0<cr>";
+      action = "<cmd>Trouble diagnostics toggle filter.buf=0 win.position=right<cr>";
       options = {
         desc = "Buffer Diagnostics (Trouble)";
       };
@@ -26,7 +26,7 @@
     {
       mode = "n";
       key = "<leader>ds";
-      action = "<cmd>Trouble symbols toggle focus=false<cr>";
+      action = "<cmd>Trouble symbols toggle focus=false win.position=right<cr>";
       options = {
         desc = "Symbols (Trouble)";
       };
@@ -44,7 +44,7 @@
     {
       mode = "n";
       key = "<leader>dL";
-      action = "<cmd>Trouble loclist toggle<cr>";
+      action = "<cmd>Trouble loclist toggle win.position=right<cr>";
       options = {
         desc = "Location List (Trouble)";
       };
@@ -52,8 +52,8 @@
 
     {
       mode = "n";
-      key = "<leader>dq";
-      action = "<cmd>Trouble qflist toggle<cr>";
+      key = "<leader>dQ";
+      action = "<cmd>Trouble qflist toggle win.position=right<cr>";
       options = {
         desc = "Quickfix List (Trouble)";
       };

@@ -21,6 +21,5 @@
         flavor = "macchiato";
       };
     };
-    # colorschemes.oxocarbon.enable = true;
   };
 }
