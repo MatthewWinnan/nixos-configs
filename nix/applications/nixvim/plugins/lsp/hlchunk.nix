@@ -14,13 +14,26 @@
   ];
 
   programs.nixvim.extraConfigLua = ''
-      require('hlchunk').setup({
-        chunk = {
-          enable = true
+    require('hlchunk').setup({
+      chunk = {
+        enable = true,
+        style = {
+          { fg = "#c6a0f6" },
+          { fg = "#ed8796" },
         },
-        indent = {
-            enable = true
-        },}
-    )
+        delay = 50,
+      },
+      indent = {
+        enable = true,
+        chars = { "│" },
+        style = {
+          { fg = "#363a4f" },
+        },
+      },
+      line_num = {
+        enable = true,
+        style = "#c6a0f6",
+      },
+    })
   '';
 }
