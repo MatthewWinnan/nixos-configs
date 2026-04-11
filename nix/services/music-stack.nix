@@ -21,14 +21,13 @@
 #      - Default login: admin / adminadmin (change immediately)
 #      - Settings → Downloads → Default Save Path: /home/<user>/Media/Downloads/music
 #   4. Aurral (http://localhost:3001):
-#      - Create env file first: ~/.config/aurral/env (see below)
-#      - Connects to Lidarr automatically via env vars
-#
-# Aurral env file (~/.config/aurral/env):
-#   LIDARR_URL=http://host.containers.internal:8686
-#   LIDARR_API_KEY=<from Lidarr Settings → General → API Key>
-#   LASTFM_API_KEY=<from https://www.last.fm/api/account/create>
-#   MB_CONTACT_EMAIL=<your email for MusicBrainz API>
+#      - Settings → Integrations → Lidarr:
+#        - URL: http://localhost:8686
+#        - API Key: (from Lidarr Settings → General)
+#      - Settings → Integrations → Last.fm (optional):
+#        - API Key from https://www.last.fm/api/account/create
+#      - Settings → Integrations → MusicBrainz:
+#        - Contact email (required for API)
 #
 # Beets integration:
 #   - Configured via home-manager (see home/programs/beets)
@@ -51,7 +50,6 @@ let
   username = config.userSettings.username;
   musicDir = "/home/${username}/Media/Music";
   downloadsDir = "/home/${username}/Media/Downloads/music";
-  aurralEnvFile = "/home/${username}/.config/aurral/env";
   aurralDataDir = "/home/${username}/.local/share/aurral";
 in
 {
@@ -87,7 +85,6 @@ in
   # Create directories (~/Media/Music is created by XDG userDirs)
   systemd.tmpfiles.rules = lib.mkIf isEnabled [
     "d ${downloadsDir} 0755 ${username} users -"
-    "d /home/${username}/.config/aurral 0755 ${username} users -"
     "d ${aurralDataDir} 0755 ${username} users -"
     "d ${aurralDataDir}/downloads 0755 ${username} users -"
   ];
@@ -98,7 +95,6 @@ in
     containers.aurral = {
       image = "ghcr.io/lklynet/aurral:latest";
       ports = [ "3001:3001" ];
-      environmentFiles = [ aurralEnvFile ];
       volumes = [
         "${aurralDataDir}:/app/backend/data"
         "${aurralDataDir}/downloads:/app/downloads"
