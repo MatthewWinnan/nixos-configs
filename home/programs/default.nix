@@ -13,6 +13,7 @@
     ./helix
     ./qutebrowser
     ./rmpc
+    ./beets
     ./anyrun
     ./streamlink
     ./obs-studio

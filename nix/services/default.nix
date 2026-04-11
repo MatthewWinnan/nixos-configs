@@ -15,6 +15,7 @@
     ./greetd.nix
     ./pulseaudio.nix
     ./mpd.nix
+    ./music-stack.nix
     ./systemd.nix
     ./tailscale.nix
   ];
