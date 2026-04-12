@@ -105,6 +105,21 @@ tooltip {
     border-radius: 4px;
 }
 
+menu {
+    background-color: @surface0;
+    color: @foreground;
+    border-radius: 4px;
+    padding: 4px 0;
+}
+
+menuitem {
+    padding: 4px 8px;
+}
+
+menuitem:hover {
+    background-color: @surface1;
+}
+
 #clock {
     margin-left: 8.75px;
     margin-right: 8px;

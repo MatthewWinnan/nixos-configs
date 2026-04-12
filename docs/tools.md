@@ -280,3 +280,9 @@ A categorized reference of all tools and applications managed by this NixOS conf
 | udisks2 | Disk management | `nix/services/udisks2.nix` |
 | systemd (custom units) | System services | `nix/services/systemd.nix` |
 | dconf | Settings backend | `home/services/dconf.nix`, `nix/applications/desktop/dconf.nix` |
+
+## Known Issues
+
+| Tool | Issue | Reason |
+|------|-------|--------|
+| Walker | Runner provider (`!` prefix) does not work | The `runner.so` provider is bundled in the nixpkgs `elephant` package and `ELEPHANT_PROVIDER_DIR` is set correctly, but the runner provider fails at runtime. Root cause is unknown — may be a bug in the Walker 2.x / Elephant integration on NixOS, or a missing runtime dependency. Needs further debugging (check `journalctl --user -u elephant` for errors). |

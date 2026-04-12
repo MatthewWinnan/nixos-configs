@@ -57,6 +57,9 @@
 
 in {
   #home.sessionVariables = template.sysEnv;
+
+  gtk.gtk4.theme = null;
+
   xdg = {
     enable = true;
     cacheHome = "${config.home.homeDirectory}/.cache";

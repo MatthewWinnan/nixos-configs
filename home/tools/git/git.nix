@@ -20,6 +20,7 @@ in {
       # lets sign using our own key
       # this must be provided by the host
       signing = {
+        format = null;
         key = null;
         signByDefault = false;
       };

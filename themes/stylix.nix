@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 {
   # Just to pull stylix into nixos
   # You can find the docs at https://stylix.danth.me/index.html
@@ -9,6 +9,12 @@
     };
     image = config.images.stylix_wallpaper;
     polarity = "dark";
+
+    cursor = {
+      package = pkgs.rose-pine-cursor;
+      name = "BreezeX-RosePine-Linux";
+      size = 24;
+    };
 
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
 

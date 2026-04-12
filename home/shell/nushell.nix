@@ -15,7 +15,7 @@
     shellAliases = lib.mkMerge [
       # Alias to map yazi to lf for ease of use only if just yazi is enabled
       (lib.mkIf (config.programs.yazi.enable && !config.programs.lf.enable) {
-        lf = "${lib.getExe pkgs.yazi}"; # This alias will be added only if yazi is enabled
+        lf = "${lib.getExe config.programs.yazi.package}"; # This alias will be added only if yazi is enabled
       })
 
       # Alias to map bat to cat since muscle memory has me use cat...
