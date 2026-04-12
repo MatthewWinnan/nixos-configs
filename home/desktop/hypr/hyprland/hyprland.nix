@@ -12,7 +12,9 @@ in
   wayland.windowManager.hyprland = lib.mkForce {
     enable = true;
     xwayland.enable = true;
-    systemd.enable = false;
+    systemd = {
+      enable = true;
+    };
 
     # We need to use an old compatible package
     #package = pinnedHyprland;
