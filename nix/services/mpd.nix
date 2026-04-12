@@ -13,14 +13,13 @@
     user = "${config.userSettings.username}";
 
     dataDir = "/home/${config.userSettings.username}/.config/mpd";
-    musicDirectory = "/home/${config.userSettings.username}/Media/Music";
-    extraConfig = ''
-      auto_update "yes"
-
-      audio_output {
-        type            "pipewire"
-        name            "PipeWire Sound Server"
-      }
-    '';
+    settings = {
+      music_directory = "/home/${config.userSettings.username}/Media/Music";
+      auto_update = "yes";
+      audio_output = {
+        type = "pipewire";
+        name = "PipeWire Sound Server";
+      };
+    };
   };
 }

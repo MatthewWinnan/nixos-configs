@@ -16,8 +16,8 @@
         nixvim.enable = false;
         # Disable waybar to use custom styling in home/desktop/waybar
         waybar.enable = false;
-        # Disable hyrpaper from automatically starting so I can rather use swww
-        hyprland.hyprpaper.enable = !config.services.swww.enable;
+        # Disable hyrpaper from automatically starting so I can rather use awww
+        hyprland.hyprpaper.enable = !config.services.awww.enable;
       }
       (
         lib.mkIf (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") {
@@ -33,4 +33,5 @@
       )
     ];
   };
+
 }

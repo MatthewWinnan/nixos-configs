@@ -19,6 +19,7 @@
     ./systemd.nix
     ./tailscale.nix
     ./attic_store.nix
+    ./elephant.nix
   ];
 
   # services.xserver.libinput.enable = true;

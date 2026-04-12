@@ -10,9 +10,7 @@ in {
   wayland.windowManager.hyprland = lib.mkForce {
     enable = true;
     xwayland.enable = true;
-    systemd = {
-      enable = true;
-    };
+    systemd.enable = false;
 
     # We need to use an old compatible package
     #package = pinnedHyprland;
@@ -148,6 +146,13 @@ in {
         disable_hyprland_logo = true;
         initial_workspace_tracking = 0;
       };
+
+      # Fix transparent applet/hover menus by disabling blur on layer surfaces
+      layerrule = [
+        "blur on, match:namespace waybar"
+        "ignore_alpha 0.2, match:namespace waybar"
+        "blur_popups on, match:namespace waybar"
+      ];
 
       windowrulev2 = [
         "tile, class:^(sioyek)$"

@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, lib, ...}: {
   programs.sioyek = {
     enable = true;
     package = pkgs.sioyek.overrideAttrs (old: {
@@ -45,8 +45,8 @@
       search_url_l = "https://libgen.is/search.php?req=";
       search_url_g = "https://www.google.com/search?q=";
 
-      # Startup command to fit width
-      startup_commands = "fit_to_page_width";
+      # Startup command to fit width + stylix custom color
+      startup_commands = lib.mkForce ["toggle_custom_color" "fit_to_page_width"];
     };
     bindings = {
       # Half-page scrolling like zathura (u/d)
