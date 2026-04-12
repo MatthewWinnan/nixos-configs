@@ -22,7 +22,7 @@ in {
           --time \
           --asterisks \
           --user-menu \
-          --cmd "${pkgs.uwsm}/bin/uwsm start -e -D Hyprland hyprland.desktop"
+          --cmd hyprland
       '';
   };
 
@@ -31,7 +31,7 @@ in {
     then {}
     else {
       "greetd/environments".text = ''
-        uwsm start -e -D Hyprland hyprland.desktop
+        hyprland
       '';
     };
 }
