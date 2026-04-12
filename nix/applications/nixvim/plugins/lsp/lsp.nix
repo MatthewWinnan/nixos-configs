@@ -5,7 +5,8 @@
   ...
 }: {
   programs.nixvim.plugins = {
-    hmts.enable = true;
+    # TODO: re-enable once hmts.nvim supports neovim 0.12
+    # hmts.enable = true;
 
     lsp-format = {
       enable = false;
@@ -107,17 +108,15 @@
   programs.nixvim.extraConfigLua = ''
     local _border = "rounded"
 
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-      vim.lsp.handlers.hover, {
-        border = _border
-      }
-    )
+    vim.lsp.config('*', {
+      handlers = {
+        ['textDocument/hover'] = vim.lsp.buf.hover,
+        ['textDocument/signatureHelp'] = vim.lsp.buf.signature_help,
+      },
+    })
 
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-      vim.lsp.handlers.signature_help, {
-        border = _border
-      }
-    )
+    vim.lsp.buf.hover({ border = _border })
+    vim.lsp.buf.signature_help({ border = _border })
 
     vim.diagnostic.config{
       float={border=_border}
