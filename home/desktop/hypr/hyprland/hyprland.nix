@@ -156,13 +156,6 @@ in
         initial_workspace_tracking = 0;
       };
 
-      # Fix transparent applet/hover menus by disabling blur on layer surfaces
-      layerrule = [
-        "blur on, match:namespace waybar"
-        "ignore_alpha 0.2, match:namespace waybar"
-        "blur_popups on, match:namespace waybar"
-      ];
-
       # windowrule = [
       #   "float, ^(imv)$"
       #   "float, ^(mpv)$"
@@ -174,11 +167,8 @@ in
         # I might be doing something wrong but this does break my normal copy and paste
         #"${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
       ]
-      ++ lib.optionals (config.services.awww.enable) [
-        "${pkgs.waytrogen}/bin/waytrogen --restore --backend swww"
-      ]
-      ++ lib.optionals (!config.services.awww.enable) [
-        "${pkgs.waytrogen}/bin/waytrogen --restore --backend hyprpaper"
+      ++ [
+        "${pkgs.waytrogen}/bin/waytrogen --restore"
       ];
 
       bind = [

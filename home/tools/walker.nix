@@ -199,6 +199,9 @@ in
   xdg.configFile = {
     "walker/themes/stylix/style.css".text = styleCss;
     "walker/themes/stylix/layout.toml".source = layoutToml;
+    "elephant/elephant.toml".text = ''
+      terminal_cmd = "ghostty -e"
+    '';
   };
 
   services.walker = {
@@ -212,9 +215,11 @@ in
       selection_wrap = true;
       hide_action_hints = true;
 
-      placeholder = {
-        input = " Search...";
-        list = "No Results";
+      placeholders = {
+        default = {
+          input = " Search...";
+          list = "No Results";
+        };
       };
 
       keybinds = {
@@ -225,39 +230,37 @@ in
         symbols = 1;
       };
 
-      terminal = "ghostty -e";
-
-      actions = {
-        desktopapplications = [
-          {
-            action = "start";
-            default = true;
-            bind = "Return";
-          }
-          {
-            action = "start:keep";
-            label = "open+next";
-            bind = "shift Return";
-            after = "KeepOpen";
-          }
-        ];
-        runner = [
-          {
-            action = "run";
-            default = true;
-            bind = "Return";
-            after = "Close";
-          }
-          {
-            action = "runterminal";
-            label = "run in terminal";
-            bind = "shift Return";
-            after = "Close";
-          }
-        ];
-      };
 
       providers = {
+        actions = {
+          desktopapplications = [
+            {
+              action = "start";
+              default = true;
+              bind = "Return";
+            }
+            {
+              action = "start:keep";
+              label = "open+next";
+              bind = "shift Return";
+              after = "KeepOpen";
+            }
+          ];
+          runner = [
+            {
+              action = "run";
+              default = true;
+              bind = "Return";
+              after = "Close";
+            }
+            {
+              action = "runterminal";
+              label = "run in terminal";
+              bind = "shift Return";
+              after = "Close";
+            }
+          ];
+        };
         max_results = 256;
         default = [
           "desktopapplications"
