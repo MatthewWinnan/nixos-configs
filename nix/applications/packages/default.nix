@@ -150,9 +150,7 @@
     # https://github.com/bootandy/dust
     dust
     # https://github.com/gferraro/voxtype
-    pkgs-unstable.voxtype-vulkan # Voice-to-text for Wayland
-    # https://github.com/trasta298/keifu
-    keifu
+    voxtype-vulkan # Voice-to-text for Wayland
   ];
 
   # ============================================================================
@@ -253,15 +251,12 @@
     inputs.lobster.packages.${pkgs.stdenv.hostPlatform.system}.lobster # Movie streaming
     pkgs.mov-cli # General content streaming
     yt-dlp # Video downloader (custom derivation)
-    stremio-fixed # Using unstable version with build fix
-    # https://github.com/Xithrius/twitch-tui
-    pkgs.twitch-cli # Twitch chat CLI
+    pkgs.stremio-linux-shell # Stremio media center
   ];
 
   musicPackages = [
     lowfi # TUI Lowfi player (custom derivation)
     pkgs.mpc # Minimal mpd client
-    pkgs-unstable.spotatui # TUI Spotify client
   ];
 
   embeddedDevPackages = with pkgs; [

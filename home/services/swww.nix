@@ -1,15 +1,13 @@
-# https://mynixos.com/home-manager/option/services.swww.enable
+# https://mynixos.com/home-manager/option/services.awww.enable
 # I prefer having this over hyprpaper for the animated wallpaper
 {
   inputs,
   pkgs,
   ...
 }: {
-  services.swww = {
+  services.awww = {
     # When disabled hyprpaper will be the default
     # see ./hyprpaper.nix
     enable = true;
-    # NB at some point this should be awww
-    # package = inputs.swww.packages.${pkgs.system}.swww;
   };
 }

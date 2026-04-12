@@ -6,13 +6,7 @@
     nixpkgs-24-05.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
-    # I generally keep with the unstable when possible
-    # For now pin it to stable since new unstable is too fresh (June 4 2025)
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-
-    # Unstable channel for specific packages
-    # Using a specific commit to avoid potential build issues
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # We need to maintain nixosWSL now
     nixos-wsl = {
@@ -21,7 +15,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -31,12 +25,12 @@
     # };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+      url = "github:nix-community/nixvim/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
-      url = "github:nix-community/stylix/release-25.11";
+      url = "github:nix-community/stylix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

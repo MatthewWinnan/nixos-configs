@@ -3,6 +3,6 @@
 # Only enable it when swww is disabled
 {config, ...}: {
   services.hyprpaper = {
-    enable = !config.services.swww.enable;
+    enable = !config.services.awww.enable;
   };
 }
