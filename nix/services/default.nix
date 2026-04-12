@@ -18,6 +18,7 @@
     ./music-stack.nix
     ./systemd.nix
     ./tailscale.nix
+    ./elephant.nix
   ];
 
   # services.xserver.libinput.enable = true;

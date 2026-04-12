@@ -6,27 +6,6 @@
   ...
 }:
 let
-  # Import unstable packages for specific packages
-  pkgs-unstable = import inputs.nixpkgs-unstable {
-    system = pkgs.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-  };
-
-  # Override stremio to fix build issue (PR #503035)
-  # The cargo deps directory structure changed, adding */ after $cargoDepsCopy
-  stremio-fixed = pkgs-unstable.stremio-linux-shell.overrideAttrs (oldAttrs: {
-    postPatch =
-      lib.replaceStrings
-        [
-          "$cargoDepsCopy/libappindicator-sys-*"
-          "$cargoDepsCopy/xkbcommon-dl-*"
-        ]
-        [
-          "$cargoDepsCopy/*/libappindicator-sys-*"
-          "$cargoDepsCopy/*/xkbcommon-dl-*"
-        ]
-        oldAttrs.postPatch;
-  });
 
   # Custom derivations
   lowfi = pkgs.callPackage ../../../derivations/lowfi/lowfi.nix { };
@@ -140,7 +119,7 @@ let
     # https://github.com/bootandy/dust
     dust
     # https://github.com/gferraro/voxtype
-    pkgs-unstable.voxtype-vulkan # Voice-to-text for Wayland
+    voxtype-vulkan # Voice-to-text for Wayland
   ];
 
   # ============================================================================
@@ -217,13 +196,12 @@ let
     inputs.lobster.packages.${pkgs.stdenv.hostPlatform.system}.lobster # Movie streaming
     pkgs.mov-cli # General content streaming
     yt-dlp # Video downloader (custom derivation)
-    stremio-fixed # Using unstable version with build fix
+    pkgs.stremio-linux-shell # Stremio media center
   ];
 
   musicPackages = [
     lowfi # TUI Lowfi player (custom derivation)
     pkgs.mpc # Minimal mpd client
-    pkgs-unstable.spotatui # TUI Spotify client
   ];
 
   embeddedDevPackages = with pkgs; [

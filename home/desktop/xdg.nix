@@ -57,6 +57,9 @@
 
 in {
   #home.sessionVariables = template.sysEnv;
+
+  gtk.gtk4.theme = null;
+
   xdg = {
     enable = true;
     cacheHome = "${config.home.homeDirectory}/.cache";
@@ -80,6 +83,7 @@ in {
     userDirs = {
       enable = pkgs.stdenv.isLinux;
       createDirectories = true;
+      setSessionVariables = false;
 
       download = "${config.home.homeDirectory}/Downloads";
       desktop = "${config.home.homeDirectory}/Desktop";

@@ -12,9 +12,7 @@ in
   wayland.windowManager.hyprland = lib.mkForce {
     enable = true;
     xwayland.enable = true;
-    systemd = {
-      enable = true;
-    };
+    systemd.enable = false;
 
     # We need to use an old compatible package
     #package = pinnedHyprland;
@@ -59,6 +57,7 @@ in
         "QT_QPA_PLATFORM,wayland"
         "XDG_SCREENSHOTS_DIR,~/Media/Pictures"
         "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+        "XCURSOR_THEME,BreezeX-RosePine-Linux"
       ]
       ++ lib.optionals (config.systemSettings.profile != "work") [
         "LIBVA_DRIVER_NAME,nvidia"
@@ -157,6 +156,13 @@ in
         initial_workspace_tracking = 0;
       };
 
+      # Fix transparent applet/hover menus by disabling blur on layer surfaces
+      layerrule = [
+        "blur on, match:namespace waybar"
+        "ignore_alpha 0.2, match:namespace waybar"
+        "blur_popups on, match:namespace waybar"
+      ];
+
       # windowrule = [
       #   "float, ^(imv)$"
       #   "float, ^(mpv)$"
@@ -168,10 +174,10 @@ in
         # I might be doing something wrong but this does break my normal copy and paste
         #"${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
       ]
-      ++ lib.optionals (config.services.swww.enable) [
+      ++ lib.optionals (config.services.awww.enable) [
         "${pkgs.waytrogen}/bin/waytrogen --restore --backend swww"
       ]
-      ++ lib.optionals (!config.services.swww.enable) [
+      ++ lib.optionals (!config.services.awww.enable) [
         "${pkgs.waytrogen}/bin/waytrogen --restore --backend hyprpaper"
       ];
 
