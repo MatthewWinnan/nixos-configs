@@ -145,6 +145,11 @@ in {
         initial_workspace_tracking = 0;
       };
 
+      # VM GPU drivers (e.g. hyperv_drm) lack hardware cursor plane support
+      cursor = lib.mkIf (config.deviceSettings.type == "vm") {
+        no_hardware_cursors = true;
+      };
+
       # Fix transparent applet/hover menus by disabling blur on layer surfaces
       layerrule = [
         "blur on, match:namespace waybar"
