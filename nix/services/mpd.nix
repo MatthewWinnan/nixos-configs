@@ -16,10 +16,12 @@
     settings = {
       music_directory = "/home/${config.userSettings.username}/Media/Music";
       auto_update = "yes";
-      audio_output = {
-        type = "pipewire";
-        name = "PipeWire Sound Server";
-      };
+      audio_output = [
+        {
+          type = "pipewire";
+          name = "PipeWire Sound Server";
+        }
+      ];
     };
   };
 }
