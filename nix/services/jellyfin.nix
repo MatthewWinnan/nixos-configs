@@ -36,6 +36,7 @@
   # Bind mount Jellyfin data to persistent storage
   fileSystems."/var/lib/jellyfin" = {
     device = "/persist/jellyfin";
+    fsType = "none";
     options = ["bind"];
   };
 

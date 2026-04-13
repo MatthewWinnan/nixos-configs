@@ -5,28 +5,6 @@
   inputs,
   ...
 }: let
-  # Import unstable packages for specific packages
-  pkgs-unstable = import inputs.nixpkgs-unstable {
-    inherit (pkgs.stdenv.hostPlatform) system;
-    config.allowUnfree = true;
-  };
-
-  # Override stremio to fix build issue (PR #503035)
-  # The cargo deps directory structure changed, adding */ after $cargoDepsCopy
-  stremio-fixed = pkgs-unstable.stremio-linux-shell.overrideAttrs (oldAttrs: {
-    postPatch =
-      lib.replaceStrings
-      [
-        "$cargoDepsCopy/libappindicator-sys-*"
-        "$cargoDepsCopy/xkbcommon-dl-*"
-      ]
-      [
-        "$cargoDepsCopy/*/libappindicator-sys-*"
-        "$cargoDepsCopy/*/xkbcommon-dl-*"
-      ]
-      oldAttrs.postPatch;
-  });
-
   # Custom derivations
   lowfi = pkgs.callPackage ../../../derivations/lowfi/lowfi.nix {};
   screen_recorder = pkgs.callPackage ../../../derivations/screen_record.nix {};
