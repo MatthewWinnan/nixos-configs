@@ -263,18 +263,6 @@ in
   };
 
   # Systemd user services for processes previously in exec-once
-  systemd.user.services.cliphist = {
-    Unit = {
-      Description = "Clipboard history with cliphist";
-      After = [ "graphical-session.target" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store";
-      Restart = "on-failure";
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
-
   systemd.user.services.waytrogen = {
     Unit = {
       Description = "Restore wallpaper with waytrogen";
