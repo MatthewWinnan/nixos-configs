@@ -180,6 +180,8 @@
     }
   '';
 in {
+  # When Hyprland's built-in systemd integration is disabled (UWSM mode),
+  # bind walker to graphical-session.target which UWSM activates.
   systemd.user.services.walker = {
     Service.Environment = lib.mkForce (
       ["GDK_BACKEND=wayland"]
@@ -189,6 +191,7 @@ in {
         "__GLX_VENDOR_LIBRARY_NAME=nvidia"
       ]
     );
+  } // lib.optionalAttrs (!config.wayland.windowManager.hyprland.systemd.enable) {
     Install.WantedBy = lib.mkForce ["graphical-session.target"];
   };
 
