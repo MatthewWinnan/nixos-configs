@@ -49,10 +49,8 @@ in
         config.deviceSettings.monitors
       );
 
+      # XDG_CURRENT_DESKTOP, XDG_SESSION_TYPE, XDG_SESSION_DESKTOP are set by UWSM
       env = [
-        "XDG_CURRENT_DESKTOP,Hyprland"
-        "XDG_SESSION_TYPE,wayland"
-        "XDG_SESSION_DESKTOP,Hyprland"
         "XCURSOR_SIZE,24"
         "QT_QPA_PLATFORM,wayland"
         "XDG_SCREENSHOTS_DIR,~/Media/Pictures"
@@ -161,15 +159,8 @@ in
       #   "float, ^(mpv)$"
       # ];
 
-      exec-once = [
-        "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"
-
-        # I might be doing something wrong but this does break my normal copy and paste
-        #"${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard both"
-      ]
-      ++ [
-        "${pkgs.waytrogen}/bin/waytrogen --restore"
-      ];
+      # exec-once processes moved to systemd user services below
+      exec-once = [ ];
 
       bind = [
         # For the warpd keybindings see -> https://github.com/rvaiya/warpd?tab=readme-ov-file#wayland
@@ -264,5 +255,30 @@ in
         "$mainMod, mouse:273, resizewindow"
       ];
     };
+  };
+
+  # Systemd user services for processes previously in exec-once
+  systemd.user.services.cliphist = {
+    Unit = {
+      Description = "Clipboard history with cliphist";
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store";
+      Restart = "on-failure";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
+  systemd.user.services.waytrogen = {
+    Unit = {
+      Description = "Restore wallpaper with waytrogen";
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.waytrogen}/bin/waytrogen --restore";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 }
