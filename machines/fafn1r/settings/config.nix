@@ -1,7 +1,7 @@
 # Generic machine configuration and role selection
 {
   deviceSettings = {
-    type = "laptop";
+    type = "vm";
     headless = false;
     monitors = [
       {
