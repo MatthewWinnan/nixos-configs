@@ -199,13 +199,25 @@ let
     # https://github.com/bensadeh/circumflex
     circumflex # Hacker News reader
     # https://github.com/AlDanial/cloc
-    cloc # Code line counter
+    tokei # Code statistics (faster cloc replacement)
     # https://github.com/nik-rev/countryfetch
     countryfetch # System info (country theme)
     # https://github.com/Dr-Noob/cpufetch?tab=readme-ov-file#8-cpufetch-for-gpus-gpufetch
     cpufetch # CPU info display
     # https://github.com/tuna-f1sh/cyme
     cyme # USB device lister
+    # https://github.com/dalance/procs
+    procs # Prettier ps replacement
+    # https://github.com/orf/gping
+    gping # Ping with graph
+    # https://github.com/rofl0r/ncdu
+    ncdu # Interactive disk usage explorer
+    # https://github.com/charmbracelet/glow
+    glow # Terminal markdown renderer
+    # https://github.com/sharkdp/hyperfine
+    hyperfine # CLI benchmarking tool
+    # https://github.com/denisidoro/navi
+    navi # Interactive cheatsheet
   ];
 
   # ============================================================================
