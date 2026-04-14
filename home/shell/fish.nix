@@ -64,6 +64,8 @@ in
         du = "${pkgs.dust}/bin/dust";
         find = "${pkgs.fd}/bin/fd";
         grep = "${pkgs.ripgrep}/bin/rg";
+        ps = "${pkgs.procs}/bin/procs";
+        ping = "${pkgs.gping}/bin/gping";
         tree = "${pkgs.eza}/bin/eza --git --icons --tree";
 
         # File navigation with eza

@@ -33,6 +33,8 @@ in {
       df = "${pkgs.duf}/bin/duf";
       find = "${pkgs.fd}/bin/fd";
       grep = "${pkgs.ripgrep}/bin/rg";
+      ps = "${pkgs.procs}/bin/procs";
+      ping = "${pkgs.gping}/bin/gping";
       tree = "${pkgs.eza}/bin/eza --git --icons --tree";
 
       # faster navigation
