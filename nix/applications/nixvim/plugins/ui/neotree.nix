@@ -27,6 +27,9 @@
           folder_open = "";
           folder_empty = "󰜌";
         };
+        modified = {
+          symbol = "●";
+        };
         git_status.symbols = {
           added = "✚";
           modified = "";
@@ -42,6 +45,44 @@
       window.width = 35;
     };
   };
+
+  # Renderers must be set via extraConfigLua because nixvim's settings
+  # doesn't correctly translate the positional table structure neo-tree expects
+  programs.nixvim.extraConfigLua = ''
+    require("neo-tree").setup({
+      filesystem = {
+        renderers = {
+          file = {
+            { "indent" },
+            { "icon" },
+            {
+              "container",
+              content = {
+                { "name", zindex = 10 },
+                { "symlink_target", zindex = 10, highlight = "NeoTreeSymbolicLinkTarget" },
+                { "modified", zindex = 20, align = "right" },
+                { "diagnostics", zindex = 20, align = "right" },
+                { "git_status", zindex = 20, align = "right" },
+              },
+            },
+          },
+          directory = {
+            { "indent" },
+            { "icon" },
+            {
+              "container",
+              content = {
+                { "name", zindex = 10 },
+                { "symlink_target", zindex = 10, highlight = "NeoTreeSymbolicLinkTarget" },
+                { "diagnostics", zindex = 20, align = "right" },
+                { "git_status", zindex = 20, align = "right" },
+              },
+            },
+          },
+        },
+      },
+    })
+  '';
 
   programs.nixvim.keymaps = [
     {
