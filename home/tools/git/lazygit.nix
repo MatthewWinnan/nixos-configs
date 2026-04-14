@@ -1,7 +1,15 @@
 # Obtained from https://github.com/sukhmancs/nixos-configs/blob/94b744f0f81d4a610fccdab94e5b25a2138d4c92/homes/shared/programs/git/lazygit.nix
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  inherit (config.lib.stylix) colors;
+in {
   home.packages = with pkgs; [
     lazygit
+    serie
   ];
 
   programs.lazygit = {
@@ -10,13 +18,18 @@
       notARepository = "quit";
 
       gui = {
+        sidePanelWidth = 0.2;
         theme = {
-          unstagedChangesColor = [
-            "red"
-            "bold"
-          ];
-          selectedLineBgColor = ["#263c42"];
-          selectedRangeBgColor = ["#263c42"];
+          activeBorderColor = ["#${colors.base0D}" "bold"];
+          inactiveBorderColor = ["#${colors.base03}"];
+          searchingActiveBorderColor = ["#${colors.base0A}" "bold"];
+          optionsTextColor = ["#${colors.base0D}"];
+          selectedLineBgColor = ["#${colors.base02}"];
+          selectedRangeBgColor = ["#${colors.base02}"];
+          cherryPickedCommitBgColor = ["#${colors.base0B}"];
+          cherryPickedCommitFgColor = ["#${colors.base00}"];
+          unstagedChangesColor = ["#${colors.base08}" "bold"];
+          defaultFgColor = ["#${colors.base05}"];
         };
       };
 
@@ -24,10 +37,23 @@
         pagers = [
           {
             colorArg = "always";
-            pager = "delta --dark --paging=never";
+            pager = "delta --dark --paging=never --side-by-side --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\" --syntax-theme=base16-256";
+          }
+          {
+            externalDiffCommand = "difft --color=always";
           }
         ];
       };
+
+      customCommands = [
+        {
+          key = "S";
+          context = "global";
+          command = "serie";
+          output = "terminal";
+          description = "Open serie git graph";
+        }
+      ];
 
       keybinding = {
         universal = {

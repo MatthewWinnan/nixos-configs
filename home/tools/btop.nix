@@ -8,14 +8,35 @@
       theme_background = false;
 
       # Set to True to enable "h,j,k,l,g,G" keys for directional control in lists.
-      #Conflicting keys for h:"help" and k:"kill" is accessible while holding shift.
+      # Conflicting keys for h:"help" and k:"kill" is accessible while holding shift.
       vim_keys = true;
 
       # Rounded corners on boxes, is ignored if TTY mode is ON.
-      rounder_corners = true;
+      rounded_corners = true;
 
       # Default symbols for graph creation
       graph_symbol = "braille";
+
+      # Prettier process tree
+      proc_tree = true;
+      proc_gradient = true;
+      proc_per_core = false;
+
+      # Show CPU temp and graph
+      show_coretemp = true;
+      temp_scale = "celsius";
+      cpu_graph_upper = "total";
+      cpu_graph_lower = "total";
+
+      # Show battery stats if available
+      show_battery = true;
+
+      # Show disk IO activity
+      show_io_stat = true;
+      io_mode = false;
+
+      # Network graph auto-scaling
+      net_auto = true;
     };
   };
 }
