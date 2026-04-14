@@ -21,6 +21,7 @@
         imports = [
           ../../../home
           ../settings
+          ./hypridle.nix # Disable hypridle for work machine
         ];
 
         home = {

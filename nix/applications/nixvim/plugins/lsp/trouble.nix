@@ -8,7 +8,7 @@
     {
       mode = "n";
       key = "<leader>dx";
-      action = "<cmd>Trouble diagnostics toggle focus=false win.position=right<cr>";
+      action = "<cmd>Trouble diagnostics toggle focus=false win.position=right win.size.width=80<cr>";
       options = {
         desc = "Diagnostics (Trouble)";
       };
