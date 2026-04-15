@@ -218,6 +218,18 @@ let
     hyperfine # CLI benchmarking tool
     # https://github.com/denisidoro/navi
     navi # Interactive cheatsheet
+    # https://github.com/chmln/sd
+    sd # Intuitive sed alternative
+    # https://github.com/theryangeary/choose
+    choose # Simpler cut alternative
+    # https://github.com/mr-karan/doggo
+    doggo # Prettier dig alternative
+    # https://github.com/ducaale/xh
+    xh # Colorized curl alternative
+    # https://github.com/fujiapple852/trippy
+    trippy # Visual traceroute TUI
+    # https://github.com/sharkdp/hexyl
+    hexyl # Colorized hex viewer
   ];
 
   # ============================================================================

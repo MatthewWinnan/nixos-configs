@@ -66,6 +66,12 @@ in
         grep = "${pkgs.ripgrep}/bin/rg";
         ps = "${pkgs.procs}/bin/procs";
         ping = "${pkgs.gping}/bin/gping";
+        sed = "${pkgs.sd}/bin/sd";
+        cut = "${pkgs.choose}/bin/choose";
+        diff = "${pkgs.delta}/bin/delta";
+        dig = "${pkgs.doggo}/bin/doggo";
+        curl = "${pkgs.xh}/bin/xh";
+        hexdump = "${pkgs.hexyl}/bin/hexyl";
         tree = "${pkgs.eza}/bin/eza --git --icons --tree";
 
         # File navigation with eza
