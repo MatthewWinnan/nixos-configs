@@ -3,14 +3,24 @@
   pkgs,
   lib,
   ...
-}: {
-  # I need it here since Home manager is managing it and I set default user shell here
-  programs.fish.enable = true;
+}:
+let
+  shellPkg = {
+    "fish" = pkgs.fish;
+    "zsh" = pkgs.zsh;
+    "bash" = pkgs.bash;
+    "nushell" = pkgs.nushell;
+  }.${config.userSettings.shell};
+in
+{
+  # Enable the selected shell at the system level (required for login shell to work)
+  programs.fish.enable = config.userSettings.shell == "fish";
+  programs.zsh.enable = config.userSettings.shell == "zsh";
 
   users = lib.mkMerge [
     (
       lib.mkIf (config.systemSettings.profile == "work") {
-        defaultUserShell = pkgs.fish;
+        defaultUserShell = shellPkg;
 
         users.${config.userSettings.username} = {
           isNormalUser = true;
@@ -27,7 +37,7 @@
     )
     (
       lib.mkIf (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming") {
-        defaultUserShell = pkgs.fish;
+        defaultUserShell = shellPkg;
         users.${config.userSettings.username} = {
           isNormalUser = true;
           description = "${config.userSettings.name}";

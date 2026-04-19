@@ -34,7 +34,6 @@ in {
       find = "${pkgs.fd}/bin/fd";
       grep = "${pkgs.ripgrep}/bin/rg";
       ps = "${pkgs.procs}/bin/procs";
-      ping = "${pkgs.gping}/bin/gping";
       sed = "${pkgs.sd}/bin/sd";
       cut = "${pkgs.choose}/bin/choose";
       diff = "${pkgs.delta}/bin/delta";

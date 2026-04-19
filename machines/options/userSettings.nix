@@ -35,6 +35,16 @@ in
         default = "catppuccin";
         description = "Select which waybar theme you want to use.";
       };
+      shell = lib.mkOption {
+        type = enum [
+          "fish"
+          "zsh"
+          "bash"
+          "nushell"
+        ];
+        default = "fish";
+        description = "Select which shell to use as the default login shell.";
+      };
     };
   };
 }
