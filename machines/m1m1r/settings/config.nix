@@ -17,5 +17,6 @@
     username = "matthew";
     name = "Matthew";
     email = "mcwinnan@gmail.com";
+    shell = "fish";
   };
 }

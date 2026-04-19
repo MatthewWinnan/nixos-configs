@@ -48,5 +48,6 @@
     name = "Matthew";
     email = "matthew.winnan@mirasecurity.com";
     browser = "qutebrowser";
+    shell = "fish";
   };
 }

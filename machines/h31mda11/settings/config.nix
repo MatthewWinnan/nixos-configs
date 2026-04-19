@@ -38,5 +38,6 @@
     email = "mcwinnan@gmail.com";
     browser = "qutebrowser";
     waybar = "omarchy";
+    shell = "fish";
   };
 }

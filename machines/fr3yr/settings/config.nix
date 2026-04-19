@@ -18,5 +18,6 @@
     name = "Matthew";
     email = "mcwinnan@gmail.com";
     browser = "qutebrowser";
+    shell = "fish";
   };
 }
