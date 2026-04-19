@@ -136,6 +136,31 @@ in
     };
   };
 
+  # Initialise the Calibre library (metadata.db) if it doesn't exist yet.
+  # Calibre-Web refuses to start without a valid library so this must run first.
+  systemd.services.calibre-web = {
+    requires = [ "calibre-library-init.service" ];
+    after = [ "calibre-library-init.service" ];
+  };
+
+  systemd.services.calibre-library-init = {
+    description = "Initialise Calibre library metadata.db";
+    before = [ "calibre-web.service" ];
+    wantedBy = [ "calibre-web.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      User = "calibre-web";
+      Group = mediaGroup;
+    };
+    script = ''
+      if [ ! -f "${booksDir}/metadata.db" ]; then
+        ${pkgs.calibre}/bin/calibredb list --library-path "${booksDir}" > /dev/null
+        echo "Calibre library initialised at ${booksDir}"
+      fi
+    '';
+  };
+
   # Add Jellyfin to media group for shared access
   users.users.jellyfin.extraGroups = [ mediaGroup ];
 
