@@ -3,7 +3,7 @@
 # - Still need to add my aliases if I want to use this
 {config, ...}: {
   programs.bash = {
-    enable = false;
+    enable = config.userSettings.shell == "bash";
     enableCompletion = true;
     historyControl = ["erasedups" "ignoredups" "ignorespace"];
     historyFile = "${config.xdg.dataHome}/bash_history";

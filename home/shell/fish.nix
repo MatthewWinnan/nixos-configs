@@ -10,7 +10,7 @@ let
 in
 {
   programs.fish = {
-    enable = true;
+    enable = config.userSettings.shell == "fish";
     interactiveShellInit = ''
       clear;sleep 0.1;fastfetch
 

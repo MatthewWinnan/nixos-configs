@@ -9,7 +9,7 @@
   ...
 }: {
   programs.nushell = {
-    enable = false;
+    enable = config.userSettings.shell == "nushell";
 
     # Add conidtional aliases
     shellAliases = lib.mkMerge [

@@ -17,7 +17,7 @@ in {
 
   config = {
     programs.zsh = {
-      enable = true;
+      enable = config.userSettings.shell == "zsh";
       dotDir = "${config.home.homeDirectory}/config/zsh";
       enableCompletion = true;
       enableVteIntegration = true;
