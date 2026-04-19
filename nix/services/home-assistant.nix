@@ -89,12 +89,18 @@
           icon = "mdi:home";
           cards = [
             {
+              type = "weather-forecast";
+              entity = "weather.forecast_home";
+              forecast_type = "daily";
+            }
+            {
               type = "entities";
               title = "Machine Status";
               entities = [
                 { entity = "binary_sensor.th0r_status"; name = "th0r"; }
                 { entity = "binary_sensor.fr3yr_status"; name = "fr3yr"; }
                 { entity = "binary_sensor.h31mda11_status"; name = "h31mda11"; }
+                { entity = "binary_sensor.ba1dr_status"; name = "ba1dr"; }
               ];
             }
           ];
@@ -152,6 +158,7 @@
               { host = "th0r";     id = "th0r"; }
               { host = "fr3yr";    id = "fr3yr"; }
               { host = "h31mda11"; id = "h31mda11"; }
+              { host = "ba1dr";    id = "ba1dr"; }
             ];
         }
       ];
