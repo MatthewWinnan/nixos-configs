@@ -130,6 +130,10 @@ in
     enable = true;
     openFirewall = true;
     group = mediaGroup;
+    listen = {
+      ip = "0.0.0.0";
+      port = 8083;
+    };
     options = {
       calibreLibrary = booksDir;
       enableBookUploading = true;
