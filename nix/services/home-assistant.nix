@@ -87,54 +87,72 @@
         {
           title = "Overview";
           icon = "mdi:home";
-          cards = [ { type = "original-states"; } ];
-        }
-        {
-          title = "Servers";
-          path = "servers";
-          icon = "mdi:server";
           cards = [
             {
               type = "entities";
               title = "Machine Status";
               entities = [
                 { entity = "binary_sensor.th0r_status"; name = "th0r"; }
+                { entity = "binary_sensor.fr3yr_status"; name = "fr3yr"; }
+                { entity = "binary_sensor.h31mda11_status"; name = "h31mda11"; }
               ];
-            }
-            {
-              type = "history-graph";
-              title = "th0r CPU & RAM";
-              hours_to_show = 24;
-              entities = [
-                { entity = "sensor.th0r_cpu_usage"; name = "CPU"; }
-                { entity = "sensor.th0r_ram_usage"; name = "RAM"; }
-              ];
-            }
-            {
-              type = "gauge";
-              entity = "sensor.th0r_cpu_usage";
-              name = "th0r CPU";
-              min = 0;
-              max = 100;
-              severity = {
-                green = 0;
-                yellow = 60;
-                red = 85;
-              };
-            }
-            {
-              type = "gauge";
-              entity = "sensor.th0r_ram_usage";
-              name = "th0r RAM";
-              min = 0;
-              max = 100;
-              severity = {
-                green = 0;
-                yellow = 70;
-                red = 90;
-              };
             }
           ];
+        }
+        {
+          title = "Servers";
+          path = "servers";
+          icon = "mdi:server";
+          cards = map
+            (m: {
+              type = "vertical-stack";
+              cards = [
+                {
+                  type = "history-graph";
+                  title = "${m.host} CPU / RAM / Disk";
+                  hours_to_show = 24;
+                  entities = [
+                    { entity = "sensor.${m.id}_cpu_usage"; name = "CPU"; }
+                    { entity = "sensor.${m.id}_ram_usage"; name = "RAM"; }
+                    { entity = "sensor.${m.id}_disk_usage"; name = "Disk"; }
+                  ];
+                }
+                {
+                  type = "horizontal-stack";
+                  cards = [
+                    {
+                      type = "gauge";
+                      entity = "sensor.${m.id}_cpu_usage";
+                      name = "CPU";
+                      min = 0;
+                      max = 100;
+                      severity = { green = 0; yellow = 60; red = 85; };
+                    }
+                    {
+                      type = "gauge";
+                      entity = "sensor.${m.id}_ram_usage";
+                      name = "RAM";
+                      min = 0;
+                      max = 100;
+                      severity = { green = 0; yellow = 70; red = 90; };
+                    }
+                    {
+                      type = "gauge";
+                      entity = "sensor.${m.id}_disk_usage";
+                      name = "Disk";
+                      min = 0;
+                      max = 100;
+                      severity = { green = 0; yellow = 70; red = 90; };
+                    }
+                  ];
+                }
+              ];
+            })
+            [
+              { host = "th0r";     id = "th0r"; }
+              { host = "fr3yr";    id = "fr3yr"; }
+              { host = "h31mda11"; id = "h31mda11"; }
+            ];
         }
       ];
     };

@@ -18,5 +18,7 @@
     ../../../nix/services/caddy-proxy
     # Authelia authentication server
     ../../../nix/services/authelia
+    # System monitoring (CPU/RAM → MQTT → Home Assistant)
+    ../../../nix/services/system-monitor.nix
   ];
 }
