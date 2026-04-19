@@ -1,5 +1,6 @@
 # For nixOS specific imports
-{inputs, ...}: {
+{ inputs, ... }:
+{
   imports = [
     # Gaming specific imports
     ../../../gaming/h31mda11
@@ -13,5 +14,7 @@
     ../../../themes
     # Boot settings
     ./boot.nix
+    # System monitoring (CPU/RAM → MQTT → Home Assistant)
+    ../../../nix/services/system-monitor.nix
   ];
 }

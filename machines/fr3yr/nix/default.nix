@@ -18,5 +18,7 @@
     ../../../nix/services/home-assistant.nix
     # Tailscale for remote access
     ../../../nix/services/tailscale.nix
+    # System monitoring (CPU/RAM → MQTT → Home Assistant)
+    ../../../nix/services/system-monitor.nix
   ];
 }

@@ -11,11 +11,13 @@
 }:
 let
   # Custom Caddy with defender plugin
+  # Pinned via module replacement to the canonical GitHub source, which is
+  # cached immutably by proxy.golang.org rather than the vanity domain.
   caddyCustom = pkgs.caddy.withPlugins {
     plugins = [
-      "pkg.jsn.cam/caddy-defender@v0.10.0"
+      "pkg.jsn.cam/caddy-defender=github.com/JasonLovesDoggo/caddy-defender@v0.10.0"
     ];
-    hash = "sha256-uucD7cwXlZBA3FbxP6ep0Ysz2LcDBpb4Q/gHuqtcWG8=";
+    hash = "sha256-BgIfQVrHlyBW8RZe6OxDYYGgQkn/hLk+FmhraQdcC+I=";
   };
 
   localPort = 8080;

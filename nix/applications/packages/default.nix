@@ -302,6 +302,8 @@ let
       twitch-cli # Twitch chat CLI
       # For secrets
       sops
+      # https://mqtt-explorer.com/
+      mqtt-explorer # MQTT debugging GUI
     ]);
 
   # ============================================================================
