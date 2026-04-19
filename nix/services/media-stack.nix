@@ -80,6 +80,7 @@ in
     openFirewall = true;
   };
   users.users.qbittorrent.extraGroups = [ mediaGroup ];
+  systemd.services.qbittorrent.serviceConfig.UMask = "0002";
 
   # Prowlarr - indexer manager
   services.prowlarr = {
@@ -93,6 +94,7 @@ in
     openFirewall = true;
     group = mediaGroup;
   };
+  systemd.services.radarr.serviceConfig.UMask = "0002";
 
   # Sonarr - TV show management
   services.sonarr = {
@@ -100,6 +102,7 @@ in
     openFirewall = true;
     group = mediaGroup;
   };
+  systemd.services.sonarr.serviceConfig.UMask = "0002";
 
   # Bazarr - subtitle management
   services.bazarr = {
@@ -120,6 +123,7 @@ in
     openFirewall = true;
     group = mediaGroup;
   };
+  systemd.services.readarr.serviceConfig.UMask = "0002";
 
   # Calibre-Web - book reading UI backed by Calibre library
   services.calibre-web = {
