@@ -78,6 +78,67 @@
         pillow
       ];
 
+    # Lovelace dashboard — fully declarative, managed by Nix
+    # Set lovelaceConfigWritable = true if you want to also edit via the HA UI
+    lovelaceConfigWritable = false;
+    lovelaceConfig = {
+      title = "Home";
+      views = [
+        {
+          title = "Overview";
+          icon = "mdi:home";
+          cards = [ { type = "original-states"; } ];
+        }
+        {
+          title = "Servers";
+          path = "servers";
+          icon = "mdi:server";
+          cards = [
+            {
+              type = "entities";
+              title = "Machine Status";
+              entities = [
+                { entity = "binary_sensor.th0r_status"; name = "th0r"; }
+              ];
+            }
+            {
+              type = "history-graph";
+              title = "th0r CPU & RAM";
+              hours_to_show = 24;
+              entities = [
+                { entity = "sensor.th0r_cpu_usage"; name = "CPU"; }
+                { entity = "sensor.th0r_ram_usage"; name = "RAM"; }
+              ];
+            }
+            {
+              type = "gauge";
+              entity = "sensor.th0r_cpu_usage";
+              name = "th0r CPU";
+              min = 0;
+              max = 100;
+              severity = {
+                green = 0;
+                yellow = 60;
+                red = 85;
+              };
+            }
+            {
+              type = "gauge";
+              entity = "sensor.th0r_ram_usage";
+              name = "th0r RAM";
+              min = 0;
+              max = 100;
+              severity = {
+                green = 0;
+                yellow = 70;
+                red = 90;
+              };
+            }
+          ];
+        }
+      ];
+    };
+
     # Home Assistant configuration (converted to YAML)
     config = {
       # Basic configuration
