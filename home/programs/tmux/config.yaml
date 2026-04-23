@@ -1,0 +1,183 @@
+command_alias_start_index: 200
+
+keybindings:
+  prefix_table: Space
+  root_table: null
+
+title:
+  style: "align=centre,bold"
+  prefix: "tmux"
+  prefix_style: "fg=blue,align=centre,bold"
+
+position:
+  x: R
+  y: P
+
+macros:
+  reload-config:
+    - "source-file ~/.config/tmux/tmux.conf"
+    - 'display "Config reloaded"'
+
+items:
+  # ── Panes ──────────────────────────────────────────
+  - name: +Pane
+    key: p
+    menu:
+      - name: Horizontal split
+        key: h
+        command: "split-window -v -c '#{pane_current_path}'"
+      - name: Vertical split
+        key: v
+        command: "split-window -h -c '#{pane_current_path}'"
+      - name: Kill pane
+        key: x
+        command: "kill-pane"
+      - separator: true
+      - name: Select left
+        key: Left
+        command: "select-pane -L"
+      - name: Select right
+        key: Right
+        command: "select-pane -R"
+      - name: Select up
+        key: Up
+        command: "select-pane -U"
+      - name: Select down
+        key: Down
+        command: "select-pane -D"
+      - separator: true
+      - name: +Resize
+        key: r
+        menu:
+          - name: Grow left
+            key: Left
+            command: "resize-pane -L 5"
+            transient: true
+          - name: Grow down
+            key: Down
+            command: "resize-pane -D 5"
+            transient: true
+          - name: Grow up
+            key: Up
+            command: "resize-pane -U 5"
+            transient: true
+          - name: Grow right
+            key: Right
+            command: "resize-pane -R 5"
+            transient: true
+      - separator: true
+      - name: Toggle zoom
+        key: z
+        command: "resize-pane -Z"
+      - name: Swap pane
+        key: s
+        command: "swap-pane -D"
+
+  # ── Windows ────────────────────────────────────────
+  - name: +Window
+    key: w
+    menu:
+      - name: New window
+        key: c
+        command: "new-window -c '#{pane_current_path}'"
+      - name: Kill window
+        key: k
+        command: "kill-window"
+      - name: Rename window
+        key: r
+        command: "command-prompt -I '#W' 'rename-window -- %%'"
+      - separator: true
+      - name: Previous window
+        key: Left
+        command: "select-window -t -1"
+      - name: Next window
+        key: Right
+        command: "select-window -t +1"
+      - name: Move left
+        key: "<"
+        command: "swap-window -t -1 \\; select-window -t -1"
+      - name: Move right
+        key: ">"
+        command: "swap-window -t +1 \\; select-window -t +1"
+      - separator: true
+      - name: Window 1
+        key: "1"
+        command: "select-window -t 1"
+      - name: Window 2
+        key: "2"
+        command: "select-window -t 2"
+      - name: Window 3
+        key: "3"
+        command: "select-window -t 3"
+      - name: Window 4
+        key: "4"
+        command: "select-window -t 4"
+      - name: Window 5
+        key: "5"
+        command: "select-window -t 5"
+
+  # ── Sessions ───────────────────────────────────────
+  - name: +Session
+    key: s
+    menu:
+      - name: New session
+        key: c
+        command: "new-session -c '#{pane_current_path}'"
+      - name: Kill session
+        key: k
+        command: "kill-session"
+      - name: Rename session
+        key: r
+        command: "command-prompt -I '#S' 'rename-session -- %%'"
+      - separator: true
+      - name: Previous session
+        key: p
+        command: "switch-client -p"
+      - name: Next session
+        key: "n"
+        command: "switch-client -n"
+      - name: Select session
+        key: s
+        command: "choose-tree -Zs"
+      - separator: true
+      - name: Detach
+        key: d
+        command: "detach-client"
+
+  # ── Copy mode ──────────────────────────────────────
+  - name: Copy mode
+    key: "["
+    command: "copy-mode"
+
+  # ── Quick actions ──────────────────────────────────
+  - separator: true
+  - name: Horizontal split
+    key: h
+    command: "split-window -v -c '#{pane_current_path}'"
+  - name: Vertical split
+    key: v
+    command: "split-window -h -c '#{pane_current_path}'"
+  - name: New window
+    key: c
+    command: "new-window -c '#{pane_current_path}'"
+  - name: Kill pane
+    key: x
+    command: "kill-pane"
+
+  # ── Client ─────────────────────────────────────────
+  - separator: true
+  - name: +Client
+    key: C
+    menu:
+      - name: Reload config
+        key: r
+        macro: reload-config
+      - name: List keys
+        key: "?"
+        command: "list-keys"
+      - name: Show clock
+        key: t
+        command: "clock-mode"
+      - name: Command prompt
+        key: ":"
+        command: "command-prompt"
