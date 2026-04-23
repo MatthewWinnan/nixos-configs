@@ -8,7 +8,7 @@
     hmts.enable = true;
 
     lsp-format = {
-      enable = true;
+      enable = false;
     };
 
     lsp = {
@@ -17,7 +17,10 @@
         lib.recursiveUpdate
         {
           # We use the updated version
-          nil_ls.enable = true;
+          nil_ls = {
+            enable = true;
+            settings.nil.formatting.command = ["alejandra"];
+          };
 
           html.enable = true;
 

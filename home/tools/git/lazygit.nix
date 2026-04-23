@@ -53,6 +53,27 @@ in {
           output = "terminal";
           description = "Open serie git graph";
         }
+        {
+          key = "M";
+          context = "localBranches";
+          command = "glab mr create --fill --target-branch {{.SelectedLocalBranch.UpstreamBranch}}";
+          output = "terminal";
+          description = "Create GitLab MR";
+        }
+        {
+          key = "V";
+          context = "localBranches";
+          command = "glab mr view --web";
+          output = "terminal";
+          description = "View MR in browser";
+        }
+        {
+          key = "I";
+          context = "global";
+          command = "glab ci status";
+          output = "terminal";
+          description = "GitLab CI pipeline status";
+        }
       ];
 
       keybinding = {

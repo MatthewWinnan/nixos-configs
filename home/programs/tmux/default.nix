@@ -15,6 +15,8 @@ let
   inherit (config.lib.stylix) colors;
 in
 {
+  xdg.configFile."tmux/plugins/tmux-which-key/config.yaml".source = ./config.yaml;
+
   programs.tmux = {
     enable = true;
     shell = "${pkgs.fish}/bin/fish";
@@ -38,9 +40,19 @@ in
           set -g @continuum-save-interval '60'
         '';
       }
+      {
+        plugin = tmux-which-key;
+        extraConfig = ''
+          set -g @tmux-which-key-xdg-enable 1
+        '';
+      }
     ];
 
     extraConfig = ''
+      # Source tmux-which-key init (plugin.sh.tmux builds it but doesn't always source it)
+      if-shell "test -f ~/.local/share/tmux/plugins/tmux-which-key/init.tmux" \
+        "source-file ~/.local/share/tmux/plugins/tmux-which-key/init.tmux"
+
       # Secondary prefix
       set -g prefix2 C-b
       bind C-Space send-prefix
