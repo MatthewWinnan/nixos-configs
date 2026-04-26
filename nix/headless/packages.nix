@@ -30,6 +30,7 @@
     git
     nh
     tcpdump
+    usbutils # lsusb
 
     # For caching setup
     attic-client

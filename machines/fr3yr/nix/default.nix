@@ -20,5 +20,9 @@
     ../../../nix/services/tailscale.nix
     # System monitoring (CPU/RAM → MQTT → Home Assistant)
     ../../../nix/services/system-monitor.nix
+    # GPS daemon + MQTT bridge (K-172 DFRobot GPS module)
+    ../../../nix/services/gpsd.nix
+    # NTP correcting
+    ../../../nix/services/timesyncd.nix
   ];
 }

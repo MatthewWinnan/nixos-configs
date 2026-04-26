@@ -161,6 +161,34 @@
               { host = "ba1dr";    id = "ba1dr"; }
             ];
         }
+        {
+          title = "GPS";
+          path = "gps";
+          icon = "mdi:satellite-variant";
+          cards = [
+            {
+              type = "map";
+              entities = [ { entity = "device_tracker.fr3yr_gps"; } ];
+              hours_to_show = 1;
+              zoom = 14;
+            }
+            {
+              type = "entities";
+              title = "K-172 GPS Module";
+              entities = [
+                { entity = "binary_sensor.gps_bridge";   name = "Bridge Online"; }
+                { entity = "binary_sensor.gps_fix";      name = "Fix Acquired"; }
+                { entity = "sensor.gps_fix_mode";        name = "Fix Mode"; }
+                { entity = "sensor.gps_nsat";            name = "Satellites in View"; }
+                { entity = "sensor.gps_usat";            name = "Satellites Used"; }
+                { entity = "sensor.gps_latitude";        name = "Latitude (last known)"; }
+                { entity = "sensor.gps_longitude";       name = "Longitude (last known)"; }
+                { entity = "sensor.gps_altitude";        name = "Altitude (last known)"; }
+                { entity = "sensor.gps_speed";           name = "Speed (last known)"; }
+              ];
+            }
+          ];
+        }
       ];
     };
 
