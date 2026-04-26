@@ -57,6 +57,7 @@ let
     yq # YAML querying
     libxml2 # For faster XML scraping
     tcpdump # For packet inspection
+    poppler-utils # pdftoppm — PDF rendering (required for Claude Code to read PDFs)
   ];
 
   desktopPackages = with pkgs; [
