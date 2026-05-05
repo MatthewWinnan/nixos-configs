@@ -30,9 +30,11 @@
         sandbox = "relaxed";
         # So we can use our local cache
         #always-allow-substitutes = true;
-        substituters = ["http://cachix:8080/fossil?priority=30"];
-        trusted-public-keys = ["fossil:p3AAkC0+gc/JTzfyajd3W+ewQAQhpuq2bwv5Wa3wcIg="];
+        substituters = ["https://nse-services.za.netronome.com:5443/nse_test?priority=30"];
+        trusted-public-keys = ["nse_test:IQzXCQ1lmJfuOuTrgb4Lz40gbWEBvXmcdoiPgScfegY="];
         trusted-users = [config.userSettings.username "root"];
+        connect-timeout = 5;
+        fallback = true;
       }
     )
     (

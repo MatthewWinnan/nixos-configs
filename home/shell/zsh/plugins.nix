@@ -17,10 +17,6 @@ in {
       src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
     }
     {
-      name = "fast-syntax-highlighting";
-      src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
-    }
-    {
       name = "zsh-autosuggestions";
       src = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh";
     }

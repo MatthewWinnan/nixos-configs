@@ -51,6 +51,9 @@
     LS_COLORS="$(${pkgs.coreutils}/bin/dircolors --sh)"
     LS_COLORS="''${''${LS_COLORS#*\'}%\'*}"
     export LS_COLORS
+
+    # Fastfetch on interactive shell startup
+    clear;sleep 0.1;fastfetch
   '';
 in {
   programs.zsh = {

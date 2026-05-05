@@ -209,29 +209,6 @@
         "type": "github"
       }
     },
-    "fenix_2": {
-      "inputs": {
-        "nixpkgs": [
-          "himalaya",
-          "nixpkgs"
-        ],
-        "rust-analyzer-src": "rust-analyzer-src_2"
-      },
-      "locked": {
-        "lastModified": 1767250179,
-        "narHash": "sha256-PnQdWvPZqHp+7yaHWDFX3NYSKaOy0fjkwpR+rIQC7AY=",
-        "owner": "nix-community",
-        "repo": "fenix",
-        "rev": "a3eaf682db8800962943a77ab77c0aae966f9825",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "monthly",
-        "repo": "fenix",
-        "type": "github"
-      }
-    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -523,28 +500,6 @@
       "original": {
         "owner": "hercules-ci",
         "repo": "hercules-ci-effects",
-        "type": "github"
-      }
-    },
-    "himalaya": {
-      "inputs": {
-        "fenix": "fenix_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "pimalaya": "pimalaya"
-      },
-      "locked": {
-        "lastModified": 1771250568,
-        "narHash": "sha256-z+RzrHYrQuGPjRQRp9m+LsjLG5pgVnOYWcYC0pNV4u8=",
-        "owner": "pimalaya",
-        "repo": "himalaya",
-        "rev": "f0b694247447e8ad7d64188767ac6d8fc7d66dec",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pimalaya",
-        "repo": "himalaya",
         "type": "github"
       }
     },
@@ -996,28 +951,11 @@
         "type": "github"
       }
     },
-    "pimalaya": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1768260022,
-        "narHash": "sha256-GS6EOWJ7iRIzNB4pD1lBim2TRAoT8IT2l+tWLLeNhWM=",
-        "owner": "pimalaya",
-        "repo": "nix",
-        "rev": "5317be3d745a3b9687301c94ee5ab68dbc5a1253",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pimalaya",
-        "repo": "nix",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "alejandra": "alejandra",
         "anyrun": "anyrun",
         "awww": "awww",
-        "himalaya": "himalaya",
         "home-manager": "home-manager",
         "lobster": "lobster",
         "manga-tui": "manga-tui",
@@ -1069,23 +1007,6 @@
         "owner": "rust-lang",
         "repo": "rust-analyzer",
         "rev": "f17a5bbfd0969ba2e63a74505a80e55ecb174ed9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rust-lang",
-        "ref": "nightly",
-        "repo": "rust-analyzer",
-        "type": "github"
-      }
-    },
-    "rust-analyzer-src_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1767191410,
-        "narHash": "sha256-cCZGjubgDWmstvFkS6eAw2qk2ihgWkycw55u2dtLd70=",
-        "owner": "rust-lang",
-        "repo": "rust-analyzer",
-        "rev": "a9026e6d5068172bf5a0d52a260bb290961d1cb4",
         "type": "github"
       },
       "original": {

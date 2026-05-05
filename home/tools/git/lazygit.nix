@@ -54,13 +54,6 @@ in {
           description = "Open serie git graph";
         }
         {
-          key = "M";
-          context = "localBranches";
-          command = "glab mr create --fill --target-branch {{.SelectedLocalBranch.UpstreamBranch}}";
-          output = "terminal";
-          description = "Create GitLab MR";
-        }
-        {
           key = "V";
           context = "localBranches";
           command = "glab mr view --web";
