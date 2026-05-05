@@ -19,6 +19,11 @@
   # Select internationalisation properties.
   i18n.defaultLocale = config.systemSettings.locale;
 
+  # Trust nse-services self-signed cert for nix cache
+  security.pki.certificateFiles = lib.mkIf (config.systemSettings.profile == "work") [
+    ../certs/nse-services.crt
+  ];
+
   # We need these settings for typical work....
   nix.settings = lib.mkMerge [
     (
@@ -30,8 +35,8 @@
         sandbox = "relaxed";
         # So we can use our local cache
         #always-allow-substitutes = true;
-        substituters = ["http://cachix:8080/fossil?priority=30"];
-        trusted-public-keys = ["fossil:p3AAkC0+gc/JTzfyajd3W+ewQAQhpuq2bwv5Wa3wcIg="];
+        substituters = ["https://nse-services.za.netronome.com:5443/nse_test?priority=30"];
+        trusted-public-keys = ["nse_test:IQzXCQ1lmJfuOuTrgb4Lz40gbWEBvXmcdoiPgScfegY="];
         trusted-users = [config.userSettings.username "root"];
         connect-timeout = 5;
         fallback = true;

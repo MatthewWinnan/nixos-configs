@@ -22,6 +22,7 @@ in {
       enableCompletion = true;
       enableVteIntegration = true;
       autosuggestion.enable = true;
+      autosuggestion.strategy = ["history" "completion"];
       syntaxHighlighting = {
         enable = true;
         styles = {
@@ -87,6 +88,7 @@ in {
       };
       sessionVariables = {
         LC_ALL = "en_US.UTF-8";
+        LESS = "-R";
       };
 
       history = {
