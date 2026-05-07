@@ -49,6 +49,8 @@ let
     jq # JSON querying
     just # Task runner
     openssl # Cryptography toolkit
+    poppler-utils # PDF tools (pdftotext, pdfinfo)
+    termpdfpy # Terminal PDF viewer (kitty graphics)
     unzip # Archive extraction
     wget # File downloading
     wttrbar # Weather
