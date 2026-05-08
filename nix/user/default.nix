@@ -50,6 +50,11 @@ in
       }
     )
   ];
+
+  services.udev.packages = lib.mkIf
+    (config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming")
+    [ pkgs.openocd ];
+
   # Enable automatic login for the user.
   # services.getty.autologinUser = "h3rm3s";
 }
