@@ -162,6 +162,57 @@
             ];
         }
         {
+          title = "Weather Station";
+          path = "weather-station";
+          icon = "mdi:thermometer";
+          cards = [
+            {
+              type = "vertical-stack";
+              cards = [
+                {
+                  type = "entities";
+                  title = "BMP180 Sensor";
+                  entities = [
+                    { entity = "sensor.bmp180_temperature";    name = "Temperature"; }
+                    { entity = "sensor.bmp180_pressure";       name = "Pressure (QFE)"; }
+                    { entity = "sensor.bmp180_pressure_msl";   name = "Pressure MSL (QNH)"; }
+                    { entity = "sensor.bmp180_altitude";       name = "Altitude (barometric)"; }
+                  ];
+                }
+                {
+                  type = "entities";
+                  title = "Pico UPS-A Battery";
+                  entities = [
+                    { entity = "sensor.pico_w_battery";  name = "Battery"; }
+                    { entity = "sensor.pico_w_voltage";  name = "Voltage"; }
+                    { entity = "sensor.pico_w_current";  name = "Current"; }
+                  ];
+                }
+                {
+                  type = "history-graph";
+                  title = "Weather History (24 h)";
+                  hours_to_show = 24;
+                  entities = [
+                    { entity = "sensor.bmp180_temperature";    name = "Temperature"; }
+                    { entity = "sensor.bmp180_pressure";       name = "Pressure (QFE)"; }
+                    { entity = "sensor.bmp180_pressure_msl";   name = "Pressure MSL (QNH)"; }
+                    { entity = "sensor.bmp180_altitude";       name = "Altitude (barometric)"; }
+                  ];
+                }
+                {
+                  type = "history-graph";
+                  title = "Battery History (24 h)";
+                  hours_to_show = 24;
+                  entities = [
+                    { entity = "sensor.pico_w_battery";  name = "Battery %"; }
+                    { entity = "sensor.pico_w_voltage";  name = "Voltage"; }
+                  ];
+                }
+              ];
+            }
+          ];
+        }
+        {
           title = "GPS";
           path = "gps";
           icon = "mdi:satellite-variant";

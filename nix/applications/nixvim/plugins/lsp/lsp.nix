@@ -35,7 +35,13 @@
 
           # Rember the docs here, important to get running correctly, the compile commands will be handled by my dev shells
           # https://nix-community.github.io/nixvim/plugins/lsp/servers/clangd/index.html#clangd
-          clangd.enable = true;
+          clangd = {
+            enable = true;
+            extraOptions.cmd = [
+              "clangd"
+              "--query-driver=/nix/store/*/bin/arm-none-eabi-*"
+            ];
+          };
           cmake.enable = true;
 
           # For my RUST adventures
