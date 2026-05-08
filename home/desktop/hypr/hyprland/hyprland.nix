@@ -61,11 +61,11 @@ in
         "HYPRCURSOR_THEME,rose-pine-hyprcursor"
         "XCURSOR_THEME,BreezeX-RosePine-Linux"
       ]
-      ++ lib.optionals (config.systemSettings.profile != "work") [
+      ++ lib.optionals (config.deviceSettings.type != "vm") [
         "LIBVA_DRIVER_NAME,nvidia"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
       ]
-      ++ lib.optionals (config.systemSettings.profile == "work") [
+      ++ lib.optionals (config.deviceSettings.type == "vm") [
         "LIBGL_ALWAYS_SOFTWARE,1"
       ];
 
