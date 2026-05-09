@@ -243,6 +243,59 @@
           ];
         }
         {
+          title = "Air Quality";
+          path = "air-quality";
+          icon = "mdi:air-filter";
+          cards = [
+            {
+              type = "vertical-stack";
+              cards = [
+                {
+                  type = "entities";
+                  title = "PM Concentrations";
+                  entities = [
+                    { entity = "sensor.air_pm1_0"; name = "PM1.0"; }
+                    { entity = "sensor.air_pm2_5"; name = "PM2.5"; }
+                    { entity = "sensor.air_pm10";  name = "PM10"; }
+                  ];
+                }
+                {
+                  type = "entities";
+                  title = "Particle Counts (per 0.1 L)";
+                  entities = [
+                    { entity = "sensor.air_cnt_03";  name = ">0.3 µm"; }
+                    { entity = "sensor.air_cnt_05";  name = ">0.5 µm"; }
+                    { entity = "sensor.air_cnt_10";  name = ">1.0 µm"; }
+                    { entity = "sensor.air_cnt_25";  name = ">2.5 µm"; }
+                    { entity = "sensor.air_cnt_50";  name = ">5.0 µm"; }
+                    { entity = "sensor.air_cnt_100"; name = ">10 µm"; }
+                  ];
+                }
+                {
+                  type = "history-graph";
+                  title = "PM Concentrations (24 h)";
+                  hours_to_show = 24;
+                  entities = [
+                    { entity = "sensor.air_pm1_0"; name = "PM1.0"; }
+                    { entity = "sensor.air_pm2_5"; name = "PM2.5"; }
+                    { entity = "sensor.air_pm10";  name = "PM10"; }
+                  ];
+                }
+                {
+                  type = "history-graph";
+                  title = "Fine Particles (24 h)";
+                  hours_to_show = 24;
+                  entities = [
+                    { entity = "sensor.air_cnt_03"; name = ">0.3 µm"; }
+                    { entity = "sensor.air_cnt_05"; name = ">0.5 µm"; }
+                    { entity = "sensor.air_cnt_10"; name = ">1.0 µm"; }
+                  ];
+                }
+              ];
+            }
+          ];
+        }
+        {
           title = "GPS";
           path = "gps";
           icon = "mdi:satellite-variant";
