@@ -171,12 +171,23 @@
               cards = [
                 {
                   type = "entities";
-                  title = "BMP180 Sensor";
+                  title = "BMP180";
                   entities = [
                     { entity = "sensor.bmp180_temperature";    name = "Temperature"; }
                     { entity = "sensor.bmp180_pressure";       name = "Pressure (QFE)"; }
                     { entity = "sensor.bmp180_pressure_msl";   name = "Pressure MSL (QNH)"; }
                     { entity = "sensor.bmp180_altitude";       name = "Altitude (barometric)"; }
+                  ];
+                }
+                {
+                  type = "entities";
+                  title = "BME280";
+                  entities = [
+                    { entity = "sensor.bme280_temperature";    name = "Temperature"; }
+                    { entity = "sensor.bme280_pressure";       name = "Pressure (QFE)"; }
+                    { entity = "sensor.bme280_pressure_msl";   name = "Pressure MSL (QNH)"; }
+                    { entity = "sensor.bme280_altitude";       name = "Altitude (barometric)"; }
+                    { entity = "sensor.bme280_humidity";       name = "Humidity"; }
                   ];
                 }
                 {
@@ -190,18 +201,37 @@
                 }
                 {
                   type = "history-graph";
-                  title = "Weather History (24 h)";
+                  title = "Temperature & Humidity (24 h)";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.bmp180_temperature";    name = "Temperature"; }
-                    { entity = "sensor.bmp180_pressure";       name = "Pressure (QFE)"; }
-                    { entity = "sensor.bmp180_pressure_msl";   name = "Pressure MSL (QNH)"; }
-                    { entity = "sensor.bmp180_altitude";       name = "Altitude (barometric)"; }
+                    { entity = "sensor.bmp180_temperature";    name = "BMP180 Temp"; }
+                    { entity = "sensor.bme280_temperature";    name = "BME280 Temp"; }
+                    { entity = "sensor.bme280_humidity";       name = "Humidity"; }
                   ];
                 }
                 {
                   type = "history-graph";
-                  title = "Battery History (24 h)";
+                  title = "Pressure (24 h)";
+                  hours_to_show = 24;
+                  entities = [
+                    { entity = "sensor.bmp180_pressure";       name = "BMP180 QFE"; }
+                    { entity = "sensor.bmp180_pressure_msl";   name = "BMP180 QNH"; }
+                    { entity = "sensor.bme280_pressure";       name = "BME280 QFE"; }
+                    { entity = "sensor.bme280_pressure_msl";   name = "BME280 QNH"; }
+                  ];
+                }
+                {
+                  type = "history-graph";
+                  title = "Altitude (24 h)";
+                  hours_to_show = 24;
+                  entities = [
+                    { entity = "sensor.bmp180_altitude";       name = "BMP180"; }
+                    { entity = "sensor.bme280_altitude";       name = "BME280"; }
+                  ];
+                }
+                {
+                  type = "history-graph";
+                  title = "Battery (24 h)";
                   hours_to_show = 24;
                   entities = [
                     { entity = "sensor.pico_w_battery";  name = "Battery %"; }
@@ -230,8 +260,8 @@
                 { entity = "binary_sensor.gps_bridge";   name = "Bridge Online"; }
                 { entity = "binary_sensor.gps_fix";      name = "Fix Acquired"; }
                 { entity = "sensor.gps_fix_mode";        name = "Fix Mode"; }
-                { entity = "sensor.gps_nsat";            name = "Satellites in View"; }
-                { entity = "sensor.gps_usat";            name = "Satellites Used"; }
+                { entity = "sensor.gps_nsat";            name = "nSat (in View)"; }
+                { entity = "sensor.gps_usat";            name = "uSat (Used)"; }
                 { entity = "sensor.gps_latitude";        name = "Latitude (last known)"; }
                 { entity = "sensor.gps_longitude";       name = "Longitude (last known)"; }
                 { entity = "sensor.gps_altitude";        name = "Altitude (last known)"; }

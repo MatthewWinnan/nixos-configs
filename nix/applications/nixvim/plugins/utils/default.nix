@@ -16,5 +16,6 @@
     ./texpresso.nix
     ./vim-bbye.nix
     ./todo-comments.nix
+    ./claude-code.nix
   ];
 }

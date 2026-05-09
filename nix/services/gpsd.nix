@@ -23,7 +23,6 @@ let
 
   latDiscovery = builtins.toJSON {
     name = "GPS Latitude";
-    object_id = "gps_latitude";
     state_topic = "${gpsTopic}/tpv";
     value_template = "{{ value_json.lat | round(6) }}";
     unit_of_measurement = "°";
@@ -35,7 +34,6 @@ let
 
   lonDiscovery = builtins.toJSON {
     name = "GPS Longitude";
-    object_id = "gps_longitude";
     state_topic = "${gpsTopic}/tpv";
     value_template = "{{ value_json.lon | round(6) }}";
     unit_of_measurement = "°";
@@ -47,7 +45,6 @@ let
 
   altDiscovery = builtins.toJSON {
     name = "GPS Altitude";
-    object_id = "gps_altitude";
     state_topic = "${gpsTopic}/tpv";
     value_template = "{{ value_json.alt | round(1) }}";
     unit_of_measurement = "m";
@@ -59,7 +56,6 @@ let
 
   speedDiscovery = builtins.toJSON {
     name = "GPS Speed";
-    object_id = "gps_speed";
     state_topic = "${gpsTopic}/tpv";
     value_template = "{{ value_json.speed | round(2) }}";
     unit_of_measurement = "m/s";
@@ -71,7 +67,6 @@ let
 
   fixDiscovery = builtins.toJSON {
     name = "GPS Fix";
-    object_id = "gps_fix";
     state_topic = "${gpsTopic}/tpv";
     value_template = ''{{ "ON" if value_json.mode >= 2 else "OFF" }}'';
 
@@ -83,7 +78,6 @@ let
 
   modeDiscovery = builtins.toJSON {
     name = "GPS Fix Mode";
-    object_id = "gps_fix_mode";
     state_topic = "${gpsTopic}/tpv";
     value_template = ''{{ {0: "No Fix", 1: "No Fix", 2: "2D Fix", 3: "3D Fix"}.get(value_json.mode | int, "Unknown") }}'';
 
@@ -93,8 +87,7 @@ let
   };
 
   nSatDiscovery = builtins.toJSON {
-    name = "GPS Satellites in View";
-    object_id = "gps_nsat";
+    name = "GPS nSat";
     state_topic = "${gpsTopic}/tpv";
     value_template = "{{ value_json.nSat }}";
     unit_of_measurement = "sat";
@@ -105,8 +98,7 @@ let
   };
 
   uSatDiscovery = builtins.toJSON {
-    name = "GPS Satellites Used";
-    object_id = "gps_usat";
+    name = "GPS uSat";
     state_topic = "${gpsTopic}/tpv";
     value_template = "{{ value_json.uSat }}";
     unit_of_measurement = "sat";
@@ -118,7 +110,6 @@ let
 
   trackerDiscovery = builtins.toJSON {
     name = "fr3yr GPS";
-    object_id = "fr3yr_gps";
     state_topic = "${gpsTopic}/tpv";
     value_template = ''{{ "home" if value_json.mode >= 2 else "not_home" }}'';
     json_attributes_topic = "${gpsTopic}/location";
@@ -132,7 +123,6 @@ let
   # so they retain their last known value when the bridge is down.
   bridgeStatusDiscovery = builtins.toJSON {
     name = "GPS Bridge";
-    object_id = "gps_bridge";
     state_topic = statusTopic;
     payload_on = "online";
     payload_off = "offline";

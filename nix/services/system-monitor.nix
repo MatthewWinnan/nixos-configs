@@ -40,7 +40,6 @@ let
     availability
     // {
       name = "${hostname} CPU Usage";
-      object_id = "${hostname}_cpu_usage";
       state_topic = "telegraf/${hostname}/cpu";
       value_template = "{{ (100 - value_json.fields.usage_idle) | round(1) }}";
       unit_of_measurement = "%";
@@ -55,7 +54,6 @@ let
     availability
     // {
       name = "${hostname} Disk Usage";
-      object_id = "${hostname}_disk_usage";
       state_topic = "telegraf/${hostname}/disk";
       value_template = "{{ value_json.fields.used_percent | round(1) }}";
       unit_of_measurement = "%";
@@ -70,7 +68,6 @@ let
     availability
     // {
       name = "${hostname} RAM Usage";
-      object_id = "${hostname}_ram_usage";
       state_topic = "telegraf/${hostname}/mem";
       value_template = "{{ value_json.fields.used_percent | round(1) }}";
       unit_of_measurement = "%";
@@ -84,7 +81,6 @@ let
   # Binary sensor for machine online/offline — no expire_after, purely LWT-driven
   statusDiscovery = builtins.toJSON {
     name = "${hostname} Status";
-    object_id = "${hostname}_status";
     state_topic = statusTopic;
     payload_on = "online";
     payload_off = "offline";
