@@ -240,26 +240,14 @@
                   type = "entities";
                   title = "BME280";
                   entities = [
-                    {
-                      entity = "sensor.bme280_temperature";
-                      name = "Temperature";
-                    }
-                    {
-                      entity = "sensor.bme280_pressure";
-                      name = "Pressure (QFE)";
-                    }
-                    {
-                      entity = "sensor.bme280_pressure_msl";
-                      name = "Pressure MSL (QNH)";
-                    }
-                    {
-                      entity = "sensor.bme280_altitude";
-                      name = "Altitude (barometric)";
-                    }
-                    {
-                      entity = "sensor.bme280_humidity";
-                      name = "Humidity";
-                    }
+                    { entity = "sensor.bme280_temperature";    name = "Temperature"; }
+                    { entity = "sensor.bme280_pressure";       name = "Pressure (QFE)"; }
+                    { entity = "sensor.bme280_pressure_msl";   name = "Pressure MSL (QNH)"; }
+                    { entity = "sensor.bme280_altitude";       name = "Altitude (barometric)"; }
+                    { entity = "sensor.bme280_humidity";       name = "Humidity"; }
+                    { entity = "sensor.bme280_tendency";        name = "Tendency (3 h)"; }
+                    { entity = "sensor.bme280_tendency_a";      name = "Tendency Code (WMO)"; }
+                    { entity = "sensor.bme280_tendency_a_desc"; name = "Tendency Description"; }
                   ];
                 }
                 {
@@ -300,8 +288,21 @@
                   ];
                 }
                 {
+                  # 1-minute resolution MSL pressure from the hires burst topic.
+                  # Readings arrive clustered at each 10-min publish time — the
+                  # graph still shows 1-min granularity within each cluster.
                   type = "history-graph";
-                  title = "Pressure (24 h)";
+                  title = "Pressure MSL hires — 1 min (24 h)";
+                  hours_to_show = 24;
+                  entities = [
+                    { entity = "sensor.bmp180_press_msl_hires"; name = "BMP180 QNH (1 min)"; }
+                    { entity = "sensor.bme280_press_msl_hires"; name = "BME280 QNH (1 min)"; }
+                  ];
+                }
+                {
+                  # 10-minute averaged pressure from the state topic.
+                  type = "history-graph";
+                  title = "Pressure (10 min avg, 24 h)";
                   hours_to_show = 24;
                   entities = [
                     {
@@ -320,6 +321,18 @@
                       entity = "sensor.bme280_pressure_msl";
                       name = "BME280 QNH";
                     }
+                  ];
+                }
+                {
+                  # 3-hour pressure tendency. Shows Unknown until 3 h of data accumulate.
+                  # WMO codes 0-8 describe the shape; description gives plain English.
+                  # 72 h window shows multiple frontal passages clearly.
+                  type = "history-graph";
+                  title = "Pressure Tendency 3 h — BME280 (72 h)";
+                  hours_to_show = 72;
+                  entities = [
+                    { entity = "sensor.bme280_tendency";        name = "Tendency (hPa/3h)"; }
+                    { entity = "sensor.bme280_tendency_a";      name = "WMO Code (0-8)"; }
                   ];
                 }
                 {
@@ -368,18 +381,12 @@
                   type = "entities";
                   title = "PM Concentrations";
                   entities = [
-                    {
-                      entity = "sensor.air_pm1_0";
-                      name = "PM1.0";
-                    }
-                    {
-                      entity = "sensor.air_pm2_5";
-                      name = "PM2.5";
-                    }
-                    {
-                      entity = "sensor.air_pm10";
-                      name = "PM10";
-                    }
+                    { entity = "sensor.air_pm1_0";    name = "PM1.0 (1 min)"; }
+                    { entity = "sensor.air_pm2_5";    name = "PM2.5 (1 min)"; }
+                    { entity = "sensor.air_pm10";     name = "PM10 (1 min)"; }
+                    { entity = "sensor.air_pm2_5_1h"; name = "PM2.5 (1 h mean)"; }
+                    { entity = "sensor.air_pm10_1h";  name = "PM10 (1 h mean)"; }
+                    { entity = "sensor.air_aqi";      name = "Air Quality (WHO)"; }
                   ];
                 }
                 {
@@ -429,6 +436,15 @@
                       entity = "sensor.air_pm10";
                       name = "PM10";
                     }
+                  ];
+                }
+                {
+                  type = "history-graph";
+                  title = "PM 1-Hour Mean (24 h) — WHO: PM2.5 ≤15, PM10 ≤45 µg/m³";
+                  hours_to_show = 24;
+                  entities = [
+                    { entity = "sensor.air_pm2_5_1h"; name = "PM2.5 (1 h)"; }
+                    { entity = "sensor.air_pm10_1h";  name = "PM10 (1 h)"; }
                   ];
                 }
                 {
