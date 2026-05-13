@@ -53,19 +53,53 @@ in {
           output = "terminal";
           description = "Open serie git graph";
         }
+        # GitLab: View MR in browser for selected branch
         {
           key = "V";
           context = "localBranches";
-          command = "glab mr view --web";
-          output = "terminal";
+          command = "glab mr view --web {{.SelectedLocalBranch.Name}}";
+          output = "log";
           description = "View MR in browser";
         }
+        # GitLab: Quick pipeline status (global)
         {
           key = "I";
           context = "global";
           command = "glab ci status";
           output = "terminal";
           description = "GitLab CI pipeline status";
+        }
+        # GitLab: List open MRs (from branches context - see what's in review)
+        {
+          key = "L";
+          context = "localBranches";
+          command = "glab mr list --assignee=@me";
+          output = "terminal";
+          description = "List my open MRs";
+        }
+        # GitLab: Create MR from selected branch
+        {
+          key = "C";
+          context = "localBranches";
+          command = "glab mr create --web --source-branch {{.SelectedLocalBranch.Name}}";
+          output = "log";
+          description = "Create MR in browser";
+        }
+        # GitLab: Interactive pipeline viewer for selected branch
+        {
+          key = "E";
+          context = "localBranches";
+          command = "glab ci view {{.SelectedLocalBranch.Name}}";
+          output = "terminal";
+          description = "View branch pipeline (interactive)";
+        }
+        # GitLab: View pipeline from commits context
+        {
+          key = "H";
+          context = "commits";
+          command = "glab ci view";
+          output = "terminal";
+          description = "View pipeline (interactive)";
         }
       ];
 

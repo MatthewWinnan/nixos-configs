@@ -46,7 +46,8 @@
   ...
 }:
 let
-  isEnabled = builtins.elem config.systemSettings.profile [ "gaming" "personal" ];
+  # isEnabled = builtins.elem config.systemSettings.profile [ "gaming" "personal" ];
+  isEnabled = false;
   username = config.userSettings.username;
   musicDir = "/home/${username}/Media/Music";
   downloadsDir = "/home/${username}/Media/Downloads/music";
