@@ -21,7 +21,21 @@
       misc = {};
 
       # https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-surround.md
-      surround = {};
+      surround = {
+        mappings = {
+          add = "gsa";
+          delete = "gsd";
+          find = "gsf";
+          find_left = "gsF";
+          highlight = "gsh";
+          replace = "gsr";
+          update_n_lines = "gsn";
+        };
+      };
+
+      # https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-icons.md
+      # Provides colored icons for which-key and other plugins
+      icons = {};
     };
   };
 

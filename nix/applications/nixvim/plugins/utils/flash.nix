@@ -17,51 +17,34 @@
   };
   programs.nixvim.keymaps = [
     {
-      mode = [
-        "n"
-        "x"
-        "o"
-      ];
-      key = "<leader>fs";
-      action = "<cmd>lua require('flash').jump()<cr>";
-      options = {
-        desc = "Flash";
-      };
+      mode = ["n" "x" "o"];
+      key = "s";
+      action.__raw = "function() require('flash').jump() end";
+      options.desc = "Flash";
     }
-
     {
-      mode = [
-        "n"
-        "x"
-        "o"
-      ];
-      key = "<leader>ft";
-      action = "<cmd>lua require('flash').treesitter()<cr>";
-      options = {
-        desc = "Flash Treesitter";
-      };
+      mode = ["n" "x" "o"];
+      key = "S";
+      action.__raw = "function() require('flash').treesitter() end";
+      options.desc = "Flash Treesitter";
     }
-
     {
       mode = "o";
       key = "r";
-      action = "<cmd>lua require('flash').remote()<cr>";
-      options = {
-        desc = "Remote Flash";
-      };
+      action.__raw = "function() require('flash').remote() end";
+      options.desc = "Remote Flash";
     }
-
     {
-      mode = [
-        "x"
-        "o"
-        "n"
-      ];
-      key = "<leader>fr";
-      action = "<cmd>lua require('flash').treesitter_search()<cr>";
-      options = {
-        desc = "Treesitter Search";
-      };
+      mode = ["x" "o"];
+      key = "R";
+      action.__raw = "function() require('flash').treesitter_search() end";
+      options.desc = "Treesitter Search";
+    }
+    {
+      mode = "c";
+      key = "<c-s>";
+      action.__raw = "function() require('flash').toggle() end";
+      options.desc = "Toggle Flash Search";
     }
   ];
 }

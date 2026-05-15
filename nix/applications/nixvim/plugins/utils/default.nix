@@ -13,6 +13,7 @@
     ./markview.nix
     ./web-devicons.nix
     ./spectre.nix
+    ./grug-far.nix
     ./texpresso.nix
     ./vim-bbye.nix
     ./todo-comments.nix

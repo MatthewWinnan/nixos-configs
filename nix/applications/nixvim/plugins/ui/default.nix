@@ -10,6 +10,7 @@
     ./image.nix
     ./auto-session.nix
     ./lualine.nix
+    ./bufferline.nix
     ./marks.nix
     ./vimade.nix
     ./twilight.nix

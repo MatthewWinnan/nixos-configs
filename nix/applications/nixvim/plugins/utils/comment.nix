@@ -1,7 +1,8 @@
-# Check the docs for commands, cool:
-# https://github.com/numToStr/Comment.nvim
+# https://github.com/folke/ts-comments.nvim
+# Treesitter-aware commenting (handles embedded languages)
+# Replaces comment.nvim
 {
-  programs.nixvim.plugins.comment = {
+  programs.nixvim.plugins.ts-comments = {
     enable = true;
   };
 }

@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   programs.nixvim = {
     clipboard = {
@@ -44,7 +45,7 @@
       fileencoding = "utf-8"; # File-content encoding for the current buffer
       encoding = "utf-8"; # General encoding
 
-      termguicolors = false; # Disables 24-bit RGB color in the |TUI|
+      termguicolors = lib.mkForce true; # 24-bit RGB color in the |TUI|
 
       spell = false; # Highlight spelling mistakes (local to window)
       wrap = false; # Prevent text from wrapping

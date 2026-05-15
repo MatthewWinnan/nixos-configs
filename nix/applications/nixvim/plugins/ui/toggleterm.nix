@@ -6,8 +6,8 @@
       direction = "float";
       float_opts = {
         border = "rounded";
-        width = 120;
-        height = 30;
+        width.__raw = "function() return math.floor(vim.o.columns * 0.8) end";
+        height.__raw = "function() return math.floor(vim.o.lines * 0.8) end";
       };
       size.__raw = ''
         function(term)
@@ -20,7 +20,7 @@
       '';
       open_mapping.__raw = "[[<C-b>]]";
       shade_terminals = false;
-      persist_size = true;
+      persist_size = false;
       persist_mode = true;
     };
   };
