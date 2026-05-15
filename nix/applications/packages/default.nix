@@ -52,6 +52,7 @@ let
     poppler-utils # PDF tools (pdftotext, pdfinfo)
     termpdfpy # Terminal PDF viewer (kitty graphics)
     unzip # Archive extraction
+    unrar # Archive extraction
     wget # File downloading
     wttrbar # Weather
     yq # YAML querying
@@ -360,6 +361,8 @@ let
     pkgs.inferno
     # https://github.com/orhun/binsider
     pkgs.binsider
+    # https://github.com/bgreenwell/xleak
+    pkgs.xleak
   ];
 
   containerPackages = [
@@ -444,7 +447,9 @@ in
         nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.makeWrapper ];
         postFixup = (old.postFixup or "") + ''
           for bin in $out/bin/*; do
-            wrapProgram "$bin" --set GTK_THEME "Adwaita"
+            wrapProgram "$bin" \
+              --set GTK_THEME "Adwaita" \
+              --set SAL_USE_VCLPLUGIN "gen"
           done
         '';
       });

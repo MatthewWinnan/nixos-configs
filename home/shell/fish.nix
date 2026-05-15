@@ -65,11 +65,11 @@ in
         find = "${pkgs.fd}/bin/fd";
         grep = "${pkgs.ripgrep}/bin/rg";
         ps = "${pkgs.procs}/bin/procs";
-        sed = "${pkgs.sd}/bin/sd";
+        # sed = "${pkgs.sd}/bin/sd";
         cut = "${pkgs.choose}/bin/choose";
         diff = "${pkgs.delta}/bin/delta";
         dig = "${pkgs.doggo}/bin/doggo";
-        curl = "${pkgs.xh}/bin/xh";
+        # curl = "${pkgs.xh}/bin/xh";
         hexdump = "${pkgs.hexyl}/bin/hexyl";
         tree = "${pkgs.eza}/bin/eza --git --icons --tree";
 
