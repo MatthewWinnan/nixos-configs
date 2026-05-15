@@ -65,15 +65,15 @@ in {
         {
           key = "I";
           context = "global";
-          command = "glab ci status";
+          command = "glab ci view";
           output = "terminal";
-          description = "GitLab CI pipeline status";
+          description = "GitLab CI pipeline view";
         }
         # GitLab: List open MRs (from branches context - see what's in review)
         {
           key = "L";
           context = "localBranches";
-          command = "glab mr list --assignee=@me";
+          command = "glab mr list";
           output = "terminal";
           description = "List my open MRs";
         }
