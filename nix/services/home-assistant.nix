@@ -215,57 +215,40 @@
               type = "vertical-stack";
               cards = [
                 {
+                  # Combined sensor card — BMP180 and BME280 side by side.
+                  # QNH = WMO hypsometric formula with virtual temperature (Tv);
+                  # accounts for actual T and humidity, not ISA standard atmosphere.
                   type = "entities";
-                  title = "BMP180";
+                  title = "Pressure, Temperature & Altitude";
                   entities = [
-                    {
-                      entity = "sensor.bmp180_temperature";
-                      name = "Temperature";
-                    }
-                    {
-                      entity = "sensor.bmp180_pressure";
-                      name = "Pressure (QFE)";
-                    }
-                    {
-                      entity = "sensor.bmp180_pressure_msl";
-                      name = "Pressure MSL (QNH)";
-                    }
-                    {
-                      entity = "sensor.bmp180_altitude";
-                      name = "Altitude (barometric)";
-                    }
+                    { entity = "sensor.bmp180_temperature";  name = "BMP180 Temperature"; }
+                    { entity = "sensor.bme280_temperature";  name = "BME280 Temperature"; }
+                    { entity = "sensor.bmp180_pressure";     name = "BMP180 QFE"; }
+                    { entity = "sensor.bme280_pressure";     name = "BME280 QFE"; }
+                    { entity = "sensor.bmp180_pressure_msl"; name = "BMP180 QNH"; }
+                    { entity = "sensor.bme280_pressure_msl"; name = "BME280 QNH"; }
+                    { entity = "sensor.bmp180_altitude";     name = "BMP180 Altitude"; }
+                    { entity = "sensor.bme280_altitude";     name = "BME280 Altitude"; }
+                    { entity = "sensor.station_alt_kalman";  name = "Station Altitude (Kalman)"; display_precision = 1; }
                   ];
                 }
                 {
                   type = "entities";
-                  title = "BME280";
+                  title = "Humidity & Tendency";
                   entities = [
-                    { entity = "sensor.bme280_temperature";    name = "Temperature"; }
-                    { entity = "sensor.bme280_pressure";       name = "Pressure (QFE)"; }
-                    { entity = "sensor.bme280_pressure_msl";   name = "Pressure MSL (QNH)"; }
-                    { entity = "sensor.bme280_altitude";       name = "Altitude (barometric)"; }
-                    { entity = "sensor.bme280_humidity";       name = "Humidity"; }
-                    { entity = "sensor.bme280_tendency";        name = "Tendency (3 h)"; }
-                    { entity = "sensor.bme280_tendency_a";      name = "Tendency Code (WMO)"; }
-                    { entity = "sensor.bme280_tendency_a_desc"; name = "Tendency Description"; }
+                    { entity = "sensor.bme280_humidity";          name = "Humidity"; }
+                    { entity = "sensor.bme280_tendency";          name = "Tendency (3 h)"; }
+                    { entity = "sensor.bme280_tendency_a";        name = "Tendency Code (WMO)"; }
+                    { entity = "sensor.bme280_tendency_a_desc";   name = "Tendency Description"; }
                   ];
                 }
                 {
                   type = "entities";
                   title = "Pico UPS-A Battery";
                   entities = [
-                    {
-                      entity = "sensor.pico_w_battery";
-                      name = "Battery";
-                    }
-                    {
-                      entity = "sensor.pico_w_voltage";
-                      name = "Voltage";
-                    }
-                    {
-                      entity = "sensor.pico_w_current";
-                      name = "Current";
-                    }
+                    { entity = "sensor.pico_w_battery";  name = "Battery"; }
+                    { entity = "sensor.pico_w_voltage";  name = "Voltage"; display_precision = 2; }
+                    { entity = "sensor.pico_w_current";  name = "Current"; }
                   ];
                 }
                 {
@@ -288,39 +271,39 @@
                   ];
                 }
                 {
-                  # 1-minute resolution MSL pressure from the hires burst topic.
-                  # Readings arrive clustered at each 10-min publish time — the
-                  # graph still shows 1-min granularity within each cluster.
+                  # 1-minute resolution station pressure from the hires burst topic.
+                  # Readings arrive clustered at each 10-min publish window.
+                  # MSL hires removed — without per-message timestamps the QNH
+                  # values are indistinguishable in HA history.
                   type = "history-graph";
-                  title = "Pressure MSL hires — 1 min (24 h)";
+                  title = "Station Pressure QFE hires — 1 min (24 h)";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.bmp180_press_msl_hires"; name = "BMP180 QNH (1 min)"; }
-                    { entity = "sensor.bme280_press_msl_hires"; name = "BME280 QNH (1 min)"; }
+                    { entity = "sensor.bmp180_press_hires"; name = "BMP180 QFE (1 min)"; }
+                    { entity = "sensor.bme280_press_hires"; name = "BME280 QFE (1 min)"; }
                   ];
                 }
                 {
-                  # 10-minute averaged pressure from the state topic.
+                  # Station pressure (QFE) — 10-min averages.
+                  # ~858 hPa at this elevation; kept separate from QNH so the
+                  # y-axis is not compressed by the ~162 hPa offset between them.
                   type = "history-graph";
-                  title = "Pressure (10 min avg, 24 h)";
+                  title = "Station Pressure QFE (10 min avg, 24 h)";
                   hours_to_show = 24;
                   entities = [
-                    {
-                      entity = "sensor.bmp180_pressure";
-                      name = "BMP180 QFE";
-                    }
-                    {
-                      entity = "sensor.bmp180_pressure_msl";
-                      name = "BMP180 QNH";
-                    }
-                    {
-                      entity = "sensor.bme280_pressure";
-                      name = "BME280 QFE";
-                    }
-                    {
-                      entity = "sensor.bme280_pressure_msl";
-                      name = "BME280 QNH";
-                    }
+                    { entity = "sensor.bmp180_pressure"; name = "BMP180 QFE"; }
+                    { entity = "sensor.bme280_pressure"; name = "BME280 QFE"; }
+                  ];
+                }
+                {
+                  # Sea-level pressure (QNH) — 10-min averages.
+                  # WMO hypsometric formula with virtual temperature (Tv).
+                  type = "history-graph";
+                  title = "Sea-Level Pressure QNH (10 min avg, 24 h)";
+                  hours_to_show = 24;
+                  entities = [
+                    { entity = "sensor.bmp180_pressure_msl"; name = "BMP180 QNH"; }
+                    { entity = "sensor.bme280_pressure_msl"; name = "BME280 QNH"; }
                   ];
                 }
                 {
@@ -340,14 +323,9 @@
                   title = "Altitude (24 h)";
                   hours_to_show = 24;
                   entities = [
-                    {
-                      entity = "sensor.bmp180_altitude";
-                      name = "BMP180";
-                    }
-                    {
-                      entity = "sensor.bme280_altitude";
-                      name = "BME280";
-                    }
+                    { entity = "sensor.bmp180_altitude";       name = "BMP180"; }
+                    { entity = "sensor.bme280_altitude";       name = "BME280"; }
+                    { entity = "sensor.station_alt_kalman";    name = "GPS Kalman"; }
                   ];
                 }
                 {
