@@ -215,20 +215,27 @@
               type = "vertical-stack";
               cards = [
                 {
-                  # Combined sensor card — BMP180 and BME280 side by side.
-                  # QNH = WMO hypsometric formula with virtual temperature (Tv);
-                  # accounts for actual T and humidity, not ISA standard atmosphere.
+                  # BMP180 sensor card.
+                  # QNH = WMO hypsometric formula with virtual temperature (Tv).
                   type = "entities";
-                  title = "Pressure, Temperature & Altitude";
+                  title = "BMP180";
                   entities = [
-                    { entity = "sensor.bmp180_temperature";  name = "BMP180 Temperature"; }
-                    { entity = "sensor.bme280_temperature";  name = "BME280 Temperature"; }
-                    { entity = "sensor.bmp180_pressure";     name = "BMP180 QFE"; }
-                    { entity = "sensor.bme280_pressure";     name = "BME280 QFE"; }
-                    { entity = "sensor.bmp180_pressure_msl"; name = "BMP180 QNH"; }
-                    { entity = "sensor.bme280_pressure_msl"; name = "BME280 QNH"; }
-                    { entity = "sensor.bmp180_altitude";     name = "BMP180 Altitude"; }
-                    { entity = "sensor.bme280_altitude";     name = "BME280 Altitude"; }
+                    { entity = "sensor.bmp180_temperature";  name = "Temperature"; }
+                    { entity = "sensor.bmp180_pressure";     name = "QFE"; }
+                    { entity = "sensor.bmp180_pressure_msl"; name = "QNH"; }
+                    { entity = "sensor.bmp180_altitude";     name = "Altitude"; }
+                  ];
+                }
+                {
+                  # BME280 sensor card.
+                  # QNH = WMO hypsometric formula with virtual temperature (Tv).
+                  type = "entities";
+                  title = "BME280";
+                  entities = [
+                    { entity = "sensor.bme280_temperature";  name = "Temperature"; }
+                    { entity = "sensor.bme280_pressure";     name = "QFE"; }
+                    { entity = "sensor.bme280_pressure_msl"; name = "QNH"; }
+                    { entity = "sensor.bme280_altitude";     name = "Altitude"; }
                     { entity = "sensor.station_alt_kalman";  name = "Station Altitude (Kalman)"; display_precision = 1; }
                   ];
                 }
@@ -268,31 +275,6 @@
                       entity = "sensor.bme280_humidity";
                       name = "Humidity";
                     }
-                  ];
-                }
-                {
-                  # 1-minute resolution station pressure from the hires burst topic.
-                  # Readings arrive clustered at each 10-min publish window.
-                  # MSL hires removed — without per-message timestamps the QNH
-                  # values are indistinguishable in HA history.
-                  type = "history-graph";
-                  title = "Station Pressure QFE hires — 1 min (24 h)";
-                  hours_to_show = 24;
-                  entities = [
-                    { entity = "sensor.bmp180_press_hires"; name = "BMP180 QFE (1 min)"; }
-                    { entity = "sensor.bme280_press_hires"; name = "BME280 QFE (1 min)"; }
-                  ];
-                }
-                {
-                  # Station pressure (QFE) — 10-min averages.
-                  # ~858 hPa at this elevation; kept separate from QNH so the
-                  # y-axis is not compressed by the ~162 hPa offset between them.
-                  type = "history-graph";
-                  title = "Station Pressure QFE (10 min avg, 24 h)";
-                  hours_to_show = 24;
-                  entities = [
-                    { entity = "sensor.bmp180_pressure"; name = "BMP180 QFE"; }
-                    { entity = "sensor.bme280_pressure"; name = "BME280 QFE"; }
                   ];
                 }
                 {
@@ -362,9 +344,12 @@
                     { entity = "sensor.air_pm1_0";    name = "PM1.0 (1 min)"; }
                     { entity = "sensor.air_pm2_5";    name = "PM2.5 (1 min)"; }
                     { entity = "sensor.air_pm10";     name = "PM10 (1 min)"; }
-                    { entity = "sensor.air_pm2_5_1h"; name = "PM2.5 (1 h mean)"; }
-                    { entity = "sensor.air_pm10_1h";  name = "PM10 (1 h mean)"; }
-                    { entity = "sensor.air_aqi";      name = "Air Quality (WHO)"; }
+                    { entity = "sensor.air_pm2_5_1h";    name = "PM2.5 (1 h mean)"; }
+                    { entity = "sensor.air_pm10_1h";     name = "PM10 (1 h mean)"; }
+                    { entity = "sensor.air_nowcast";     name = "PM2.5 NowCast"; }
+                    { entity = "sensor.pm2_5_24h_mean";  name = "PM2.5 (24 h mean)"; }
+                    { entity = "sensor.pm10_24h_mean";   name = "PM10 (24 h mean)"; }
+                    { entity = "sensor.air_aqi";         name = "Air Quality (WHO)"; }
                   ];
                 }
                 {
@@ -418,11 +403,14 @@
                 }
                 {
                   type = "history-graph";
-                  title = "PM 1-Hour Mean (24 h) — WHO: PM2.5 ≤15, PM10 ≤45 µg/m³";
+                  title = "PM Averages (24 h) — WHO: PM2.5 ≤15, PM10 ≤45 µg/m³";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.air_pm2_5_1h"; name = "PM2.5 (1 h)"; }
-                    { entity = "sensor.air_pm10_1h";  name = "PM10 (1 h)"; }
+                    { entity = "sensor.air_pm2_5_1h";   name = "PM2.5 (1 h rolling)"; }
+                    { entity = "sensor.air_nowcast";     name = "PM2.5 NowCast"; }
+                    { entity = "sensor.pm2_5_24h_mean";  name = "PM2.5 (24 h mean)"; }
+                    { entity = "sensor.air_pm10_1h";     name = "PM10 (1 h rolling)"; }
+                    { entity = "sensor.pm10_24h_mean";   name = "PM10 (24 h mean)"; }
                   ];
                 }
                 {
@@ -556,6 +544,30 @@
           "homeassistant.components.mqtt" = "warning";
         };
       };
+
+      # Rolling statistics sensors — computed entirely from HA history,
+      # no firmware changes needed.
+      # PM2.5 24-hour mean: mean of all 1-min readings over the past 24 h.
+      # This matches the EPA methodology (24-h average used for the daily AQI).
+      # Reference: EPA-454/B-18-007 §4.4
+      sensor = [
+        {
+          platform = "statistics";
+          name = "PM2.5 24h mean";
+          entity_id = "sensor.air_pm2_5";
+          state_characteristic = "mean";
+          max_age = { hours = 24; };
+          sampling_size = 2000;
+        }
+        {
+          platform = "statistics";
+          name = "PM10 24h mean";
+          entity_id = "sensor.air_pm10";
+          state_characteristic = "mean";
+          max_age = { hours = 24; };
+          sampling_size = 2000;
+        }
+      ];
 
       # Automation placeholder
       automation = "!include automations.yaml";
