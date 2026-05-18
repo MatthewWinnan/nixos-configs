@@ -443,16 +443,18 @@ in
   # Override libreoffice to bypass Stylix GTK theming
   nixpkgs.overlays = [
     (final: prev: {
-      libreoffice = prev.libreoffice.overrideAttrs (old: {
-        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.makeWrapper ];
-        postFixup = (old.postFixup or "") + ''
+      libreoffice = prev.symlinkJoin {
+        name = "libreoffice-light";
+        paths = [ prev.libreoffice ];
+        buildInputs = [ prev.makeWrapper ];
+        postBuild = ''
           for bin in $out/bin/*; do
             wrapProgram "$bin" \
               --set GTK_THEME "Adwaita" \
               --set SAL_USE_VCLPLUGIN "gen"
           done
         '';
-      });
+      };
     })
   ];
 

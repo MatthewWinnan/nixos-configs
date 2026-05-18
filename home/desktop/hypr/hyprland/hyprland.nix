@@ -158,10 +158,9 @@ in
         initial_workspace_tracking = 0;
       };
 
-      # windowrule = [
-      #   "float, ^(imv)$"
-      #   "float, ^(mpv)$"
-      # ];
+      windowrulev2 = [
+        "tile, class:^(sioyek)$"
+      ];
 
       exec-once = [
         "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store"

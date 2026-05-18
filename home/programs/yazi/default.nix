@@ -128,7 +128,7 @@
 
       opener = {
         pdf = [
-          { run = ''sioyek "$@"''; desc = "Open with Sioyek"; orphan = true; }
+          { run = ''sioyek "$@"''; desc = "Open with Sioyek"; fork = true; }
         ];
         image = [
           { run = ''imv "$@"''; desc = "Open with imv"; orphan = true; }
