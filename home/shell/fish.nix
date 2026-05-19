@@ -70,6 +70,7 @@ in {
         # curl = "${pkgs.xh}/bin/xh";
         hexdump = "${pkgs.hexyl}/bin/hexyl";
         tree = "${pkgs.eza}/bin/eza --git --icons --tree";
+        kiro = "kiro-cli --legacy-ui";
 
         # File navigation with eza
         ls = "${pkgs.eza}/bin/eza -lh --group-directories-first --icons=auto";
