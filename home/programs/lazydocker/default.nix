@@ -1,8 +1,5 @@
 # https://github.com/jesseduffield/lazydocker
-{
-  config,
-  ...
-}: {
+{config, ...}: {
   programs.lazydocker = {
     enable = config.systemSettings.profile == "work";
 

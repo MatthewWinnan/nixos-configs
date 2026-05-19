@@ -40,7 +40,7 @@
           "╯"
           "╰"
         ];
-        path_display = [ "truncate" ];
+        path_display = ["truncate"];
         results_title = false;
         file_ignore_patterns = [
           "^.git/"

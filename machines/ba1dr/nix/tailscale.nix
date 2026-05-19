@@ -1,9 +1,5 @@
 # Tailscale configuration for ba1dr (media server)
-{
-  config,
-  ...
-}:
-{
+{config, ...}: {
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "client";
@@ -11,7 +7,7 @@
   };
 
   networking.firewall = {
-    trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    trustedInterfaces = ["tailscale0"];
+    allowedUDPPorts = [config.services.tailscale.port];
   };
 }

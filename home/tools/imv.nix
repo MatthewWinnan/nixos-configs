@@ -13,11 +13,9 @@
 #   x        - Close current image
 #   d        - Delete image (moves to trash)
 #
-{ config, ... }:
-let
+{config, ...}: let
   inherit (config.lib.stylix) colors;
-in
-{
+in {
   programs.imv = {
     enable = true;
     settings = {

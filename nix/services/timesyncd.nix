@@ -2,8 +2,7 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   services.timesyncd = {
     enable = true;
     servers = [

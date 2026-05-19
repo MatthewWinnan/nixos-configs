@@ -4,16 +4,17 @@
   pkgs,
   lib,
   ...
-}:
-let
-  shellPkg = {
-    "fish" = pkgs.fish;
-    "zsh" = pkgs.zsh;
-    "bash" = pkgs.bash;
-    "nushell" = pkgs.nushell;
-  }.${config.userSettings.shell};
-in
-{
+}: let
+  shellPkg =
+    {
+      "fish" = pkgs.fish;
+      "zsh" = pkgs.zsh;
+      "bash" = pkgs.bash;
+      "nushell" = pkgs.nushell;
+    }.${
+      config.userSettings.shell
+    };
+in {
   # Enable the selected shell at the system level (required for login shell to work)
   programs.fish.enable = config.userSettings.shell == "fish";
   programs.zsh.enable = config.userSettings.shell == "zsh";

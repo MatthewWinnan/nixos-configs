@@ -15,8 +15,7 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   hostname = config.networking.hostName;
   mqttHost = "fr3yr";
   mqttPort = 1883;
@@ -32,7 +31,7 @@ let
 
   device = {
     name = hostname;
-    identifiers = [ hostname ];
+    identifiers = [hostname];
   };
 
   # HA MQTT auto-discovery payloads
@@ -92,8 +91,7 @@ let
 
   pubCmd = "${pkgs.mosquitto}/bin/mosquitto_pub -h ${mqttHost} -p ${toString mqttPort}";
   subCmd = "${pkgs.mosquitto}/bin/mosquitto_sub -h ${mqttHost} -p ${toString mqttPort}";
-in
-{
+in {
   # Telegraf collects metrics and publishes to MQTT
   services.telegraf = {
     enable = true;
@@ -106,7 +104,7 @@ in
       outputs = {
         mqtt = [
           {
-            servers = [ "tcp://${mqttHost}:${toString mqttPort}" ];
+            servers = ["tcp://${mqttHost}:${toString mqttPort}"];
             topic = ''telegraf/{{.Tag "host"}}/{{.Name}}'';
             data_format = "json";
             json_timestamp_units = "1s";
@@ -124,10 +122,10 @@ in
             report_active = false;
           }
         ];
-        mem = [ { } ];
+        mem = [{}];
         disk = [
           {
-            mount_points = [ "/" ];
+            mount_points = ["/"];
             ignore_fs = [
               "tmpfs"
               "devtmpfs"
@@ -148,9 +146,9 @@ in
   # publishes the will payload ("offline") to the status topic.
   systemd.services.system-monitor-lwt = {
     description = "MQTT LWT keepalive for Home Assistant presence";
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["network-online.target"];
+    wants = ["network-online.target"];
+    wantedBy = ["multi-user.target"];
     serviceConfig = {
       Type = "simple";
       Restart = "on-failure";
@@ -173,9 +171,9 @@ in
   # Publish MQTT auto-discovery configs on boot
   systemd.services.system-monitor-discovery = {
     description = "Publish MQTT discovery config for Home Assistant";
-    after = [ "network-online.target" "system-monitor-lwt.service" ];
-    wants = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["network-online.target" "system-monitor-lwt.service"];
+    wants = ["network-online.target"];
+    wantedBy = ["multi-user.target"];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;

@@ -13,11 +13,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   autheliaPort = 9091;
-in
-{
+in {
   services.authelia.instances.main = {
     enable = true;
 
@@ -49,7 +47,7 @@ in
       # Authentication backend - file-based users
       authentication_backend = {
         file = {
-          path = config.sops.secrets."authelia-users".path;
+          inherit (config.sops.secrets."authelia-users") path;
           watch = false; # Can't watch sops-managed /run/secrets directory
           password = {
             algorithm = "argon2";
@@ -114,21 +112,21 @@ in
           # Authelia itself must be accessible
           {
             domain = "th0r.tail13fdb.ts.net";
-            resources = [ "^/authelia.*" ];
+            resources = ["^/authelia.*"];
             policy = "bypass";
           }
 
           # Landing page - public
           {
             domain = "th0r.tail13fdb.ts.net";
-            resources = [ "^/$" ];
+            resources = ["^/$"];
             policy = "one_factor";
           }
 
           # Jellyseerr API - bypass for app integrations
           {
             domain = "th0r.tail13fdb.ts.net";
-            resources = [ "^/api/v1.*" ];
+            resources = ["^/api/v1.*"];
             policy = "one_factor";
           }
 

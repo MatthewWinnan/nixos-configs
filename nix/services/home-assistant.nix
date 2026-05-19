@@ -4,8 +4,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   # Home Assistant service
   services.home-assistant = {
     enable = true;
@@ -65,8 +64,8 @@
     ];
 
     # Extra Python packages for integrations
-    extraPackages =
-      python3Packages: with python3Packages; [
+    extraPackages = python3Packages:
+      with python3Packages; [
         # MQTT support
         aiomqtt
         # For Zigbee
@@ -97,10 +96,22 @@
               type = "entities";
               title = "Machine Status";
               entities = [
-                { entity = "binary_sensor.th0r_status"; name = "th0r"; }
-                { entity = "binary_sensor.fr3yr_status"; name = "fr3yr"; }
-                { entity = "binary_sensor.h31mda11_status"; name = "h31mda11"; }
-                { entity = "binary_sensor.ba1dr_status"; name = "ba1dr"; }
+                {
+                  entity = "binary_sensor.th0r_status";
+                  name = "th0r";
+                }
+                {
+                  entity = "binary_sensor.fr3yr_status";
+                  name = "fr3yr";
+                }
+                {
+                  entity = "binary_sensor.h31mda11_status";
+                  name = "h31mda11";
+                }
+                {
+                  entity = "binary_sensor.ba1dr_status";
+                  name = "ba1dr";
+                }
               ];
             }
           ];
@@ -109,7 +120,8 @@
           title = "Servers";
           path = "servers";
           icon = "mdi:server";
-          cards = map
+          cards =
+            map
             (m: {
               type = "vertical-stack";
               cards = [
@@ -118,9 +130,18 @@
                   title = "${m.host} CPU / RAM / Disk";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.${m.id}_cpu_usage"; name = "CPU"; }
-                    { entity = "sensor.${m.id}_ram_usage"; name = "RAM"; }
-                    { entity = "sensor.${m.id}_disk_usage"; name = "Disk"; }
+                    {
+                      entity = "sensor.${m.id}_cpu_usage";
+                      name = "CPU";
+                    }
+                    {
+                      entity = "sensor.${m.id}_ram_usage";
+                      name = "RAM";
+                    }
+                    {
+                      entity = "sensor.${m.id}_disk_usage";
+                      name = "Disk";
+                    }
                   ];
                 }
                 {
@@ -132,7 +153,11 @@
                       name = "CPU";
                       min = 0;
                       max = 100;
-                      severity = { green = 0; yellow = 60; red = 85; };
+                      severity = {
+                        green = 0;
+                        yellow = 60;
+                        red = 85;
+                      };
                     }
                     {
                       type = "gauge";
@@ -140,7 +165,11 @@
                       name = "RAM";
                       min = 0;
                       max = 100;
-                      severity = { green = 0; yellow = 70; red = 90; };
+                      severity = {
+                        green = 0;
+                        yellow = 70;
+                        red = 90;
+                      };
                     }
                     {
                       type = "gauge";
@@ -148,17 +177,33 @@
                       name = "Disk";
                       min = 0;
                       max = 100;
-                      severity = { green = 0; yellow = 70; red = 90; };
+                      severity = {
+                        green = 0;
+                        yellow = 70;
+                        red = 90;
+                      };
                     }
                   ];
                 }
               ];
             })
             [
-              { host = "th0r";     id = "th0r"; }
-              { host = "fr3yr";    id = "fr3yr"; }
-              { host = "h31mda11"; id = "h31mda11"; }
-              { host = "ba1dr";    id = "ba1dr"; }
+              {
+                host = "th0r";
+                id = "th0r";
+              }
+              {
+                host = "fr3yr";
+                id = "fr3yr";
+              }
+              {
+                host = "h31mda11";
+                id = "h31mda11";
+              }
+              {
+                host = "ba1dr";
+                id = "ba1dr";
+              }
             ];
         }
         {
@@ -173,30 +218,66 @@
                   type = "entities";
                   title = "BMP180";
                   entities = [
-                    { entity = "sensor.bmp180_temperature";    name = "Temperature"; }
-                    { entity = "sensor.bmp180_pressure";       name = "Pressure (QFE)"; }
-                    { entity = "sensor.bmp180_pressure_msl";   name = "Pressure MSL (QNH)"; }
-                    { entity = "sensor.bmp180_altitude";       name = "Altitude (barometric)"; }
+                    {
+                      entity = "sensor.bmp180_temperature";
+                      name = "Temperature";
+                    }
+                    {
+                      entity = "sensor.bmp180_pressure";
+                      name = "Pressure (QFE)";
+                    }
+                    {
+                      entity = "sensor.bmp180_pressure_msl";
+                      name = "Pressure MSL (QNH)";
+                    }
+                    {
+                      entity = "sensor.bmp180_altitude";
+                      name = "Altitude (barometric)";
+                    }
                   ];
                 }
                 {
                   type = "entities";
                   title = "BME280";
                   entities = [
-                    { entity = "sensor.bme280_temperature";    name = "Temperature"; }
-                    { entity = "sensor.bme280_pressure";       name = "Pressure (QFE)"; }
-                    { entity = "sensor.bme280_pressure_msl";   name = "Pressure MSL (QNH)"; }
-                    { entity = "sensor.bme280_altitude";       name = "Altitude (barometric)"; }
-                    { entity = "sensor.bme280_humidity";       name = "Humidity"; }
+                    {
+                      entity = "sensor.bme280_temperature";
+                      name = "Temperature";
+                    }
+                    {
+                      entity = "sensor.bme280_pressure";
+                      name = "Pressure (QFE)";
+                    }
+                    {
+                      entity = "sensor.bme280_pressure_msl";
+                      name = "Pressure MSL (QNH)";
+                    }
+                    {
+                      entity = "sensor.bme280_altitude";
+                      name = "Altitude (barometric)";
+                    }
+                    {
+                      entity = "sensor.bme280_humidity";
+                      name = "Humidity";
+                    }
                   ];
                 }
                 {
                   type = "entities";
                   title = "Pico UPS-A Battery";
                   entities = [
-                    { entity = "sensor.pico_w_battery";  name = "Battery"; }
-                    { entity = "sensor.pico_w_voltage";  name = "Voltage"; }
-                    { entity = "sensor.pico_w_current";  name = "Current"; }
+                    {
+                      entity = "sensor.pico_w_battery";
+                      name = "Battery";
+                    }
+                    {
+                      entity = "sensor.pico_w_voltage";
+                      name = "Voltage";
+                    }
+                    {
+                      entity = "sensor.pico_w_current";
+                      name = "Current";
+                    }
                   ];
                 }
                 {
@@ -204,9 +285,18 @@
                   title = "Temperature & Humidity (24 h)";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.bmp180_temperature";    name = "BMP180 Temp"; }
-                    { entity = "sensor.bme280_temperature";    name = "BME280 Temp"; }
-                    { entity = "sensor.bme280_humidity";       name = "Humidity"; }
+                    {
+                      entity = "sensor.bmp180_temperature";
+                      name = "BMP180 Temp";
+                    }
+                    {
+                      entity = "sensor.bme280_temperature";
+                      name = "BME280 Temp";
+                    }
+                    {
+                      entity = "sensor.bme280_humidity";
+                      name = "Humidity";
+                    }
                   ];
                 }
                 {
@@ -214,10 +304,22 @@
                   title = "Pressure (24 h)";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.bmp180_pressure";       name = "BMP180 QFE"; }
-                    { entity = "sensor.bmp180_pressure_msl";   name = "BMP180 QNH"; }
-                    { entity = "sensor.bme280_pressure";       name = "BME280 QFE"; }
-                    { entity = "sensor.bme280_pressure_msl";   name = "BME280 QNH"; }
+                    {
+                      entity = "sensor.bmp180_pressure";
+                      name = "BMP180 QFE";
+                    }
+                    {
+                      entity = "sensor.bmp180_pressure_msl";
+                      name = "BMP180 QNH";
+                    }
+                    {
+                      entity = "sensor.bme280_pressure";
+                      name = "BME280 QFE";
+                    }
+                    {
+                      entity = "sensor.bme280_pressure_msl";
+                      name = "BME280 QNH";
+                    }
                   ];
                 }
                 {
@@ -225,8 +327,14 @@
                   title = "Altitude (24 h)";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.bmp180_altitude";       name = "BMP180"; }
-                    { entity = "sensor.bme280_altitude";       name = "BME280"; }
+                    {
+                      entity = "sensor.bmp180_altitude";
+                      name = "BMP180";
+                    }
+                    {
+                      entity = "sensor.bme280_altitude";
+                      name = "BME280";
+                    }
                   ];
                 }
                 {
@@ -234,8 +342,14 @@
                   title = "Battery (24 h)";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.pico_w_battery";  name = "Battery %"; }
-                    { entity = "sensor.pico_w_voltage";  name = "Voltage"; }
+                    {
+                      entity = "sensor.pico_w_battery";
+                      name = "Battery %";
+                    }
+                    {
+                      entity = "sensor.pico_w_voltage";
+                      name = "Voltage";
+                    }
                   ];
                 }
               ];
@@ -254,21 +368,48 @@
                   type = "entities";
                   title = "PM Concentrations";
                   entities = [
-                    { entity = "sensor.air_pm1_0"; name = "PM1.0"; }
-                    { entity = "sensor.air_pm2_5"; name = "PM2.5"; }
-                    { entity = "sensor.air_pm10";  name = "PM10"; }
+                    {
+                      entity = "sensor.air_pm1_0";
+                      name = "PM1.0";
+                    }
+                    {
+                      entity = "sensor.air_pm2_5";
+                      name = "PM2.5";
+                    }
+                    {
+                      entity = "sensor.air_pm10";
+                      name = "PM10";
+                    }
                   ];
                 }
                 {
                   type = "entities";
                   title = "Particle Counts (per 0.1 L)";
                   entities = [
-                    { entity = "sensor.air_cnt_03";  name = ">0.3 µm"; }
-                    { entity = "sensor.air_cnt_05";  name = ">0.5 µm"; }
-                    { entity = "sensor.air_cnt_10";  name = ">1.0 µm"; }
-                    { entity = "sensor.air_cnt_25";  name = ">2.5 µm"; }
-                    { entity = "sensor.air_cnt_50";  name = ">5.0 µm"; }
-                    { entity = "sensor.air_cnt_100"; name = ">10 µm"; }
+                    {
+                      entity = "sensor.air_cnt_03";
+                      name = ">0.3 µm";
+                    }
+                    {
+                      entity = "sensor.air_cnt_05";
+                      name = ">0.5 µm";
+                    }
+                    {
+                      entity = "sensor.air_cnt_10";
+                      name = ">1.0 µm";
+                    }
+                    {
+                      entity = "sensor.air_cnt_25";
+                      name = ">2.5 µm";
+                    }
+                    {
+                      entity = "sensor.air_cnt_50";
+                      name = ">5.0 µm";
+                    }
+                    {
+                      entity = "sensor.air_cnt_100";
+                      name = ">10 µm";
+                    }
                   ];
                 }
                 {
@@ -276,9 +417,18 @@
                   title = "PM Concentrations (24 h)";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.air_pm1_0"; name = "PM1.0"; }
-                    { entity = "sensor.air_pm2_5"; name = "PM2.5"; }
-                    { entity = "sensor.air_pm10";  name = "PM10"; }
+                    {
+                      entity = "sensor.air_pm1_0";
+                      name = "PM1.0";
+                    }
+                    {
+                      entity = "sensor.air_pm2_5";
+                      name = "PM2.5";
+                    }
+                    {
+                      entity = "sensor.air_pm10";
+                      name = "PM10";
+                    }
                   ];
                 }
                 {
@@ -286,9 +436,18 @@
                   title = "Fine Particles (24 h)";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.air_cnt_03"; name = ">0.3 µm"; }
-                    { entity = "sensor.air_cnt_05"; name = ">0.5 µm"; }
-                    { entity = "sensor.air_cnt_10"; name = ">1.0 µm"; }
+                    {
+                      entity = "sensor.air_cnt_03";
+                      name = ">0.3 µm";
+                    }
+                    {
+                      entity = "sensor.air_cnt_05";
+                      name = ">0.5 µm";
+                    }
+                    {
+                      entity = "sensor.air_cnt_10";
+                      name = ">1.0 µm";
+                    }
                   ];
                 }
               ];
@@ -302,7 +461,7 @@
           cards = [
             {
               type = "map";
-              entities = [ { entity = "device_tracker.fr3yr_gps"; } ];
+              entities = [{entity = "device_tracker.fr3yr_gps";}];
               hours_to_show = 1;
               zoom = 14;
             }
@@ -310,15 +469,42 @@
               type = "entities";
               title = "K-172 GPS Module";
               entities = [
-                { entity = "binary_sensor.gps_bridge";   name = "Bridge Online"; }
-                { entity = "binary_sensor.gps_fix";      name = "Fix Acquired"; }
-                { entity = "sensor.gps_fix_mode";        name = "Fix Mode"; }
-                { entity = "sensor.gps_nsat";            name = "nSat (in View)"; }
-                { entity = "sensor.gps_usat";            name = "uSat (Used)"; }
-                { entity = "sensor.gps_latitude";        name = "Latitude (last known)"; }
-                { entity = "sensor.gps_longitude";       name = "Longitude (last known)"; }
-                { entity = "sensor.gps_altitude";        name = "Altitude (last known)"; }
-                { entity = "sensor.gps_speed";           name = "Speed (last known)"; }
+                {
+                  entity = "binary_sensor.gps_bridge";
+                  name = "Bridge Online";
+                }
+                {
+                  entity = "binary_sensor.gps_fix";
+                  name = "Fix Acquired";
+                }
+                {
+                  entity = "sensor.gps_fix_mode";
+                  name = "Fix Mode";
+                }
+                {
+                  entity = "sensor.gps_nsat";
+                  name = "nSat (in View)";
+                }
+                {
+                  entity = "sensor.gps_usat";
+                  name = "uSat (Used)";
+                }
+                {
+                  entity = "sensor.gps_latitude";
+                  name = "Latitude (last known)";
+                }
+                {
+                  entity = "sensor.gps_longitude";
+                  name = "Longitude (last known)";
+                }
+                {
+                  entity = "sensor.gps_altitude";
+                  name = "Altitude (last known)";
+                }
+                {
+                  entity = "sensor.gps_speed";
+                  name = "Speed (last known)";
+                }
               ];
             }
           ];
@@ -342,7 +528,7 @@
       };
 
       # Default integrations
-      default_config = { };
+      default_config = {};
 
       # Frontend configuration
       frontend = {
@@ -405,7 +591,7 @@
     enable = true;
     listeners = [
       {
-        acl = [ "pattern readwrite #" ];
+        acl = ["pattern readwrite #"];
         omitPasswordAuth = true;
         settings.allow_anonymous = true;
       }
@@ -413,5 +599,5 @@
   };
 
   # Mosquitto CLI tools for testing
-  environment.systemPackages = [ pkgs.mosquitto ];
+  environment.systemPackages = [pkgs.mosquitto];
 }

@@ -1,6 +1,5 @@
 # Raspberry Pi 4 boot configuration
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   boot = {
     # Use the Raspberry Pi 4 optimized kernel
     kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;

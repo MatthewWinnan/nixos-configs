@@ -29,11 +29,12 @@ sudo nix run github:nix-community/disko -- --mode disko ./disko/<hostname>.nix
 ```
 
 This will:
+
 1. Create a 1GB EFI System Partition (vfat, mounted at `/boot`)
-2. Create a swap partition (with hibernate resume support)
-3. Create a LUKS2-encrypted partition (prompts for passphrase)
+1. Create a swap partition (with hibernate resume support)
+1. Create a LUKS2-encrypted partition (prompts for passphrase)
    - Cipher: `aes-xts-plain64`, hash: `sha512`, KDF: `argon2id`
-4. Format the LUKS volume as BTRFS with subvolumes:
+1. Format the LUKS volume as BTRFS with subvolumes:
 
 ```
 BTRFS Volume
@@ -74,6 +75,7 @@ reboot
 ```
 
 After first boot:
+
 - Update monitor IDs in `machines/<hostname>/settings/config.nix` to match actual hardware
 - Sign into browsers (Firefox, Chromium)
 - Set up GitHub SSH/GPG keys
@@ -82,13 +84,13 @@ After first boot:
 ### Adding a New Machine
 
 1. Create `machines/<hostname>/` with `default.nix`, `settings/config.nix`, `nix/`, and optionally `home/`
-2. Fill in `settings/config.nix` with device/system/user settings
-3. Generate `nix/hardware-configuration.nix` on the target hardware
-4. Create a disko config in `disko/<hostname>.nix` (copy an existing one, update disk device path and sector values)
-5. Add the machine entry to `machines/default.nix` with the appropriate modules
-6. Optionally add an image store entry in `image_store/<hostname>.nix`
+1. Fill in `settings/config.nix` with device/system/user settings
+1. Generate `nix/hardware-configuration.nix` on the target hardware
+1. Create a disko config in `disko/<hostname>.nix` (copy an existing one, update disk device path and sector values)
+1. Add the machine entry to `machines/default.nix` with the appropriate modules
+1. Optionally add an image store entry in `image_store/<hostname>.nix`
 
----
+______________________________________________________________________
 
 ## Disko Partition Scheme
 
@@ -105,7 +107,7 @@ Configurations are in `disko/` and are managed with [Disko](https://github.com/n
 
 Machines without disko configs (fr3yr, th0r, fafn1r, nixos) are either partitioned manually or use alternative boot methods (e.g. Raspberry Pi extlinux, WSL).
 
----
+______________________________________________________________________
 
 ## Secrets Management
 
@@ -114,9 +116,9 @@ Machines without disko configs (fr3yr, th0r, fafn1r, nixos) are either partition
 ### How It Works
 
 1. Secrets are stored as age-encrypted YAML in `secrets/<hostname>.yaml`
-2. `.sops.yaml` at the repo root defines which age keys can decrypt which files
-3. Each machine's `nix/sops.nix` maps secret paths to files on the system
-4. On activation, sops-nix decrypts using the machine's SSH host key (converted to age)
+1. `.sops.yaml` at the repo root defines which age keys can decrypt which files
+1. Each machine's `nix/sops.nix` maps secret paths to files on the system
+1. On activation, sops-nix decrypts using the machine's SSH host key (converted to age)
 
 ### Key Management
 

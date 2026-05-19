@@ -1,5 +1,9 @@
 # https://mynixos.com/home-manager/options/programs.qutebrowser
-{pkgs, lib, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   # Wrap qutebrowser to ensure it uses the correct curl with OpenSSL
   # Fixes: CURL_OPENSSL_4 not found (arduino-ide FHS env leaks wrong curl)
   qutebrowser-wrapped = pkgs.symlinkJoin {

@@ -4,11 +4,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   dig = lib.meta.getExe' pkgs.dnsutils "dig";
-in
-{
+in {
   programs.fish = {
     enable = config.userSettings.shell == "fish";
     interactiveShellInit = ''

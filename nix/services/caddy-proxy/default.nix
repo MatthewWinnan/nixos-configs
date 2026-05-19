@@ -8,8 +8,7 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   # Custom Caddy with defender plugin
   # Pinned via module replacement to the canonical GitHub source, which is
   # cached immutably by proxy.golang.org rather than the vanity domain.
@@ -25,8 +24,7 @@ let
 
   # Landing page directory in nix store
   landingPageDir = ./landing-page;
-in
-{
+in {
   # Caddy reverse proxy (HTTP only - Tailscale handles TLS)
   services.caddy = {
     enable = true;
@@ -157,7 +155,7 @@ in
       "tailscaled.service"
       "network-online.target"
     ];
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
 
     path = [
       pkgs.tailscale
@@ -183,5 +181,5 @@ in
   };
 
   # Firewall - only local port needed, Tailscale handles external
-  networking.firewall.allowedTCPPorts = [ localPort ];
+  networking.firewall.allowedTCPPorts = [localPort];
 }

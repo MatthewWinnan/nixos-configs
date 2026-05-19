@@ -1,6 +1,5 @@
 # https://github.com/localsend/localsend
-{ config, ... }:
-{
+{config, ...}: {
   programs.localsend = {
     enable = config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming";
     openFirewall = true;

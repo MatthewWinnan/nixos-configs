@@ -3,8 +3,7 @@
   config,
   lib,
   ...
-}:
-{
+}: {
   # Configure sops
   sops = {
     # The default sops file for this machine
@@ -13,7 +12,7 @@
     # Use age for decryption
     age = {
       # Use the SSH host key for decryption
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
     };
 
     # Define the secrets - this creates the Home Assistant secrets.yaml

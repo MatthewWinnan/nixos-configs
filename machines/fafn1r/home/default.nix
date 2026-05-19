@@ -25,7 +25,7 @@
         ];
 
         home = {
-          username = config.userSettings.username;
+          inherit (config.userSettings) username;
           homeDirectory = lib.mkForce "/home/${config.userSettings.username}";
           # Specify additional outputs to install, such as documentation
           extraOutputsToInstall = ["doc" "devdoc"];

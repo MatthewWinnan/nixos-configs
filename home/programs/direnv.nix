@@ -4,8 +4,7 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   programs.direnv = {
     enable = true;
     # nix-direnv enables the use of use_nix and use_flake in .envrc files.

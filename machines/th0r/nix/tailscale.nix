@@ -5,8 +5,7 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   services.tailscale = lib.mkForce {
     enable = true;
     # "both" allows th0r to:
@@ -17,7 +16,7 @@
   };
 
   networking.firewall = {
-    trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    trustedInterfaces = ["tailscale0"];
+    allowedUDPPorts = [config.services.tailscale.port];
   };
 }

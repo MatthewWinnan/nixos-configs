@@ -17,6 +17,7 @@ Detailed documentation is available in the [`docs/`](docs/) directory:
 ## Usage
 
 ### Building a Configuration
+
 ```bash
 # Using nh (recommended)
 nh os switch --hostname <machine-name>
@@ -26,6 +27,7 @@ sudo nixos-rebuild switch --flake .#<machine-name>
 ```
 
 ### Development Shells
+
 ```bash
 # Enter a development shell
 nix develop .#<shell-name>
@@ -60,12 +62,14 @@ And to the wonderful Nix community - more acknowledgements will be added as I co
 Not everything is fully declarative yet. The following requires manual setup:
 
 ### Installation
+
 - **Disko sector blocks** - Manually specify sector block numbers (percentage values don't evaluate correctly)
 - **LUKS password** - Set during installation
 - **User password** - Run `passwd <username>` after initial install (nixos-install doesn't create user passwords)
 - **Monitor configuration** - Update `./machines/<machine>/settings/config.nix` with correct monitor IDs after installation
 
 ### Ongoing
+
 - **Browser sign-in** - Both Firefox and Chromium require manual authentication
 - **Chromium extensions** - Managed imperatively
 - **GitHub SSH/GPG setup** - Requires manual key generation (planning to use SOPS-nix)

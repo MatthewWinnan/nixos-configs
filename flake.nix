@@ -140,25 +140,22 @@
     };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      ...
-    }@inputs:
-    let
-      forAllSystems =
-        function: nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (system: function system);
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  } @ inputs: let
+    forAllSystems = function: nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-linux"] function;
 
-      treefmtEval = forAllSystems (system:
+    treefmtEval = forAllSystems (
+      system:
         inputs.treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
-      );
-    in
-    {
-      # Formatter of choice (treefmt wraps alejandra + other formatters)
-      formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
+    );
+  in {
+    # Formatter of choice (treefmt wraps alejandra + other formatters)
+    formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
 
-      # NixOS machine configurations, now modular
-      nixosConfigurations = import ./machines { inherit inputs; };
-    };
+    # NixOS machine configurations, now modular
+    nixosConfigurations = import ./machines {inherit inputs;};
+  };
 }

@@ -97,6 +97,7 @@ Leader key: `Space`
 #### LSP Servers
 
 All profiles:
+
 - `nil_ls` — Nix
 - `html` — HTML
 - `jsonls` — JSON
@@ -109,6 +110,7 @@ All profiles:
 - `texlab` — LaTeX
 
 Work profile adds:
+
 - `dockerls` — Dockerfile
 - `docker_compose_language_service` — Docker Compose
 - `nginx_language_server` — Nginx

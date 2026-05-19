@@ -54,7 +54,6 @@
 
     "application/json" = browser;
   };
-
 in {
   #home.sessionVariables = template.sysEnv;
 

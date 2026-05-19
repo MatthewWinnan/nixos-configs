@@ -2,8 +2,7 @@
   config,
   lib,
   ...
-}:
-{
+}: {
   imports = [
     ./newsboat
     ./schizofox

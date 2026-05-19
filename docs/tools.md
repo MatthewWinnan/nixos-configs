@@ -2,7 +2,7 @@
 
 A categorized reference of all tools and applications managed by this NixOS configuration.
 
----
+______________________________________________________________________
 
 ## Desktop Environment
 

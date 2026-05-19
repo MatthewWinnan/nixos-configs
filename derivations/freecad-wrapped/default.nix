@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{pkgs, ...}:
 pkgs.makeDesktopItem {
   name = "freecad-mesa";
   desktopName = "FreeCAD (MESA)";

@@ -11,16 +11,16 @@ manifest=$(curl -fsSL "$MANIFEST_URL")
 latest_version=$(echo "$manifest" | jq -r '.version')
 current_version=$(grep -Po '^\s+version\s*=\s*"\K[0-9.]+' "$PACKAGE_NIX" | head -1)
 
-if [[ "$latest_version" == "$current_version" ]]; then
-    echo "kiro-cli is already up to date at version $current_version"
-    exit 0
+if [[ $latest_version == "$current_version" ]]; then
+  echo "kiro-cli is already up to date at version $current_version"
+  exit 0
 fi
 
 echo "Updating kiro-cli from $current_version to $latest_version"
 
 get_linux_hash() {
-    local arch="$1"
-    echo "$manifest" | jq -r --arg arch "$arch" '
+  local arch="$1"
+  echo "$manifest" | jq -r --arg arch "$arch" '
         .packages[] |
         select(.os == "linux" and .fileType == "tarGz" and .variant == "headless" and .architecture == $arch and (.targetTriple | contains("musl") | not)) |
         .sha256
@@ -28,7 +28,7 @@ get_linux_hash() {
 }
 
 get_darwin_hash() {
-    echo "$manifest" | jq -r '
+  echo "$manifest" | jq -r '
         .packages[] |
         select(.os == "macos" and .fileType == "dmg") |
         .sha256
@@ -36,20 +36,20 @@ get_darwin_hash() {
 }
 
 hex_to_sri() {
-    local hex="$1"
-    nix hash convert --to sri --hash-algo sha256 "$hex"
+  local hex="$1"
+  nix hash convert --to sri --hash-algo sha256 "$hex"
 }
 
 x86_64_linux_hex=$(get_linux_hash "x86_64")
 aarch64_linux_hex=$(get_linux_hash "aarch64")
 darwin_hex=$(get_darwin_hash)
 
-if [[ -z "$x86_64_linux_hex" || -z "$aarch64_linux_hex" || -z "$darwin_hex" ]]; then
-    echo "Error: Could not find all hashes in manifest"
-    echo "  x86_64-linux: $x86_64_linux_hex"
-    echo "  aarch64-linux: $aarch64_linux_hex"
-    echo "  darwin: $darwin_hex"
-    exit 1
+if [[ -z $x86_64_linux_hex || -z $aarch64_linux_hex || -z $darwin_hex ]]; then
+  echo "Error: Could not find all hashes in manifest"
+  echo "  x86_64-linux: $x86_64_linux_hex"
+  echo "  aarch64-linux: $aarch64_linux_hex"
+  echo "  darwin: $darwin_hex"
+  exit 1
 fi
 
 x86_64_linux_hash=$(hex_to_sri "$x86_64_linux_hex")

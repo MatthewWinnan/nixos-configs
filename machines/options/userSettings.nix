@@ -1,8 +1,6 @@
-{ lib, ... }:
-let
-  inherit (lib.types) str enum listOf;
-in
-{
+{lib, ...}: let
+  inherit (lib.types) str enum;
+in {
   options = {
     userSettings = {
       username = lib.mkOption {

@@ -8,11 +8,9 @@
   config,
   pkgs,
   ...
-}:
-let
-  colors = config.lib.stylix.colors;
-in
-{
+}: let
+  inherit (config.lib.stylix) colors;
+in {
   services.walker = {
     enable = true;
     systemd.enable = true;
@@ -28,7 +26,7 @@ in
       };
 
       keybinds = {
-        quick_activate = [ ];
+        quick_activate = [];
       };
 
       columns = {

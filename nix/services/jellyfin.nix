@@ -13,8 +13,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   services.jellyfin = {
     enable = true;
     openFirewall = true; # Opens port 8096
@@ -37,7 +36,7 @@
   # Bind mount Jellyfin data to persistent storage
   fileSystems."/var/lib/jellyfin" = {
     device = "/persist/jellyfin";
-    options = [ "bind" ];
+    options = ["bind"];
   };
 
   # Prevent sleep when lid closed (server use)

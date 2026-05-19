@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (lib) mkIf;
-in {
+}: {
   # start the Pantheon policykit agent
   # this is based on the GNOME policykit agent
   # but uses a newer GTK version

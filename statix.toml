@@ -1,0 +1,12 @@
+# Statix linter configuration
+# https://github.com/nerdypepper/statix
+
+disabled = []
+nix_version = "2.4"
+
+# hardware-configuration.nix files use fileSystems."/path" = { ... }; as separate
+# top-level keys — this is the standard nixos-generate-config idiom and merging
+# them into fileSystems = { "/" = ...; "/boot" = ...; }; hurts readability.
+ignore = [
+  "machines/*/nix/hardware-configuration.nix",
+]

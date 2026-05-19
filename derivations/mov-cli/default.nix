@@ -1,8 +1,7 @@
 {pkgs}: let
   python = pkgs.python312;
-  pythonPackages = pkgs.python312Packages;
 
-  callPackage = pkgs.callPackage;
+  inherit (pkgs) callPackage;
 
   config = ./config/config.toml;
 
@@ -15,7 +14,7 @@
       lxml
     ];
 
-  pythonEnv = python.withPackages (ps: [
+  pythonEnv = python.withPackages (_ps: [
     mov-cli
     mov-cli-youtube
     otaku-watcher

@@ -4,8 +4,7 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   imports = [
     ../services/ssh.nix
     ../services/blueman.nix

@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   networking = {
     hostName = config.systemSettings.hostname;
     networkmanager = {

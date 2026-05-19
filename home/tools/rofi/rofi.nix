@@ -8,9 +8,7 @@
   osConfig,
   inputs',
   ...
-}: let
-  inherit (lib) mkIf optionals;
-in {
+}: {
   config = {
     programs.rofi = lib.mkForce {
       enable = true;

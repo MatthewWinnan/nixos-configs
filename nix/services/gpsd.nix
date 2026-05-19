@@ -2,11 +2,7 @@
 # Enables gpsd to read NMEA data from /dev/ttyACM0 and exposes it on the
 # standard gpsd socket (port 2947). A bridge service polls gpsd via gpspipe
 # and publishes TPV reports to MQTT for Home Assistant auto-discovery.
-{
-  pkgs,
-  ...
-}:
-let
+{pkgs, ...}: let
   mqttHost = "localhost";
   mqttPort = 1883;
   gpsTopic = "gps/fr3yr";
@@ -16,7 +12,7 @@ let
 
   gpsDevice = {
     name = "K-172 GPS";
-    identifiers = [ "fr3yr_gps" ];
+    identifiers = ["fr3yr_gps"];
     model = "DFRobot K-172";
     manufacturer = "DFRobot";
   };
@@ -131,8 +127,7 @@ let
     unique_id = "fr3yr_gps_bridge";
     device = gpsDevice;
   };
-in
-{
+in {
   # Stable udev symlink for the K-172 GPS module.
   # Matches on USB vendor/product ID so the path is independent of enumeration
   # order — /dev/ttyGPS always points to this specific device.
@@ -148,15 +143,15 @@ in
   # gpsd reads from the stable symlink, not the raw ttyACM* node
   services.gpsd = {
     enable = true;
-    devices = [ "/dev/ttyGPS" ];
+    devices = ["/dev/ttyGPS"];
     listenany = false;
     # -n: start reading immediately without waiting for a client connection
     # (important for getting a satellite fix on boot)
-    extraArgs = [ "-n" ];
+    extraArgs = ["-n"];
   };
 
   # gpsd needs access to the CDC ACM device (dialout group on Linux)
-  users.groups.dialout.members = [ "gpsd" ];
+  users.groups.dialout.members = ["gpsd"];
 
   # GPS debugging tools available in the shell:
   #   cgps        — curses live GPS display (position, fix quality, satellites)
@@ -173,149 +168,151 @@ in
   ];
 
   # Open port 2947 locally so gpspipe and other clients can talk to the daemon
-  networking.firewall.allowedTCPPorts = [ 2947 ];
+  networking.firewall.allowedTCPPorts = [2947];
 
-  # Long-running connection that holds the LWT for the bridge.
-  # If this process dies (crash/power loss) the broker automatically publishes
-  # "offline" to the status topic. Graceful shutdown publishes it via ExecStop.
-  systemd.services.gps-mqtt-lwt = {
-    description = "MQTT LWT keepalive and USB device monitor for GPS bridge status";
-    after = [ "mosquitto.service" "network-online.target" ];
-    wants = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "simple";
-      Restart = "on-failure";
-      RestartSec = "10s";
+  systemd.services = {
+    # Long-running connection that holds the LWT for the bridge.
+    # If this process dies (crash/power loss) the broker automatically publishes
+    # "offline" to the status topic. Graceful shutdown publishes it via ExecStop.
+    gps-mqtt-lwt = {
+      description = "MQTT LWT keepalive and USB device monitor for GPS bridge status";
+      after = ["mosquitto.service" "network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        Type = "simple";
+        Restart = "on-failure";
+        RestartSec = "10s";
+      };
+      script = ''
+        cleanup() {
+          ${pubCmd} -t '${statusTopic}' -m 'offline' --retain
+          kill "$LWT_PID" 2>/dev/null
+          exit 0
+        }
+        trap cleanup SIGTERM SIGINT
+
+        # Persistent connection — broker fires the will if this process dies ungracefully
+        ${subCmd} \
+          --will-topic '${statusTopic}' \
+          --will-payload 'offline' \
+          --will-retain \
+          --will-qos 1 \
+          -t '_lwt/gps_bridge' &
+        LWT_PID=$!
+
+        # Poll device presence every 5 seconds and publish status on change
+        last_state=""
+        while true; do
+          if [ -e /dev/ttyGPS ]; then
+            state="online"
+          else
+            state="offline"
+          fi
+
+          if [ "$state" != "$last_state" ]; then
+            ${pubCmd} -t '${statusTopic}' -m "$state" --retain
+            last_state="$state"
+          fi
+
+          sleep 5
+        done
+      '';
     };
-    script = ''
-      cleanup() {
-        ${pubCmd} -t '${statusTopic}' -m 'offline' --retain
-        kill "$LWT_PID" 2>/dev/null
-        exit 0
-      }
-      trap cleanup SIGTERM SIGINT
 
-      # Persistent connection — broker fires the will if this process dies ungracefully
-      ${subCmd} \
-        --will-topic '${statusTopic}' \
-        --will-payload 'offline' \
-        --will-retain \
-        --will-qos 1 \
-        -t '_lwt/gps_bridge' &
-      LWT_PID=$!
+    # Bridge: reads TPV reports from gpsd and publishes JSON to MQTT.
+    # Data sensors have no availability_topic — HA keeps the last retained value
+    # when this service is down. The gps-mqtt-lwt service tracks up/down state.
+    gps-mqtt-bridge = {
+      description = "GPS to MQTT bridge (K-172 gpsd -> Mosquitto)";
+      after = [
+        "gpsd.service"
+        "mosquitto.service"
+        "gps-mqtt-lwt.service"
+      ];
+      wants = [
+        "gpsd.service"
+        "mosquitto.service"
+      ];
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = "15s";
+      };
+      path = with pkgs; [
+        gpsd
+        jq
+        mosquitto
+      ];
+      script = ''
+        # Wait for gpsd socket to be ready
+        sleep 2
 
-      # Poll device presence every 5 seconds and publish status on change
-      last_state=""
-      while true; do
-        if [ -e /dev/ttyGPS ]; then
-          state="online"
-        else
-          state="offline"
-        fi
+        nsat=0
+        usat=0
+        last_pub=0
 
-        if [ "$state" != "$last_state" ]; then
-          ${pubCmd} -t '${statusTopic}' -m "$state" --retain
-          last_state="$state"
-        fi
+        # Pre-filter to TPV/SKY only — avoids jq entirely for all other message classes
+        gpspipe -w | grep -E '"class":"(TPV|SKY)"' | while IFS= read -r line; do
 
-        sleep 5
-      done
-    '';
-  };
+          # Use bash pattern matching for class detection — no subprocess
+          if [[ "$line" == *'"class":"SKY"'* ]]; then
+            now=$(date +%s)
+            # Only parse SKY when we're within one cycle of publishing
+            [ $((now - last_pub)) -lt 9 ] && continue
+            read -r nsat usat < <(echo "$line" | jq -r '"\(.nSat // 0) \(.uSat // 0)"')
+            continue
+          fi
 
-  # Bridge: reads TPV reports from gpsd and publishes JSON to MQTT.
-  # Data sensors have no availability_topic — HA keeps the last retained value
-  # when this service is down. The gps-mqtt-lwt service tracks up/down state.
-  systemd.services.gps-mqtt-bridge = {
-    description = "GPS to MQTT bridge (K-172 gpsd -> Mosquitto)";
-    after = [
-      "gpsd.service"
-      "mosquitto.service"
-      "gps-mqtt-lwt.service"
-    ];
-    wants = [
-      "gpsd.service"
-      "mosquitto.service"
-    ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "simple";
-      Restart = "always";
-      RestartSec = "15s";
-    };
-    path = with pkgs; [
-      gpsd
-      jq
-      mosquitto
-    ];
-    script = ''
-      # Wait for gpsd socket to be ready
-      sleep 2
-
-      nsat=0
-      usat=0
-      last_pub=0
-
-      # Pre-filter to TPV/SKY only — avoids jq entirely for all other message classes
-      gpspipe -w | grep -E '"class":"(TPV|SKY)"' | while IFS= read -r line; do
-
-        # Use bash pattern matching for class detection — no subprocess
-        if [[ "$line" == *'"class":"SKY"'* ]]; then
           now=$(date +%s)
-          # Only parse SKY when we're within one cycle of publishing
-          [ $((now - last_pub)) -lt 9 ] && continue
-          read -r nsat usat < <(echo "$line" | jq -r '"\(.nSat // 0) \(.uSat // 0)"')
-          continue
-        fi
+          [ $((now - last_pub)) -lt 10 ] && continue
+          last_pub=$now
 
-        now=$(date +%s)
-        [ $((now - last_pub)) -lt 10 ] && continue
-        last_pub=$now
+          payload=$(echo "$line" | jq \
+            --argjson nSat "$nsat" \
+            --argjson uSat "$usat" \
+            '{lat: .lat, lon: .lon, alt: .alt, speed: .speed, mode: .mode, nSat: $nSat, uSat: $uSat}')
 
-        payload=$(echo "$line" | jq \
-          --argjson nSat "$nsat" \
-          --argjson uSat "$usat" \
-          '{lat: .lat, lon: .lon, alt: .alt, speed: .speed, mode: .mode, nSat: $nSat, uSat: $uSat}')
+          mosquitto_pub -h ${mqttHost} -p ${toString mqttPort} \
+            -t '${gpsTopic}/tpv' -m "$payload" --retain
 
-        mosquitto_pub -h ${mqttHost} -p ${toString mqttPort} \
-          -t '${gpsTopic}/tpv' -m "$payload" --retain
-
-        # Separate location topic for the HA device_tracker / map card
-        location=$(echo "$line" | jq \
-          '{latitude: .lat, longitude: .lon, gps_accuracy: ((.eph // 999) | round)}')
-        mosquitto_pub -h ${mqttHost} -p ${toString mqttPort} \
-          -t '${gpsTopic}/location' -m "$location" --retain
-      done
-    '';
-  };
-
-  # Publish MQTT auto-discovery configs on boot so HA picks up the sensors
-  systemd.services.gps-mqtt-discovery = {
-    description = "Publish GPS MQTT discovery config for Home Assistant";
-    after = [
-      "mosquitto.service"
-      "network-online.target"
-    ];
-    wants = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      Restart = "on-failure";
-      RestartSec = "10s";
+          # Separate location topic for the HA device_tracker / map card
+          location=$(echo "$line" | jq \
+            '{latitude: .lat, longitude: .lon, gps_accuracy: ((.eph // 999) | round)}')
+          mosquitto_pub -h ${mqttHost} -p ${toString mqttPort} \
+            -t '${gpsTopic}/location' -m "$location" --retain
+        done
+      '';
     };
-    script = ''
-      ${pubCmd} -t 'homeassistant/sensor/gps_latitude/config'             -m '${latDiscovery}'          --retain
-      ${pubCmd} -t 'homeassistant/sensor/gps_longitude/config'            -m '${lonDiscovery}'          --retain
-      ${pubCmd} -t 'homeassistant/sensor/gps_altitude/config'             -m '${altDiscovery}'          --retain
-      ${pubCmd} -t 'homeassistant/sensor/gps_speed/config'                -m '${speedDiscovery}'        --retain
-      ${pubCmd} -t 'homeassistant/sensor/gps_fix_mode/config'             -m '${modeDiscovery}'         --retain
-      ${pubCmd} -t 'homeassistant/binary_sensor/gps_fix/config'           -m '${fixDiscovery}'          --retain
-      ${pubCmd} -t 'homeassistant/sensor/gps_nsat/config'                 -m '${nSatDiscovery}'         --retain
-      ${pubCmd} -t 'homeassistant/sensor/gps_usat/config'                 -m '${uSatDiscovery}'         --retain
-      ${pubCmd} -t 'homeassistant/binary_sensor/gps_bridge/config'        -m '${bridgeStatusDiscovery}' --retain
-      ${pubCmd} -t 'homeassistant/device_tracker/fr3yr_gps/config'       -m '${trackerDiscovery}'       --retain
-    '';
+
+    # Publish MQTT auto-discovery configs on boot so HA picks up the sensors
+    gps-mqtt-discovery = {
+      description = "Publish GPS MQTT discovery config for Home Assistant";
+      after = [
+        "mosquitto.service"
+        "network-online.target"
+      ];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        Restart = "on-failure";
+        RestartSec = "10s";
+      };
+      script = ''
+        ${pubCmd} -t 'homeassistant/sensor/gps_latitude/config'             -m '${latDiscovery}'          --retain
+        ${pubCmd} -t 'homeassistant/sensor/gps_longitude/config'            -m '${lonDiscovery}'          --retain
+        ${pubCmd} -t 'homeassistant/sensor/gps_altitude/config'             -m '${altDiscovery}'          --retain
+        ${pubCmd} -t 'homeassistant/sensor/gps_speed/config'                -m '${speedDiscovery}'        --retain
+        ${pubCmd} -t 'homeassistant/sensor/gps_fix_mode/config'             -m '${modeDiscovery}'         --retain
+        ${pubCmd} -t 'homeassistant/binary_sensor/gps_fix/config'           -m '${fixDiscovery}'          --retain
+        ${pubCmd} -t 'homeassistant/sensor/gps_nsat/config'                 -m '${nSatDiscovery}'         --retain
+        ${pubCmd} -t 'homeassistant/sensor/gps_usat/config'                 -m '${uSatDiscovery}'         --retain
+        ${pubCmd} -t 'homeassistant/binary_sensor/gps_bridge/config'        -m '${bridgeStatusDiscovery}' --retain
+        ${pubCmd} -t 'homeassistant/device_tracker/fr3yr_gps/config'       -m '${trackerDiscovery}'       --retain
+      '';
+    };
   };
 }

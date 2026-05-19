@@ -57,8 +57,7 @@ python3Packages.buildPythonPackage rec {
   # - atomicparsley: embedding thumbnails
   makeWrapperArgs = let
     packagesToBinPath =
-      []
-      ++ lib.optional atomicparsleySupport atomicparsley
+      lib.optional atomicparsleySupport atomicparsley
       ++ lib.optional ffmpegSupport ffmpeg-headless
       ++ lib.optional rtmpSupport rtmpdump;
   in

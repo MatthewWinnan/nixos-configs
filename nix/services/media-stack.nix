@@ -52,13 +52,7 @@
 #   ├── tv/          (Sonarr root folder)
 #   ├── books/       (Readarr root folder / Calibre library)
 #   └── downloads/   (qBittorrent download location)
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-let
+{pkgs, ...}: let
   # Shared media group for all services
   mediaGroup = "media";
 
@@ -68,112 +62,117 @@ let
   tvDir = "${mediaDir}/tv";
   booksDir = "${mediaDir}/books";
   downloadsDir = "${mediaDir}/downloads";
-in
-{
-  # Create shared media group
-  users.groups.${mediaGroup} = {};
-
-  # qBittorrent - torrent client
-  services.qbittorrent = {
-    enable = true;
-    webuiPort = 8085; # Avoid conflict with other services
-    openFirewall = true;
-  };
-  users.users.qbittorrent.extraGroups = [ mediaGroup ];
-  systemd.services.qbittorrent.serviceConfig.UMask = "0002";
-
-  # Prowlarr - indexer manager
-  services.prowlarr = {
-    enable = true;
-    openFirewall = true;
+in {
+  users = {
+    groups.${mediaGroup} = {};
+    users.qbittorrent.extraGroups = [mediaGroup];
+    users.jellyfin.extraGroups = [mediaGroup];
   };
 
-  # Radarr - movie management
-  services.radarr = {
-    enable = true;
-    openFirewall = true;
-    group = mediaGroup;
-  };
-  systemd.services.radarr.serviceConfig.UMask = "0002";
-
-  # Sonarr - TV show management
-  services.sonarr = {
-    enable = true;
-    openFirewall = true;
-    group = mediaGroup;
-  };
-  systemd.services.sonarr.serviceConfig.UMask = "0002";
-
-  # Bazarr - subtitle management
-  services.bazarr = {
-    enable = true;
-    openFirewall = true;
-    group = mediaGroup;
-  };
-
-  # Jellyseerr - request management UI
-  services.jellyseerr = {
-    enable = true;
-    openFirewall = true;
-  };
-
-  # Readarr - book and audiobook management
-  services.readarr = {
-    enable = true;
-    openFirewall = true;
-    group = mediaGroup;
-  };
-  systemd.services.readarr.serviceConfig.UMask = "0002";
-
-  # Calibre-Web - book reading UI backed by Calibre library
-  services.calibre-web = {
-    enable = true;
-    openFirewall = true;
-    group = mediaGroup;
-    listen = {
-      ip = "0.0.0.0";
-      port = 8083;
+  services = {
+    # qBittorrent - torrent client
+    qbittorrent = {
+      enable = true;
+      webuiPort = 8085; # Avoid conflict with other services
+      openFirewall = true;
     };
-    options = {
-      calibreLibrary = booksDir;
-      enableBookUploading = true;
+
+    # Prowlarr - indexer manager
+    prowlarr = {
+      enable = true;
+      openFirewall = true;
+    };
+
+    # Radarr - movie management
+    radarr = {
+      enable = true;
+      openFirewall = true;
+      group = mediaGroup;
+    };
+
+    # Sonarr - TV show management
+    sonarr = {
+      enable = true;
+      openFirewall = true;
+      group = mediaGroup;
+    };
+
+    # Bazarr - subtitle management
+    bazarr = {
+      enable = true;
+      openFirewall = true;
+      group = mediaGroup;
+    };
+
+    # Jellyseerr - request management UI
+    jellyseerr = {
+      enable = true;
+      openFirewall = true;
+    };
+
+    # Readarr - book and audiobook management
+    readarr = {
+      enable = true;
+      openFirewall = true;
+      group = mediaGroup;
+    };
+
+    # Calibre-Web - book reading UI backed by Calibre library
+    calibre-web = {
+      enable = true;
+      openFirewall = true;
+      group = mediaGroup;
+      listen = {
+        ip = "0.0.0.0";
+        port = 8083;
+      };
+      options = {
+        calibreLibrary = booksDir;
+        enableBookUploading = true;
+      };
     };
   };
 
-  # Initialise the Calibre library (metadata.db) if it doesn't exist yet.
-  # Calibre-Web refuses to start without a valid library so this must run first.
-  systemd.services.calibre-web = {
-    requires = [ "calibre-library-init.service" ];
-    after = [ "calibre-library-init.service" ];
-  };
+  systemd = {
+    services = {
+      qbittorrent.serviceConfig.UMask = "0002";
+      radarr.serviceConfig.UMask = "0002";
+      sonarr.serviceConfig.UMask = "0002";
+      readarr.serviceConfig.UMask = "0002";
 
-  systemd.services.calibre-library-init = {
-    description = "Initialise Calibre library metadata.db";
-    before = [ "calibre-web.service" ];
-    wantedBy = [ "calibre-web.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      User = "calibre-web";
-      Group = mediaGroup;
+      # Initialise the Calibre library (metadata.db) if it doesn't exist yet.
+      # Calibre-Web refuses to start without a valid library so this must run first.
+      calibre-web = {
+        requires = ["calibre-library-init.service"];
+        after = ["calibre-library-init.service"];
+      };
+
+      calibre-library-init = {
+        description = "Initialise Calibre library metadata.db";
+        before = ["calibre-web.service"];
+        wantedBy = ["calibre-web.service"];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          User = "calibre-web";
+          Group = mediaGroup;
+        };
+        script = ''
+          if [ ! -f "${booksDir}/metadata.db" ]; then
+            ${pkgs.calibre}/bin/calibredb list --library-path "${booksDir}" > /dev/null
+            echo "Calibre library initialised at ${booksDir}"
+          fi
+        '';
+      };
     };
-    script = ''
-      if [ ! -f "${booksDir}/metadata.db" ]; then
-        ${pkgs.calibre}/bin/calibredb list --library-path "${booksDir}" > /dev/null
-        echo "Calibre library initialised at ${booksDir}"
-      fi
-    '';
+
+    # Create media directories with proper permissions
+    tmpfiles.rules = [
+      "d ${mediaDir} 0775 root ${mediaGroup} -"
+      "d ${moviesDir} 0775 root ${mediaGroup} -"
+      "d ${tvDir} 0775 root ${mediaGroup} -"
+      "d ${booksDir} 0775 root ${mediaGroup} -"
+      "d ${downloadsDir} 0775 root ${mediaGroup} -"
+    ];
   };
-
-  # Add Jellyfin to media group for shared access
-  users.users.jellyfin.extraGroups = [ mediaGroup ];
-
-  # Create media directories with proper permissions
-  systemd.tmpfiles.rules = [
-    "d ${mediaDir} 0775 root ${mediaGroup} -"
-    "d ${moviesDir} 0775 root ${mediaGroup} -"
-    "d ${tvDir} 0775 root ${mediaGroup} -"
-    "d ${booksDir} 0775 root ${mediaGroup} -"
-    "d ${downloadsDir} 0775 root ${mediaGroup} -"
-  ];
 }

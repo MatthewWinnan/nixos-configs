@@ -3,8 +3,7 @@
   config,
   lib,
   ...
-}:
-{
+}: {
   networking.wireless = {
     # Disable wpa_supplicant since we're using iwd
     enable = false;

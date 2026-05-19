@@ -124,7 +124,7 @@
       };
     };
 
-"custom/screenrecord" = {
+    "custom/screenrecord" = {
       format = "{}";
       exec = ''
         if pgrep -x wf-recorder > /dev/null; then

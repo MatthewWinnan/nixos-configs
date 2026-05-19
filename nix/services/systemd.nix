@@ -6,33 +6,28 @@
 }: let
   # This should only go for personal machines outside of work
   isPersonal = builtins.elem config.systemSettings.profile ["gaming" "personal"];
-  username = config.userSettings.username;
-  hostname = config.systemSettings.hostname;
+  inherit (config.userSettings) username;
+  inherit (config.systemSettings) hostname;
 in {
   systemd = {
     user = {
       tmpfiles = {
         users.${username} = {
-          rules =
-            []
-            ++ lib.optionals isPersonal [
-              # nixos-user-tmpfiles.d-${username}
-              # Ensure the directory exists for use by mpd
-              "d /home/${username}/.config/mpd 0755 ${username} ${username} -"
-              "d /home/${username}/.config/mpd/playlists 0755 ${username} ${username} -"
-            ];
+          rules = lib.optionals isPersonal [
+            # nixos-user-tmpfiles.d-${username}
+            # Ensure the directory exists for use by mpd
+            "d /home/${username}/.config/mpd 0755 ${username} ${username} -"
+            "d /home/${username}/.config/mpd/playlists 0755 ${username} ${username} -"
+          ];
         };
       };
     };
     tmpfiles = {
-      rules =
-        [
-        ]
-        ++ lib.optionals (hostname == "h31mda11") [
-          # Mask TPM services to prevent boot timeouts due to firmware issues
-          "L /etc/systemd/system/systemd-tpm2-setup-early.service - - - - /dev/null"
-          "L /etc/systemd/system/systemd-tpm2-setup.service - - - - /dev/null"
-        ];
+      rules = lib.optionals (hostname == "h31mda11") [
+        # Mask TPM services to prevent boot timeouts due to firmware issues
+        "L /etc/systemd/system/systemd-tpm2-setup-early.service - - - - /dev/null"
+        "L /etc/systemd/system/systemd-tpm2-setup.service - - - - /dev/null"
+      ];
     };
 
     services = {

@@ -7,7 +7,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
   inherit (config.lib.stylix) colors;
 in {
   imports = [

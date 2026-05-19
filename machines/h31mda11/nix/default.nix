@@ -1,6 +1,5 @@
 # For nixOS specific imports
-{ inputs, ... }:
-{
+{inputs, ...}: {
   imports = [
     # Gaming specific imports
     ../../../gaming/h31mda11

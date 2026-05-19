@@ -1,11 +1,12 @@
 # Machine Inventory
 
 All machines share a common options system defined in `machines/options/` with three setting categories:
+
 - `deviceSettings` — Hardware type (`laptop`/`desktop`/`vm`), headless flag, monitor definitions
 - `systemSettings` — Architecture, hostname, profile (`personal`/`work`/`gaming`), locale, timezone
 - `userSettings` — Username, name, email, default browser, waybar theme
 
----
+______________________________________________________________________
 
 ## Desktop Machines (GUI)
 
@@ -94,7 +95,7 @@ All machines share a common options system defined in `machines/options/` with t
 - WSL-specific overrides in `home/wsl/` and `nix/services/wsl_overrides.nix`
 - Modules: nixvim, nix-index, stylix, wsl
 
----
+______________________________________________________________________
 
 ## Headless Machines (No GUI)
 
@@ -143,7 +144,7 @@ All machines share a common options system defined in `machines/options/` with t
 - Disko LUKS+BTRFS disk config in `disko/m1m1r.nix`
 - Modules: nixvim, nix-index
 
----
+______________________________________________________________________
 
 ## Module Matrix
 

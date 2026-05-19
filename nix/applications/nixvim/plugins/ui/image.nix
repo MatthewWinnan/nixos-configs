@@ -1,6 +1,5 @@
 # https://github.com/3rd/image.nvim
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nixvim.plugins.image = {
     enable = true;
     settings = {

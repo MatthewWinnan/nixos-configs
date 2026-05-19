@@ -8,7 +8,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf getExe;
+  inherit (lib) getExe;
 
   glow = "${getExe pkgs.glow}";
   pandoc = "${getExe pkgs.pandoc}";

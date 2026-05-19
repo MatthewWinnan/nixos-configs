@@ -4,10 +4,7 @@
 # Clean, minimal prompt showing directory, git info, and status
 # Integrates with Stylix colors
 #
-{
-  config,
-  ...
-}: let
+{config, ...}: let
   inherit (config.lib.stylix) colors;
 in {
   programs.starship = {

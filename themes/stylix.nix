@@ -1,5 +1,9 @@
-{ config, pkgs, inputs, ... }:
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   # Just to pull stylix into nixos
   # You can find the docs at https://stylix.danth.me/index.html
   stylix = {

@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (lib.meta) getExe getExe';
+  inherit (lib.meta) getExe';
   dig = getExe' pkgs.dnsutils "dig";
 in {
   programs.zsh.shellAliases = lib.mkMerge [

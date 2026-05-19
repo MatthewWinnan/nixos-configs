@@ -1,5 +1,4 @@
-{ inputs, ... }:
-let
+{inputs, ...}: let
   # Defaults
   system = "x86_64-linux";
   host_platform = {
@@ -9,14 +8,13 @@ let
   # Imports
   lenovo_legion = inputs.nixos-hardware.nixosModules.lenovo-legion-y530-15ich;
   raspberry_pi_4 = inputs.nixos-hardware.nixosModules.raspberry-pi-4;
-  nixvim = inputs.nixvim.nixosModules.nixvim;
-  stylix = inputs.stylix.nixosModules.stylix;
-  nix-index = inputs.nix-index-database.nixosModules.nix-index;
+  inherit (inputs.nixvim.nixosModules) nixvim;
+  inherit (inputs.stylix.nixosModules) stylix;
+  inherit (inputs.nix-index-database.nixosModules) nix-index;
   hm = inputs.home-manager.nixosModules.home-manager;
-  wsl = inputs.nixos-wsl.nixosModules.wsl;
-  sops = inputs.sops-nix.nixosModules.sops;
-in
-{
+  inherit (inputs.nixos-wsl.nixosModules) wsl;
+  inherit (inputs.sops-nix.nixosModules) sops;
+in {
   # th0r - lattepanda delta for home lab use
   # headless proxy server
   th0r = inputs.nixpkgs.lib.nixosSystem {
@@ -43,7 +41,7 @@ in
     };
     modules = [
       # General inputs
-      { nixpkgs.hostPlatform = "aarch64-linux"; }
+      {nixpkgs.hostPlatform = "aarch64-linux";}
       nixvim
       nix-index
       sops

@@ -12,11 +12,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (config.lib.stylix) colors;
-in
-{
+in {
   # Let Stylix handle mako theming, just override behavior settings
   services.mako = {
     enable = true;

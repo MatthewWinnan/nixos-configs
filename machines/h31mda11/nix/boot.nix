@@ -1,7 +1,11 @@
 {
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.blacklistedKernelModules = ["tpm_crb" "tpm_tis" "tpm"];
-  #boot.initrd.kernelModules = [ ];
-  #boot.kernelParams = [ ];
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    blacklistedKernelModules = ["tpm_crb" "tpm_tis" "tpm"];
+    #initrd.kernelModules = [ ];
+    #kernelParams = [ ];
+  };
 }

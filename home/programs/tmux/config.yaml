@@ -1,23 +1,18 @@
 command_alias_start_index: 200
-
 keybindings:
   prefix_table: Space
   root_table: null
-
 title:
   style: "align=centre,bold"
   prefix: "tmux"
   prefix_style: "fg=blue,align=centre,bold"
-
 position:
   x: R
   y: P
-
 macros:
   reload-config:
     - "source-file ~/.config/tmux/tmux.conf"
     - 'display "Config reloaded"'
-
 items:
   # ── Panes ──────────────────────────────────────────
   - name: +Pane
@@ -72,7 +67,6 @@ items:
       - name: Swap pane
         key: s
         command: "swap-pane -D"
-
   # ── Windows ────────────────────────────────────────
   - name: +Window
     key: w
@@ -115,7 +109,6 @@ items:
       - name: Window 5
         key: "5"
         command: "select-window -t 5"
-
   # ── Sessions ───────────────────────────────────────
   - name: +Session
     key: s
@@ -143,12 +136,10 @@ items:
       - name: Detach
         key: d
         command: "detach-client"
-
   # ── Copy mode ──────────────────────────────────────
   - name: Copy mode
     key: "["
     command: "copy-mode"
-
   # ── Quick actions ──────────────────────────────────
   - separator: true
   - name: Horizontal split
@@ -163,7 +154,6 @@ items:
   - name: Kill pane
     key: x
     command: "kill-pane"
-
   # ── Client ─────────────────────────────────────────
   - separator: true
   - name: +Client

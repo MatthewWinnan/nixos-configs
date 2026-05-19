@@ -15,20 +15,18 @@
   pkgs,
   config,
   ...
-}:
-let
-  isEnabled = builtins.elem config.systemSettings.profile [ "gaming" "personal" ];
-  username = config.userSettings.username;
+}: let
+  isEnabled = builtins.elem config.systemSettings.profile ["gaming" "personal"];
+  inherit (config.userSettings) username;
   musicDir = "/home/${username}/Media/Music";
-in
-{
+in {
   programs.beets = {
     enable = isEnabled;
 
     # Enable MPD integration
     mpdIntegration = {
-      enableUpdate = true;  # Auto-update MPD database after import
-      enableStats = true;   # Track play statistics
+      enableUpdate = true; # Auto-update MPD database after import
+      enableStats = true; # Track play statistics
       host = "127.0.0.1";
       port = 6600;
     };
@@ -40,10 +38,10 @@ in
 
       # Import settings
       import = {
-        move = true;           # Move files instead of copy
-        write = true;          # Write tags to files
+        move = true; # Move files instead of copy
+        write = true; # Write tags to files
         copy = false;
-        incremental = true;    # Skip already-imported
+        incremental = true; # Skip already-imported
         quiet_fallback = "skip";
         log = "/home/${username}/.config/beets/import.log";
       };
@@ -57,33 +55,33 @@ in
 
       # Plugins
       plugins = [
-        "fetchart"      # Fetch album art
-        "embedart"      # Embed art in files
-        "lastgenre"     # Fetch genres from Last.fm
-        "scrub"         # Clean up tags
-        "replaygain"    # Calculate replay gain
-        "duplicates"    # Find duplicate tracks
-        "missing"       # Find missing tracks in albums
-        "mpdstats"      # MPD play statistics
-        "mpdupdate"     # Update MPD on import
+        "fetchart" # Fetch album art
+        "embedart" # Embed art in files
+        "lastgenre" # Fetch genres from Last.fm
+        "scrub" # Clean up tags
+        "replaygain" # Calculate replay gain
+        "duplicates" # Find duplicate tracks
+        "missing" # Find missing tracks in albums
+        "mpdstats" # MPD play statistics
+        "mpdupdate" # Update MPD on import
       ];
 
       # Album art settings
       fetchart = {
         auto = true;
         minwidth = 300;
-        sources = [ "filesystem" "coverart" "itunes" "amazon" ];
+        sources = ["filesystem" "coverart" "itunes" "amazon"];
       };
 
       embedart = {
         auto = true;
-        remove_art_file = false;  # Keep external art file too
+        remove_art_file = false; # Keep external art file too
       };
 
       # Last.fm genre fetching
       lastgenre = {
         auto = true;
-        count = 3;  # Number of genres to fetch
+        count = 3; # Number of genres to fetch
       };
 
       # ReplayGain

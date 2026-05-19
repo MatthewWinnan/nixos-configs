@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   programs.ghostty = lib.mkForce {
     enable = true;
     enableFishIntegration = true;

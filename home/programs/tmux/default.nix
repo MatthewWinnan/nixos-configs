@@ -10,11 +10,9 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (config.lib.stylix) colors;
-in
-{
+in {
   xdg.configFile."tmux/plugins/tmux-which-key/config.yaml".source = ./config.yaml;
 
   programs.tmux = {

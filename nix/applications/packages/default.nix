@@ -4,11 +4,10 @@
   lib,
   inputs,
   ...
-}:
-let
+}: let
   # Import unstable packages for specific packages
   pkgs-unstable = import inputs.nixpkgs-unstable {
-    system = pkgs.stdenv.hostPlatform.system;
+    inherit (pkgs.stdenv.hostPlatform) system;
     config.allowUnfree = true;
   };
 
@@ -17,27 +16,27 @@ let
   stremio-fixed = pkgs-unstable.stremio-linux-shell.overrideAttrs (oldAttrs: {
     postPatch =
       lib.replaceStrings
-        [
-          "$cargoDepsCopy/libappindicator-sys-*"
-          "$cargoDepsCopy/xkbcommon-dl-*"
-        ]
-        [
-          "$cargoDepsCopy/*/libappindicator-sys-*"
-          "$cargoDepsCopy/*/xkbcommon-dl-*"
-        ]
-        oldAttrs.postPatch;
+      [
+        "$cargoDepsCopy/libappindicator-sys-*"
+        "$cargoDepsCopy/xkbcommon-dl-*"
+      ]
+      [
+        "$cargoDepsCopy/*/libappindicator-sys-*"
+        "$cargoDepsCopy/*/xkbcommon-dl-*"
+      ]
+      oldAttrs.postPatch;
   });
 
   # Custom derivations
-  lowfi = pkgs.callPackage ../../../derivations/lowfi/lowfi.nix { };
-  screen_recorder = pkgs.callPackage ../../../derivations/screen_record.nix { };
-  flamelens = pkgs.callPackage ../../../derivations/flamelens { };
-  kiro-cli = pkgs.callPackage ../../../derivations/kiro-cli { };
-  yt-dlp = pkgs.callPackage ../../../derivations/mov-cli/packages/yt-dlp.nix { };
-  ducker = pkgs.callPackage ../../../derivations/ducker { };
-  kicad-wrapped = pkgs.callPackage ../../../derivations/kicad-wrapped { };
-  orca-wrapped = pkgs.callPackage ../../../derivations/orca-wrapped { };
-  freecad-wrapped = pkgs.callPackage ../../../derivations/freecad-wrapped { };
+  lowfi = pkgs.callPackage ../../../derivations/lowfi/lowfi.nix {};
+  screen_recorder = pkgs.callPackage ../../../derivations/screen_record.nix {};
+  flamelens = pkgs.callPackage ../../../derivations/flamelens {};
+  kiro-cli = pkgs.callPackage ../../../derivations/kiro-cli {};
+  yt-dlp = pkgs.callPackage ../../../derivations/mov-cli/packages/yt-dlp.nix {};
+  ducker = pkgs.callPackage ../../../derivations/ducker {};
+  kicad-wrapped = pkgs.callPackage ../../../derivations/kicad-wrapped {};
+  orca-wrapped = pkgs.callPackage ../../../derivations/orca-wrapped {};
+  freecad-wrapped = pkgs.callPackage ../../../derivations/freecad-wrapped {};
 
   # ============================================================================
   # CORE PACKAGES - Essential system tools for all profiles
@@ -76,10 +75,11 @@ let
     gcc
     gnumake
     (python3.withPackages (
-      ps: with ps; [
-        pyserial
-        requests
-      ]
+      ps:
+        with ps; [
+          pyserial
+          requests
+        ]
     ))
     uv
   ];
@@ -434,14 +434,14 @@ let
   profilePackages =
     lib.optionals (
       config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming"
-    ) personalGamingPackages
+    )
+    personalGamingPackages
     ++ lib.optionals (config.systemSettings.profile == "personal") personalOnlyPackages
     ++ lib.optionals (config.systemSettings.profile == "gaming") gamingOnlyPackages
     ++ lib.optionals (config.systemSettings.profile == "work") workPackages;
 
   allSystemPackages = corePackages ++ profilePackages;
-in
-{
+in {
   # If something has been declared with .enable and points to pkgs or homemanager's
   # pkgs we do not need to add it here
   # Here we only do the basic global packages and load up module declarations
@@ -455,11 +455,11 @@ in
 
   # Override libreoffice to bypass Stylix GTK theming
   nixpkgs.overlays = [
-    (final: prev: {
+    (_final: prev: {
       libreoffice = prev.symlinkJoin {
         name = "libreoffice-light";
-        paths = [ prev.libreoffice ];
-        buildInputs = [ prev.makeWrapper ];
+        paths = [prev.libreoffice];
+        buildInputs = [prev.makeWrapper];
         postBuild = ''
           for bin in $out/bin/*; do
             wrapProgram "$bin" \

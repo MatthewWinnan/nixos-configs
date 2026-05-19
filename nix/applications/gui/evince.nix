@@ -1,6 +1,5 @@
 # https://gitlab.gnome.org/GNOME/evince
-{ inputs, ... }:
-{
+{inputs, ...}: {
   programs.evince = {
     enable = true;
   };

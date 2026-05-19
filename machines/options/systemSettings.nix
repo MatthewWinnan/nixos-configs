@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib.types) str enum listOf;
+  inherit (lib.types) str enum;
 in {
   options = {
     systemSettings = {

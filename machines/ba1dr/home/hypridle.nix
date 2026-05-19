@@ -1,7 +1,6 @@
 # Disable hypridle suspend for media server use
 # ba1dr runs Jellyfin and should stay awake 24/7
-{ lib, ... }:
-{
+{lib, ...}: {
   services.hypridle = {
     settings = {
       # Override listeners - remove suspend, keep only screen lock/dpms
