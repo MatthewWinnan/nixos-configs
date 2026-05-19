@@ -1,10 +1,10 @@
 {lib, ...}: let
-  inherit (lib.types) str enum listOf;
+  inherit (lib.types) enum;
 in {
   options = {
     deviceSettings = {
       type = lib.mkOption {
-        type = enum ["laptop" "desktop" "vm"];
+        type = enum ["laptop" "desktop" "vm" "work"];
         default = "laptop";
         description = "The type/purpose of the device.";
       };

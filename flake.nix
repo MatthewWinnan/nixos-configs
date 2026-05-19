@@ -129,6 +129,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Needed for my Legion Y530-15ICH
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
@@ -142,13 +147,16 @@
       ...
     }@inputs:
     let
-      # Modular import to allow for all systems
-      forAllSystemsInputs =
-        function: nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: function inputs system);
+      forAllSystems =
+        function: nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (system: function system);
+
+      treefmtEval = forAllSystems (system:
+        inputs.treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
+      );
     in
     {
-      # Formatter of choice
-      formatter = forAllSystemsInputs (inputs: system: inputs.alejandra.defaultPackage.${system});
+      # Formatter of choice (treefmt wraps alejandra + other formatters)
+      formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
 
       # NixOS machine configurations, now modular
       nixosConfigurations = import ./machines { inherit inputs; };

@@ -101,6 +101,22 @@ in {
           output = "terminal";
           description = "View pipeline (interactive)";
         }
+        # Tig: blame current file at selected commit
+        {
+          key = "X";
+          context = "commits";
+          command = "tig blame {{.SelectedLocalCommit.Sha}} -- {{.SelectedCommitFile.Name}}";
+          output = "terminal";
+          description = "Blame file at commit (tig)";
+        }
+        # Tig: browse repo at selected commit
+        {
+          key = "W";
+          context = "commits";
+          command = "tig show {{.SelectedLocalCommit.Sha}}";
+          output = "terminal";
+          description = "Browse commit (tig)";
+        }
       ];
 
       keybinding = {

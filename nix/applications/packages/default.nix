@@ -59,6 +59,8 @@ let
     libxml2 # For faster XML scraping
     tcpdump # For packet inspection
     poppler-utils # pdftoppm — PDF rendering (required for Claude Code to read PDFs)
+    ouch # Painless compression/decompression (tar, zip, gz, 7z, xz, bz2, zstd, rar, lz4, snappy, br)
+    csvlens # TUI CSV viewer
   ];
 
   desktopPackages = with pkgs; [
@@ -116,6 +118,9 @@ let
     nix-init
     # Formatter
     inputs.alejandra.defaultPackage.${pkgs.stdenv.hostPlatform.system}
+    # Linting
+    statix # Nix anti-pattern linter
+    deadnix # Find unused nix code
     # For caching setup
     attic-client
     attic-server
@@ -308,6 +313,8 @@ let
       sops
       # https://mqtt-explorer.com/
       mqtt-explorer # MQTT debugging GUI
+      # https://github.com/wookayin/gpustat
+      gpustat # GPU monitoring TUI
     ]);
 
   # ============================================================================
@@ -340,6 +347,7 @@ let
     git-review # We use gerrit
     fossil # I am also moving to Fossil
     glab # GitLab CLI
+    tig # TUI git log/blame/diff browser
   ];
 
   networkingPackages = with pkgs; [
@@ -370,6 +378,7 @@ let
     pkgs.arion
     pkgs.dive # https://github.com/wagoodman/dive
     pkgs.ctop # https://github.com/bcicen/ctop
+    pkgs.lazydocker # https://github.com/jesseduffield/lazydocker
     ducker # Custom derivation - https://github.com/robertpsoane/ducker
   ];
 
@@ -382,6 +391,10 @@ let
     gdb
     # https://cgdb.github.io/docs/cgdb-split.html
     cgdb
+    # https://github.com/darrenburns/posting
+    posting # TUI API client (like Postman in terminal)
+    # https://github.com/yassinebridi/serpl
+    serpl # TUI search and replace across files
   ];
 
   agenticPackages = [

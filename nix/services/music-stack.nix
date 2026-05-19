@@ -41,48 +41,47 @@
 #       └── music/       (qBittorrent download location for music)
 {
   config,
-  pkgs,
   lib,
   ...
-}:
-let
+}: let
   # isEnabled = builtins.elem config.systemSettings.profile [ "gaming" "personal" ];
   isEnabled = false;
-  username = config.userSettings.username;
-  musicDir = "/home/${username}/Media/Music";
+  inherit (config.userSettings) username;
   downloadsDir = "/home/${username}/Media/Downloads/music";
   aurralDataDir = "/home/${username}/.local/share/aurral";
-in
-{
-  # Prowlarr - indexer manager (syncs indexers to Lidarr)
-  services.prowlarr = {
-    enable = isEnabled;
-    openFirewall = true;
-  };
-
-  # Lidarr - music collection manager
-  services.lidarr = {
-    enable = isEnabled;
-    openFirewall = true;
-    user = username;
-    group = "users";
-    dataDir = "/home/${username}/.config/lidarr";
-    settings = {
-      server.port = 8686;
-      log.analyticsEnabled = false;
+in {
+  services = {
+    # Prowlarr - indexer manager (syncs indexers to Lidarr)
+    # mkDefault so media-stack.nix can override when both are imported
+    prowlarr = {
+      enable = lib.mkDefault isEnabled;
+      openFirewall = lib.mkDefault true;
     };
-  };
 
-  # qBittorrent - torrent client (local instance for music)
-  services.qbittorrent = lib.mkIf isEnabled {
-    enable = true;
-    webuiPort = 8085;
-    openFirewall = true;
+    # Lidarr - music collection manager
+    lidarr = {
+      enable = isEnabled;
+      openFirewall = true;
+      user = username;
+      group = "users";
+      dataDir = "/home/${username}/.config/lidarr";
+      settings = {
+        server.port = 8686;
+        log.analyticsEnabled = false;
+      };
+    };
+
+    # qBittorrent - torrent client (local instance for music)
+    qbittorrent = lib.mkIf isEnabled {
+      enable = true;
+      webuiPort = 8085;
+      openFirewall = true;
+    };
   };
 
   # Add qbittorrent user to user's group for file access
   users.users.qbittorrent = lib.mkIf isEnabled {
-    extraGroups = [ "users" ];
+    extraGroups = ["users"];
   };
 
   # Create directories (~/Media/Music is created by XDG userDirs)
@@ -97,7 +96,7 @@ in
     backend = "podman";
     containers.aurral = {
       image = "ghcr.io/lklynet/aurral:latest";
-      ports = [ "3001:3001" ];
+      ports = ["3001:3001"];
       volumes = [
         "${aurralDataDir}:/app/backend/data"
         "${aurralDataDir}/downloads:/app/downloads"
