@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Quick lint checks before commit (full eval via `just check`)
+set -euo pipefail
+
+statix check .
+deadnix --no-lambda-pattern-names .

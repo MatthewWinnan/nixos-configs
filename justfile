@@ -49,3 +49,7 @@ update:
 # Show flake info
 info:
     nix flake show
+
+# Set up git hooks (run after fresh clone)
+setup:
+    git config core.hooksPath .githooks
