@@ -51,27 +51,29 @@ in {
       end
 
       # Remote persistent tmux session over SSH
-      # Usage: remote <host> [session-name]
+      # Usage: remote <host> [session-name] [user]
       function remote
         if test (count $argv) -eq 0
-          echo "Usage: remote <host> [session-name]"
+          echo "Usage: remote <host> [session-name] [user]"
           return 1
         end
         set host $argv[1]
         set session (test (count $argv) -ge 2; and echo $argv[2]; or echo "main")
-        ssh -t "$host" "tmux new-session -A -s $session"
+        set user (test (count $argv) -ge 3; and echo $argv[3]; or echo "root")
+        ssh -t "$user@$host" "tmux new-session -A -s $session"
       end
 
       # Remote persistent tmux session over mosh (survives disconnects/roaming)
-      # Usage: rmosh <host> [session-name]
+      # Usage: rmosh <host> [session-name] [user]
       function rmosh
         if test (count $argv) -eq 0
-          echo "Usage: rmosh <host> [session-name]"
+          echo "Usage: rmosh <host> [session-name] [user]"
           return 1
         end
         set host $argv[1]
         set session (test (count $argv) -ge 2; and echo $argv[2]; or echo "main")
-        mosh "$host" -- tmux new-session -A -s "$session"
+        set user (test (count $argv) -ge 3; and echo $argv[3]; or echo "root")
+        mosh "$user@$host" -- tmux new-session -A -s "$session"
       end
     '';
 
