@@ -36,6 +36,43 @@ in {
           z $argv
         end
       end
+
+      # Dev session: tmux with nvim (left) + kiro (right) in current dir
+      function dev
+        set session_name (basename (pwd))
+        if tmux has-session -t "$session_name" 2>/dev/null
+          tmux attach -t "$session_name"
+        else
+          tmux new-session -d -s "$session_name" -c (pwd) "nvim"
+          tmux split-window -h -t "$session_name" -c (pwd) "kiro-cli chat"
+          tmux select-pane -t "$session_name":1.1
+          tmux attach -t "$session_name"
+        end
+      end
+
+      # Remote persistent tmux session over SSH
+      # Usage: remote <host> [session-name]
+      function remote
+        if test (count $argv) -eq 0
+          echo "Usage: remote <host> [session-name]"
+          return 1
+        end
+        set host $argv[1]
+        set session (test (count $argv) -ge 2; and echo $argv[2]; or echo "main")
+        ssh -t "$host" "tmux new-session -A -s $session"
+      end
+
+      # Remote persistent tmux session over mosh (survives disconnects/roaming)
+      # Usage: rmosh <host> [session-name]
+      function rmosh
+        if test (count $argv) -eq 0
+          echo "Usage: rmosh <host> [session-name]"
+          return 1
+        end
+        set host $argv[1]
+        set session (test (count $argv) -ge 2; and echo $argv[2]; or echo "main")
+        mosh "$host" -- tmux new-session -A -s "$session"
+      end
     '';
 
     # Add conidtional aliases

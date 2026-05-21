@@ -43,6 +43,15 @@ in {
         default = "fish";
         description = "Select which shell to use as the default login shell.";
       };
+      terminal = lib.mkOption {
+        type = enum [
+          "ghostty"
+          "wezterm"
+          "kitty"
+        ];
+        default = "ghostty";
+        description = "Select which terminal emulator to use.";
+      };
     };
   };
 }

@@ -180,18 +180,32 @@ in {
           ''$mainMod, R, exec, ${lib.getExe pkgs.wf-recorder} -al -g "$(${lib.getExe pkgs.slurp} -w 0 -d)" -f $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).mp4 > $HOME/Recordings/$(date +%Y-%m-%d_%H:%M:%S).log ''
           "$mainMod SHIFT, R, exec, pkill ${lib.getExe pkgs.wf-recorder}"
           # General functions
-          "$mainMod, Return, exec, ${
-            lib.getExe (
-              if config.systemSettings.hostname == "fafn1r"
-              then pkgs.wezterm
-              else pkgs.ghostty
-            )
-          }"
+          "$mainMod, Return, exec, ${lib.getExe pkgs.${config.userSettings.terminal}}"
           "$mainMod, Q, killactive,"
           "$mainMod, M, exit,"
           "$mainMod, F, fullscreen,"
           #"$mainMod, D, exec, ${lib.getExe pkgs.rofi} -show drun"
           "$mainMod, D, exec, ${lib.getExe pkgs.walker}"
+
+          # Project picker: rofi selects a git repo, opens nvim + kiro side by side
+          "$mainMod SHIFT, P, exec, ${lib.getExe (pkgs.writeShellScriptBin "project-picker" ''
+            # Find git repos (max depth 4) and present in rofi
+            repo=$(find "$HOME" -maxdepth 4 -name ".git" -type d 2>/dev/null \
+              | sed 's|/.git$||' \
+              | sort \
+              | ${lib.getExe pkgs.rofi} -dmenu -i -p "Project")
+
+            [ -z "$repo" ] && exit 0
+
+            # Launch nvim in the selected repo
+            ${lib.getExe pkgs.${config.userSettings.terminal}} --working-directory="$repo" -e nvim &
+
+            # Small delay so hyprland tiles them in order
+            sleep 0.3
+
+            # Launch kiro in the selected repo
+            ${lib.getExe pkgs.${config.userSettings.terminal}} --working-directory="$repo" -e kiro-cli chat &
+          '')}"
 
           # Move focus with mainMod + arrow keys
           "$mainMod, left,  movefocus, l"

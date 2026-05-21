@@ -9,4 +9,5 @@ nix_version = "2.4"
 # them into fileSystems = { "/" = ...; "/boot" = ...; }; hurts readability.
 ignore = [
   "machines/*/nix/hardware-configuration.nix",
+  "home/programs/helix/default.nix",
 ]

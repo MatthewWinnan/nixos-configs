@@ -355,6 +355,7 @@
     wireshark
     tshark
     termshark
+    mosh # Mobile shell — persistent SSH alternative (UDP, survives roaming)
   ];
 
   calculatorPackages = with pkgs; [
@@ -472,4 +473,7 @@ in {
   ];
 
   environment.systemPackages = allSystemPackages;
+
+  # Allow running dynamically linked binaries (e.g. kiro-cli's bundled bun)
+  programs.nix-ld.enable = true;
 }

@@ -29,5 +29,6 @@
     browser = "qutebrowser";
     waybar = "omarchy";
     shell = "fish";
+    terminal = "wezterm";
   };
 }

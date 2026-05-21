@@ -19,7 +19,7 @@ in {
     enable = true;
     shell = "${pkgs.fish}/bin/fish";
     terminal = "tmux-256color";
-    prefix = "C-c";
+    prefix = "C-t";
     baseIndex = 1;
     escapeTime = 0;
     historyLimit = 50000;
@@ -42,6 +42,7 @@ in {
         plugin = tmux-which-key;
         extraConfig = ''
           set -g @tmux-which-key-xdg-enable 1
+          set -g @tmux-which-key-disable-autobuild 1
         '';
       }
     ];
@@ -49,11 +50,10 @@ in {
     extraConfig = ''
       # Source tmux-which-key init (plugin.sh.tmux builds it but doesn't always source it)
       if-shell "test -f ~/.local/share/tmux/plugins/tmux-which-key/init.tmux" \
-        "source-file ~/.local/share/tmux/plugins/tmux-which-key/init.tmux"
+        "run-shell -b 'tmux source-file ~/.local/share/tmux/plugins/tmux-which-key/init.tmux'"
 
       # Secondary prefix
       set -g prefix2 C-b
-      bind C-Space send-prefix
 
       # True color support
       set -ag terminal-overrides ",*:RGB"
@@ -62,6 +62,8 @@ in {
       set -g focus-events on
       set -g set-clipboard on
       set -g allow-passthrough on
+      set -g silence-action none
+      set -g visual-silence off
       setw -g aggressive-resize on
       set -g detach-on-destroy off
       setw -g pane-base-index 1
@@ -76,6 +78,19 @@ in {
       bind v split-window -h -c "#{pane_current_path}"
       bind x kill-pane
 
+      # Vim-style pane navigation (prefix + hjkl)
+      bind -r H select-pane -L
+      bind -r J select-pane -D
+      bind -r K select-pane -U
+      bind -r L select-pane -R
+
+      # Vim-style pane resize (prefix + Ctrl-hjkl)
+      bind -r C-h resize-pane -L 5
+      bind -r C-j resize-pane -D 5
+      bind -r C-k resize-pane -U 5
+      bind -r C-l resize-pane -R 5
+
+      # Keep arrow fallbacks (no prefix needed)
       bind -n C-M-Left select-pane -L
       bind -n C-M-Right select-pane -R
       bind -n C-M-Up select-pane -U
