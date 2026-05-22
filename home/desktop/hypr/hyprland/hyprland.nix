@@ -148,6 +148,13 @@ in {
       # VM GPU drivers (e.g. hyperv_drm) lack hardware cursor plane support
       cursor = lib.mkIf (config.deviceSettings.type == "vm") {
         no_hardware_cursors = true;
+        use_cpu_buffer = true;
+        hide_on_key_press = false;
+      };
+
+      # Hyper-V GPU doesn't support explicit sync — causes cursor behind layers
+      render = lib.mkIf (config.deviceSettings.type == "vm") {
+        explicit_sync = false;
       };
 
       # Fix transparent applet/hover menus by disabling blur on layer surfaces
