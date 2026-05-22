@@ -8,6 +8,7 @@
   # You can find the docs at https://stylix.danth.me/index.html
   stylix = {
     enable = true;
+    autoEnable = true;
     targets = {
       nixvim.enable = false;
     };
