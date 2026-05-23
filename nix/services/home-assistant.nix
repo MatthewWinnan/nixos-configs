@@ -215,15 +215,15 @@
               type = "vertical-stack";
               cards = [
                 {
-                  # BMP180 sensor card.
+                  # BMP388 sensor card — authoritative pressure source (OSR_32X, ~0.5 Pa).
                   # QNH = WMO hypsometric formula with virtual temperature (Tv).
                   type = "entities";
-                  title = "BMP180";
+                  title = "BMP388";
                   entities = [
-                    { entity = "sensor.bmp180_temperature";  name = "Temperature"; }
-                    { entity = "sensor.bmp180_pressure";     name = "QFE"; }
-                    { entity = "sensor.bmp180_pressure_msl"; name = "QNH"; }
-                    { entity = "sensor.bmp180_altitude";     name = "Altitude"; }
+                    { entity = "sensor.bmp388_temperature";  name = "Temperature"; }
+                    { entity = "sensor.bmp388_pressure";     name = "QFE"; }
+                    { entity = "sensor.bmp388_pressure_msl"; name = "QNH"; }
+                    { entity = "sensor.bmp388_altitude";     name = "Altitude"; }
                   ];
                 }
                 {
@@ -256,9 +256,9 @@
                   entities = [
                     { entity = "sensor.sht40_humidity";           name = "Humidity (SHT40)"; }
                     { entity = "sensor.bme280_humidity";          name = "Humidity (BME280)"; }
-                    { entity = "sensor.bme280_tendency";          name = "Tendency (3 h)"; }
-                    { entity = "sensor.bme280_tendency_a";        name = "Tendency Code (WMO)"; }
-                    { entity = "sensor.bme280_tendency_a_desc";   name = "Tendency Description"; }
+                    { entity = "sensor.bmp388_tendency";          name = "Tendency (3 h)"; }
+                    { entity = "sensor.bmp388_tendency_a";        name = "Tendency Code (WMO)"; }
+                    { entity = "sensor.bmp388_tendency_a_desc";   name = "Tendency Description"; }
                   ];
                 }
                 {
@@ -276,7 +276,7 @@
                   hours_to_show = 24;
                   entities = [
                     { entity = "sensor.sht40_temperature";     name = "SHT40 Temp"; }
-                    { entity = "sensor.bmp180_temperature";    name = "BMP180 Temp"; }
+                    { entity = "sensor.bmp388_temperature";    name = "BMP388 Temp"; }
                     { entity = "sensor.bme280_temperature";    name = "BME280 Temp"; }
                     { entity = "sensor.sht40_humidity";        name = "SHT40 Humidity"; }
                     { entity = "sensor.bme280_humidity";       name = "BME280 Humidity"; }
@@ -289,7 +289,7 @@
                   title = "Sea-Level Pressure QNH (10 min avg, 24 h)";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.bmp180_pressure_msl"; name = "BMP180 QNH"; }
+                    { entity = "sensor.bmp388_pressure_msl"; name = "BMP388 QNH"; }
                     { entity = "sensor.bme280_pressure_msl"; name = "BME280 QNH"; }
                   ];
                 }
@@ -298,11 +298,11 @@
                   # WMO codes 0-8 describe the shape; description gives plain English.
                   # 72 h window shows multiple frontal passages clearly.
                   type = "history-graph";
-                  title = "Pressure Tendency 3 h — BME280 (72 h)";
+                  title = "Pressure Tendency 3 h — BMP388 (72 h)";
                   hours_to_show = 72;
                   entities = [
-                    { entity = "sensor.bme280_tendency";        name = "Tendency (hPa/3h)"; }
-                    { entity = "sensor.bme280_tendency_a";      name = "WMO Code (0-8)"; }
+                    { entity = "sensor.bmp388_tendency";        name = "Tendency (hPa/3h)"; }
+                    { entity = "sensor.bmp388_tendency_a";      name = "WMO Code (0-8)"; }
                   ];
                 }
                 {
@@ -310,7 +310,7 @@
                   title = "Altitude (24 h)";
                   hours_to_show = 24;
                   entities = [
-                    { entity = "sensor.bmp180_altitude";       name = "BMP180"; }
+                    { entity = "sensor.bmp388_altitude";       name = "BMP388"; }
                     { entity = "sensor.bme280_altitude";       name = "BME280"; }
                     { entity = "sensor.station_alt_kalman";    name = "GPS Kalman"; }
                   ];
