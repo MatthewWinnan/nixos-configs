@@ -253,9 +253,8 @@
                 }
                 {
                   type = "entities";
-                  title = "Humidity & Tendency";
+                  title = "Tendency";
                   entities = [
-                    { entity = "sensor.sht40_humidity";           name = "Humidity (SHT40)"; }
                     { entity = "sensor.bmp388_tendency";          name = "Tendency (3 h)"; }
                     { entity = "sensor.bmp388_tendency_a";        name = "Tendency Code (WMO)"; }
                     { entity = "sensor.bmp388_tendency_a_desc";   name = "Tendency Description"; }
