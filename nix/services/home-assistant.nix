@@ -240,10 +240,22 @@
                   ];
                 }
                 {
+                  # SHT40 — authoritative T/RH source (±0.2°C / ±1.8% RH typ).
+                  # T/RH from this sensor feed the WMO virtual temperature (Tv)
+                  # correction used in all MSL pressure calculations.
+                  type = "entities";
+                  title = "SHT40";
+                  entities = [
+                    { entity = "sensor.sht40_temperature"; name = "Temperature"; }
+                    { entity = "sensor.sht40_humidity";    name = "Humidity"; }
+                  ];
+                }
+                {
                   type = "entities";
                   title = "Humidity & Tendency";
                   entities = [
-                    { entity = "sensor.bme280_humidity";          name = "Humidity"; }
+                    { entity = "sensor.sht40_humidity";           name = "Humidity (SHT40)"; }
+                    { entity = "sensor.bme280_humidity";          name = "Humidity (BME280)"; }
                     { entity = "sensor.bme280_tendency";          name = "Tendency (3 h)"; }
                     { entity = "sensor.bme280_tendency_a";        name = "Tendency Code (WMO)"; }
                     { entity = "sensor.bme280_tendency_a_desc";   name = "Tendency Description"; }
@@ -263,18 +275,11 @@
                   title = "Temperature & Humidity (24 h)";
                   hours_to_show = 24;
                   entities = [
-                    {
-                      entity = "sensor.bmp180_temperature";
-                      name = "BMP180 Temp";
-                    }
-                    {
-                      entity = "sensor.bme280_temperature";
-                      name = "BME280 Temp";
-                    }
-                    {
-                      entity = "sensor.bme280_humidity";
-                      name = "Humidity";
-                    }
+                    { entity = "sensor.sht40_temperature";     name = "SHT40 Temp"; }
+                    { entity = "sensor.bmp180_temperature";    name = "BMP180 Temp"; }
+                    { entity = "sensor.bme280_temperature";    name = "BME280 Temp"; }
+                    { entity = "sensor.sht40_humidity";        name = "SHT40 Humidity"; }
+                    { entity = "sensor.bme280_humidity";       name = "BME280 Humidity"; }
                   ];
                 }
                 {
