@@ -217,6 +217,7 @@
                 {
                   # BMP388 sensor card — authoritative pressure source (OSR_32X, ~0.5 Pa).
                   # QNH = WMO hypsometric formula with virtual temperature (Tv).
+                  # station_alt_kalman: GPS altitude smoothed by 1D Kalman filter.
                   type = "entities";
                   title = "BMP388";
                   entities = [
@@ -224,19 +225,19 @@
                     { entity = "sensor.bmp388_pressure";     name = "QFE"; }
                     { entity = "sensor.bmp388_pressure_msl"; name = "QNH"; }
                     { entity = "sensor.bmp388_altitude";     name = "Altitude"; }
+                    { entity = "sensor.station_alt_kalman";  name = "Station Altitude (Kalman)"; display_precision = 1; }
                   ];
                 }
                 {
-                  # BME280 sensor card.
-                  # QNH = WMO hypsometric formula with virtual temperature (Tv).
+                  # TMP117 — primary temperature reference (±0.1 °C).
+                  # Alert thresholds: high > +60 °C, low < -10 °C.
+                  # Alerts are OR'd over the 10-min window — ON if any sample tripped.
                   type = "entities";
-                  title = "BME280";
+                  title = "TMP117";
                   entities = [
-                    { entity = "sensor.bme280_temperature";  name = "Temperature"; }
-                    { entity = "sensor.bme280_pressure";     name = "QFE"; }
-                    { entity = "sensor.bme280_pressure_msl"; name = "QNH"; }
-                    { entity = "sensor.bme280_altitude";     name = "Altitude"; }
-                    { entity = "sensor.station_alt_kalman";  name = "Station Altitude (Kalman)"; display_precision = 1; }
+                    { entity = "sensor.tmp117_temperature";             name = "Temperature"; display_precision = 2; }
+                    { entity = "binary_sensor.tmp117_high_alert";       name = "High Temp Alert (> 60 °C)"; }
+                    { entity = "binary_sensor.tmp117_low_alert";        name = "Low Temp Alert (< -10 °C)"; }
                   ];
                 }
                 {
@@ -255,7 +256,6 @@
                   title = "Humidity & Tendency";
                   entities = [
                     { entity = "sensor.sht40_humidity";           name = "Humidity (SHT40)"; }
-                    { entity = "sensor.bme280_humidity";          name = "Humidity (BME280)"; }
                     { entity = "sensor.bmp388_tendency";          name = "Tendency (3 h)"; }
                     { entity = "sensor.bmp388_tendency_a";        name = "Tendency Code (WMO)"; }
                     { entity = "sensor.bmp388_tendency_a_desc";   name = "Tendency Description"; }
@@ -275,11 +275,10 @@
                   title = "Temperature & Humidity (24 h)";
                   hours_to_show = 24;
                   entities = [
+                    { entity = "sensor.tmp117_temperature";    name = "TMP117 Temp"; }
                     { entity = "sensor.sht40_temperature";     name = "SHT40 Temp"; }
                     { entity = "sensor.bmp388_temperature";    name = "BMP388 Temp"; }
-                    { entity = "sensor.bme280_temperature";    name = "BME280 Temp"; }
                     { entity = "sensor.sht40_humidity";        name = "SHT40 Humidity"; }
-                    { entity = "sensor.bme280_humidity";       name = "BME280 Humidity"; }
                   ];
                 }
                 {
@@ -290,7 +289,6 @@
                   hours_to_show = 24;
                   entities = [
                     { entity = "sensor.bmp388_pressure_msl"; name = "BMP388 QNH"; }
-                    { entity = "sensor.bme280_pressure_msl"; name = "BME280 QNH"; }
                   ];
                 }
                 {
@@ -311,7 +309,6 @@
                   hours_to_show = 24;
                   entities = [
                     { entity = "sensor.bmp388_altitude";       name = "BMP388"; }
-                    { entity = "sensor.bme280_altitude";       name = "BME280"; }
                     { entity = "sensor.station_alt_kalman";    name = "GPS Kalman"; }
                   ];
                 }
