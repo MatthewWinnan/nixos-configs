@@ -71,10 +71,14 @@
 
             nginx_language_server.enable = true;
 
-            # This says it is included https://nix-community.github.io/nixvim/plugins/lsp/servers/robotframework_ls/index.html#robotframework_ls
-            # However I can not install it since it is listed as unpackaged on https://github.com/nix-community/nixvim/blob/7d882356a486cf44b7fab842ac26885ecd985af3/plugins/lsp/lsp-packages.nix#L20
-            # robotframework_ls.enable = true;
-            #robotcode.enable = true;
+            # RobotCode LSP - not packaged in nixpkgs, uses project .venv
+            # Install in project: uv pip install robotcode[languageserver] robotframework-robocop
+            # Robocop integration is automatic when robocop is in the same Python env
+            robotcode = {
+              enable = true;
+              package = null;
+              cmd = ["robotcode" "language-server"];
+            };
           }
           else if config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming"
           then {
