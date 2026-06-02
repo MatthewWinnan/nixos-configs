@@ -24,6 +24,9 @@
     ../certs/nse-services.crt
   ];
 
+  # crates.io CDN 403s requests without a recognized User-Agent
+  systemd.services.nix-daemon.environment.NIX_CURL_FLAGS = lib.mkIf (config.systemSettings.profile == "work") "--user-agent nix";
+
   # We need these settings for typical work....
   nix.settings = lib.mkMerge [
     (

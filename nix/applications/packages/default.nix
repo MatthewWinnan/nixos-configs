@@ -251,6 +251,8 @@
     pkgs.mov-cli # General content streaming
     yt-dlp # Video downloader (custom derivation)
     stremio-fixed # Using unstable version with build fix
+    # https://github.com/Xithrius/twitch-tui
+    pkgs.twitch-cli # Twitch chat CLI
   ];
 
   musicPackages = [
@@ -307,8 +309,6 @@
     ++ ricePackages
     ++ (with pkgs; [
       nodejs # includes npx (for MCP servers)
-      # https://github.com/Xithrius/twitch-tui
-      twitch-cli # Twitch chat CLI
       # For secrets
       sops
       # https://mqtt-explorer.com/
