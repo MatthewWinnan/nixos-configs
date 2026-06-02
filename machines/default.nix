@@ -140,6 +140,7 @@ in {
       nixvim
       stylix
       nix-index
+      sops
       hm
 
       # Remaining modules

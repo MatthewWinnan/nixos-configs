@@ -1,7 +1,11 @@
 #
 # Original Code by NotAShelf - https://github.com/notashelf/nyx
 #
-{pkgs, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   gitPackage = pkgs.gitFull;
 in {
   config = {
@@ -30,11 +34,14 @@ in {
         skipSmudge = true;
       };
 
+      # Include sops-rendered gitconfig if present (overrides user.email on work machines)
+      includes = [
+        {path = "/run/secrets/rendered/git-work-config";}
+      ];
+
       settings = {
-        # my credentials
         user = {
-          name = "MatthewWinnan";
-          email = "71087625+MatthewWinnan@users.noreply.github.com";
+          inherit (config.userSettings) name email;
         };
 
         aliases = {

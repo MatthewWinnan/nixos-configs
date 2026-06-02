@@ -24,8 +24,8 @@
 
   userSettings = {
     username = "matthew";
-    name = "Matthew";
-    email = "matthew.winnan@blahblah.com";
+    name = "Matthew Winnan";
+    email = "placeholder@example.com"; # overridden at runtime by sops secret
     browser = "qutebrowser";
     waybar = "omarchy";
     shell = "fish";

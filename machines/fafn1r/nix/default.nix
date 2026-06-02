@@ -13,5 +13,7 @@
     ../../../themes
     # Boot settings
     ./boot.nix
+    # Sops secrets
+    ./sops.nix
   ];
 }
