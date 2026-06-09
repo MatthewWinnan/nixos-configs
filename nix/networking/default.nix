@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, lib, ...}: {
   networking = {
     hostName = config.systemSettings.hostname;
     networkmanager = {
@@ -31,6 +31,9 @@
         5000
         465
         993
+      ];
+      allowedUDPPorts = lib.optionals (config.systemSettings.profile == "work") [
+        9999
       ];
     };
   };
