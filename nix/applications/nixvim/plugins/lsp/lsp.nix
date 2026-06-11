@@ -78,6 +78,9 @@
               enable = true;
               package = null;
               cmd = ["robotcode" "language-server"];
+              settings = {
+                robotcode.analysis.diagnosticMode = "openFilesOnly";
+              };
             };
           }
           else if config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming"
