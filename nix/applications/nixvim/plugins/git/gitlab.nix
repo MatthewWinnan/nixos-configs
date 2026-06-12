@@ -127,6 +127,12 @@ in {
         action = "<cmd>lua require('gitlab').choose_merge_request()<cr>";
         options.desc = "GitLab: Choose MR";
       }
+      {
+        mode = "n";
+        key = "<leader>gm";
+        action = "<cmd>lua require('gitlab').create_mr()<cr>";
+        options.desc = "GitLab: Create MR";
+      }
     ];
   };
 }
