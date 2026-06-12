@@ -37,6 +37,7 @@
   kicad-wrapped = pkgs.callPackage ../../../derivations/kicad-wrapped {};
   orca-wrapped = pkgs.callPackage ../../../derivations/orca-wrapped {};
   freecad-wrapped = pkgs.callPackage ../../../derivations/freecad-wrapped {};
+  keifu = pkgs.callPackage ../../../derivations/keifu {};
 
   # ============================================================================
   # CORE PACKAGES - Essential system tools for all profiles
@@ -150,6 +151,8 @@
     dust
     # https://github.com/gferraro/voxtype
     pkgs-unstable.voxtype-vulkan # Voice-to-text for Wayland
+    # https://github.com/trasta298/keifu
+    keifu
   ];
 
   # ============================================================================

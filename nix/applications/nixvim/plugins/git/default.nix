@@ -4,5 +4,6 @@
     ./gitsigns.nix
     ./diffview.nix
     ./gitgraph.nix
+    ./gitlab.nix
   ];
 }

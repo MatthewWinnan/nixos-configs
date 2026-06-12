@@ -8,6 +8,7 @@
     };
 
     secrets."git-email" = {};
+    secrets."dns-search-domain" = {};
 
     templates."git-work-config" = {
       content = ''
@@ -17,4 +18,10 @@
       owner = config.users.users.matthew.name;
     };
   };
+
+  # openresolv sources resolvconf.conf as a shell script, so we can
+  # source our sops-decrypted secret to set the search domain at runtime
+  networking.resolvconf.extraConfig = ''
+    search_domains_append="$(cat ${config.sops.secrets."dns-search-domain".path} 2>/dev/null)"
+  '';
 }
