@@ -15,5 +15,8 @@
     remotePlay.openFirewall = false;
 
     gamescopeSession.enable = config.systemSettings.profile == "gaming";
+
+    # Adds GE-Proton as a selectable compatibility tool in Steam
+    extraCompatPackages = with pkgs; [ proton-ge-bin ];
   };
 }

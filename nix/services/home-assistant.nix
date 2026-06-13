@@ -230,14 +230,14 @@
                 }
                 {
                   # TMP117 — primary temperature reference (±0.1 °C).
-                  # Alert thresholds: high > +60 °C, low < -10 °C.
+                  # Alert thresholds: high > +30 °C, low < -5 °C.
                   # Alerts are OR'd over the 10-min window — ON if any sample tripped.
                   type = "entities";
                   title = "TMP117";
                   entities = [
                     { entity = "sensor.tmp117_temperature";             name = "Temperature"; display_precision = 2; }
-                    { entity = "binary_sensor.tmp117_high_alert";       name = "High Temp Alert (> 60 °C)"; }
-                    { entity = "binary_sensor.tmp117_low_alert";        name = "Low Temp Alert (< -10 °C)"; }
+                    { entity = "binary_sensor.tmp117_high_alert";       name = "High Temp Alert (> 30 °C)"; }
+                    { entity = "binary_sensor.tmp117_low_alert";        name = "Low Temp Alert (< -5 °C)"; }
                   ];
                 }
                 {

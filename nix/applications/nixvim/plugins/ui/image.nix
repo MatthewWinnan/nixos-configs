@@ -5,6 +5,7 @@
     settings = {
       backend = "kitty"; # Kitty graphics protocol — supported by kitty, ghostty, and wezterm
       processor = "magick_cli";
+      filetypes = ["png" "jpg" "gif" "webp" "svg"];
     };
   };
 }
