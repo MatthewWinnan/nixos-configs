@@ -1,5 +1,10 @@
 # For nixOS specific imports
 {inputs, ...}: {
+  # Pin cache.nixos.org to a nearby Fastly POP (ISP anycast misroutes to distant POPs)
+  networking.extraHosts = ''
+    151.101.65.91 cache.nixos.org
+  '';
+
   imports = [
     # Hardware declarations
     ./hardware-configuration.nix

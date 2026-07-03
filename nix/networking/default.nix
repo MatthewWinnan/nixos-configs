@@ -4,6 +4,9 @@
     networkmanager = {
       enable = true;
       wifi.backend = "iwd"; # Use iwd as NetworkManager's backend
+      settings.connection = {
+        "ipv4.dhcp-send-hostname" = "true";
+      };
     };
     wireless = {
       enable = false; # Disable wpa_supplicant - conflicts with iwd

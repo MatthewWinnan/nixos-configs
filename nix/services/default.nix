@@ -18,6 +18,7 @@
     ./music-stack.nix
     ./systemd.nix
     ./tailscale.nix
+    ./attic_store.nix
   ];
 
   # services.xserver.libinput.enable = true;
