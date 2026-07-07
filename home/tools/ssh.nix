@@ -5,9 +5,23 @@
 }: {
   programs.ssh = lib.mkIf (config.systemSettings.profile == "work") {
     enable = true;
+    enableDefaultConfig = false;
 
     matchBlocks = {
       # TODO: swap all .za.netronome.com → .ci.dec.iotrap.com after DNS migration
+      "*" = {
+        extraOptions = {
+          AddKeysToAgent = "yes";
+        };
+      };
+      "gerrit" = {
+        hostname = "gerrit.netronome.com";
+        user = "mwinnan";
+        port = 29418;
+        extraOptions = {
+          PreferredAuthentications = "publickey";
+        };
+      };
       "nse-services" = {
         hostname = "nse-services.za.netronome.com";
         user = "nse";
