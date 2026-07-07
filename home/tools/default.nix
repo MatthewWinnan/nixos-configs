@@ -17,5 +17,6 @@
     ./zoxide.nix
     ./eza.nix
     ./bat/default.nix
+    ./ssh.nix
   ];
 }

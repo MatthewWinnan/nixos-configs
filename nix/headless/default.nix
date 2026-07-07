@@ -30,8 +30,14 @@
         sandbox = "relaxed";
         # So we can use our local cache
         #always-allow-substitutes = true;
-        substituters = ["https://nse-services.za.netronome.com:5443/nse_test?priority=30"];
-        trusted-public-keys = ["nse_test:IQzXCQ1lmJfuOuTrgb4Lz40gbWEBvXmcdoiPgScfegY="];
+        substituters = [
+          "https://nse-services.za.netronome.com:5443/nse_ep?priority=30"
+          "https://cache.nixos.org?priority=50"
+        ];
+        trusted-public-keys = [
+          "nse_ep:WFCT6O/qy/ZOTidajT3vk56do0GrCeYRl5tCWBvSC7M="
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        ];
         trusted-users = [config.userSettings.username "root"];
         connect-timeout = 5;
         fallback = true;

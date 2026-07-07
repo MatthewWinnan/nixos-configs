@@ -1,0 +1,49 @@
+{
+  config,
+  lib,
+  ...
+}: {
+  programs.ssh = lib.mkIf (config.systemSettings.profile == "work") {
+    enable = true;
+
+    matchBlocks = {
+      # TODO: swap all .za.netronome.com → .ci.dec.iotrap.com after DNS migration
+      "nse-services" = {
+        hostname = "nse-services.za.netronome.com";
+        user = "nse";
+      };
+      "nse-5" = {
+        hostname = "nse-5.it.dec.iotrap.com";
+        user = "root";
+      };
+      "nse-6" = {
+        hostname = "nse-6.it.dec.iotrap.com";
+        user = "root";
+      };
+      "nse-7" = {
+        hostname = "nse-7.it.dec.iotrap.com";
+        user = "root";
+      };
+      "nse-8" = {
+        hostname = "nse-8.it.dec.iotrap.com";
+        user = "root";
+      };
+      "nse-9" = {
+        hostname = "nse-9.it.dec.iotrap.com";
+        user = "root";
+      };
+      "nse-10" = {
+        hostname = "nse-10.it.dec.iotrap.com";
+        user = "root";
+      };
+      "grys" = {
+        hostname = "grys.za.netronome.com";
+        user = "mwinnan";
+      };
+      "groenslang" = {
+        hostname = "groenslang.it.dec.iotrap.com";
+        user = "gitlab-runner";
+      };
+    };
+  };
+}
