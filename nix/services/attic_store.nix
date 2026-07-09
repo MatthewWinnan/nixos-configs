@@ -19,7 +19,7 @@
 
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${pkgs.attic-client}/bin/attic watch-store --ignore-upstream-cache-filter local:nse_ep";
+      ExecStart = "${pkgs.attic-client}/bin/attic watch-store --ignore-upstream-cache-filter nse-services:nse_ep";
       Restart = "on-failure";
       RestartSec = 10;
       RestartMaxDelaySec = "5min";
