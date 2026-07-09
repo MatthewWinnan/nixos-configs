@@ -387,6 +387,7 @@
   ];
 
   secretsPackages = with pkgs; [
+    age
     vault
     sops
   ];

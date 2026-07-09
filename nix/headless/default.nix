@@ -31,7 +31,7 @@
         # So we can use our local cache
         #always-allow-substitutes = true;
         substituters = [
-          "https://nse-services.za.netronome.com:5443/nse_ep?priority=30"
+          "https://nse-services.ci.dec.iotrap.com:5443/nse_ep?priority=30"
           "https://cache.nixos.org?priority=50"
         ];
         trusted-public-keys = [

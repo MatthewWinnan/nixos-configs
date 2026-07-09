@@ -23,7 +23,7 @@
         };
       };
       "nse-services" = {
-        hostname = "nse-services.za.netronome.com";
+        hostname = "nse-services.ci.dec.iotrap.com";
         user = "nse";
       };
       "nse-5" = {

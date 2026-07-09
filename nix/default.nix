@@ -41,7 +41,7 @@
         sandbox = "relaxed";
         # Use nse_ep cache (priority 30) with cache.nixos.org as fallback
         substituters = [
-          "https://nse-services.za.netronome.com:5443/nse_ep?priority=30"
+          "https://nse-services.ci.dec.iotrap.com:5443/nse_ep?priority=30"
           "https://cache.nixos.org?priority=50"
         ];
         trusted-public-keys = [
