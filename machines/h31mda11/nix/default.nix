@@ -7,6 +7,8 @@
     ./hardware-configuration.nix
     # Import nixOS settings
     ../../../nix
+    # Virtualization (podman + binfmt)
+    ../../../nix/virtualization
     # Settings
     ../settings
     # Rather import themes here
