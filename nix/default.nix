@@ -40,6 +40,8 @@
         # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
         sandbox = "relaxed";
         # Use nse_ep cache (priority 30) with cache.nixos.org as fallback
+        # NOTE: This URL is an internal FQDN (not resolvable externally).
+        # Accepted exposure in public repo — no secrets, just topology hint.
         substituters = [
           "https://nse-services.ci.dec.iotrap.com:5443/nse_ep?priority=30"
           "https://cache.nixos.org?priority=50"

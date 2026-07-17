@@ -46,7 +46,7 @@
   userSettings = {
     username = "matthew";
     name = "Matthew";
-    email = "matthew.winnan@mirasecurity.com";
+    email = "mcwinnan@gmail.com";
     browser = "qutebrowser";
     shell = "fish";
   };
