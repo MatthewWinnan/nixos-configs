@@ -11,6 +11,8 @@
     ./oil.nix
     ./yanky.nix
     ./markview.nix
+    ./nabla.nix
+    ./mkdnflow.nix
     ./web-devicons.nix
     ./spectre.nix
     ./grug-far.nix

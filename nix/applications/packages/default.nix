@@ -318,6 +318,8 @@
       mqtt-explorer # MQTT debugging GUI
       # https://github.com/wookayin/gpustat
       gpustat # GPU monitoring TUI
+      # https://tectonic-typesetting.github.io/
+      tectonic # Self-contained LaTeX engine (downloads packages on demand)
     ]);
 
   # ============================================================================

@@ -47,12 +47,12 @@
       };
 
       mappings = {
-        # gf-style follow link / create link from word under cursor
+        # Follow link (same as gd for code — "go to definition" of a link)
         MkdnEnter = {
           modes = ["n" "v"];
-          key = "<CR>";
+          key = "gd";
         };
-        # Go back after following a link
+        # Go back after following a link (like <C-o> for jumplist, but BS is more natural for docs)
         MkdnGoBack = {
           modes = ["n"];
           key = "<BS>";

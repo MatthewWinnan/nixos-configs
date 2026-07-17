@@ -54,7 +54,42 @@
             installRustc = false;
           };
 
-          texlab.enable = true;
+          texlab = {
+            enable = true;
+            settings.texlab = {
+              build =
+                if config.systemSettings.profile == "work"
+                then {
+                  # Work: latexmk is guaranteed via per-project nix shells (texlive.combine)
+                  executable = "latexmk";
+                  args = ["-pdf" "-interaction=nonstopmode" "-synctex=1" "%f"];
+                  onSave = true;
+                  forwardSearchAfter = true;
+                }
+                else {
+                  # Personal/Gaming: tectonic is system-wide, no shell needed
+                  executable = "tectonic";
+                  args = ["-X" "compile" "--synctex" "--keep-logs" "%f"];
+                  onSave = true;
+                  forwardSearchAfter = true;
+                };
+              forwardSearch = {
+                executable = "sioyek";
+                args = [
+                  "--reuse-window"
+                  "--forward-search-file"
+                  "%f"
+                  "--forward-search-line"
+                  "%l"
+                  "%p"
+                ];
+              };
+              chktex = {
+                onOpenAndSave = true;
+                onEdit = false;
+              };
+            };
+          };
         }
         (
           if config.systemSettings.profile == "work"
