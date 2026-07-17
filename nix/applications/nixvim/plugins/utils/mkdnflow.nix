@@ -93,10 +93,10 @@
       };
 
       mappings = {
-        # Follow link — same muscle memory as gd for code navigation
+        # Follow link — Enter to open
         MkdnEnter = {
           modes = ["n" "v"];
-          key = "gd";
+          key = "<CR>";
         };
         # Go back after following a link
         MkdnGoBack = {
