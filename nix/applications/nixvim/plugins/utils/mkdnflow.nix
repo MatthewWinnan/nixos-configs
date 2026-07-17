@@ -94,68 +94,26 @@
 
       mappings = {
         # Follow link — Enter to open
-        MkdnEnter = {
-          modes = ["n" "v"];
-          key = "<CR>";
-        };
+        MkdnEnter.__raw = "{ { 'n', 'v' }, '<CR>' }";
         # Go back after following a link
-        MkdnGoBack = {
-          modes = ["n"];
-          key = "<BS>";
-        };
+        MkdnGoBack.__raw = "{ 'n', '<BS>' }";
         # Navigate between links in the buffer
-        MkdnNextLink = {
-          modes = ["n"];
-          key = "<Tab>";
-        };
-        MkdnPrevLink = {
-          modes = ["n"];
-          key = "<S-Tab>";
-        };
+        MkdnNextLink.__raw = "{ 'n', '<Tab>' }";
+        MkdnPrevLink.__raw = "{ 'n', '<S-Tab>' }";
         # Table navigation
-        MkdnTableNextCell = {
-          modes = ["i"];
-          key = "<Tab>";
-        };
-        MkdnTablePrevCell = {
-          modes = ["i"];
-          key = "<S-Tab>";
-        };
+        MkdnTableNextCell.__raw = "{ 'i', '<Tab>' }";
+        MkdnTablePrevCell.__raw = "{ 'i', '<S-Tab>' }";
         MkdnTableNextRow = false;
-        MkdnTablePrevRow = {
-          modes = ["i"];
-          key = "<M-CR>";
-        };
-        MkdnTableNewRowBelow = {
-          modes = ["n"];
-          key = "<leader>ir";
-        };
-        MkdnTableNewRowAbove = {
-          modes = ["n"];
-          key = "<leader>iR";
-        };
-        MkdnTableNewColAfter = {
-          modes = ["n"];
-          key = "<leader>ic";
-        };
-        MkdnTableNewColBefore = {
-          modes = ["n"];
-          key = "<leader>iC";
-        };
+        MkdnTablePrevRow.__raw = "{ 'i', '<M-CR>' }";
+        MkdnTableNewRowBelow.__raw = "{ 'n', '<leader>ir' }";
+        MkdnTableNewRowAbove.__raw = "{ 'n', '<leader>iR' }";
+        MkdnTableNewColAfter.__raw = "{ 'n', '<leader>ic' }";
+        MkdnTableNewColBefore.__raw = "{ 'n', '<leader>iC' }";
         # Checkbox toggling
-        MkdnToggleToDo = {
-          modes = ["n" "v"];
-          key = "<C-Space>";
-        };
+        MkdnToggleToDo.__raw = "{ { 'n', 'v' }, '<C-Space>' }";
         # Fold heading sections
-        MkdnFoldSection = {
-          modes = ["n"];
-          key = "<leader>mf";
-        };
-        MkdnUnfoldSection = {
-          modes = ["n"];
-          key = "<leader>mF";
-        };
+        MkdnFoldSection.__raw = "{ 'n', '<leader>mf' }";
+        MkdnUnfoldSection.__raw = "{ 'n', '<leader>mF' }";
         # Disable mappings we don't want
         MkdnDestroyLink = false;
         MkdnMoveSource = false;
