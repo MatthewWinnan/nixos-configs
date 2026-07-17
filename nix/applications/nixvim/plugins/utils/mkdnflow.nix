@@ -18,41 +18,87 @@
         maps = true;
         paths = true;
         tables = true;
-        yaml = false; # We handle YAML frontmatter separately
+        yaml = false;
       };
 
       links = {
-        style = "wiki"; # [[wiki links]] — matches Obsidian
-        implicit_extension = ".md";
-        transform_implicit = false;
-        transform_explicit.__raw = ''
-          function(text)
-            -- Keep link text as-is (Obsidian compatibility)
-            return text
+        style = "wiki";
+        implicit_extension = "md";
+        transform_on_follow.__raw = ''
+          function(path)
+            -- Obsidian-style "shortest path" resolution:
+            -- If path doesn't exist relative to root, search all subdirectories
+            -- for a file matching the basename
+            local root_markers = { ".obsidian", ".git" }
+            local root = nil
+
+            -- Walk up from current file to find root
+            local current = vim.fn.expand("%:p:h")
+            while current ~= "/" do
+              for _, marker in ipairs(root_markers) do
+                if vim.fn.isdirectory(current .. "/" .. marker) == 1
+                   or vim.fn.filereadable(current .. "/" .. marker) == 1 then
+                  root = current
+                  break
+                end
+              end
+              if root then break end
+              current = vim.fn.fnamemodify(current, ":h")
+            end
+
+            if not root then return path end
+
+            -- If the path already resolves, use it as-is
+            local full = root .. "/" .. path
+            if not path:match("%.md$") then
+              full = full .. ".md"
+            end
+            if vim.fn.filereadable(full) == 1 then
+              return path
+            end
+
+            -- Otherwise, search the vault for a matching filename
+            local target = path
+            if not target:match("%.md$") then
+              target = target .. ".md"
+            end
+            -- Strip any directory prefix from the link text for basename matching
+            local basename = vim.fn.fnamemodify(target, ":t")
+
+            local found = vim.fn.globpath(root, "**/" .. basename, false, true)
+            if #found > 0 then
+              -- Return path relative to root
+              local rel = found[1]:sub(#root + 2)
+              -- Strip .md extension since implicit_extension adds it
+              rel = rel:gsub("%.md$", "")
+              return rel
+            end
+
+            return path
           end
         '';
       };
 
-      # Allow navigating to files in subdirectories from any depth
-      perspective = {
-        priority = "root"; # Resolve links relative to notebook root
-        root_tell = ".obsidian"; # Detect vault root via .obsidian dir
-        fallback = "current"; # Fallback to current file's directory
+      # Resolve links relative to the notebook root
+      path_resolution = {
+        primary = "root";
+        root_marker = ".obsidian";
+        fallback = "current";
       };
 
-      # Don't create new files when following a broken link (ask first)
       create_dirs = true;
+
       new_file_template = {
         use_template = false;
       };
 
       mappings = {
-        # Follow link (same as gd for code — "go to definition" of a link)
+        # Follow link — same muscle memory as gd for code navigation
         MkdnEnter = {
           modes = ["n" "v"];
           key = "gd";
         };
-        # Go back after following a link (like <C-o> for jumplist, but BS is more natural for docs)
+        # Go back after following a link
         MkdnGoBack = {
           modes = ["n"];
           key = "<BS>";
@@ -110,11 +156,6 @@
           modes = ["n"];
           key = "<leader>mF";
         };
-        # Link creation (visual mode — select text then create link)
-        MkdnCreateLinkFromClipboard = {
-          modes = ["v"];
-          key = "<leader>ml";
-        };
         # Disable mappings we don't want
         MkdnDestroyLink = false;
         MkdnMoveSource = false;
@@ -129,6 +170,7 @@
         MkdnNewListItemBelowInsert = false;
         MkdnNewListItemAboveInsert = false;
         MkdnCreateLink = false;
+        MkdnCreateLinkFromClipboard = false;
       };
     };
   };
