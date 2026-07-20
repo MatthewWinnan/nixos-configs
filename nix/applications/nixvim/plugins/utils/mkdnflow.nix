@@ -114,11 +114,20 @@
         '';
       };
 
-      # Resolve links relative to the notebook root
+      # New API (for future mkdnflow versions)
       path_resolution = {
         primary = "root";
         root_marker = ".obsidian";
         fallback = "current";
+      };
+
+      # Old API (used by currently installed version)
+      perspective = {
+        priority = "root";
+        root_tell = ".obsidian";
+        fallback = "current";
+        nvim_wd_heel = false;
+        update = true;
       };
 
       create_dirs = true;
