@@ -228,8 +228,6 @@
     hyperfine # CLI benchmarking tool
     # https://github.com/denisidoro/navi
     navi # Interactive cheatsheet
-    # https://github.com/chmln/sd
-    sd # Intuitive sed alternative
     # https://github.com/theryangeary/choose
     choose # Simpler cut alternative
     # https://github.com/mr-karan/doggo

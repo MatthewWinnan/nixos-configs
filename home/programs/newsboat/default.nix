@@ -6,9 +6,11 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
-  inherit (lib) getExe;
+  inherit (lib) getExe mkIf;
+  enabled = config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming";
 
   glow = "${getExe pkgs.glow}";
   pandoc = "${getExe pkgs.pandoc}";
@@ -17,7 +19,7 @@
   lynx = "${getExe pkgs.lynx}";
   yt = "${getExe pkgs.yt-dlp}";
 in {
-  config = {
+  config = mkIf enabled {
     home.packages = with pkgs; [
       (import ./scripts/rofiHandler.nix {inherit pkgs;})
     ];
