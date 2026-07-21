@@ -53,3 +53,18 @@ info:
 # Set up git hooks (run after fresh clone)
 setup:
     git config core.hooksPath .githooks
+
+# Run vulnix vulnerability scan on a machine's closure
+vuln hostname=`hostname`:
+    #!/usr/bin/env bash
+    set -uo pipefail
+    export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+    export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+    store_path=$(nix build .#nixosConfigurations.{{hostname}}.config.system.build.toplevel --no-link --print-out-paths)
+    outfile="vulnix-{{hostname}}-$(date +%Y-%m-%d).txt"
+    echo "Scanning {{hostname}} closure: $store_path" | tee "$outfile"
+    echo "Date: $(date -Iseconds)" | tee -a "$outfile"
+    echo "------------------------------------------------------------------------" | tee -a "$outfile"
+    nix run nixpkgs#vulnix -- --closure "$store_path" 2>&1 | tee -a "$outfile" || true
+    echo ""
+    echo "Results written to $outfile"

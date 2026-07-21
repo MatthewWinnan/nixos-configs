@@ -19,3 +19,6 @@ Thumbs.db
 
 # Kiro
 .kiro/
+
+# Vulnix scan reports
+vulnix-*.txt
