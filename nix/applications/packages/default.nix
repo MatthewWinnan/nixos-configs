@@ -92,8 +92,6 @@
   mediaPackages = with pkgs; [
     # https://github.com/FFmpeg/FFmpeg
     ffmpeg-full # Media processing
-    # https://github.com/mpv-player/mpv
-    mpv # Minimal video player
     # https://github.com/videolan/vlc
     vlc # Full-featured media player
     wf-recorder # Screen recording (CLI access)
@@ -256,6 +254,8 @@
     stremio-fixed # Using unstable version with build fix
     # https://github.com/Xithrius/twitch-tui
     pkgs.twitch-cli # Twitch chat CLI
+    # https://github.com/mpv-player/mpv
+    pkgs.mpv # Video player (pulls yt-dlp for URL playback)
   ];
 
   musicPackages = [

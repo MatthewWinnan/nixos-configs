@@ -54,7 +54,7 @@ info:
 setup:
     git config core.hooksPath .githooks
 
-# Run vulnix vulnerability scan on a machine's closure
+# Run vulnix vulnerability scan on a machine's closure (runtime deps only)
 vuln hostname=`hostname`:
     #!/usr/bin/env bash
     set -uo pipefail
@@ -62,9 +62,10 @@ vuln hostname=`hostname`:
     export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
     store_path=$(nix build .#nixosConfigurations.{{hostname}}.config.system.build.toplevel --no-link --print-out-paths)
     outfile="vulnix-{{hostname}}-$(date +%Y-%m-%d).txt"
-    echo "Scanning {{hostname}} closure: $store_path" | tee "$outfile"
+    echo "Scanning {{hostname}} runtime closure: $store_path" | tee "$outfile"
     echo "Date: $(date -Iseconds)" | tee -a "$outfile"
+    echo "Whitelist: vulnix-whitelist.toml" | tee -a "$outfile"
     echo "------------------------------------------------------------------------" | tee -a "$outfile"
-    nix run nixpkgs#vulnix -- --closure "$store_path" 2>&1 | tee -a "$outfile" || true
+    nix run nixpkgs#vulnix -- --closure --whitelist vulnix-whitelist.toml "$store_path" 2>&1 | tee -a "$outfile" || true
     echo ""
     echo "Results written to $outfile"

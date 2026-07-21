@@ -1,0 +1,39 @@
+# Vulnix whitelist — false positives and accepted risks
+# https://github.com/nix-community/vulnix#whitelisting
+
+# ── False positives: CVE is for a different product with the same name ──
+
+[snappy]
+# CVE-2023-28115, CVE-2023-41330: PHP snappy extension, not Google's C++ snappy compression
+cve = ["CVE-2023-28115", "CVE-2023-41330"]
+
+[git]
+# Jenkins Git plugin CVEs, not git-scm itself
+cve = ["CVE-2022-36882", "CVE-2022-30947", "CVE-2022-36883", "CVE-2022-36884", "CVE-2022-38663", "CVE-2021-21684"]
+
+[mercurial]
+# CVE-2022-43410: Jenkins Mercurial plugin, not hg
+cve = ["CVE-2022-43410"]
+
+[impala]
+# CVE-2021-28131: Apache Impala (database), not impala wifi TUI
+cve = ["CVE-2021-28131"]
+
+[gcc]
+# CVE-2023-4039: AArch64-only stack protector bypass, not applicable on x86_64
+cve = ["CVE-2023-4039"]
+
+[flatpak]
+# Build dependency of xdg-desktop-portal, not installed or running
+cve = ["CVE-2026-34078", "CVE-2026-34079"]
+
+# ── Accepted risks: build-time only, not exposed at runtime ──
+
+[binutils]
+# Build toolchain only, not in runtime closure
+comment = "Build-time dependency"
+until = "2027-01-01"
+
+[lapack]
+# CVE-2021-4048: only exploitable if parsing untrusted LAPACK input
+cve = ["CVE-2021-4048"]
