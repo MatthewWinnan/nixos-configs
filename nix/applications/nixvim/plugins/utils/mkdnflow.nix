@@ -117,14 +117,14 @@
       # New API (for future mkdnflow versions)
       path_resolution = {
         primary = "root";
-        root_marker = ".obsidian";
+        root_marker = ".git";
         fallback = "current";
       };
 
       # Old API (used by currently installed version)
       perspective = {
         priority = "root";
-        root_tell = ".obsidian";
+        root_tell = ".git";
         fallback = "current";
         nvim_wd_heel = false;
         update = true;
