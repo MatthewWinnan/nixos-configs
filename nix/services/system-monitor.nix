@@ -149,10 +149,16 @@ in {
     after = ["network-online.target"];
     wants = ["network-online.target"];
     wantedBy = ["multi-user.target"];
+    unitConfig = {
+      # Don't block boot if MQTT broker is unreachable
+      StartLimitBurst = 5;
+      StartLimitIntervalSec = 300;
+    };
     serviceConfig = {
       Type = "simple";
       Restart = "on-failure";
-      RestartSec = "10s";
+      RestartSec = "30s";
+      TimeoutStartSec = "30s";
       # Publish "online" once the connection is established
       ExecStartPost = "${pubCmd} -t '${statusTopic}' -m 'online' --retain";
       # Publish "offline" on graceful shutdown (LWT only fires on ungraceful disconnect)
@@ -174,11 +180,17 @@ in {
     after = ["network-online.target" "system-monitor-lwt.service"];
     wants = ["network-online.target"];
     wantedBy = ["multi-user.target"];
+    unitConfig = {
+      # Don't block boot if MQTT broker is unreachable
+      StartLimitBurst = 5;
+      StartLimitIntervalSec = 300;
+    };
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
       Restart = "on-failure";
-      RestartSec = "10s";
+      RestartSec = "30s";
+      TimeoutStartSec = "30s";
     };
     script = ''
       ${pubCmd} -t 'homeassistant/sensor/${hostname}_cpu_usage/config' -m '${cpuDiscovery}' --retain
