@@ -30,8 +30,8 @@
         transform_on_follow.__raw = ''
           function(path)
             -- Obsidian-style "shortest path" resolution:
-            -- If path doesn't exist relative to root, search all subdirectories
-            -- for a file matching the basename
+            -- Returns absolute paths to bypass mkdnflow's built-in root
+            -- resolution (which fails with git submodule .git files).
             local root_markers = { ".obsidian", ".git" }
             local root = nil
 
@@ -51,13 +51,14 @@
 
             if not root then return path end
 
-            -- If the path already resolves, use it as-is
+            -- If the path already resolves relative to root, return absolute
             local full = root .. "/" .. path
             if not path:match("%.md$") then
               full = full .. ".md"
             end
             if vim.fn.filereadable(full) == 1 then
-              return path
+              -- Return absolute path without .md (implicit_extension adds it)
+              return full:gsub("%.md$", "")
             end
 
             -- Otherwise, search the vault for a matching filename
@@ -70,11 +71,8 @@
 
             local found = vim.fn.globpath(root, "**/" .. basename, false, true)
             if #found > 0 then
-              -- Return path relative to root
-              local rel = found[1]:sub(#root + 2)
-              -- Strip .md extension since implicit_extension adds it
-              rel = rel:gsub("%.md$", "")
-              return rel
+              -- Return absolute path without .md
+              return found[1]:gsub("%.md$", "")
             end
 
             return path
@@ -99,15 +97,15 @@
             if not root then return path end
             local full = root .. "/" .. path
             if not path:match("%.md$") then full = full .. ".md" end
-            if vim.fn.filereadable(full) == 1 then return path end
+            if vim.fn.filereadable(full) == 1 then
+              return full:gsub("%.md$", "")
+            end
             local target = path
             if not target:match("%.md$") then target = target .. ".md" end
             local basename = vim.fn.fnamemodify(target, ":t")
             local found = vim.fn.globpath(root, "**/" .. basename, false, true)
             if #found > 0 then
-              local rel = found[1]:sub(#root + 2)
-              rel = rel:gsub("%.md$", "")
-              return rel
+              return found[1]:gsub("%.md$", "")
             end
             return path
           end

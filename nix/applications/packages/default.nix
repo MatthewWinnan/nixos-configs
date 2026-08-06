@@ -349,7 +349,7 @@
   vcsPackages = with pkgs; [
     git-review # We use gerrit
     fossil # I am also moving to Fossil
-    glab # GitLab CLI
+    pkgs-unstable.glab # GitLab CLI
     tig # TUI git log/blame/diff browser
   ];
 
