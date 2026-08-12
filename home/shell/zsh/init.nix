@@ -54,6 +54,16 @@
 
     # Fastfetch on interactive shell startup
     clear;sleep 0.1;fastfetch
+${lib.optionalString (config.userSettings.terminal == "ghostty") ''
+    # Ghostty SSH wrapper (auto-installs terminfo on remote hosts)
+    ssh() {
+      if [[ "$TERM_PROGRAM" == ghostty ]]; then
+        ghostty +ssh -- "$@"
+      else
+        command ssh "$@"
+      fi
+    }
+''}
   '';
 in {
   programs.zsh = {
