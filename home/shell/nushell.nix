@@ -32,6 +32,11 @@
         }
       )
 
+      # Ghostty SSH wrapper (auto-installs terminfo on remote hosts)
+      (lib.mkIf (config.userSettings.terminal == "ghostty") {
+        ssh = "ghostty +ssh --";
+      })
+
       # Default options
       {
         df = "${pkgs.duf}/bin/duf";

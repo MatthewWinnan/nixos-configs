@@ -142,6 +142,11 @@ in {
         my_ipv6 = "${dig} @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6";
       }
 
+      # Ghostty SSH wrapper (auto-installs terminfo on remote hosts)
+      (lib.mkIf (config.userSettings.terminal == "ghostty") {
+        ssh = "ghostty +ssh --";
+      })
+
       # Tmux shortcut
       (lib.mkIf config.programs.tmux.enable {
         t = "tmux attach || tmux new -s Work";

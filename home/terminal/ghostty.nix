@@ -1,7 +1,11 @@
-{lib, ...}: {
+{lib, config, ...}: let
+  inherit (config.userSettings) shell;
+in {
   programs.ghostty = lib.mkForce {
     enable = true;
-    enableFishIntegration = true;
+    enableFishIntegration = shell == "fish";
+    enableBashIntegration = shell == "bash";
+    enableZshIntegration = shell == "zsh";
 
     settings = {
       # Match kitty opacity
