@@ -52,6 +52,10 @@ in {
       })
     ];
 
+    quickmarks = {
+      craft-of-exile="https://craftofexile.com/emulator?game=poe2";
+    };
+
     settings = {
       editor = {
         command = ["${pkgs.kitty}/bin/kitty" "${pkgs.neovim}/bin/nvim" "{file}" "-c" "normal {line}G{column0}l"];

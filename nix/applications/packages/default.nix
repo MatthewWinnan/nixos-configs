@@ -34,6 +34,7 @@
   kiro-cli = pkgs.callPackage ../../../derivations/kiro-cli {};
   yt-dlp = pkgs.callPackage ../../../derivations/mov-cli/packages/yt-dlp.nix {};
   ducker = pkgs.callPackage ../../../derivations/ducker {};
+  exiled-exchange-2 = pkgs.callPackage ../../../derivations/exiled-exchange-2 {};
   kicad-wrapped = pkgs.callPackage ../../../derivations/kicad-wrapped {};
   orca-wrapped = pkgs.callPackage ../../../derivations/orca-wrapped {};
   freecad-wrapped = pkgs.callPackage ../../../derivations/freecad-wrapped {};
@@ -340,6 +341,10 @@
     heroic
     # https://mynixos.com/nixpkgs/package/wine-wayland
     wine-wayland
+    # https://github.com/meehl/rusty-path-of-building
+    pkgs-unstable.rusty-path-of-building
+    # https://github.com/Kvan7/Exiled-Exchange-2
+    exiled-exchange-2
   ];
 
   # ============================================================================

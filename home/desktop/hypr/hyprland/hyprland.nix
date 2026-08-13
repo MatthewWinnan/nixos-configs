@@ -151,6 +151,13 @@ in {
 
       windowrulev2 = [
         "tile, class:^(sioyek)$"
+
+        # Exiled Exchange 2 — PoE2 price-check overlay
+        # Run `hyprctl clients` after first launch to confirm the class name
+        "float,            class:^(exiled-exchange-2)$"
+        "pin,              class:^(exiled-exchange-2)$"
+        "nofocus,          class:^(exiled-exchange-2)$"
+        "noinitialfocus,   class:^(exiled-exchange-2)$"
       ];
 
       exec-once =

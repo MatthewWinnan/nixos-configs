@@ -62,6 +62,14 @@
         experimental-features = ["nix-command" "flakes"]; # Enabling flakes
         # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
         sandbox = "relaxed";
+        http-connections = 50;
+        trusted-users = [config.userSettings.username "root"];
+        substituters = [ "https://aseipp-nix-cache.global.ssl.fastly.net?priority=30" 
+          "https://cache.nixos.org?priority=50"
+        ];
+        trusted-public-keys = [
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        ];
       }
     )
     (
@@ -71,6 +79,7 @@
         experimental-features = ["nix-command" "flakes"]; # Enabling flakes
         # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
         sandbox = "relaxed";
+        trusted-users = [config.userSettings.username "root"];
       }
     )
   ];
