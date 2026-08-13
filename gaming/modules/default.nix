@@ -4,5 +4,6 @@
     ./gamemode.nix
     ./protonup.nix
     ./noisetorch.nix
+    ./openrgb.nix
   ];
 }

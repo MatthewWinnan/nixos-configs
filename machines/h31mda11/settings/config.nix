@@ -17,7 +17,7 @@
         width = 1920;
         height = 1080;
         workspace = "5";
-        rotate_mode = "3";
+        rotate_mode = "1";
         position = "-1080x0";
         refreshRate = 100.00;
       }
