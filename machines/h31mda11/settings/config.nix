@@ -5,12 +5,12 @@
     headless = false;
     monitors = [
       {
-        name = "HDMI-A-1";
+        name = "DP-1";
         width = 3440;
         height = 1440;
         workspace = "1";
         primary = true;
-        refreshRate = 180.00;
+        refreshRate = 180.08;
         bitdepth = 10;
       }
       {
