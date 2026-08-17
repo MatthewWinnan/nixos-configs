@@ -15,6 +15,12 @@ in {
         description = "Is this machine headless (will use the headless packages)";
       };
 
+      location = lib.mkOption {
+        type = lib.types.str;
+        default = "work";
+        description = "Physical location of the machine (work/home). Controls network-dependent settings like caches and monitor layouts.";
+      };
+
       monitors = lib.mkOption {
         type = lib.types.listOf (
           lib.types.submodule {

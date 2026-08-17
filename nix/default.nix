@@ -21,14 +21,16 @@
   i18n.defaultLocale = config.systemSettings.locale;
 
   # Trust nse-services self-signed cert for nix cache + ETO resign CA
-  security.pki.certificateFiles = lib.mkIf (config.systemSettings.profile == "work") [
+  # Trust nse-services self-signed cert for nix cache + ETO resign CA
+  # Only needed on office network where these services are reachable
+  security.pki.certificateFiles = lib.mkIf (config.systemSettings.profile == "work" && config.deviceSettings.location == "work") [
     ../certs/nse-services.crt
     ../certs/eto-resign-ca.pem
     ../certs/gitlab.pem
   ];
 
-  # crates.io CDN 403s requests without a recognized User-Agent
-  systemd.services.nix-daemon.environment.NIX_CURL_FLAGS = lib.mkIf (config.systemSettings.profile == "work") "--user-agent nix";
+  # crates.io CDN 403s requests without a recognized User-Agent (work proxy rewrites)
+  systemd.services.nix-daemon.environment.NIX_CURL_FLAGS = lib.mkIf (config.systemSettings.profile == "work" && config.deviceSettings.location == "work") "--user-agent nix";
 
   # We need these settings for typical work....
   nix.settings = lib.mkMerge [
@@ -39,6 +41,21 @@
         experimental-features = ["nix-command" "flakes"]; # Enabling flakes
         # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
         sandbox = "relaxed";
+
+        # Ensure Nix fixed-output derivation fetches (e.g. fetchgit) trust our
+        # proxy's re-signed certs (ETO resign CA). Without this, sources hosted
+        # on sites like Codeberg fail SSL verification inside the sandbox.
+        ssl-cert-file = "/etc/ssl/certs/ca-certificates.crt";
+
+        trusted-users = [config.userSettings.username "root"];
+        connect-timeout = 5;
+        fallback = true;
+      }
+    )
+    (
+      # nse-services cache only available on office network
+      lib.mkIf (config.systemSettings.profile == "work" && config.deviceSettings.location == "work")
+      {
         # Use nse_ep cache (priority 30) with cache.nixos.org as fallback
         # NOTE: This URL is an internal FQDN (not resolvable externally).
         # Accepted exposure in public repo — no secrets, just topology hint.
@@ -50,9 +67,18 @@
           "nse_ep:WFCT6O/qy/ZOTidajT3vk56do0GrCeYRl5tCWBvSC7M="
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         ];
-        trusted-users = [config.userSettings.username "root"];
-        connect-timeout = 5;
-        fallback = true;
+      }
+    )
+    (
+      # At home, only use cache.nixos.org
+      lib.mkIf (config.systemSettings.profile == "work" && config.deviceSettings.location == "home")
+      {
+        substituters = [
+          "https://cache.nixos.org?priority=50"
+        ];
+        trusted-public-keys = [
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        ];
       }
     )
     (

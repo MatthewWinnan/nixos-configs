@@ -4,9 +4,12 @@
   inputs = {
     # Just so I can swap between versions that I know works
     nixpkgs-24-05.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+
+    # Security overlay — newer versions for packages with unpatched CVEs on stable
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # We need to maintain nixosWSL now
     nixos-wsl = {
@@ -15,7 +18,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -25,12 +28,12 @@
     # };
 
     nixvim = {
-      url = "github:nix-community/nixvim/main";
+      url = "github:nix-community/nixvim/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
-      url = "github:nix-community/stylix/master";
+      url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
