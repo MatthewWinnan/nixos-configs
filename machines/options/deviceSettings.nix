@@ -73,6 +73,13 @@ in {
                 type = enum ["0" "1" "2" "3" "4" "5" "6" "7"];
                 default = "0";
               };
+
+              # Output bit depth: 8 (default SDR), 10 (HDR/deep color)
+              bitdepth = lib.mkOption {
+                type = lib.types.int;
+                default = 8;
+                description = "Output bit depth (8 or 10). Set to 10 for HDR-capable displays.";
+              };
             };
           }
         );

@@ -23,10 +23,11 @@ let
       # TODO: Replace with your home monitor config
       {
         name = "Virtual-1";
-        width = 2560;
+        width = 3440;
         height = 1440;
         workspace = "1";
         primary = true;
+        refreshRate = 100;
       }
     ];
   };

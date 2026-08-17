@@ -433,6 +433,7 @@ in {
     # NB added since arduino still uses this but not security vul technically
     permittedInsecurePackages = [
       "python3.13-ecdsa-0.19.1"
+      "python3.13-ecdsa-0.19.2"
     ];
   };
 

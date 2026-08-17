@@ -31,7 +31,11 @@ in {
         map (
           m: "${m.name},${
             if m.enabled
-            then "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},1,transform,${m.rotate_mode}"
+            then "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},1,transform,${m.rotate_mode}${
+              if m.bitdepth == 10
+              then ",bitdepth,10"
+              else ""
+            }"
             else "disable"
           }"
         )
@@ -79,6 +83,9 @@ in {
         border_size = 2;
 
         layout = "dwindle";
+
+        # Enable tearing for reduced input latency in fullscreen games
+        allow_tearing = config.systemSettings.profile == "gaming";
 
         # darker alternative
         "col.active_border" = "rgb(44475a)"; # or rgb(6272a4)
@@ -145,13 +152,37 @@ in {
         # render_ahead_of_time = false;
         disable_hyprland_logo = true;
         initial_workspace_tracking = 0;
+        # VRR (FreeSync/G-Sync): 0=off, 1=on, 2=fullscreen only, 3=fullscreen with game/video content type
+        vrr =
+          if config.systemSettings.profile == "gaming"
+          then 3
+          else 0;
       };
 
       # VM GPU drivers (e.g. hyperv_drm) lack hardware cursor plane support
-      cursor = lib.mkIf (config.deviceSettings.type == "vm") {
-        no_hardware_cursors = true;
-        use_cpu_buffer = true;
-        hide_on_key_press = false;
+      cursor = lib.mkMerge [
+        (lib.mkIf (config.deviceSettings.type == "vm") {
+          no_hardware_cursors = true;
+          use_cpu_buffer = true;
+          hide_on_key_press = false;
+        })
+        (lib.mkIf (config.systemSettings.profile == "gaming") {
+          # Prevent cursor movement from spiking framerate in fullscreen VRR
+          # 0=off, 1=on, 2=auto (on with content type 'game')
+          no_break_fs_vrr = 2;
+        })
+      ];
+
+      # Render settings for HDR and performance
+      render = lib.mkIf (config.systemSettings.profile == "gaming") {
+        # Direct scanout reduces latency for fullscreen games
+        # 0=off, 1=on, 2=auto (on with content type 'game')
+        direct_scanout = 2;
+        # Color management + auto HDR in fullscreen
+        # 0=off, 1=switch to cm,hdr, 2=switch to cm,hdredid
+        cm_auto_hdr = 1;
+        # Report content type to allow monitor profile autoswitch
+        send_content_type = true;
       };
 
       # Fix transparent applet/hover menus by disabling blur on layer surfaces
@@ -163,6 +194,10 @@ in {
 
       windowrule = [
         "tile on, match:class ^(sioyek)$"
+      ]
+      ++ lib.optionals (config.systemSettings.profile == "gaming") [
+        # Allow tearing for Steam games (reduces input latency)
+        "immediate on, match:class ^(steam_app_).*$"
 
         # Exiled Exchange 2 — PoE2 price-check overlay
         # Run `hyprctl clients` after first launch to confirm the class name

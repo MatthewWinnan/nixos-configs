@@ -6,11 +6,12 @@
     monitors = [
       {
         name = "HDMI-A-1";
-        width = 1920;
-        height = 1080;
+        width = 3440;
+        height = 1440;
         workspace = "1";
         primary = true;
-        refreshRate = 60.00;
+        refreshRate = 180.00;
+        bitdepth = 10;
       }
       {
         name = "HDMI-A-2";
