@@ -34,6 +34,19 @@ check: fmt-check lint deadnix
 # Run all fixes (format + lint fix + deadnix fix)
 fix: fmt lint-fix deadnix-fix
 
+# Set fafn1r profile (work or home) and optionally rebuild
+profile target="work":
+    @echo "{{target}}" > machines/fafn1r/settings/.profile
+    @echo "fafn1r profile set to: {{target}}"
+
+# Show current fafn1r profile
+profile-show:
+    @if [ -f machines/fafn1r/settings/.profile ]; then \
+        echo "fafn1r profile: $(cat machines/fafn1r/settings/.profile)"; \
+    else \
+        echo "fafn1r profile: work (default)"; \
+    fi
+
 # Build a specific machine configuration
 build hostname:
     nh os build --hostname {{hostname}}

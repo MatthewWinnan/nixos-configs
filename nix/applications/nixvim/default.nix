@@ -13,6 +13,7 @@
 
   programs.nixvim = {
     enable = true;
+    nixpkgs.config.allowUnfree = true;
 
     defaultEditor = true;
     colorschemes.catppuccin = {

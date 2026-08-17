@@ -32,12 +32,12 @@ rustPlatform.buildRustPackage rec {
     [
       openssl
     ]
-    ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       darwin.apple_sdk.frameworks.CoreAudio
       darwin.apple_sdk.frameworks.Security
       darwin.apple_sdk.frameworks.SystemConfiguration
     ]
-    ++ lib.optionals stdenv.isLinux [
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       alsa-lib
     ];
 

@@ -57,7 +57,7 @@
 in {
   #home.sessionVariables = template.sysEnv;
 
-  gtk.gtk4.theme = null;
+
 
   xdg = {
     enable = true;
@@ -80,7 +80,7 @@ in {
     };
 
     userDirs = {
-      enable = pkgs.stdenv.isLinux;
+      enable = pkgs.stdenv.hostPlatform.isLinux;
       createDirectories = true;
       setSessionVariables = false;
 

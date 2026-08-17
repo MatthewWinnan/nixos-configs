@@ -20,12 +20,12 @@ in {
         if config.systemSettings.profile == "gaming"
         # We keep is separated incase we need to have different behaviours.
         then "SUPER"
-        else "ALT";
+        else "SUPER"; # Tmp work around while I have my old backup keeb
       "$terminal" =
         if config.systemSettings.profile == "gaming"
         # We keep is separated incase we need to have different behaviours.
         then "wezterm"
-        else "kitty";
+        else "wezterm";
 
       monitor =
         map (
@@ -47,6 +47,7 @@ in {
           "XDG_SCREENSHOTS_DIR,~/Media/Pictures"
           "HYPRCURSOR_THEME,rose-pine-hyprcursor"
           "XCURSOR_THEME,BreezeX-RosePine-Linux"
+          "GTK_THEME,adw-gtk3-dark"
         ]
         ++ lib.optionals (config.deviceSettings.type != "vm") [
           "LIBVA_DRIVER_NAME,nvidia"
@@ -54,6 +55,9 @@ in {
         ]
         ++ lib.optionals (config.deviceSettings.type == "vm") [
           "LIBGL_ALWAYS_SOFTWARE,1"
+          "WLR_RENDERER_ALLOW_SOFTWARE,1"
+          "AQ_NO_MODIFIERS,1"
+          "AQ_MGPU_NO_EXPLICIT,1"
         ];
 
       debug = {
@@ -103,7 +107,6 @@ in {
           enabled = true;
           size = 16;
           passes = 2;
-          new_optimizations = true;
         };
       };
 
@@ -124,8 +127,7 @@ in {
       };
 
       dwindle = {
-        pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-        preserve_split = true; # you probably want this
+        preserve_split = true;
       };
 
       gestures = {
@@ -152,11 +154,6 @@ in {
         hide_on_key_press = false;
       };
 
-      # Hyper-V GPU doesn't support explicit sync — causes cursor behind layers
-      render = lib.mkIf (config.deviceSettings.type == "vm") {
-        explicit_sync = false;
-      };
-
       # Fix transparent applet/hover menus by disabling blur on layer surfaces
       layerrule = [
         "blur on, match:namespace waybar"
@@ -164,15 +161,15 @@ in {
         "blur_popups on, match:namespace waybar"
       ];
 
-      windowrulev2 = [
-        "tile, class:^(sioyek)$"
+      windowrule = [
+        "tile on, match:class ^(sioyek)$"
 
         # Exiled Exchange 2 — PoE2 price-check overlay
         # Run `hyprctl clients` after first launch to confirm the class name
-        "float,            class:^(exiled-exchange-2)$"
-        "pin,              class:^(exiled-exchange-2)$"
-        "nofocus,          class:^(exiled-exchange-2)$"
-        "noinitialfocus,   class:^(exiled-exchange-2)$"
+        "float on,            match:class ^(exiled-exchange-2)$"
+        "pin on,              match:class ^(exiled-exchange-2)$"
+        "nofocus on,          match:class ^(exiled-exchange-2)$"
+        "noinitialfocus on,   match:class ^(exiled-exchange-2)$"
       ];
 
       exec-once =

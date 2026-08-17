@@ -24,9 +24,6 @@
       links = {
         style = "wiki";
         implicit_extension = "md";
-        # NB: the installed version uses transform_implicit internally for path
-        # transformation on follow, not transform_on_follow (which is the new API name).
-        # Set both so it works regardless of version.
         transform_on_follow.__raw = ''
           function(path)
             -- Obsidian-style "shortest path" resolution:
@@ -78,60 +75,19 @@
             return path
           end
         '';
-        transform_implicit.__raw = ''
-          function(path)
-            local root_markers = { ".obsidian", ".git" }
-            local root = nil
-            local current = vim.fn.expand("%:p:h")
-            while current ~= "/" do
-              for _, marker in ipairs(root_markers) do
-                if vim.fn.isdirectory(current .. "/" .. marker) == 1
-                   or vim.fn.filereadable(current .. "/" .. marker) == 1 then
-                  root = current
-                  break
-                end
-              end
-              if root then break end
-              current = vim.fn.fnamemodify(current, ":h")
-            end
-            if not root then return path end
-            local full = root .. "/" .. path
-            if not path:match("%.md$") then full = full .. ".md" end
-            if vim.fn.filereadable(full) == 1 then
-              return full:gsub("%.md$", "")
-            end
-            local target = path
-            if not target:match("%.md$") then target = target .. ".md" end
-            local basename = vim.fn.fnamemodify(target, ":t")
-            local found = vim.fn.globpath(root, "**/" .. basename, false, true)
-            if #found > 0 then
-              return found[1]:gsub("%.md$", "")
-            end
-            return path
-          end
-        '';
       };
 
-      # New API (for future mkdnflow versions)
+      # Path resolution for wiki links (Obsidian-style vault navigation)
       path_resolution = {
         primary = "root";
         root_marker = ".git";
         fallback = "current";
       };
 
-      # Old API (used by currently installed version)
-      perspective = {
-        priority = "root";
-        root_tell = ".git";
-        fallback = "current";
-        nvim_wd_heel = false;
-        update = true;
-      };
-
       create_dirs = true;
 
       new_file_template = {
-        use_template = false;
+        enabled = false;
       };
 
       mappings = {

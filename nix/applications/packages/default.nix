@@ -327,7 +327,7 @@
   vcsPackages = with pkgs; [
     git-review # We use gerrit
     fossil # I am also moving to Fossil
-    pkgs-unstable.glab # GitLab CLI
+    glab # GitLab CLI
     tig # TUI git log/blame/diff browser
   ];
 
@@ -436,18 +436,17 @@ in {
     ];
   };
 
-  # Override libreoffice to bypass Stylix GTK theming
+  # Override libreoffice to use dark GTK theming (matching Stylix)
   nixpkgs.overlays = [
     (_final: prev: {
       libreoffice = prev.symlinkJoin {
-        name = "libreoffice-light";
+        name = "libreoffice-dark";
         paths = [prev.libreoffice];
         buildInputs = [prev.makeWrapper];
         postBuild = ''
           for bin in $out/bin/*; do
             wrapProgram "$bin" \
-              --set GTK_THEME "Adwaita" \
-              --set SAL_USE_VCLPLUGIN "gen"
+              --set GTK_THEME "adw-gtk3-dark"
           done
         '';
       };

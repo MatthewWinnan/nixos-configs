@@ -13,11 +13,9 @@
       "/etc/ssh/ssh_config.d/work-hosts.conf"
     ];
 
-    matchBlocks = {
+    settings = {
       "*" = {
-        extraOptions = {
-          AddKeysToAgent = "yes";
-        };
+        AddKeysToAgent = "yes";
       };
     };
   };

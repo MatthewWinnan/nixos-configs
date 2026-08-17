@@ -20,6 +20,9 @@ Thumbs.db
 # Kiro
 .kiro/
 
+# Machine profile overrides (ephemeral, set by `just profile`)
+machines/**/settings/.profile
+
 # Vulnix scan reports
 vulnix-*.txt
 logs/

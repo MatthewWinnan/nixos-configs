@@ -14,6 +14,7 @@
   home-manager = {
     # Synch with our nixos' pkgs
     useGlobalPkgs = true;
+    backupFileExtension = "hm.backup";
     extraSpecialArgs = {inherit inputs outputs flakePath;};
     users = {
       # Import your home-manager configuration
