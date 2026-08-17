@@ -37,6 +37,7 @@ fix: fmt lint-fix deadnix-fix
 # Set fafn1r profile (work or home) and optionally rebuild
 profile target="work":
     @echo "{{target}}" > machines/fafn1r/settings/.profile
+    @git add -f machines/fafn1r/settings/.profile
     @echo "fafn1r profile set to: {{target}}"
 
 # Show current fafn1r profile

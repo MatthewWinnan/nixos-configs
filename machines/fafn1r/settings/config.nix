@@ -2,10 +2,10 @@
 # Location is read from .profile file (written by `just profile`), defaults to "work"
 # This controls monitor layout and network-dependent settings (caches, certs)
 let
-  profilePath = ./. + "/.profile";
+  profilePath = ./.profile;
   activeLocation =
     if builtins.pathExists profilePath
-    then builtins.replaceStrings ["\n" " "] ["" ""] (builtins.readFile profilePath)
+    then builtins.replaceStrings ["\n" ""] ["" ""] (builtins.readFile profilePath)
     else "work";
 
   # Monitor configurations per location
@@ -17,6 +17,7 @@ let
         height = 1080;
         workspace = "1";
         primary = true;
+        refreshRate = 60.00;
       }
     ];
     home = [
@@ -27,7 +28,7 @@ let
         height = 1440;
         workspace = "1";
         primary = true;
-        refreshRate = 100;
+        refreshRate = 60.00;
       }
     ];
   };
