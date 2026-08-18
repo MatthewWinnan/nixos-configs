@@ -16,7 +16,7 @@ in {
       };
 
       location = lib.mkOption {
-        type = lib.types.str;
+        type = enum ["home" "work"];
         default = "work";
         description = "Physical location of the machine (work/home). Controls network-dependent settings like caches and monitor layouts.";
       };
