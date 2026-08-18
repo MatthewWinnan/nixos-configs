@@ -273,7 +273,7 @@
             use = "markdown";
           }
           {
-            name = "*.md";
+            url = "*.md";
             use = "markdown";
           }
           {
