@@ -11,6 +11,12 @@
     # Security overlay — newer versions for packages with unpatched CVEs on stable
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # Hyprland — pinned to latest unstable for Lua config support (0.55+)
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # We need to maintain nixosWSL now
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
