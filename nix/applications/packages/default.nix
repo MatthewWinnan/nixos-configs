@@ -315,7 +315,7 @@
     # https://mynixos.com/nixpkgs/package/wine-wayland
     wine-wayland
     # https://github.com/meehl/rusty-path-of-building
-    pkgs-unstable.rusty-path-of-building
+    rusty-path-of-building
     # https://github.com/Kvan7/Exiled-Exchange-2
     exiled-exchange-2
   ];

@@ -15,7 +15,7 @@
     serviceConfig = {
       Type = "oneshot";
       ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
-      ExecStart = "${pkgs.openrgb-with-all-plugins}/bin/openrgb --profile ${./default.orp}";
+      ExecStart = "${pkgs.openrgb-with-all-plugins}/bin/openrgb --profile ${./antec_cx800.orp}";
     };
   };
 }

@@ -17,7 +17,5 @@
     ./boot.nix
     # System monitoring (CPU/RAM → MQTT → Home Assistant)
     ../../../nix/services/system-monitor.nix
-    # OpenRGB — apply lighting profile at boot
-    ./openrgb
   ];
 }

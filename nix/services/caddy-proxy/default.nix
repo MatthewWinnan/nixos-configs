@@ -16,7 +16,7 @@
     plugins = [
       "pkg.jsn.cam/caddy-defender=github.com/JasonLovesDoggo/caddy-defender@v0.10.0"
     ];
-    hash = "sha256-BgIfQVrHlyBW8RZe6OxDYYGgQkn/hLk+FmhraQdcC+I=";
+    hash = "sha256-5WWM7z65fCeSJdPVPdvPaoBcO+Hld6QYGXVokv/XTWQ=";
   };
 
   localPort = 8080;
