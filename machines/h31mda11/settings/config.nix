@@ -11,6 +11,16 @@
         workspace = "1";
         primary = true;
         refreshRate = 180.08;
+        # Map SDR across the panel's usable luminance range instead of
+        # Hyprland's 80 nit default, which squashed the desktop into the bottom
+        # fifth of a 400 nit panel and looked washed out. Min is the EDID floor
+        # for this display (VIE WV34QHDV80); max is held just under its 277 nit
+        # sustained frame-average rather than its 400 nit peak, which the
+        # backlight can only hit on small highlights and would otherwise dim
+        # back down under ABL on bright screens.
+        cm = "hdr";
+        sdr_min_luminance = 0.125;
+        sdr_max_luminance = 250;
         bitdepth = 10;
       }
       {
@@ -40,5 +50,6 @@
     browser = "qutebrowser";
     waybar = "omarchy";
     shell = "fish";
+    terminal = "wezterm";
   };
 }

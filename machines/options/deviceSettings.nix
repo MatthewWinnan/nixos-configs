@@ -80,6 +80,68 @@ in {
                 default = 8;
                 description = "Output bit depth (8 or 10). Set to 10 for HDR-capable displays.";
               };
+
+              # Colour management preset, see
+              # https://wiki.hypr.land/Configuring/Basics/Monitors/#color-management-presets
+              cm = lib.mkOption {
+                type = lib.types.nullOr (enum [
+                  "auto"
+                  "srgb"
+                  "dcip3"
+                  "dp3"
+                  "adobe"
+                  "wide"
+                  "edid"
+                  "hdr"
+                  "hdredid"
+                ]);
+                default = null;
+                example = "hdr";
+                description = "Colour management preset. Null leaves Hyprland's default (srgb).";
+              };
+
+              # Only meaningful when cm is "hdr" or "hdredid".
+              sdrbrightness = lib.mkOption {
+                type = lib.types.nullOr lib.types.float;
+                default = null;
+                example = 1.2;
+                description = "SDR brightness in HDR mode. Typically 1.0 ... 2.0. Null uses Hyprland's default (1.0).";
+              };
+
+              sdrsaturation = lib.mkOption {
+                type = lib.types.nullOr lib.types.float;
+                default = null;
+                example = 0.98;
+                description = "SDR saturation in HDR mode. Null uses Hyprland's default (1.0).";
+              };
+
+              # Transfer function assumed for sRGB content on an SDR display.
+              # "default" follows render:cm_sdr_eotf. srgb and gamma22 differ
+              # almost entirely in the shadows, so this is the lever for
+              # near-black detail (PLUGE).
+              sdr_eotf = lib.mkOption {
+                type = lib.types.nullOr (enum ["default" "gamma22" "srgb"]);
+                default = null;
+                example = "srgb";
+                description = "SDR transfer function. Null uses Hyprland's default (follows render:cm_sdr_eotf).";
+              };
+
+              # Luminance range SDR content is mapped into when in HDR mode.
+              # Match these to the panel's EDID HDR static metadata block
+              # (edid-decode: "Desired content min/max luminance").
+              sdr_min_luminance = lib.mkOption {
+                type = lib.types.nullOr lib.types.float;
+                default = null;
+                example = 0.125;
+                description = "SDR minimum luminance in nits for SDR->HDR mapping. Null uses Hyprland's default (0.2).";
+              };
+
+              sdr_max_luminance = lib.mkOption {
+                type = lib.types.nullOr lib.types.int;
+                default = null;
+                example = 400;
+                description = "SDR maximum luminance in nits for SDR->HDR mapping. Null uses Hyprland's default (80).";
+              };
             };
           }
         );

@@ -8,7 +8,7 @@
   last_monitor = lib.lists.last config.deviceSettings.monitors;
 
   # Format a float cleanly: 60.000000 -> "60", 143.980000 -> "143.98"
-  fmtRate = rate: let
+  fmtFloat = rate: let
     raw = toString rate;
     # Split on the decimal point
     parts = lib.splitString "." raw;
@@ -25,17 +25,41 @@
     if fracStripped == "" then intPart
     else "${intPart}.${fracStripped}";
 
+  # Helper: emit `key = value,` only when the option is actually set
+  optField = key: fmt: value:
+    lib.optional (value != null) "${key} = ${fmt value},";
+
+  # Lua string literal
+  luaStr = v: ''"${v}"'';
+
+  # Like fmtFloat, but always keeps a decimal point so the value lands in Lua
+  # as a float rather than an integer: 1 -> "1.0", 0.98 -> "0.98"
+  fmtLuaFloat = v: let
+    s = fmtFloat v;
+  in
+    if lib.hasInfix "." s then s else "${s}.0";
+
   # Helper: generate a lua hl.monitor({...}) call for a single monitor attrset
-  monitorToLua = m:
+  monitorToLua = m: let
+    fields =
+      [
+        "output = ${luaStr m.name},"
+        "mode = ${luaStr "${toString m.width}x${toString m.height}@${fmtFloat m.refreshRate}"},"
+        "position = ${luaStr m.position},"
+        "scale = 1,"
+        "transform = ${m.rotate_mode},"
+      ]
+      ++ lib.optional (m.bitdepth == 10) "bitdepth = 10,"
+      ++ optField "cm" luaStr m.cm
+      ++ optField "sdrbrightness" fmtLuaFloat m.sdrbrightness
+      ++ optField "sdrsaturation" fmtLuaFloat m.sdrsaturation
+      ++ optField "sdr_eotf" luaStr m.sdr_eotf
+      ++ optField "sdr_min_luminance" fmtLuaFloat m.sdr_min_luminance
+      ++ optField "sdr_max_luminance" toString m.sdr_max_luminance;
+  in
     if m.enabled then ''
       hl.monitor({
-        output = "${m.name}",
-        mode = "${toString m.width}x${toString m.height}@${fmtRate m.refreshRate}",
-        position = "${m.position}",
-        scale = 1,
-        transform = ${m.rotate_mode},${lib.optionalString (m.bitdepth == 10) ''
-
-        bitdepth = 10,''}
+        ${lib.concatStringsSep "\n  " fields}
       })
     '' else ''
       hl.monitor({
@@ -140,11 +164,27 @@
       },
 
       decoration = {
-        rounding = 1,
+        rounding = 10,
         blur = {
           enabled = true,
-          size = 16,
-          passes = 2,
+          -- Glass, not fog: a small radius over more passes keeps what is
+          -- behind the window readable instead of smearing it into a haze.
+          -- A large size with few passes is what reads as "milky".
+          size = 5,
+          passes = 4,
+          -- Lift contrast and colour so the pane looks like tinted glass
+          -- rather than a grey wash.
+          contrast = 1.2,
+          brightness = 1.0,
+          vibrancy = 0.25,
+          vibrancy_darkness = 0.4,
+          -- Default noise is a film-grain dither that reads as haze up close.
+          noise = 0.004,
+          new_optimizations = true,
+          -- Blur only the desktop behind a window, not other windows under it.
+          -- Keeps stacked windows crisp rather than compounding the blur.
+          xray = true,
+          popups = true,
         },
       },
 
@@ -354,7 +394,7 @@
     ${lib.optionalString isWork ''
     -- Work profile: toggle laptop display
     hl.bind(mainMod .. " + T", hl.dsp.exec_cmd('hyprctl keyword monitor "eDP-1, disable"'))
-    hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd('hyprctl keyword monitor "${last_monitor.name},${toString last_monitor.width}x${toString last_monitor.height}@${fmtRate last_monitor.refreshRate},${last_monitor.position},1"'))
+    hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd('hyprctl keyword monitor "${last_monitor.name},${toString last_monitor.width}x${toString last_monitor.height}@${fmtFloat last_monitor.refreshRate},${last_monitor.position},1"'))
     hl.bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd("hyprctl reload"))
     ''}
   '';
