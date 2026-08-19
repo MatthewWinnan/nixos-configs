@@ -17,11 +17,13 @@
     # accessible via `nvidia-settings`
     nvidiaSettings = true;
 
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
-    # of just the bare essentials.
-    powerManagement.enable = false;
+    # Nvidia power management. Enabled because resuming from hypridle's 30 min
+    # `systemctl suspend` came back to a black screen: the session was alive and
+    # logged in, but nothing rendered. With this false there are no
+    # nvidia-suspend/nvidia-resume units at all, so VRAM contents are not saved
+    # or restored across suspend and the display never recovers.
+    # Costs a write of VRAM to disk on each suspend.
+    powerManagement.enable = true;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
