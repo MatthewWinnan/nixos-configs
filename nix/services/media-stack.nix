@@ -52,7 +52,11 @@
 #   ├── tv/          (Sonarr root folder)
 #   ├── books/       (Readarr root folder / Calibre library)
 #   └── downloads/   (qBittorrent download location)
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   # Shared media group for all services
   mediaGroup = "media";
 
@@ -104,8 +108,10 @@ in {
       group = mediaGroup;
     };
 
-    # Jellyseerr - request management UI
-    jellyseerr = {
+    # Seerr (formerly Jellyseerr) - request management UI.
+    # configDir stays /var/lib/jellyseerr/config while stateVersion < 26.05,
+    # so the existing data is untouched by the rename.
+    seerr = {
       enable = true;
       openFirewall = true;
     };
@@ -135,9 +141,13 @@ in {
 
   systemd = {
     services = {
+      # Group-writable (0002) so every service in ${mediaGroup} can move,
+      # hardlink and delete each other's files. nixpkgs' servarr modules pin
+      # radarr/sonarr to 0022, which drops group write and breaks the handoff
+      # from qBittorrent's completed downloads, so those two need mkForce.
       qbittorrent.serviceConfig.UMask = "0002";
-      radarr.serviceConfig.UMask = "0002";
-      sonarr.serviceConfig.UMask = "0002";
+      radarr.serviceConfig.UMask = lib.mkForce "0002";
+      sonarr.serviceConfig.UMask = lib.mkForce "0002";
       readarr.serviceConfig.UMask = "0002";
 
       # Initialise the Calibre library (metadata.db) if it doesn't exist yet.

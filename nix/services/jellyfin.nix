@@ -41,9 +41,9 @@
   };
 
   # Prevent sleep when lid closed (server use)
-  services.logind = {
-    lidSwitch = "ignore";
-    lidSwitchExternalPower = "ignore";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
   };
 
   # Power management for 24/7 use

@@ -146,21 +146,28 @@ in {
   # publishes the will payload ("offline") to the status topic.
   systemd.services.system-monitor-lwt = {
     description = "MQTT LWT keepalive for Home Assistant presence";
-    after = ["network-online.target"];
+    # mqttHost is resolved through Tailscale MagicDNS, so ordering on
+    # network-online.target alone is not enough - the name does not exist until
+    # tailscaled is up.
+    after = ["network-online.target" "tailscaled.service"];
     wants = ["network-online.target"];
     wantedBy = ["multi-user.target"];
     unitConfig = {
-      # Don't block boot if MQTT broker is unreachable
-      StartLimitBurst = 5;
-      StartLimitIntervalSec = 300;
+      # Retry indefinitely instead of giving up. A nixos-rebuild switch restarts
+      # tailscaled, resolvconf and nscd in the same transaction, so the broker
+      # host is unresolvable for a window and this unit fails on the way past.
+      # With a burst limit it could exhaust its tries and stay dead.
+      StartLimitIntervalSec = 0;
     };
     serviceConfig = {
       Type = "simple";
       Restart = "on-failure";
       RestartSec = "30s";
       TimeoutStartSec = "30s";
-      # Publish "online" once the connection is established
-      ExecStartPost = "${pubCmd} -t '${statusTopic}' -m 'online' --retain";
+      # Publish "online" once the connection is established. Leading "-" so a
+      # transient publish failure does not take down the unit - the persistent
+      # mosquitto_sub connection holding the will registration is what matters.
+      ExecStartPost = "-${pubCmd} -t '${statusTopic}' -m 'online' --retain";
       # Publish "offline" on graceful shutdown (LWT only fires on ungraceful disconnect)
       ExecStop = "${pubCmd} -t '${statusTopic}' -m 'offline' --retain";
     };
@@ -177,13 +184,13 @@ in {
   # Publish MQTT auto-discovery configs on boot
   systemd.services.system-monitor-discovery = {
     description = "Publish MQTT discovery config for Home Assistant";
-    after = ["network-online.target" "system-monitor-lwt.service"];
+    after = ["network-online.target" "tailscaled.service" "system-monitor-lwt.service"];
     wants = ["network-online.target"];
     wantedBy = ["multi-user.target"];
     unitConfig = {
-      # Don't block boot if MQTT broker is unreachable
-      StartLimitBurst = 5;
-      StartLimitIntervalSec = 300;
+      # As above: retry indefinitely rather than exhausting a burst limit while
+      # MagicDNS is unavailable mid-switch.
+      StartLimitIntervalSec = 0;
     };
     serviceConfig = {
       Type = "oneshot";
