@@ -20,5 +20,7 @@
     ./boot.nix
     # Sops secrets
     ./sops.nix
+    # Specialisations (work/home profiles)
+    ./specialisations.nix
   ];
 }

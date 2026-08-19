@@ -34,19 +34,14 @@ check: fmt-check lint deadnix
 # Run all fixes (format + lint fix + deadnix fix)
 fix: fmt lint-fix deadnix-fix
 
-# Set fafn1r profile (work or home) and optionally rebuild
-profile target="work":
-    @echo "{{target}}" > machines/fafn1r/settings/.profile
-    @git add -f machines/fafn1r/settings/.profile
-    @echo "fafn1r profile set to: {{target}}"
+# Switch fafn1r specialisation live (work or home) without rebooting
+fafnir-switch target="work":
+    sudo /run/current-system/specialisation/{{target}}/bin/switch-to-configuration switch
+    @echo "fafn1r switched to: {{target}}"
 
-# Show current fafn1r profile
-profile-show:
-    @if [ -f machines/fafn1r/settings/.profile ]; then \
-        echo "fafn1r profile: $(cat machines/fafn1r/settings/.profile)"; \
-    else \
-        echo "fafn1r profile: work (default)"; \
-    fi
+# Show available fafn1r specialisations
+fafnir-list:
+    @ls /run/current-system/specialisation/ 2>/dev/null || echo "No specialisations found (rebuild first)"
 
 # Build a specific machine configuration
 build hostname:

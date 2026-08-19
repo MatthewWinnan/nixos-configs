@@ -1,16 +1,13 @@
 # Generic machine configuration and role selection
-# Location is read from .profile file (written by `just profile`), defaults to "work"
-# This controls monitor layout and network-dependent settings (caches, certs)
-let
-  profilePath = ./.profile;
-  activeLocation =
-    if builtins.pathExists profilePath
-    then builtins.replaceStrings ["\n" ""] ["" ""] (builtins.readFile profilePath)
-    else "work";
-
-  # Monitor configurations per location
-  monitorProfiles = {
-    work = [
+# Location-specific settings (monitors, caches, certs) are handled via
+# NixOS specialisations — both "work" and "home" are built simultaneously
+# and selectable at boot or via `just fafnir-switch <profile>`.
+{
+  deviceSettings = {
+    type = "vm";
+    headless = false;
+    # Default monitors (work) — overridden by specialisations
+    monitors = [
       {
         name = "Virtual-1";
         width = 1920;
@@ -20,26 +17,8 @@ let
         refreshRate = 60.00;
       }
     ];
-    home = [
-      # TODO: Replace with your home monitor config
-      {
-        name = "Virtual-1";
-        width = 3440;
-        height = 1440;
-        workspace = "1";
-        primary = true;
-        refreshRate = 60.00;
-      }
-    ];
-  };
-in
-{
-  deviceSettings = {
-    type = "vm";
-    headless = false;
-    monitors = monitorProfiles.${activeLocation};
-    # Expose location so other modules can key off it
-    location = activeLocation;
+    # Default location — overridden by specialisations
+    location = "work";
   };
 
   systemSettings = {
