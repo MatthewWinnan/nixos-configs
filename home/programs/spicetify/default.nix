@@ -6,7 +6,8 @@
   pkgs,
   ...
 }: let
-  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+  # pkgs.system is deprecated in favour of pkgs.stdenv.hostPlatform.system
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
   programs.spicetify = {
     enable = config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming";

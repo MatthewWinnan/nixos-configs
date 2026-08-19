@@ -81,6 +81,9 @@ in {
       # Rebuild: podman only (0 store referrers, isolated runtime)
       inherit (unstable) podman;
 
+      # Bump tailscale since important for media stack
+      inherit (unstable) tailscale;
+
       # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       # DEFERRED — uncomment when doing a full rebuild (office, overnight, CI)
       # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

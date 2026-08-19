@@ -11,6 +11,11 @@
     ./environment.nix
     ../user
     ../applications/nixvim
+    # CVE bumps from nixpkgs-unstable. Previously only reachable via
+    # nix/applications/default.nix, which headless hosts do not import - so
+    # th0r and fr3yr were the only machines NOT getting security patches,
+    # despite being the internet-facing ones.
+    ../applications/packages/security-overlay.nix
   ];
 
   # Set your time zone.
