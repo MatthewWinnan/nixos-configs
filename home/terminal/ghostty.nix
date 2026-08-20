@@ -9,7 +9,10 @@ in {
 
     settings = {
       # Match kitty opacity
-      background-opacity = 0.8;
+      background-opacity = 0.88;
+
+      # Blur handled by Hyprland compositor on Wayland — Ghostty's
+      # background-blur only works on KDE Plasma, not Hyprland.
 
       # Hide window decorations (like kitty's hide_window_decorations)
       window-decoration = false;

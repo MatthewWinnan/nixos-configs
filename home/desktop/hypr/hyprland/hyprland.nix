@@ -145,7 +145,7 @@
       general = {
         gaps_in = 4,
         gaps_out = 8,
-        border_size = 2,
+        border_size = 3,
         layout = "dwindle",
         allow_tearing = ${lib.boolToString isGaming},
         col = {
@@ -164,28 +164,37 @@
       },
 
       decoration = {
-        rounding = 10,
+        rounding = 8,
         blur = {
           enabled = true,
-          -- Glass, not fog: a small radius over more passes keeps what is
-          -- behind the window readable instead of smearing it into a haze.
-          -- A large size with few passes is what reads as "milky".
-          size = 5,
-          passes = 4,
-          -- Lift contrast and colour so the pane looks like tinted glass
+          -- Sharp glass: small kernel + fewer passes = readable background
+          -- without the milky smear of large size + many passes.
+          size = 3,
+          passes = 2,
+          -- High contrast and vibrancy so the pane reads as tinted glass
           -- rather than a grey wash.
-          contrast = 1.2,
-          brightness = 1.0,
-          vibrancy = 0.25,
-          vibrancy_darkness = 0.4,
-          -- Default noise is a film-grain dither that reads as haze up close.
-          noise = 0.004,
+          contrast = 1.3,
+          brightness = 1.05,
+          vibrancy = 0.3,
+          vibrancy_darkness = 0.5,
+          -- Nearly zero noise — grain reads as haze at close range.
+          noise = 0.001,
           new_optimizations = true,
           -- Blur only the desktop behind a window, not other windows under it.
           -- Keeps stacked windows crisp rather than compounding the blur.
           xray = true,
           popups = true,
         },
+        -- Tight shadow with sharp falloff for floating-glass-panel depth.
+        shadow = {
+          enabled = true,
+          range = 12,
+          render_power = 3,
+          color = "rgba(00000066)",
+        },
+        -- Subtle dim on unfocused windows so the active pane pops.
+        dim_inactive = true,
+        dim_strength = 0.15,
       },
 
       animations = {
@@ -259,11 +268,11 @@
 
     hl.curve("myBezier", { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.05} } })
 
-    hl.animation({ leaf = "windows",     enabled = true, speed = 7,  bezier = "myBezier" })
-    hl.animation({ leaf = "windowsOut",  enabled = true, speed = 7,  bezier = "default", style = "popin 80%" })
+    hl.animation({ leaf = "windows",     enabled = true, speed = 5,  bezier = "myBezier" })
+    hl.animation({ leaf = "windowsOut",  enabled = true, speed = 5,  bezier = "default", style = "popin 80%" })
     hl.animation({ leaf = "border",      enabled = true, speed = 10, bezier = "default" })
     hl.animation({ leaf = "borderangle", enabled = true, speed = 8,  bezier = "default" })
-    hl.animation({ leaf = "fade",        enabled = true, speed = 7,  bezier = "default" })
+    hl.animation({ leaf = "fade",        enabled = true, speed = 5,  bezier = "default" })
     hl.animation({ leaf = "workspaces",  enabled = true, speed = 6,  bezier = "default" })
 
     -------------------------
@@ -274,7 +283,7 @@
       name = "waybar-blur",
       match = { namespace = "waybar" },
       blur = true,
-      ignore_alpha = 0.2,
+      ignore_alpha = 0.3,
       blur_popups = true,
     })
 
