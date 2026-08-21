@@ -20,16 +20,14 @@ in {
   programs.zsh.enable = config.userSettings.shell == "zsh";
 
   users = lib.mkMerge [
-    (
-      {
-        # Kept in sync with nix/user/default.nix. Without this the WSL host ends
-        # up with PasswordAuthentication = false and no keys at all, which would
-        # make its sshd unreachable.
-        users.${config.userSettings.username}.openssh.authorizedKeys.keys = [
-          "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAHcQl2LRUDq87vJYyVZ+5JApMzeiLfQvF/T5Fs+HvsMWiXFkm+/Pe0tARdLhFNBnkXYDQW3o4xS6xaXr6KTaByDEwAgu+5ADkpQZ4M+T9DePPuyEY7m9u9A3lgcJvZtbvxrPiRYgV38asQMuSq0NVRlMPaLJfHKLm7Tj01LW+80ExHnfQ== mcwinnan@gmail.com"
-        ];
-      }
-    )
+    {
+      # Kept in sync with nix/user/default.nix. Without this the WSL host ends
+      # up with PasswordAuthentication = false and no keys at all, which would
+      # make its sshd unreachable.
+      users.${config.userSettings.username}.openssh.authorizedKeys.keys = [
+        "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAHcQl2LRUDq87vJYyVZ+5JApMzeiLfQvF/T5Fs+HvsMWiXFkm+/Pe0tARdLhFNBnkXYDQW3o4xS6xaXr6KTaByDEwAgu+5ADkpQZ4M+T9DePPuyEY7m9u9A3lgcJvZtbvxrPiRYgV38asQMuSq0NVRlMPaLJfHKLm7Tj01LW+80ExHnfQ== mcwinnan@gmail.com"
+      ];
+    }
     (
       lib.mkIf (config.systemSettings.profile == "work") {
         defaultUserShell = shellPkg;

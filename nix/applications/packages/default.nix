@@ -23,35 +23,33 @@
   # ============================================================================
 
   cliToolsPackages = with pkgs; [
+    csvlens # TUI CSV viewer
     fq # Binary data querying
     htop # Process monitoring
     jq # JSON querying
     just # Task runner
+    libxml2 # For faster XML scraping
     openssl # Cryptography toolkit
-    poppler-utils # PDF tools (pdftotext, pdfinfo)
+    ouch # Painless compression/decompression (tar, zip, gz, 7z, xz, bz2, zstd, rar, lz4, snappy, br)
+    poppler-utils # PDF tools (pdftotext, pdfinfo) + pdftoppm (required for Claude Code to read PDFs)
+    tcpdump # For packet inspection
     termpdfpy # Terminal PDF viewer (kitty graphics)
-    unzip # Archive extraction
     unrar # Archive extraction
+    unzip # Archive extraction
     wget # File downloading
     wttrbar # Weather
     yq # YAML querying
-    libxml2 # For faster XML scraping
-    tcpdump # For packet inspection
-    poppler-utils # pdftoppm — PDF rendering (required for Claude Code to read PDFs)
-    ouch # Painless compression/decompression (tar, zip, gz, 7z, xz, bz2, zstd, rar, lz4, snappy, br)
-    csvlens # TUI CSV viewer
   ];
 
   desktopPackages = with pkgs; [
     gparted # Disk partitioning
     libreoffice # Office suite
     obsidian # Note-taking
-    udiskie # Automounter
     pinta # https://www.pinta-project.com/
+    udiskie # Automounter
   ];
 
   developmentPackages = with pkgs; [
-    # pyserial is needed for arduino-ide
     gcc
     gnumake
     (python3.withPackages (
@@ -71,11 +69,12 @@
   mediaPackages = with pkgs; [
     # https://github.com/FFmpeg/FFmpeg
     ffmpeg-full # Media processing
+    # https://github.com/ImageMagick/ImageMagick
+    imagemagick
+    typora # https://typora.io/
     # https://github.com/videolan/vlc
     vlc # Full-featured media player
     wf-recorder # Screen recording (CLI access)
-    typora # https://typora.io/
-    imagemagick # https://github.com/ImageMagick/ImageMagick
   ];
 
   flasherPackages = with pkgs; [
@@ -89,19 +88,18 @@
   # ============================================================================
 
   nixToolsPackages = with pkgs; [
-    nix-output-monitor # Nix build output
-    nvd # Nix version diff
-    # This tool generates derivations for me from git projects
-    # DOCS -> https://github.com/nix-community/nix-init?tab=readme-ov-file
-    nix-init
     # Formatter
     inputs.alejandra.defaultPackage.${pkgs.stdenv.hostPlatform.system}
-    # Linting
-    statix # Nix anti-pattern linter
-    deadnix # Find unused nix code
     # For caching setup
     attic-client
     attic-server
+    # Linting
+    deadnix # Find unused nix code
+    # DOCS -> https://github.com/nix-community/nix-init?tab=readme-ov-file
+    nix-init # Generates derivations from git projects
+    nix-output-monitor # Nix build output
+    nvd # Nix version diff
+    statix # Nix anti-pattern linter
   ];
 
   # ============================================================================
@@ -114,20 +112,20 @@
     blueman # Bluetooth GUI
     dmenu # Application launcher
     dragon-drop # Drag-and-drop utility
+    # https://github.com/bootandy/dust
+    dust
     hyprcursor # Cursor theme
+    # https://github.com/pythops/impala
+    impala
     pistol # File previewer
     # https://github.com/samuela/remod?tab=readme-ov-file
     remod # File permission editor
-    # https://github.com/rvaiya/warpd?tab=readme-ov-file#wayland
-    warpd # Keyboard-driven mouse
-    # https://github.com/pythops/impala
-    impala
-    # https://github.com/tsowell/wiremix
-    wiremix
-    # https://github.com/bootandy/dust
-    dust
     # https://github.com/gferraro/voxtype
     voxtype-vulkan # Voice-to-text for Wayland
+    # https://github.com/rvaiya/warpd?tab=readme-ov-file#wayland
+    warpd # Keyboard-driven mouse
+    # https://github.com/tsowell/wiremix
+    wiremix
   ];
 
   # ============================================================================
@@ -153,24 +151,24 @@
   screenshotPackages = with pkgs; [
     grim # Screenshot capture
     grimblast # Screenshot wrapper
+    screen_recorder # Custom recorder
     slurp # Region selection
     swappy # Screenshot editor
-    screen_recorder # Custom recorder
   ];
 
   xdgPackages = with pkgs; [
-    xwayland
     xdg-desktop-portal-gnome
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
     xdg-utils
+    xwayland
   ];
 
   audioPackages = with pkgs; [
     pamixer # PulseAudio CLI mixer
     pavucontrol # PulseAudio GUI
-    pulseaudio # Audio server
     pipewire # Multimedia routing
+    pulseaudio # Audio server
     wireplumber # Session manager
   ];
 
@@ -183,38 +181,38 @@
     asciinema # Terminal recording
     # https://github.com/nitefood/asn?tab=readme-ov-file#usage
     asn # ASN lookup
+    # https://github.com/theryangeary/choose
+    choose # Simpler cut alternative
     # https://github.com/bensadeh/circumflex
     circumflex # Hacker News reader
-    # https://github.com/AlDanial/cloc
-    tokei # Code statistics (faster cloc replacement)
     # https://github.com/nik-rev/countryfetch
     countryfetch # System info (country theme)
     # https://github.com/Dr-Noob/cpufetch?tab=readme-ov-file#8-cpufetch-for-gpus-gpufetch
     cpufetch # CPU info display
     # https://github.com/tuna-f1sh/cyme
     cyme # USB device lister
-    # https://github.com/dalance/procs
-    procs # Prettier ps replacement
-    # https://github.com/orf/gping
-    gping # Ping with graph
-    # https://github.com/rofl0r/ncdu
-    ncdu # Interactive disk usage explorer
+    # https://github.com/mr-karan/doggo
+    doggo # Prettier dig alternative
     # https://github.com/charmbracelet/glow
     glow # Terminal markdown renderer
+    # https://github.com/orf/gping
+    gping # Ping with graph
+    # https://github.com/sharkdp/hexyl
+    hexyl # Colorized hex viewer
     # https://github.com/sharkdp/hyperfine
     hyperfine # CLI benchmarking tool
     # https://github.com/denisidoro/navi
     navi # Interactive cheatsheet
-    # https://github.com/theryangeary/choose
-    choose # Simpler cut alternative
-    # https://github.com/mr-karan/doggo
-    doggo # Prettier dig alternative
-    # https://github.com/ducaale/xh
-    xh # Colorized curl alternative
+    # https://github.com/rofl0r/ncdu
+    ncdu # Interactive disk usage explorer
+    # https://github.com/dalance/procs
+    procs # Prettier ps replacement
+    # https://github.com/AlDanial/cloc
+    tokei # Code statistics (faster cloc replacement)
     # https://github.com/fujiapple852/trippy
     trippy # Visual traceroute TUI
-    # https://github.com/sharkdp/hexyl
-    hexyl # Colorized hex viewer
+    # https://github.com/ducaale/xh
+    xh # Colorized curl alternative
   ];
 
   # ============================================================================
@@ -225,10 +223,10 @@
     pkgs.ani-cli # Anime streaming
     inputs.lobster.packages.${pkgs.stdenv.hostPlatform.system}.lobster # Movie streaming
     pkgs.mov-cli # General content streaming
-    yt-dlp # Video downloader (custom derivation)
-    pkgs.stremio-linux-shell # Stremio media center
     # https://github.com/mpv-player/mpv
     pkgs.mpv # Video player (pulls yt-dlp for URL playback)
+    pkgs.stremio-linux-shell # Stremio media center
+    yt-dlp # Video downloader (custom derivation)
   ];
 
   musicPackages = [
@@ -237,35 +235,34 @@
   ];
 
   embeddedDevPackages = with pkgs; [
-    # NB: These still use "python3.13-ecdsa-0.19.1"
     adafruit-nrfutil
     arduino-ide
   ];
 
   cadPackages = [
-    pkgs.freecad-wayland
     freecad-wrapped # Custom derivation
+    pkgs.freecad-wayland
     pkgs.openscad-unstable
   ];
 
   slicerPackages = [
-    pkgs.orca-slicer
     orca-wrapped # Custom derivation
+    pkgs.orca-slicer
   ];
 
   pcbPackages = [
-    pkgs.kicad
     kicad-wrapped # Custom derivation
+    pkgs.kicad
     pkgs.pulseview # Logic analyzer
   ];
 
   ricePackages = with pkgs; [
-    # Visualizers
-    # https://github.com/karlstav/cava
-    cava # Audio visualizer
     # Animations
     # https://github.com/da-luce/astroterm
     astroterm # Star map
+    # Visualizers
+    # https://github.com/karlstav/cava
+    cava # Audio visualizer
     # https://gitlab.com/jallbrit/cbonsai
     cbonsai # Bonsai tree
     # https://github.com/abishekvashok/cmatrix
@@ -283,13 +280,12 @@
     ++ pcbPackages
     ++ ricePackages
     ++ (with pkgs; [
-      nodejs # includes npx (for MCP servers)
-      # For secrets
-      sops
-      # https://mqtt-explorer.com/
-      mqtt-explorer # MQTT debugging GUI
       # https://github.com/wookayin/gpustat
       gpustat # GPU monitoring TUI
+      # https://mqtt-explorer.com/
+      mqtt-explorer # MQTT debugging GUI
+      nodejs # includes npx (for MCP servers)
+      sops # For secrets
       # https://tectonic-typesetting.github.io/
       tectonic # Self-contained LaTeX engine (downloads packages on demand)
     ]);
@@ -307,17 +303,16 @@
   # ============================================================================
 
   gamingOnlyPackages = with pkgs; [
-    # CLI program and API to automate the installation and update of GloriousEggroll's Proton-GE.
-    # DOCS Check more on mangohub -> https://github.com/flightlessmango/MangoHud
-    mangohud
-    # https://heroicgameslauncher.com/
-    heroic
-    # https://mynixos.com/nixpkgs/package/wine-wayland
-    wine-wayland
-    # https://github.com/meehl/rusty-path-of-building
-    rusty-path-of-building
     # https://github.com/Kvan7/Exiled-Exchange-2
     exiled-exchange-2
+    # https://heroicgameslauncher.com/
+    heroic
+    # DOCS Check more on mangohub -> https://github.com/flightlessmango/MangoHud
+    mangohud
+    # https://github.com/meehl/rusty-path-of-building
+    rusty-path-of-building
+    # https://mynixos.com/nixpkgs/package/wine-wayland
+    wine-wayland
   ];
 
   # ============================================================================
@@ -325,18 +320,18 @@
   # ============================================================================
 
   vcsPackages = with pkgs; [
-    git-review # We use gerrit
     fossil # I am also moving to Fossil
+    git-review # We use gerrit
     glab # GitLab CLI
     tig # TUI git log/blame/diff browser
   ];
 
   networkingPackages = with pkgs; [
     inetutils # telnet and the like
-    wireshark
-    tshark
-    termshark
     mosh # Mobile shell — persistent SSH alternative (UDP, survives roaming)
+    termshark
+    tshark
+    wireshark
   ];
 
   calculatorPackages = with pkgs; [
@@ -345,35 +340,37 @@
   ];
 
   performancePackages = [
-    flamelens # Custom derivation
-    pkgs.xan
-    pkgs.xlsx2csv
-    pkgs.inferno
     # https://github.com/orhun/binsider
     pkgs.binsider
+    flamelens # Custom derivation
+    pkgs.inferno
+    pkgs.xan
     # https://github.com/bgreenwell/xleak
     pkgs.xleak
+    pkgs.xlsx2csv
   ];
 
   containerPackages = [
-    pkgs.docker-client
     pkgs.arion
-    pkgs.dive # https://github.com/wagoodman/dive
     pkgs.ctop # https://github.com/bcicen/ctop
-    pkgs.lazydocker # https://github.com/jesseduffield/lazydocker
+    pkgs.dive # https://github.com/wagoodman/dive
+    pkgs.docker-client
     ducker # Custom derivation - https://github.com/robertpsoane/ducker
+    pkgs.lazydocker # https://github.com/jesseduffield/lazydocker
   ];
 
   secretsPackages = with pkgs; [
     age
-    vault
     sops
+    vault
   ];
 
   debuggingPackages = with pkgs; [
-    gdb
     # https://cgdb.github.io/docs/cgdb-split.html
     cgdb
+    dmidecode
+    gdb
+    ipmitool
     # https://github.com/darrenburns/posting
     posting # TUI API client (like Postman in terminal)
     # https://github.com/yassinebridi/serpl
