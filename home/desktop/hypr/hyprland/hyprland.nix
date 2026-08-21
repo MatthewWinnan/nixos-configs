@@ -203,6 +203,8 @@
 
       dwindle = {
         preserve_split = true,
+        smart_resizing = true,
+        precise_mouse_move = true,
       },
 
       input = {
