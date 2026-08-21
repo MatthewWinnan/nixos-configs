@@ -55,6 +55,11 @@
         experimental-features = ["nix-command" "flakes"]; # Enabling flakes
         # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
         sandbox = "relaxed";
+        # Needed for `nixos-rebuild --target-host matthew@<host>`: an untrusted
+        # user cannot push unsigned store paths, which fails nix-copy-closure
+        # with "lacks a signature by a trusted key". Root SSH is key-only and
+        # only matthew has a key, so deploys run as matthew.
+        trusted-users = [config.userSettings.username "root"];
       }
     )
     (
@@ -64,6 +69,8 @@
         experimental-features = ["nix-command" "flakes"]; # Enabling flakes
         # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
         sandbox = "relaxed";
+        # As above - required for non-root deploys to reach this host.
+        trusted-users = [config.userSettings.username "root"];
       }
     )
   ];
