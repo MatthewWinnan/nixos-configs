@@ -19,6 +19,10 @@
     ../user
     # CVE bumps from nixpkgs-unstable.
     ../applications/packages/security-overlay.nix
+    # attic watch-store. Lives here rather than under nix/services so the
+    # headless hosts get it too - nix/headless imports its own services.nix
+    # and would otherwise miss it.
+    ../services/attic_store.nix
   ];
 
   # Set your time zone.
@@ -28,17 +32,35 @@
   i18n.defaultLocale = config.systemSettings.locale;
 
   # Base nix settings for every profile.
-  nix.settings = {
-    # Enable Flakes
-    experimental-features = ["nix-command" "flakes"];
-    # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
-    sandbox = lib.mkDefault "relaxed";
-    # Required for `nixos-rebuild --target-host <user>@<host>`: an untrusted
-    # user cannot push unsigned store paths, which fails nix-copy-closure with
-    # "lacks a signature by a trusted key". Root SSH is key-only and only the
-    # primary user has a declared key, so deploys run as that user.
-    trusted-users = [config.userSettings.username "root"];
-  };
+  nix.settings = lib.mkMerge [
+    {
+      # Enable Flakes
+      experimental-features = ["nix-command" "flakes"];
+      # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
+      sandbox = lib.mkDefault "relaxed";
+      # Required for `nixos-rebuild --target-host <user>@<host>`: an untrusted
+      # user cannot push unsigned store paths, which fails nix-copy-closure with
+      # "lacks a signature by a trusted key". Root SSH is key-only and only the
+      # primary user has a declared key, so deploys run as that user.
+      trusted-users = [config.userSettings.username "root"];
+    }
+    (
+      # Self-hosted attic cache on th0r (nix/services/atticd.nix).
+      #
+      # Gated to non-work profiles to match nix/services/tailscale.nix: th0r is
+      # only reachable over the tailnet, and work machines are not on it. A work
+      # host would just stall on an unreachable substituter.
+      #
+      # priority=10 puts it ahead of cache.nixos.org (50) and the fastly mirror
+      # (30) - it is on the LAN/tailnet and should be asked first. Misses fall
+      # through to the public caches.
+      lib.mkIf (config.systemSettings.profile != "work")
+      {
+        substituters = ["http://th0r:8081/nixos?priority=10"];
+        trusted-public-keys = ["nixos:oaVh/lpdWKJW2M8u+UxCCZaBcTqkmDu3zuEJWhZxGbg="];
+      }
+    )
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

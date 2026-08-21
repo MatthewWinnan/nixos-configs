@@ -18,7 +18,6 @@
     ./music-stack.nix
     ./systemd.nix
     ./tailscale.nix
-    ./attic_store.nix
     ./elephant.nix
   ];
 

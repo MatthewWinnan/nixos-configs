@@ -19,5 +19,7 @@
     ../../../nix/services/authelia
     # System monitoring (CPU/RAM → MQTT → Home Assistant)
     ../../../nix/services/system-monitor.nix
+    # Attic - self-hosted Nix binary cache, reachable over the tailnet
+    ../../../nix/services/atticd.nix
   ];
 }

@@ -39,6 +39,17 @@
         mode = "0400";
         owner = "authelia-main";
       };
+
+      # Attic binary cache. Read by atticd as an EnvironmentFile, so it must
+      # be shell-assignment syntax, not YAML-nested:
+      #   ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64="<base64 blob>"
+      # Generate the blob with:
+      #   nix run nixpkgs#openssl -- genrsa -traditional 4096 | base64 -w0
+      # Owned by root: systemd reads EnvironmentFile before dropping to the
+      # atticd user, and the RS256 key signs every cache token.
+      "atticd-env" = {
+        mode = "0400";
+      };
     };
   };
 }
