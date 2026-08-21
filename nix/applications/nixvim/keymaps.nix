@@ -32,6 +32,9 @@
           # save by Ctrl+s
           "<C-s>" = ":w<CR>";
 
+          # open URL under cursor (neo-tree hijacks netrw which kills the built-in gx)
+          "gx" = "<cmd>lua vim.ui.open(vim.fn.expand('<cfile>'))<CR>";
+
           # resize with arrows
           "<C-Up>" = ":resize -2<CR>";
           "<C-Down>" = ":resize +2<CR>";
