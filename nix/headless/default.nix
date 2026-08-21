@@ -1,38 +1,26 @@
 # Main modules import for headless nix configuration
+#
+# Everything shared with the desktop path lives in ../common - time zone,
+# locale, stateVersion, bluetooth, the security overlay, and the base
+# nix.settings (flakes, sandbox, trusted-users). Only headless-specific
+# modules and profile-specific nix settings belong here.
 {
   config,
   lib,
   ...
 }: {
   imports = [
+    ../common
     ./packages.nix
     ./services.nix
-    ../networking
     ./environment.nix
-    ../user
     ../applications/nixvim
-    # CVE bumps from nixpkgs-unstable. Previously only reachable via
-    # nix/applications/default.nix, which headless hosts do not import - so
-    # th0r and fr3yr were the only machines NOT getting security patches,
-    # despite being the internet-facing ones.
-    ../applications/packages/security-overlay.nix
   ];
 
-  # Set your time zone.
-  time.timeZone = config.systemSettings.timezone;
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = config.systemSettings.locale;
-
-  # We need these settings for typical work....
   nix.settings = lib.mkMerge [
     (
       lib.mkIf (config.systemSettings.profile == "work")
       {
-        # Enable FLakes
-        experimental-features = ["nix-command" "flakes"]; # Enabling flakes
-        # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
-        sandbox = "relaxed";
         # So we can use our local cache
         #always-allow-substitutes = true;
         substituters = [
@@ -43,48 +31,9 @@
           "nse_ep:WFCT6O/qy/ZOTidajT3vk56do0GrCeYRl5tCWBvSC7M="
           "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         ];
-        trusted-users = [config.userSettings.username "root"];
         connect-timeout = 5;
         fallback = true;
       }
     )
-    (
-      lib.mkIf (config.systemSettings.profile == "gaming")
-      {
-        # Enable FLakes
-        experimental-features = ["nix-command" "flakes"]; # Enabling flakes
-        # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
-        sandbox = "relaxed";
-        # Needed for `nixos-rebuild --target-host matthew@<host>`: an untrusted
-        # user cannot push unsigned store paths, which fails nix-copy-closure
-        # with "lacks a signature by a trusted key". Root SSH is key-only and
-        # only matthew has a key, so deploys run as matthew.
-        trusted-users = [config.userSettings.username "root"];
-      }
-    )
-    (
-      lib.mkIf (config.systemSettings.profile == "personal")
-      {
-        # Enable FLakes
-        experimental-features = ["nix-command" "flakes"]; # Enabling flakes
-        # For an explanation of how this works check -> https://mynixos.com/nixpkgs/option/nix.settings.sandbox
-        sandbox = "relaxed";
-        # As above - required for non-root deploys to reach this host.
-        trusted-users = [config.userSettings.username "root"];
-      }
-    )
   ];
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
-
-  # For bluetooth support
-  # TODO I should ideally move this to hardware or something
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on bootboot
 }
