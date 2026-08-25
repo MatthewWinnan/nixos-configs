@@ -1,11 +1,12 @@
 # NB Remember do not map ATL-><vim_nav>
 {
   config,
+  osConfig,
   pkgs,
   lib,
   ...
 }: let
-  last_monitor = lib.lists.last config.deviceSettings.monitors;
+  last_monitor = lib.lists.last osConfig.deviceSettings.monitors;
 
   # Format a float cleanly: 60.000000 -> "60", 143.980000 -> "143.98"
   fmtFloat = rate: let
@@ -115,13 +116,13 @@
     --------------------
     -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 
-    ${lib.concatStringsSep "\n" (map monitorToLua config.deviceSettings.monitors)}
+    ${lib.concatStringsSep "\n" (map monitorToLua osConfig.deviceSettings.monitors)}
 
     -------------------------
     ---- WORKSPACE RULES ----
     -------------------------
 
-    ${lib.concatStringsSep "\n" (map workspaceToLua config.deviceSettings.monitors)}
+    ${lib.concatStringsSep "\n" (map workspaceToLua osConfig.deviceSettings.monitors)}
 
     -----------------------
     ---- MY PROGRAMS ------
