@@ -15,6 +15,12 @@ in {
         description = "Is this machine headless (will use the headless packages)";
       };
 
+      greeter = lib.mkOption {
+        type = enum ["tuigreet" "regreet"];
+        default = "tuigreet";
+        description = "Which login greeter to use. tuigreet is a TUI greeter, regreet is a GTK4 graphical greeter running inside Hyprland.";
+      };
+
       location = lib.mkOption {
         type = enum ["home" "work"];
         default = "work";

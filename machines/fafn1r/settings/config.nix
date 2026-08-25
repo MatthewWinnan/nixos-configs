@@ -6,6 +6,7 @@
   deviceSettings = {
     type = "vm";
     headless = false;
+    greeter = "regreet";
     # Default monitors (work) — overridden by specialisations
     monitors = [
       {
