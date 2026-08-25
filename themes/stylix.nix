@@ -11,7 +11,6 @@
     autoEnable = true;
     targets = {
       nixvim.enable = false;
-      regreet.enable = false;
     };
     image = config.images.stylix_wallpaper;
     polarity = "dark";

@@ -119,7 +119,7 @@ ${lib.optionalString (config.userSettings.terminal == "ghostty") ''
         # curl = "${pkgs.xh}/bin/xh";
         hexdump = "${pkgs.hexyl}/bin/hexyl";
         tree = "${pkgs.eza}/bin/eza --git --icons --tree";
-        kiro = "kiro-cli --legacy-ui";
+        kiro = "kiro-cli --tui --v3";
 
         # File navigation with eza
         ls = "${pkgs.eza}/bin/eza -lh --group-directories-first --icons=auto";

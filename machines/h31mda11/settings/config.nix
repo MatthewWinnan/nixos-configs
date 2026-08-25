@@ -3,6 +3,7 @@
   deviceSettings = {
     type = "desktop";
     headless = false;
+    greeter = "regreet";
     monitors = [
       {
         name = "DP-1";

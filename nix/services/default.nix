@@ -13,6 +13,7 @@
     ./blueman.nix
     ./printing.nix
     ./greetd.nix
+    ./regreet.nix
     ./pulseaudio.nix
     ./mpd.nix
     ./music-stack.nix
