@@ -100,7 +100,7 @@
     -- If regreet exits non-zero (crash), don't kill Hyprland immediately
     -- to avoid a rapid restart loop with greetd.
     hl.on("hyprland.start", function()
-      hl.exec_cmd("sleep 1 && ${lib.getExe config.programs.regreet.package} && ${hyprlandPkg}/bin/hyprctl dispatch exit || sleep 3")
+      hl.exec_cmd("${lib.getExe config.programs.regreet.package} && ${hyprlandPkg}/bin/hyprctl dispatch exit")
     end)
   '';
 in {
