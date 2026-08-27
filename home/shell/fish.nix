@@ -162,5 +162,58 @@ ${lib.optionalString (config.userSettings.terminal == "ghostty") ''
         cd = "zd";
       })
     ];
+
+    functions = {
+      glab-threads = {
+        description = "View GitLab MR review threads in the terminal";
+        body = ''
+          set mr_number ""
+          if test (count $argv) -ge 1
+            set mr_number $argv[1]
+          else
+            set mr_number (glab mr list --source-branch=(git branch --show-current) --json number --jq '.[0].number' 2>/dev/null)
+            if test -z "$mr_number"
+              echo "❌ No MR found for branch: "(git branch --show-current)
+              return 1
+            end
+          end
+          echo "📋 Fetching threads for MR !$mr_number..."
+          glab api "projects/:id/merge_requests/$mr_number/notes?per_page=100&sort=asc" | python3 -c '
+import sys, json
+
+notes = json.load(sys.stdin)
+thread_num = 0
+for n in notes:
+    if n.get("system", False):
+        continue
+    body = n["body"]
+    if body.startswith("added ") or body.startswith("changed ") or body.startswith("requested ") or body.startswith("mentioned"):
+        continue
+
+    thread_num += 1
+    resolved = n.get("resolved")
+    if resolved is True:
+        status = "✅ RESOLVED"
+    elif resolved is False:
+        status = "🔴 OPEN"
+    else:
+        status = "💬"
+
+    author = n["author"]["username"]
+    path = n.get("position", {}).get("new_path", "") if n.get("position") else ""
+    line = n.get("position", {}).get("new_line", "") if n.get("position") else ""
+    loc = f"  📄 {path}:{line}" if path else ""
+    date = n["created_at"][:10]
+
+    print(f"━━━ {thread_num}. {status}{loc} ({date})")
+    print(f"  {author}: {body[:300]}")
+    print()
+
+if thread_num == 0:
+    print("No review threads found.")
+'
+        '';
+      };
+    };
   };
 }
