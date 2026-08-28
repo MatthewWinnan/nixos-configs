@@ -20,16 +20,16 @@
         PasswordAuthentication = false;
       })
       (lib.mkIf (config.systemSettings.profile != "work" && !config.deviceSettings.homelab) {
-        # Non-work, non-homelab machines: key auth only.
+        # Non-work, non-homelab machines: password auth allowed.
+        PermitRootLogin = "prohibit-password";
+        Subsystem = "sftp internal-sftp";
+      })
+      (lib.mkIf (config.systemSettings.profile != "work" && config.deviceSettings.homelab) {
+        # Homelab machines: key auth only. These are internet-facing and
+        # must not accept passwords.
         PermitRootLogin = "prohibit-password";
         Subsystem = "sftp internal-sftp";
         PasswordAuthentication = false;
-      })
-      (lib.mkIf (config.systemSettings.profile != "work" && config.deviceSettings.homelab) {
-        # Homelab machines: password auth enabled for regular users.
-        # Root is still key-only via PermitRootLogin.
-        PermitRootLogin = "prohibit-password";
-        Subsystem = "sftp internal-sftp";
       })
     ];
   };
