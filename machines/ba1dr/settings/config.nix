@@ -3,6 +3,7 @@
   deviceSettings = {
     type = "laptop";
     headless = false;
+    homelab = true;
     monitors = [
       {
         name = "HDMI-A-1";

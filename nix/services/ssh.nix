@@ -19,20 +19,17 @@
         # fallback if a signed cert ever expires - console login still works.
         PasswordAuthentication = false;
       })
-      (lib.mkIf (config.systemSettings.profile != "work") {
-        # Root by key only, never by password. Not "no": deploys run as
-        # `nixos-rebuild --target-host root@<host>`, and root key auth is
-        # already working on th0r, so "no" would break the deploy path the
-        # moment it activated. This still closes what "yes" left open, which
-        # was accepting a root *password* on the internet-facing hosts.
+      (lib.mkIf (config.systemSettings.profile != "work" && !config.deviceSettings.homelab) {
+        # Non-work, non-homelab machines: key auth only.
         PermitRootLogin = "prohibit-password";
         Subsystem = "sftp internal-sftp";
-
-        # Key auth only. Keys are declared in nix/user/default.nix, so any host
-        # built from this flake has them. Verify with a real login before
-        # rebuilding a host you cannot reach physically - see the mkForce
-        # override in machines/fr3yr/nix/ssh.nix for the escape hatch.
         PasswordAuthentication = false;
+      })
+      (lib.mkIf (config.systemSettings.profile != "work" && config.deviceSettings.homelab) {
+        # Homelab machines: password auth enabled for regular users.
+        # Root is still key-only via PermitRootLogin.
+        PermitRootLogin = "prohibit-password";
+        Subsystem = "sftp internal-sftp";
       })
     ];
   };

@@ -3,6 +3,7 @@
   deviceSettings = {
     type = "desktop";
     headless = false;
+    homelab = true;
     greeter = "regreet";
     monitors = [
       {

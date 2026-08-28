@@ -15,6 +15,12 @@ in {
         description = "Is this machine headless (will use the headless packages)";
       };
 
+      homelab = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Whether this machine is part of the home lab. Controls SSH password auth and other homelab-specific settings.";
+      };
+
       greeter = lib.mkOption {
         type = enum ["tuigreet" "regreet"];
         default = "tuigreet";

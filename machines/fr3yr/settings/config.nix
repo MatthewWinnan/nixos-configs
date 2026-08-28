@@ -3,6 +3,7 @@
   deviceSettings = {
     type = "vm"; # Using vm type for embedded/single-purpose device
     headless = true;
+    homelab = true;
   };
 
   systemSettings = {
