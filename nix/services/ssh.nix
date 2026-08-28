@@ -14,10 +14,8 @@
         Subsystem = "sftp internal-sftp";
         TrustedUserCAKeys = "/etc/ssh/trusted-user-ca-keys.pem";
 
-        # Key/certificate auth only. Certificates authenticate as pubkey, so the
-        # Vault CA path above is unaffected. Note this removes password as a
-        # fallback if a signed cert ever expires - console login still works.
-        PasswordAuthentication = false;
+        # Password auth allowed for regular users. Root is blocked by
+        # PermitRootLogin above; certificates authenticate as pubkey.
       })
       (lib.mkIf (config.systemSettings.profile != "work" && !config.deviceSettings.homelab) {
         # Non-work, non-homelab machines: password auth allowed.
