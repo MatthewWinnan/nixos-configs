@@ -32,6 +32,8 @@
     openssl # Cryptography toolkit
     ouch # Painless compression/decompression (tar, zip, gz, 7z, xz, bz2, zstd, rar, lz4, snappy, br)
     poppler-utils # PDF tools (pdftotext, pdfinfo) + pdftoppm (required for Claude Code to read PDFs)
+    # Transparent proxy server that works as a poor man's VPN. Forwards over ssh. Doesn't require admin. Works with Linux and MacOS. Supports DNS tunneling.
+    sshuttle # https://github.com/sshuttle/sshuttle
     tcpdump # For packet inspection
     termpdfpy # Terminal PDF viewer (kitty graphics)
     unrar # Archive extraction
