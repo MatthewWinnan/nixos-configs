@@ -18,8 +18,10 @@
   ];
 
   # Trust nse-services self-signed cert for nix cache + ETO resign CA
-  # Only needed on office network where these services are reachable
-  security.pki.certificateFiles = lib.mkIf (config.systemSettings.profile == "work" && config.deviceSettings.location == "work") [
+  # Trusted on all work machines regardless of current location - the certs
+  # are harmless when the services are unreachable, and this avoids breakage
+  # when connecting to work services over VPN/sshuttle from elsewhere.
+  security.pki.certificateFiles = lib.mkIf (config.systemSettings.profile == "work") [
     ../certs/nse-services.crt
     ../certs/eto-resign-ca.pem
     ../certs/gitlab.pem

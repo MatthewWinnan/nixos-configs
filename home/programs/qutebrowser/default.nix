@@ -74,6 +74,11 @@ in {
           };
         };
       };
+
+      # Self-signed nse-services / iotrap.com certs are trusted at the system
+      # level (security.pki.certificateFiles), but QtWebEngine does not always
+      # honor the extra CA. Prompt instead of hard-blocking.
+      content.tls.certificate_errors = "ask";
     };
   };
 }
