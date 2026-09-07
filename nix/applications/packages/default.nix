@@ -25,6 +25,8 @@
   cliToolsPackages = with pkgs; [
     csvlens # TUI CSV viewer
     fq # Binary data querying
+    # https://github.com/orhun/gpg-tui
+    gpg-tui # TUI for managing GnuPG keys
     htop # Process monitoring
     jq # JSON querying
     just # Task runner

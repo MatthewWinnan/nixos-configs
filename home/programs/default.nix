@@ -9,6 +9,7 @@
     ./yazi
     ./chromium
     ./direnv.nix
+    ./gpg.nix
     ./helix
     ./qutebrowser
     ./rmpc
