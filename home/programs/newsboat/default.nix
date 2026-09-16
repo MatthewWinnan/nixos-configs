@@ -10,8 +10,8 @@
   ...
 }: let
   inherit (lib) getExe mkIf;
-  enabled = config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming";
-
+  # enabled = config.systemSettings.profile == "personal" || config.systemSettings.profile == "gaming";
+  enabled = true;
   glow = "${getExe pkgs.glow}";
   pandoc = "${getExe pkgs.pandoc}";
   urs = "${getExe pkgs.urlscan}";

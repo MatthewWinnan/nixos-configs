@@ -1,5 +1,16 @@
 {
   urls = [
+    # Gitlab Updates
+    {
+      title = "Monthly Release Posts";
+      url = "https://docs.gitlab.com/releases/releases.xml";
+      tags = ["gitlab"];
+    }
+    {
+      title = "Patch Release Posts";
+      url = "https://docs.gitlab.com/releases/patch-releases.xml";
+      tags = ["gitlab"];
+    }
     # Hacker News
     {
       title = "Hacker News";
