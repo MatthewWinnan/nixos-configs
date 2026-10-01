@@ -379,6 +379,8 @@
     posting # TUI API client (like Postman in terminal)
     # https://github.com/yassinebridi/serpl
     serpl # TUI search and replace across files
+    # https://insomnia.rest/
+    insomnia
   ];
 
   agenticPackages = [
